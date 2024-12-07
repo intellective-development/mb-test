@@ -1,0 +1,15 @@
+<% content_for :auth_tokens, true %>
+
+<h3>Coupon Batch Delete</h3>
+
+<%= form_tag batch_code_delete_admin_generic_coupons_path do %>
+  <div class="row collapse">
+    <div class="small-6 columns end">
+      <%= text_area_tag :codes, params[:codes], placeholder: 'Paste the coupons codes here. One code per line.', rows: "10" %>
+    </div>
+  </div>
+
+  <%= submit_tag "Delete Coupons", class: 'button alert' %>
+<% end %>
+
+<%= link_to "Back to List", admin_generic_coupons_path, :class => "button" %>

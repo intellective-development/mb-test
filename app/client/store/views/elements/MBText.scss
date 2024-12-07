@@ -1,0 +1,37 @@
+@import "../style/variables";
+
+.elMBText {
+  font-family: $font-family-avenir;
+}
+
+// Foundation adds a bunch of spacing to the bottom of elements
+// We allow an override, with a separate class to opt-out
+.elMBText_ResetSpacing {
+  margin-bottom: initial;
+}
+
+.elMBText_P__BodyCopy {
+  @include font-size(15);
+
+  color: $brand-medium-grey;
+  margin-bottom: 0.75rem;
+}
+
+.elMBText_A {
+  color: currentColor;
+
+  &:hover,
+  &:focus {
+    color: currentColor;
+  }
+}
+
+// we make it the standard red link text optional
+.elMBText_A__Standard {
+  color: $brand-red;
+
+  &:hover,
+  &:focus {
+    color: lighten($brand-red, 10%);
+  }
+}

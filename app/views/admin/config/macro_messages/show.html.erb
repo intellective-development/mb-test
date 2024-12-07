@@ -1,0 +1,16 @@
+<div class='admin_title_header'>
+  <div class="small-12 columns">
+    <h3>Name: <%= @macro_message.name %></h3>
+  </div>
+  <div class="small-12 columns">
+    <h4>Content:</h4>
+    <%= @macro_message.text.html_safe %>
+  </div>
+  <div class="small-12 columns">
+    <ul class="button-group">
+      <li><%= link_to "Edit", edit_admin_config_macro_message_path(@macro_message), class: 'button' %></li>
+      <li><%= link_to "Destroy", admin_config_macro_message_path(@macro_message), method: :delete, class: 'button' %></li>
+    </ul>
+  </div>
+</div>
+<hr>

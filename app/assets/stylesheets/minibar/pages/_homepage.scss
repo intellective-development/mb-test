@@ -1,0 +1,9 @@
+// This is the new homepage styles
+// Eventually this should become a fully fledged stylesheet,
+// so we're not loading all of application.scss
+
+@import 'homepage_modules/hero';
+@import 'homepage_modules/gift_party';
+@import 'homepage_modules/app_review';
+@import 'homepage_modules/cities_partner';
+@import 'homepage_modules/featured_products';

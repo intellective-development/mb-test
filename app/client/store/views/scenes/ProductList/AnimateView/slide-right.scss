@@ -1,0 +1,31 @@
+@keyframes slideRightEnter {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRightExit {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.slide-right {
+  &-enter,
+  &-exit {
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+  }
+  &-enter {
+    animation-name: slideRightEnter;
+  }
+  &-exit {
+    animation-name: slideRightExit;
+  }
+}

@@ -1,0 +1,16 @@
+<div class='admin_title_header'>
+  <div class="small-7 columns">
+    <h3><%= @theme.name %></h3>
+  </div>
+  <div class="small-5 columns">
+    <ul class="button-group">
+      <li><%= link_to "Edit", edit_admin_merchandise_gift_card_theme_path(@theme), class: 'button' %></li>
+      <li>
+        <%= link_to "Activate", toggle_active_admin_merchandise_gift_card_theme_path(@theme), class: 'button primary', method: :put %>
+      </li>
+    </ul>
+  </div>
+</div>
+<hr>
+
+<%= render partial: 'admin/merchandise/product_size_groupings/grouping_detail' %>

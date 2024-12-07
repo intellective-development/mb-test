@@ -1,0 +1,52 @@
+@import "~client/store/views/style/variables";
+
+.cmProductScroller {
+  margin-bottom: 3 * $standard-gutter;
+}
+
+.cmProductScroller_Tile {
+
+  // TODO possibly worth adding a row prop to MBGrid that handles this based on number of cols
+  @media screen and (max-width: $small-max-width) {
+    // Show 4
+    &:nth-child(1n+5) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: $medium-min-width) and (max-width: $medium-max-width) {
+    // Show 4
+    &:nth-child(1n+5) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: $large-min-width) {
+    // Show 6
+    &:nth-child(1n+7) {
+      display: none;
+    }
+  }
+}
+
+.cmProductScroller__LoadingImage {
+  height: 193.5px; // to exactly match height of loaded products
+  margin: 0 auto;
+}
+
+.cmProductScroller__LoadingText {
+  height: 1rem;
+  width: 100px;
+  margin-top: 0.75rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $brand-light-grey;
+}
+
+.cmProductScroller__LoadingText:first-of-type {
+  width: 120px;
+}
+
+.cmProductScroller__LoadingText:last-of-type {
+  margin-bottom: $standard-gutter;
+}

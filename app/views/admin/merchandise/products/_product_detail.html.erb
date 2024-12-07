@@ -1,0 +1,35 @@
+<div class="row" itemscope itemtype="http://schema.org/Product" data-product-type="<%= @product.product_type&.id %>" data-product-permalink="<%= @product.permalink %>" id="product-container" data-enhanced-content="<%= @product.product_content.present? %>">
+  <div class="large-6 medium-5 column product-image center">
+    <img src="<%= @product.images.empty? ? @product.product_size_grouping.view.image_url(:product) : @product.featured_image(:product)%>" align="center" alt="<%= @product.name %>" itemprop="image">
+  </div>
+  <div class="large-6 medium-7 small-12 column product-actions">
+    <h1 class="heading-1" itemprop="name"><%= @product.name %></h1>
+    <h5 class="subhead-1"><%= @product.item_volume %></h5>
+    <div class="panel__wrapper small-12 columns">
+      <div class="panel--adress-entry">
+        &nbsp;
+      </div>
+    </div>
+    <p class="p1" itemprop="description"><%= simple_format(@product.extended_description) %></p>
+    <table class="properties">
+      <% unless @product.hierarchy_type.nil? %>
+      <tr>
+        <th>Type</th>
+        <td><%= @product.hierarchy_type_name.titleize %></td>
+      </tr>
+      <% end %>
+      <% @product.product_properties.visible.each do |pp| %>
+        <tr>
+          <th><%= pp.display_name %></th>
+          <td><%= pp.description %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<%# content_for :inpage_js do %>
+  <!--<script type="text/javascript">
+  //   Store.ExternalProductData = <%#= raw(@product_data) %>;
+  </script>-->
+<%# end %>

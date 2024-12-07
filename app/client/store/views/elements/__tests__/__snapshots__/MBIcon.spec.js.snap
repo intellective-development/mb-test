@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBIcon renders 1`] = `
+<img
+  alt="back"
+  className="el-mbicon--back"
+  src="/assets/components/elements/mb-icon/back.png"
+  srcSet="/assets/components/elements/mb-icon/back@2x.png 2x, /assets/components/elements/mb-icon/back@3x.png 3x"
+/>
+`;
+
+exports[`MBIcon renders a namespaced icon 1`] = `
+<img
+  alt="mobile.minibar_logo"
+  className="el-mbicon--mobile.minibar_logo"
+  src="/assets/components/elements/mb-icon/mobile/minibar_logo.png"
+  srcSet="/assets/components/elements/mb-icon/mobile/minibar_logo@2x.png 2x, /assets/components/elements/mb-icon/mobile/minibar_logo@3x.png 3x"
+/>
+`;

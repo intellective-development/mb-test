@@ -1,0 +1,30 @@
+<% content_for :title, 'Promotional Landing Pages' %>
+<h3>Promotional Landing Pages</h3>
+<div class="row">
+  <div class="column large-9">
+  </div>
+  <div class="column large-3">
+    <%= link_to 'New Page', new_admin_config_promo_page_path, :class => 'button' %>
+  </div>
+</div>
+
+<div class="admin_shipping_categories">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th class='column1_header'>Name</th>
+      <th>URL</th>
+      <th></th>
+      <th></th    </tr>
+    </thead>
+
+  <% @pages.active.each do |page| %>
+    <tr class='<%= cycle("odd", "")%>'>
+      <td><%= page.name %></td>
+      <td><a href="<%= "/promos/#{page.slug}" %>" target="_blank"><%= "/promos/#{page.slug}" %></a></td>
+      <td><%= link_to 'Edit', edit_admin_config_promo_page_path(page) %></td>
+      <td><%= link_to("Delete", deactivate_admin_config_promo_page_path(page), :method => :deactivate)%></td>
+    </tr>
+  <% end %>
+  </table>
+</div>

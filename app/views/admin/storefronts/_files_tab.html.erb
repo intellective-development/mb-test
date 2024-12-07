@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="large-6 column">
+    <div>
+      <label>Favicon</label>
+      <% if @storefront.favicon_file.present? %>
+        <%= image_tag @storefront.favicon_file.url %>
+      <% end %>
+      <%= form.file_field :favicon_file, accept: 'image/ico,image/png,image/svg' %>
+      <p>
+        <small>select file to change image</small>
+      </p>
+    </div>
+    <div>
+      <label>Top left logo on <b>non</b> mobile views</label>
+      <% if @storefront.logo_file.present? %>
+        <%= image_tag @storefront.logo_file.url %>
+      <% end %>
+      <%= form.file_field :logo_file %>
+      <p>
+        <small>select file to change image</small>
+      </p>
+    </div>
+    <div>
+      <label>Top left logo on mobile views</label>
+      <% if @storefront.mobile_logo_file.present? %>
+        <%= image_tag @storefront.mobile_logo_file.url %>
+      <% end %>
+      <%= form.file_field :mobile_logo_file %>
+      <p>
+        <small>select file to change image</small>
+      </p>
+    </div>
+    <div>
+      <label>Auth0 Form Logo (Ideally 270px by 58px)</label>
+      <% if @storefront.auth0_logo_file.present? %>
+        <%= image_tag @storefront.auth0_logo_file.url %>
+      <% end %>
+      <%= form.file_field :auth0_logo_file %>
+      <p>
+        <small>select file to change image</small>
+      </p>
+    </div>
+  </div>
+</div>

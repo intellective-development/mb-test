@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<%= @tax_category.name %><br/>
+<%= @tax_category.purpose %><br/>
+<%= @tax_category.description %><br/>
+
+<%= link_to 'Edit', edit_admin_config_tax_category_path(@tax_category), :class => 'button' %>
+<%= link_to 'Back', admin_config_tax_categories_path, :class => 'button' %>

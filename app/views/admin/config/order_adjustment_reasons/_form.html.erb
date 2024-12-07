@@ -1,0 +1,51 @@
+<% if @reason.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@reason.errors.count, "error") %> prohibited this from being saved:</h2>
+
+    <ul>
+    <% @reason.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<fieldset>
+  <label>Name</label>
+  <%= f.text_field :name, disabled: @reason.id ? true : false %>
+  <label>Customer-facing Name</label>
+  <%= f.text_field :customer_facing_name %>
+  <label>Invoice display name</label>
+  <%= f.text_field :invoice_display_name %>
+  <label>Description</label>
+  <%= f.text_field :description %>
+  <label>
+    <%= f.check_box :owed_to_minibar %>
+    Owed to Minibar
+  </label>
+  <label>
+    <%= f.check_box :owed_to_supplier %>
+    Owed to Supplier
+  </label>
+  <label>
+    <%= f.check_box :cancel %>
+    Used for cancellation
+  </label>
+  <label>
+    <%= f.check_box :order_adjustment %>
+    Used for order adjustments
+  </label>
+  <label>
+    <%= f.check_box :marketing_fee_adjustment %>
+    Marketing fee?
+    <small>Take into account for future adjustments to marketing fee</small>
+  </label>
+  <label>
+    <%= f.check_box :active %>
+    Active?
+  </label>
+  <label>Reporting Type</label>
+  <%= f.select(:reporting_type, human_enum_options(OrderAdjustmentReason.reporting_types)) %>
+</fieldset>
+
+<%= f.submit "Save", :class => "button" %>

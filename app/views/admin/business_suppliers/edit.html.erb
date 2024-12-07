@@ -1,0 +1,28 @@
+<%
+  if @business_supplier.active?
+      button_label = 'Inactivate'
+      button_color = 'alert'
+  else
+      button_label = 'Activate'
+      button_color = 'secondary'
+  end
+%>
+
+<% content_for :title, 'Update Business Supplier' %>
+<h3>Update Business Supplier</h3>
+
+<%= form_for @business_supplier, url: admin_business_supplier_path(@business_supplier), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form, supplier: @business_supplier.supplier } %>
+
+  <div class="row">
+    <div class="large-6 column">
+      <%= submit_tag "Update", :class  => "button" %>
+    </div>
+<% end %>
+
+  <div class="large-6 column">
+    <%= form_for @business_supplier, url: toggle_status_admin_business_supplier_path(@business_supplier) do |form| %>
+      <%= submit_tag button_label, :class  => "button tiny #{button_color}" %>
+    <% end %>
+  </div>
+</div>

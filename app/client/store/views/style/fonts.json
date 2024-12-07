@@ -1,0 +1,50 @@
+{
+  "avenir400": {
+    "fontFamily": {
+      "fontFamily": "Avenir",
+      "fontStyle": "normal",
+      "fontWeight": 400,
+      "src": "url(/assets/avenir-400-book-normal.woff) format(woff)"
+    }
+  },
+  "avenir400i": {
+    "fontFamily": {
+      "fontFamily": "Avenir",
+      "fontStyle": "italic",
+      "fontWeight": 400,
+      "src": "url(/assets/avenir-400-book-oblique.woff) format(woff)"
+    }
+  },
+  "avenir700": {
+    "fontFamily": {
+      "fontFamily": "Avenir",
+      "fontStyle": "normal",
+      "fontWeight": 700,
+      "src": "url(/assets/avenir-700-heavy-normal.woff) format(woff)"
+    }
+  },
+  "common": {
+    "fontFamily": [
+      "Avenir",
+      "Helvetica Neue",
+      "Helvetica",
+      "Arial",
+      "sans-serif"
+    ]
+  },
+  "headline": {
+    "fontFamily": [
+      "TiemposHeadlineWeb-Bold",
+      "Tiempos Headline",
+      "serif"
+    ]
+  },
+  "tiemposheadline700": {
+    "fontFamily": {
+      "fontFamily": "Tiempos Headline",
+      "fontStyle": "normal",
+      "fontWeight": 700,
+      "src": "url(/assets/TiemposHeadlineWeb-Bold.woff) format(woff)"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<% content_for :title, 'Promoted Filters' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <div class='admin_filters'>
+    <%= form_tag admin_merchandise_promoted_filters_path, :method => 'get', :id => "promoted_filters_search" do %>
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+
+      <label>Category</label>
+      <%= text_field_tag :name, params[:name] %>
+
+      <div style='text-align:center'>
+        <%= submit_tag "Search", :name => nil, :class => "button alert" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+
+<div class='admin_title_header'>
+  <h3>Promoted Filters</h3>
+  <%= link_to "New Promoted Filter", new_admin_merchandise_promoted_filter_path, :class => "button", :id => "new_promoted_filter_button" %>
+</div>
+
+<div class="admin_promoted_filter">
+  <table>
+    <thead>
+    <tr class='odd'>
+        <th class='column1_header'><%= sortable 'product_type',"Category" %></th>
+    </tr>
+    </thead>
+    <% @promoted_filters.each do |promoted_filter| %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td><%= link_to promoted_filter.product_type.name, edit_admin_merchandise_promoted_filter_path(promoted_filter) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= paginate @promoted_filters %>
+</div>

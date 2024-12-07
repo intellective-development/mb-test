@@ -1,0 +1,31 @@
+  <%
+    if fulfillment_service.active?
+        button_label = 'Inactivate'
+        button_color = 'alert'
+    else
+        button_label = 'Activate'
+        button_color = 'secondary'
+    end
+  %>
+  
+  <tr>
+    <td>
+      <%=fulfillment_service.name %>
+    </td>
+    <td>
+      <%=fulfillment_service.pim_name %>
+    </td>
+    <td>
+      <%=fulfillment_service.status %>
+    </td>
+    <td>
+      <%=fulfillment_service.supplier_modifiable ? 'yes' : 'no' %>
+    </td>
+    <td>
+      <%= link_to "Edit", edit_admin_fulfillment_service_path(fulfillment_service), class: 'button tiny' %>
+
+      <%= form_for fulfillment_service, url: toggle_status_admin_fulfillment_service_path(fulfillment_service) do |form| %>
+        <%= submit_tag button_label, :class  => "button tiny #{button_color}" %>
+      <% end %>
+    </td>
+  </tr>

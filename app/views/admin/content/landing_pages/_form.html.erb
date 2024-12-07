@@ -1,0 +1,18 @@
+<fieldset>
+  <%= f.label :permalink %><small>"Test Page" becomes "/go/test-page"</small>
+  <%= f.text_field :permalink, {placeholder: "Required. Must be unique."} %>
+  <%= fields_for :content, @landing_page.content do |content_fields| %>
+    <%= f.label :page_title %>
+    <%= content_fields.text_field :page_title, {placeholder: "This is the title in the tab of your browser. Gets '- Minibar Delivery' tacked on at the end of it.", maxlength: 40} %>
+    <%= f.label :headline %>
+    <%= content_fields.text_field :headline, {placeholder: "Let us lift your spirits", maxlength: 140} %>
+    <%= f.label :subheadline_1 %>
+    <%= content_fields.text_field :subheadline_1, {placeholder: "Wine, beer & liquor delivered", maxlength: 140} %>
+    <%= f.label :subheadline_2, {maxlength: 140} %>
+    <%= content_fields.text_field :subheadline_2, {placeholder: "Optional. Goes directly under subheadline 1"} %>
+    <%= f.label :meta_description %>
+    <%= content_fields.text_field :meta_description, {placeholder: "Max 255 chars. Write a sentence describing what the page\'s purpose is.", maxlength: 255} %>
+    <%= f.label :legal %>
+    <%= content_fields.text_field :legal, {placeholder: "Legal Blurb (optional)"} %>
+  <% end %>
+</fieldset>

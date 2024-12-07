@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deliveryCost renders an icon when ShopRunner is available 1`] = `
+<div
+  className="_SRD crbno c4zh6 e8gsh"
+>
+  <div
+    className="srd_iconline dreop eg0o5"
+  >
+    <div
+      className="srd_logo"
+    />
+  </div>
+</div>
+`;
+
+exports[`deliveryCost renders an icon with specific styling when ShopRunner is available 1`] = `
+<div
+  className="_SRD dreop e6wjf egvfd"
+>
+  <div
+    className="srd_iconline dreop eg0o5"
+  >
+    <div
+      className="srd_logo"
+    />
+  </div>
+</div>
+`;
+
+exports[`deliveryCost renders fallback cost when ShopRunner is not available 1`] = `"fallback"`;

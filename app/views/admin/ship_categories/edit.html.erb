@@ -1,0 +1,7 @@
+<% content_for :title, 'Update Ship Category' %>
+<h3>Edit Ship Category</h3>
+
+<%= form_for @ship_category, url: admin_ship_category_path(@ship_category) do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+  <%= submit_tag "Update", :class  => "button" %>
+<% end %>

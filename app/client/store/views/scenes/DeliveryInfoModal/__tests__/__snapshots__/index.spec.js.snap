@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryInfoModal is_hidden renders, respecting is_hidden when it would render address entry 1`] = `
+<div>
+  <CurrentDeliveryInfoModal
+    is_hidden={true}
+  />
+  <[object Object]
+    is_hidden={true}
+  />
+</div>
+`;
+
+exports[`DeliveryInfoModal is_hidden renders, respecting is_hidden when it would render current delivery info 1`] = `
+<div>
+  <CurrentDeliveryInfoModal
+    is_hidden={true}
+  />
+  <[object Object]
+    is_hidden={true}
+  />
+</div>
+`;
+
+exports[`DeliveryInfoModal renders address entry when we dont have an address and are not inside the store 1`] = `
+<div>
+  <CurrentDeliveryInfoModal
+    is_hidden={true}
+  />
+  <[object Object]
+    is_hidden={false}
+  />
+</div>
+`;
+
+exports[`DeliveryInfoModal renders address entry when we dont have an address but are inside the store 1`] = `
+<div>
+  <CurrentDeliveryInfoModal
+    is_hidden={true}
+  />
+  <[object Object]
+    is_hidden={false}
+  />
+</div>
+`;
+
+exports[`DeliveryInfoModal renders address entry when we have an address but are not inside the store 1`] = `
+<div>
+  <CurrentDeliveryInfoModal
+    is_hidden={false}
+  />
+  <[object Object]
+    is_hidden={true}
+  />
+</div>
+`;
+
+exports[`DeliveryInfoModal renders current delivery info when inside the store with an address present 1`] = `
+<div>
+  <CurrentDeliveryInfoModal
+    is_hidden={false}
+  />
+  <[object Object]
+    is_hidden={true}
+  />
+</div>
+`;

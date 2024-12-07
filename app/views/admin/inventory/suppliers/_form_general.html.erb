@@ -1,0 +1,267 @@
+<%= error_messages_for 'supplier' %>
+<fieldset id="admin-supplier-names" class='span-12'>
+  <legend> General </legend>
+  <div class="row">
+    <div class="large-6 column">
+      <label>Name*<small>This is visible to admins and suppliers.</small></label>
+      <%= form.text_field :name %>
+      <label>Display Name <small>This is the consumer facing supplier name.</small></label>
+      <%= form.text_field :display_name %>
+      <label>Type</label>
+      <%= form.select :supplier_type_id, SupplierType.all.map{|t| [ t.name, t.id ]}, include_blank: false %>
+      <label>
+        Dashboard
+        <%= form.select :dashboard_type, Supplier::DashboardType::select_props, { include_blank: false }, onChange: 'onDashboardTypeChange(this)', style: 'margin-bottom: 0' %>
+      </label>
+      <small id="dashboard-type-instructions" class="help-text hide">Save this change to be able to set the integration options below in this page</small>
+      <br>
+      <label>External Supplier ID <small>If applicable.</small></label>
+      <%= form.text_field :external_supplier_id %>
+      <br>
+      <label>DB Supplier ID</label>
+      <%= form.text_field :id, disabled: true %>
+      <br>
+      <label>Timezone</label>
+      <%= form.select :timezone, ActiveSupport::TimeZone.us_zones.map{|zone| [zone, Time.find_zone(zone).tzinfo.name]} %>
+      <br>
+      <br>
+      <label>Contact Email <small>This is not used for notifications.</small></label>
+      <div id="supplier-emails-edit-component"></div>
+      <br>
+      <br>
+      <label>Fulfilment Services </label>
+      <% FulfillmentService.active.each do |fulfillment_service| %>
+        <div class="large-6 column">
+          <%= form.check_box :fulfillment_service_ids,
+                             { multiple: true },
+                             fulfillment_service.id,
+                             nil %>
+          <label><%= fulfillment_service.name %></label>
+        </div>
+      <% end %>
+      <% if @supplier.data_feeds.visible.exists? %>
+        <%= link_to 'Edit Feed', edit_admin_inventory_data_feed_path(@supplier.data_feeds.visible.last) %>
+      <% end %>
+    </div>
+    <div class="large-6 column">
+      <label>Braintree Merchant Account ID </label>
+      <% if current_user.super_admin? %>
+        <%= form.text_field :braintree_merchant_account_id %>
+      <% else %>
+        <em><%= @supplier.braintree_merchant_account_id %></em>
+      <% end %>
+      <% if @supplier.id %>
+        <div>
+          <%= form.check_box :apple_pay_supported %>
+          <label> &mdash; Apple Pay Supported</label>
+          <p>
+            <small>Enables Apple Pay payment method.</small>
+          </p>
+        </div>
+      <% end %>
+      <div>
+        <%= form.check_box :skip_state_shipping_tax %>
+        <label> &mdash; Ignore State Shipping Tax</label>
+        <p>
+          <small>When enabled, assume the supplier has baked shipping tax into their fees. This only applies to suppliers in states which require shipping tax.</small>
+        </p>
+      </div>
+      <div>
+        <%= form.check_box :invoicing_enabled %>
+        <label>
+          &mdash; Invoicing Enabled?
+        </label>
+      </div>
+      <div>
+        <%= form.check_box :allow_dtc_overlap %>
+        <label> &mdash; Allow overlap with Vineyard Select suppliers?</label>
+      </div>
+      <div>
+        <%= form.check_box :integrated_inventory %>
+        <label> &mdash; Integrated Inventory?</label>
+        <p>
+          <small>This is manually set and indicates if a supplier has an active inventory integration.</small>
+        </p>
+      </div>
+      <div>
+        <%= form.check_box :manual_inventory %>
+        <label> &mdash; Manual Inventory?</label>
+        <p>
+          <small>This enables a supplier to manually populate their inventory from a list of Minibar reference products.</small>
+        </p>
+      </div>
+      <div>
+        <%= form.check_box :engraving %>
+        <label> &mdash; Engraving?</label>
+        <p>
+          <small>This will mark all supplier's products as allowing engraving.</small>
+        </p>
+      </div>
+      <div>
+        <%= form.check_box :supports_graphic_engraving %>
+        <label> &mdash; Supports Graphic Engraving?</label>
+        <p>
+          <small>This will indicate that the supplier supports graphic engraving</small>
+        </p>
+      </div>
+      <div>
+        <%= form.check_box :legacy_rb_paypal_supported %>
+        <label> &mdash; Legacy ReserveBar PayPal Supported?</label>
+        <p>
+          <small>An order will be ReserveBar PayPal Supported if all suppliers of all items of the order have this field checked.</small>
+        </p>
+      </div>
+      <div>
+        <%= form.check_box :exclude_minibar_storefront %>
+        <label> &mdash; Exclude from Minibar?</label>
+      </div>
+      <div>
+        <%= form.check_box :accepts_back_orders %>
+        <label> &mdash; Accepts Back Orders?</label>
+      </div>
+      <div>
+        <%= form.check_box :presale_eligible %>
+        <label> &mdash; Presale Eligible?</label>
+      </div>
+      <div>
+        <label>Daily Shipping Limit</label>
+        <%= form.number_field :daily_shipping_limit, min: 0 %>
+      </div>
+      <div>
+        <label>LB Retailer Id</label>
+        <%= form.number_field :lb_retailer_id, min: 1, max: 999999 %>
+      </div>
+      <div>
+        <label>Tag(s)</label>
+        <%= form.text_field :region_list %>
+      </div>
+      <div>
+        <label>Region(s)</label>
+        <%= form.select :region_id, Region.all.order(:name).map{|t| [ t.name, t.id ]}, include_blank: true %>
+      </div>
+    </div>
+  </div>
+</fieldset>
+<% if @supplier.ship_station_dashboard? %>
+<fieldset>
+  <legend>ShipStation Config</legend>
+  <div class="row">
+    <%= form.fields_for :ship_station_credential, @supplier.ship_station_credential do |ss_form| %>
+      <div class="small-6 columns">
+        <label>ShipStation API Key
+          <%= ss_form.text_field :api_key %>
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <label>ShipStation API Secret
+          <%= ss_form.text_field :api_secret %>
+        </label>
+      </div>
+    <% end %>
+  </div>
+</fieldset>
+<% end %>
+<fieldset>
+  <legend>Contract</legend>
+  <div class="row">
+    <div class="large-12 columns">
+      <p>Define the contract for the supplier. If it's active, end at should be empty. Dates will always be set to the beginning of a month.<br />
+        Leave the min range empty for $0 and max range empty for $infinity. Percents should be whole (10% = 10).<br />
+        For 'floor' type, use the min/max values as bounds per value. Ex: 0-10000 with floor 1000 means the contract is $1000 for every $10000.</p>
+      <label>Active Contract Tiers</label>
+      <% if !@supplier.invoice_tiers.empty? %>
+        <%= form.simple_fields_for :invoice_tiers, @supplier.invoice_tiers.order('id') do |f| %>
+          <%= render partial: 'invoice_tier_fields', locals: {f: f} %>
+        <% end %>
+      <% end %>
+      <p><%= link_to_add_association 'add contract tier', form, :invoice_tiers, class: "button" %></p>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+  <legend>Profile</legend>
+  <div class="row">
+    <div class="large-12 columns">
+      <%= form.fields_for :profile do |profile_fields| %>
+        <p>This is the data that will be displayed to users when they go to the store switching modal. If you are unsure about this, please ask a member of the tech team. <strong>Do not use these unless you know what you are doing.</strong></p>
+        <label>Tags (comma separated)</label>
+        <%= profile_fields.text_field  :tag_list %>
+        <label>Delivery Mode</label>
+        <%= profile_fields.select(:delivery_mode, SupplierProfile.delivery_modes.keys.collect {|mode| [mode.titleize, mode]}, selected: @supplier.profile.delivery_mode) %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+<% if @supplier.id %>
+<fieldset>
+  <%= render partial: '/admin/inventory/suppliers/business_supplier_table', locals: { business_suppliers: @supplier.business_suppliers } %>
+</fieldset>
+<% end %>
+<fieldset>
+  <legend>ReserveBar Ship States</legend>
+  <% ship_categories = ShipCategory.all %>
+  <% states = ::State.us_states.by_abbreviation %>
+  <%= form.fields_for :ship_states do |ship_states_fields| %>
+    <div class="row">
+      <% SupplierShipState.ship_levels.values.each do |ship_level| %>
+        <div class="large-6 columns">
+          <div class="row">
+          <label><%=ship_level.capitalize%> Ship States</label>
+          </div>
+          <% ship_categories.each do |ship_category| %>
+            <% supplier_ship_states_array = @supplier.supplier_ship_states_by_category_id_and_level(ship_category.id, ship_level)&.states || [] %>
+            <div class="row">
+              <%= ship_states_fields.fields_for ship_level do |ship_category_fields| %>
+                <label> Ships <%=ship_category.name %> to </label>
+                <% states.each do |state| %>
+                  <div class="small-2 columns">
+                    <%= ship_category_fields.check_box ship_category.id.to_s,
+                                                      { multiple: true, checked: supplier_ship_states_array.include?(state.abbreviation) },
+                                                      state.abbreviation,
+                                                      nil %>
+                    <label class="row collapse" style="font-weight: normal"><%= state.abbreviation %></label>
+                  </div>
+                <% end %>
+                <div class="small-2 columns"> </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</fieldset>
+<% if @supplier.region %>
+  <fieldset>
+    <legend>Deep Link</legend>
+    <p>This can be used to link directly to this supplier from an external website or email.</p>
+    <input class="large-12" value="https://<%= ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"] %>/partner/<%= @supplier.region.slug %>/<%=  @supplier.permalink %>" disabled>
+  </fieldset>
+<% end %>
+<fieldset>
+  <legend>Supplier Features</legend>
+  <% if @feature_items.present? %>
+    <% @feature_items.each do |feature| %>
+      <%= feature.feature %>
+      <%= check_box_tag "supplier[feature_items][]", feature.id, @supplier.feature?(feature), onchange: "confirmFeatureRemoval(event, '#{feature.feature}')" %>
+      <br />
+    <% end %>
+  <% end %>
+</fieldset>
+<script>
+  function confirmFeatureRemoval(event, feature) {
+   if (!event.target.checked) {
+     event.target.checked = !confirm(`Are you sure you would like to disable ${feature} for this supplier?`);
+   }
+  }
+
+  function onDashboardTypeChange(elem) {
+    const value = elem.value;
+
+    if (['THREE_JMS', 'SHIP_STATION'].includes(value)) {
+      $('#dashboard-type-instructions').show();
+    } else {
+      $('#dashboard-type-instructions').hide();
+    }
+  }
+</script>

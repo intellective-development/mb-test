@@ -1,0 +1,57 @@
+<% content_for :title, "#{@product_grouping.name}" %>
+<% if @product_grouping.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@product_grouping.errors.count, "error") %> prohibited this from being saved:</h2>
+    <ul>
+      <% @product_grouping.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="small-9 column">
+    <h2><%= @product_grouping.name %></h2>
+  </div>
+  <div class="small-3 column">
+    <ul class="button-group">
+      <li>
+        <%= link_to 'Merge', admin_merchandise_merge_groupings_path(source_grouping_id: @product_grouping.id), class: "button small" %>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row"></div>
+
+<dl class="tabs tabs--googly" data-tab>
+  <dd class="<%= @active_tab == 'preview' ? 'active' : '' %>"><a href="#preview">Preview</a></dd>
+  <dd class="<%= @active_tab == 'edit' ? 'active' : '' %>"><a href="#edit">Edit</a></dd>
+  <dd class="<%= @active_tab == 'sizes' ? 'active' : '' %>"><a href="#sizes" id="sizes-tab" data-grouping-id=<%= @product_grouping.id %>>Sizes</a></dd>
+</dl>
+
+<div class="tabs-content tabs--googly__content">
+  <div class="content <%= @active_tab == 'preview' ? 'active' : '' %>" id="preview">
+    <%= render 'preview' %>
+  </div>
+  <div class="content <%= @active_tab == 'edit' ? 'active' : '' %>" id="edit">
+    <%= form_for @product_grouping,  url: admin_merchandise_product_size_grouping_path(@product_grouping) do |form| %>
+      <%= render partial: 'form', locals: { form: form } %>
+      <div class="six large-12 columns">
+        <div class="generic_submit_button">
+          <%= submit_tag "Update", class: "button", id:"create_product_button" %>
+          <% if !@product_grouping.active? %>
+            <%= submit_tag "Update and Activate", class: "button", id:"create_product_button" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="content <%= @active_tab == 'sizes' ? 'active' : '' %>" id="sizes">
+    <%= render 'sizes' if @active_tab == 'sizes' %>
+  </div>
+</div>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'admin/edit_merchandise' %>
+<%- end %>

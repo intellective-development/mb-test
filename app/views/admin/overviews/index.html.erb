@@ -1,0 +1,151 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+  <%= stylesheet_link_tag "admin/home", media: "all" %>
+<% end %>
+<div class="row">
+  <div class="large-12 column">
+    <%= render partial: 'release_info' if show_release_info? %>
+    <%= form_tag '/admin/', method: :get do %>
+      <div class="row collapse">
+        <div class="large-3 columns order-breakdown-title">
+          <h3><strong>Order Breakdown</strong></h3>
+        </div>
+        <div class="large-3 columns">
+          <label>Storefront</label>
+          <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items, @storefront_id), prompt: 'Choose Storefront' %>
+        </div>
+        <div class="large-2 columns">
+          <label>Start date</label>
+          <%= date_field_tag :start_date, params[:start_date] %>
+        </div>
+        <div class="large-2 columns">
+          <label>End date</label>
+          <%= date_field_tag :end_date, params[:end_date] %>
+        </div>
+        <div class="large-2 columns end order-breakdown-submit">
+          <%= submit_tag "GO", :name => nil, class: 'button postfix neutral' %>
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <br>
+      <% @supplier_orders.each_with_index.each_slice(5) do |slice| %>
+        <div class="large-3 column keep-left">
+          <% slice.each do |supplier, index| %>
+            <div class="row">
+              <div class="large-12 column supplier-order">
+                <strong><%= index + 1 %>. <%= supplier.first %></strong> - <%= supplier.last %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <br>
+    <br>
+    <div class="row collapse supplier-info-box">
+      <div class="large-4 columns supplier-info-box-column">
+        <h4 class="supplier-info-box-header"><strong>Stale Shipping Orders</strong></h4>
+        <table>
+          <thead>
+            <tr class='odd'>
+              <th>Order Number</th>
+              <th>Customer</th>
+              <th>Supplier</th>
+              <th>Age of Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @stale_shipping_shipments.each do |shipment| %>
+              <tr>
+                <td><%= link_to shipment.order.number, edit_admin_fulfillment_order_path(shipment.order.number) %></td>
+                <td><%= link_to shipment.user_name, admin_customer_path(shipment.user.id) %></td>
+                <td><%= link_to shipment.supplier.name, edit_admin_inventory_supplier_path(shipment.supplier) %></td>
+                <td><%= shipment.age_in_days_and_hours %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="large-4 columns supplier-info-box-column">
+        <h4 class="supplier-info-box-header"><strong>Stale Inventory</strong></h4>
+        <table>
+          <thead>
+            <tr class='odd'>
+              <th>Name</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @stale_inventory.each do |supplier| %>
+              <tr>
+                <td><%= link_to supplier.name, edit_admin_inventory_supplier_path(supplier) %></td>
+                <td><%= supplier.last_inventory_update_at.strftime("%B %e, %y") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="large-4 columns supplier-info-box-column">
+        <h4 class="supplier-info-box-header"><strong>Stores Turned off in the past 48 Hours</strong></h4>
+        <table>
+          <thead>
+            <tr class='odd'>
+              <th>Supplier</th>
+              <th>User</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @store_turned_off.each do |supplier| %>
+              <tr>
+                <td><%= link_to supplier.name, edit_admin_inventory_supplier_path(supplier) %></td>
+                <td><%= link_to supplier.deactivated_by.name, admin_customer_path(supplier.deactivated_by) if supplier.deactivated_by %></td>
+                <td><%= supplier.deactivated_reason %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<% if Feature[:jira_issue_collectors].enabled?(current_user) %>
+<div class="row summary">
+  <div class="medium-6 small-12 column">
+    <div class="panel">
+      <h3>Feature Requests</h3>
+      <p>Submit your feature request below! For every feature request you make, please answer these 3 questions in the description:</p>
+      <ol>
+        <li>What problem are we trying to solve?</li>
+        <li>How do we know this is a real problem? What evidence is there — qualitative and quantitative — that this is a problem worth solving?</li>
+        <li>How will we know if we've solved this problem?</li>
+      </ol>
+      <button id="trigger_feature-request" class="button jira-trigger">Submit a Feature Request</button>
+    </div>
+  </div>
+  <div class="medium-6 small-12 column">
+    <div class="panel">
+      <h3>Bug Reports</h3>
+      <p>Show. Don't tell. Don't report a bug without a screenshot, video, and/or URL.</p>
+      <button id="trigger_bug-report" class="button jira-trigger">Submit a Bug Report</button>
+    </div>
+  </div>
+</div>
+<script>
+  jQuery.ajax({
+      url: "https://minibar.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-w12ukg/b/14/e73395c53c3b10fde2303f4bf74ffbf6/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?locale=en&collectorId=15f3781f",
+      type: "get",
+      cache: true,
+      dataType: "script"
+  });
+
+  window.ATL_JQ_PAGE_PROPS =  {
+    "triggerFunction": function(showCollectorDialog) {
+    jQuery(".jira-trigger").click(function(e) {
+      e.preventDefault();
+      showCollectorDialog();
+    });
+  }};
+</script>
+<% end %>

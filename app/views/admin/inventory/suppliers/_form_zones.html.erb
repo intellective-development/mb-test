@@ -1,0 +1,33 @@
+<fieldset>
+  <legend>Shipping Methods</legend>
+
+  <dl id='sm-tabs' class="tabs" data-tab>
+  <% @supplier.shipping_methods.optimal_order.each do |sm| %>
+    <dd class="tab-header" data-sm-id="<%= sm.id%>">
+      <a href="#sm-<%= sm.id %>"><%= "#{sm.name} - #{sm.shipping_type.to_s.humanize}"%></a>
+    </dd>
+  <% end %>
+    <dd>
+      <a id="tab-sm-new" href="#sm-new">+</a>
+    </dd>
+  </dl>
+
+  <div class="large-12 columns tabs-content" id="delivery_zone_info">
+    <% if alert.present? %>
+      <br />
+      <br />
+      <div data-alert="" class="alert-box alert">
+        <%= alert %>
+      </div>
+    <% end  %>
+
+    <%= render partial: 'admin/inventory/suppliers/delivery_zone_info', collection: @supplier.shipping_methods.optimal_order, as: :shipping_method %>
+
+    <div id="sm-new" class="content">
+      <%= simple_form_for @supplier.shipping_methods.new, remote: false, url: admin_inventory_shipping_methods_path(supplier_id: @supplier.id) do |ff| %>
+        <%= render partial: 'admin/inventory/suppliers/shipping_method_form', locals: { form: ff, shipping_method: @supplier.shipping_methods.new } %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+<%= javascript_include_tag 'datePickerInitialize' %>

@@ -1,0 +1,236 @@
+ <table class="container">
+  <tr>
+    <td>
+      <table class="row header">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td>
+                  <a href="<%= root_url %>">
+                    <%= image_tag 'email/order_confirmation/header.jpg', { alt: 'Minibar - Order Confirmation', width: 672 } %>
+                  </a>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="row border-left border-right">
+        <tr>
+          <td class="wrapper">
+            <table class="one columns hide-for-small">
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+          <td class="wrapper">
+            <table class="ten columns">
+              <tr>
+                <td>
+                  <p>
+                    <center>
+                      You have a new <strong><%= I18n.t("supplier.invoice.order_type.#{@shipment.shipping_type}").downcase %> order</strong>, placed at <strong class="red-highlight"><%= @order.completed_at.in_time_zone(@supplier.timezone).to_formatted_s(:long) if @order.completed_at %></strong>.
+                    </center>
+                  </p>
+                  <% if @shipment.scheduled_for.present? %>
+                    <p class="info">
+                      <center>
+                        <strong>This order is scheduled for delivery &mdash; <%= "#{format_time_range(@shipment.scheduled_for, @shipment.shipping_method.scheduled_interval_size, @shipment.supplier.timezone)} #{@shipment.scheduled_for.in_time_zone(@shipment.supplier.timezone).strftime('%A, %b %e')}" %></strong>
+                      </center>
+                    </p>
+                  <% elsif @shipment.out_of_hours? %>
+                    <p class="text-bold">
+                      <center>
+                        This order was placed outside of your operating hours. Please deliver when you re-open on <%= @shipment.shipping_method.opens_at(@order.completed_at).strftime("%A at %l%P") %>.
+                      </center>
+                    </p>
+                  <% end %>
+                  <p>
+                    <table class="button primary radius">
+                      <tr>
+                        <td>
+                          <a href="https://partners.minibardelivery.com/">Confirm this order (login required)</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                  <p>
+                    <center>
+                      If there are any problems with this order, please call Minibar at <strong class="red-highlight">(855) 487-0740</strong>.
+                    </center>
+                  </p>
+                  <hr>
+                  <table class="totals">
+                    <tr>
+                      <td class="four sub-columns">
+                        <span class="red-heading">ORDER #:</span><br>
+                        <%= @order.try(:number).upcase %>
+                        <br><br>
+                        <span class="red-heading">STORE:</span><br>
+                        <%= @shipment.supplier.name %>
+                      </td>
+                      <td class="four sub-columns">
+                        <span class="red-heading">CUSTOMER:</span><br>
+                        <%= @order.user_name %><br>
+                      </td>
+                      <td class="four sub-columns last">
+                        <span class="red-heading">BILLING DETAILS:</span><br>
+                        <%= @order.payment_profile.try(:cc_type)%><br>
+                        **** **** **** <%= @order.payment_profile.try(:last_digits) %></p>
+                      </td>
+                    </tr>
+                  </table>
+                   <hr>
+                  <table class="totals">
+                    <tr>
+                      <td class="six sub-columns">
+                        <span class="red-heading"><%= I18n.t("supplier.invoice.address_header.#{@shipment.shipping_type}").upcase %>:</span><br>
+                        <%= @shipment.long_recipient_name %>
+                        <br>
+                        <% unless @shipment.pickup? %>
+                          <% @order.ship_address&.address_lines_array&.each do |line| %>
+                            <%= line %>
+                          <% end %><br>
+                          <%= @order.ship_address&.city_state_zip %><br>
+                        <% end %>
+                          Tel: <%= number_to_phone(@shipment.recipient_phone, area_code: true) %><br>
+
+                      </td>
+                      <td class="six sub-columns last">
+                        <% if @order.delivery_notes || @shipment.has_white_or_sparkling_wine? %>
+                          <span class="red-heading">ORDER NOTES:</span><br>
+                          <%= @order.delivery_notes %>
+                          <% if !@order.delivery_notes && @shipment.has_white_or_sparkling_wine? %>
+                            <p> Please send white and sparkling wine chilled if possible. </p>
+                          <% end %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </table>
+                  <p><strong>Please check ID - minimum date of birth: <%= (21.years.ago).strftime('%B %e, %Y') %>.</strong></p>
+                  <p></p>
+                  <hr>
+                  <% if @order.gift? %>
+                  <p>
+                    <% if @order.gift_detail.recipient_name %>
+                      <span class="red-heading">GIFT RECIPIENT:</span><br>
+                      <%= @order.gift_detail.recipient_name %><br>
+                    <% end %>
+                    <% if @order.gift_detail.recipient_phone %>
+                      <span class="red-heading">GIFT RECIPIENT PHONE #:</span><br>
+                      <%= @order.gift_detail.recipient_phone.phony_formatted(normalize: :US, format: :international) %><br>
+                    <% end %>
+                    <span class="red-heading">PLEASE GIFT WRAP AND INCLUDE THE FOLLOWING MESSAGE:</span><br>
+                    <%= @order.gift_detail.message || 'None Provided' %>
+                  </p>
+                  <hr>
+                  <% end %>
+                  <table class="totals">
+                    <tr>
+                      <td class="one sub-columns">
+                        <span class="red-heading">QTY</span>
+                      </td>
+                      <td class="eight sub-columns">
+                        <span class="red-heading">ITEM</span>
+                      </td>
+                      <td class="two sub-columns last">
+                        <span class="red-heading">PRICE</span>
+                      </td>
+                    </tr>
+                    <% @shipment.order_items.group_by(&:variant).each do |variant, order_items| %>
+                    <tr>
+                      <td>
+                        <%= order_items.sum(&:quantity) %>
+                      </td>
+                      <td>
+                        <%= variant.name %> &mdash;
+                        <%= variant.item_volume %><br>
+                        <span class="text-small">SKU: <%= variant.sku %></span>
+                      </td>
+                      <td><%= number_to_currency order_items.sum(&:total) %></td>
+                    </tr>
+                  <% end %>
+                  </table>
+                  <p class="panel">
+                    <table>
+                      <tr>
+                        <td class="six sub-columns">
+                          <strong>Subtotal:</strong> <%= number_to_currency(@shipment.shipment_sub_total_with_engraving) %><br>
+                          <strong>Delivery:</strong> <%= number_to_currency(@shipment.shipment_shipping_charges) %><br>
+                          <% unless @shipment.shipment_discounts_total.zero? %>
+                            <strong>Discounts:</strong> <%= number_to_currency(@shipment.shipment_discounts_total) %><br>
+                          <% end %>
+                          <strong>Tax:</strong> <%= number_to_currency(@shipment.shipment_taxed_amount) %><br>
+                          <strong>Tip:</strong>
+                          <% if !@supplier.get_setting("email_tip") %>
+                            SEE WEB
+                          <% else %>
+                            <%= number_to_currency(@shipment.shipment_tip_amount) %>
+                          <% end %>
+                          <br>
+                          <strong class="red-heading">ORDER TOTAL:</strong> <%= number_to_currency(@shipment.shipment_total_amount_with_engraving)  %>
+                        </td>
+                        <td class="five sub-columns">
+                          <strong>Recipient Name</strong><br>
+                          _________________________<br>
+                          <br>
+                          <strong>Recipient Signature</strong><br>
+                          _________________________<br>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+          <td class="wrapper last">
+            <table class="one columns hide-for-small">
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="row footer hide-for-small border-left border-right">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td style="text-align: center"></td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td align="center">
+                  <center>
+                    <p class="footer-text" style="text-align:center;">&copy; <%= Time.zone.now.year %> LLJ Inc, All Rights Reserved &mdash;  Made in NYC</p>
+                  </center>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

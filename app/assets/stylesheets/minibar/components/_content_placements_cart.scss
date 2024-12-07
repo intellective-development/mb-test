@@ -1,0 +1,245 @@
+$add-to-cart-size--small: 28px;
+.button.add-to-cart--small {
+  border-radius: 10000px;
+  flex: 0 0 auto;
+  height: $add-to-cart-size--small;
+  line-height: $add-to-cart-size--small - 1;
+  margin: 0;
+  padding: 0 0 0 1px;
+  text-align: center;
+  width: $add-to-cart-size--small;
+}
+
+.add-to-cart__prompt {
+  color: $brand-red;
+  font-family: $font-family-avenir;
+  padding-left: 1px; // visually center text over button
+  position: absolute;
+  text-align: center;
+  top: -21px;
+  width: 100%;
+}
+
+// Shared between components
+.grid-product--cart--featured,
+.grid-product--cart--minimum {
+  // no leave transition because we need to be able to drop the new element in place
+  // trying to keep the leaving one around during the transition causes a lot of trouble
+  transition: opacity 300ms ease-out;
+
+  &.transition--enter { display: none; }
+  &.transition--exit { opacity: 1; }
+  &.transition--exit.transition--exit-active { opacity: .35; }
+}
+
+// Addons component
+
+.cart-placement__header--addons {
+  margin-top: 1.2em;
+}
+
+.grid-product__container--cart--featured {
+  @include flex-grid(3, 20px);
+  margin: 10px 0 0;
+  border-bottom: 1px solid $brand-black;
+  padding-bottom: 20px;
+}
+
+$prompt-width: 46px;
+.grid-product.grid-product--cart--featured {
+  flex-direction: row;
+  margin-top: 1em;
+
+  .grid-product__image {
+    height: 140px;
+    width: 84px;
+  }
+
+  .grid-product__contents__subcontainer {
+    border-top: $default-border;
+    margin-top: 30px;
+    padding-top: 10px;
+    position: relative;
+    transition: border-color $button-transition-duration ease-out;
+    padding-right: $add-to-cart-size--small;
+  }
+  .grid-product__link--image {
+    flex: 0 0 auto;
+    padding-right: 10px;
+  } // dont take up any extra width
+  .grid-product__link--contents { display: inline-block; } // dont take up any extra width
+
+  .grid-product__property--tag {
+    position: absolute;
+    top: ($product-grid-tag-height + 1) * -1; // negative, one extra px so it doesnt cover border
+  }
+
+  .grid-product__property--name {
+    flex-grow: 0;
+  }
+
+  .add-to-cart__wrapper {
+    position: absolute;
+    top: -14px;
+    right: 0;
+  }
+  .add-to-cart--small {
+    background: $brand-white;
+  }
+  .add-to-cart__prompt {
+    @include visibility-transition-base($button-transition-duration);
+    @include visibility-transition-invisible;
+
+    // center prompt above the button
+    text-align: center;
+    width: $prompt-width;
+    left: 50%;
+    margin-left: $prompt-width / -2;
+  }
+
+  &:hover .grid-product__contents__subcontainer {
+    border-color: $brand-red;
+  }
+  // button should look the same when hovering this container as it does when it has its added class
+  &:hover, .add-to-cart__wrapper--added {
+    cursor: pointer;
+    .add-to-cart--small {
+      background: $brand-red;
+      border-color: $brand-red;
+      color: $brand-white;
+    }
+    .add-to-cart__prompt { @include visibility-transition-visible; }
+  }
+}
+
+@media screen and (max-width: $small-max-width) {
+  .grid-product__container--cart--featured {
+    @include flex-grid(1, 10px);
+    .grid-product { margin-bottom: 15px;}
+
+    .grid-product--cart--featured .grid-product__image {
+      height: 115px;
+      width: 69px;
+    }
+  }
+}
+
+
+// Minimum Component
+// This may have some similarities to the above component, but we likely want
+// to keep them separated, there's no intrinsic reason for them to be similar.
+
+.grid-product__container.grid-product__container--cart--minimum {
+  @include flex-grid(3, 8px);
+  @media screen and (max-width: $small-max-width) {
+    @include flex-grid(1, 0);
+
+    .grid-product--cart--minimum {
+      .grid-product__image {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.cart-placement__container {
+  padding-left: 0.85em;
+  padding-right: 0.85em;
+  background-color: $brand-lighter-grey;
+}
+
+$add-to-cart-offset: 6px;
+.cart-placement__header--minimum {
+  text-align: center;
+  margin: 10px 0 4px; // same top/bottom space
+}
+
+.cart-placement__show-more--minimum {
+  color: $brand-medium-grey;
+  font-size: 11px;
+  font-family: $font-family-avenir;
+  text-transform: uppercase;
+  text-align: center;
+
+  // positioning
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 3px;
+
+  //override usual link coloring, want it to stay the same
+  &:hover, &:focus, &:active { color: $brand-medium-grey; }
+
+  // lighten text and icon on hover
+  &:hover { opacity: 0.85 }
+
+  &::after {
+    @include sprite-icon($icons-icon-dropdown);
+    transition: transform .12s ease-in-out;
+
+    content: '';
+    display: inline-block;
+    margin-left: 4px;
+  }
+
+  &.open::after { transform: rotate(180deg); }
+}
+
+.grid-product--cart--minimum {
+  margin: 10px 0;
+
+  // unrelated to grid-product__contents, not a modifier of it
+  .grid-product--cart--minimum__contents {
+    @include flex-grid__fullsize-child;
+
+    background-color: $brand-white;
+    border: $default-border;
+    flex-direction: row;
+    padding: 7px 4px;
+    position: relative;
+    transition: border-color $button-transition-duration ease-out;
+  }
+
+  .grid-product__contents__subcontainer {
+    overflow: hidden;
+  }
+
+  .grid-product__property {
+    letter-spacing: 0;
+  }
+
+  .grid-product__property--name {
+    @include overflow-ellipsis;
+    @include table-overflow-ellipsis;
+    flex-grow: 0;
+    font-weight: $heavy-font-weight;
+    padding-right: $add-to-cart-size--small - $add-to-cart-offset;
+  }
+
+  .grid-product__image {
+    z-index: auto;
+    flex: 0 0 auto;
+    height: 60px;
+    margin-right: 4px;
+    width: 36px;
+  }
+
+  .add-to-cart {
+    position: absolute;
+    top: $add-to-cart-offset * -1;
+    right: $add-to-cart-offset * -1;
+    background-color: $brand-white;
+  }
+
+  &:hover, &.grid-product--cart--added {
+    cursor: pointer;
+
+    .grid-product--cart--minimum__contents { // TODO: can I share this? what about its transition
+      border-color: $brand-red;
+    }
+    .add-to-cart--small {
+      background: $brand-red;
+      border-color: $brand-red;
+      color: $brand-white;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<h1>New Region/City Page</h1>
+<%= form_for(@region, url: admin_config_region_pages_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit "Create", class: "button" %>
+<% end %>
+<%= link_to 'Back', admin_config_region_pages_path, class: 'button' %>

@@ -1,0 +1,10 @@
+<div class="row catalog-search__wrapper">
+  <div class="row collapse">
+    <div class="small-8 push-2 columns">
+      <%= text_field_tag :query, params[:query], placeholder: "Enter a product name, brand or tag" %>
+    </div>
+    <div class="small-2 columns">
+      <%= submit_tag "Search", query: nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+</div>

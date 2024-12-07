@@ -1,0 +1,37 @@
+<div class="admin_title_header">
+  <h3>CNAME Setup</h3>
+</div>
+
+<fieldset class="span-12">
+  <%= form_for @cname_record, url: admin_storefront_cname_records_path(params[:storefront_id]), method: :post do |form| %>
+    <div class="row">
+      <div class="large-6 column">
+        <label>Domain</label>
+        <%= form.text_field :domain %>
+      </div>
+
+      <div class="large-12 column">
+        <%= @errors %>
+      </div>
+    </div>
+
+    <br />
+    <%= submit_tag 'Save', class: 'button', name: 'domain' %>
+  <% end %>
+
+  <% if @cname_record.persisted? %>
+    <hr />
+
+    <div> <strong>Status:</strong> <%= @cname_record.status.humanize %> </div>
+    <br />
+
+    <div>
+      <%= button_to(
+        'Verify SSL Status',
+        verify_ssl_admin_storefront_cname_record_path(storefront_id: params[:storefront_id], id: @cname_record.id),
+        method: :put,
+        class: 'button tiny primary'
+      ) if @cname_record.creating_ssl_certificate? %>
+    </div>
+  <% end %>
+</fieldset>

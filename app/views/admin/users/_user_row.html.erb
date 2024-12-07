@@ -1,0 +1,18 @@
+<% cache user do %>
+  <tr class='<%= cycle("odd", "")%>'>
+    <td><%= link_to user.name, admin_customer_path(user) %></td>
+    <td><%= link_to user.email, admin_customer_path(user) %></td>
+    <td><%= user.orders.finished.count %></td>
+    <td><%= user.account.state if user.account.present? %></td>
+    <td><%= Array(user.roles).map {|role| String(role).humanize }.join(', ') %></td>
+    <td><%= user.account.storefront.name if user.account.storefront.present? %></td>
+    <td><%= I18n.localize(user.account.last_sign_in_at, format: :us_time) if user.account.last_sign_in_at.present? %></td>
+    <td>
+      <% if current_user.credentials_admin?  && current_user.id != user.id  %>
+        <% if user.admin? || user.credentials_admin? %>
+          <%= link_to 'Demote', demote_admin_access_admin_customer_path(user), data: { confirm: 'Are you sure?' }, class: "button tiny", method: :patch %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

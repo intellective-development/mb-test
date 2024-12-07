@@ -1,0 +1,33 @@
+<% content_for :title, 'Ship Categories' %>
+<div class="admin_title_header">
+  <h3>Ship Categories</h3>
+  <%= link_to "New Ship Category", new_admin_ship_category_path, class: "button" %>
+</div>
+<%= error_messages_for 'ship_category' %>
+<%= form_tag admin_ship_categories_path, method: 'get', id: "ship_categories_filter" do %>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      &nbsp;
+    </div>
+    <div class="small-4 columns">
+      <%= text_field_tag "name" , params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'><%= sortable "name", "Name" %></th>
+    <th class='column1_header'><%= sortable "pim_name", "Pim Name" %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @ship_categories, as: 'ship_category', cache: true %>
+  </tbody>
+</table>
+<%= paginate @ship_categories %>

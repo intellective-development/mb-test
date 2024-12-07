@@ -1,0 +1,10 @@
+<div id="modal-schedule-next" class="reveal-modal tiny" data-reveal>
+  <%= form_tag('/') do |f| %>
+    <h3>Schedule Next Order</h3>
+    <p>You may select any date in the future.</p>
+    <small><i>Note: All future orders on this subscription will be shifted</i></small>
+    <br><br>
+    <%= text_field_tag 'next_order_date', nil, placeholder: 'Select Date/Time' %>
+    <%= submit_tag 'Schedule', class: 'button expand schedule-button' %>
+  <% end %>
+</div>

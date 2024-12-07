@@ -1,0 +1,367 @@
+#cart-detail {
+  padding: 0;
+  margin-bottom: 60px;
+  .with-token {
+    .srd_a {
+      &:last-child::after {
+        content: "";
+      }
+    }
+  }
+  .srd_a {
+    &:last-child::after {
+      content: " (optional)";
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}
+
+.cart__page-heading {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.empty-cart-warning {
+  margin-top: $standard-gutter;
+}
+
+.scCart_ShipmentOrder {
+  display: flex;
+  flex-direction: column; // vertical layout, with Order on top
+
+  @media screen and (min-width: $medium-min-width) {
+    flex-direction: row-reverse; // horizontal layout, with Order on right
+
+    .scCart_ShipmentOrder_Shipment {
+      flex: 2 1 0;
+      padding-right: $standard-gutter;
+    }
+    .scCart_ShipmentOrder_Order {
+      flex: 1 0 0;
+      padding-left: $standard-gutter;
+    }
+  }
+}
+
+table.shipment-table tr {
+  background: $brand-white;
+  border-bottom: 1px solid $brand-light-grey;
+}
+
+.shipment-table {
+  border: 1px solid $brand-light-grey;
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+
+  .shipment-table__row {
+    background: $brand-lighter-grey;
+    border-bottom: 1px solid $brand-light-grey;
+  }
+
+  .shipment-table__content-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .table__subheader__cell__two-col { // using this because cols mess with item layout
+    @include flex-spread-elements;
+  }
+  .shipment-table__delivery-expectation{
+    flex-grow: 1;
+  }
+
+  .delivery-summary__time-estimate::before{
+    @include sprite-icon($icons-delivery-truck, inline-block);
+    content: '';
+    margin: -2px 11px -2px 0px;
+  }
+}
+.shipment-table--anonymous {
+  .shipment-table__item__property--price,
+  .shipment-table__item__property--quantity,
+  .shipment-table__item__property--total-price {
+    display: none;
+  }
+}
+
+$quantity-spinner-width: 38px;
+.shipment-table__item {
+  font-family: $font-family-helvetica;
+
+  .shipment-table__item__property {
+    color: $brand-black;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .shipment-table__item__property--image__container { width: 60px; }
+  .shipment-table__item__property--image { // todo: this is the only one not on the td. weird
+    height: 80px;
+    width: 48px;
+    min-width: 48px; // force table to respect width
+  }
+
+  .shipment-table__item__property--main {
+    text-align: left;
+    line-height: 1.4em;
+  }
+  .item__link {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .deal__description {
+    color: $sale-red;
+  }
+
+  .shipment-table__item__property--name { font-weight: $heavy-font-weight; }
+  .shipment-table__item__property--name,
+  .shipment-table__item__property--volume,
+  .shipment-table__item__property--price--mobile {
+    color: $brand-black;
+  }
+
+  .shipment-table__item__remove {
+    display: inline-block;
+    padding-top: 7px;
+    font-size: 11px;
+  }
+
+  .shipment-table__item__property--discounted_price {
+    color: $sale-red;
+    font-weight: bold;
+    strike {
+      color: #000;
+      font-weight: normal;
+    }
+  }
+
+  .shipment-table__item__property--price,
+  .shipment-table__item__property--total-price {
+    width: 78px; // will be ignored if contents too long
+  }
+
+  // TODO: it may be worth putting these three in the same cell, since their alignment relies on each other
+  .shipment-table__item__property--price { text-align: right; }
+  .shipment-table__item__property--total-price { text-align: left; }
+  .shipment-table__item__property--quantity {
+    text-align: center;
+    width: 60px;
+    .select--cart {
+      margin-top: 1.6em; // offset the height from the remove link, centering the select in the cell
+      width: 58px;
+    }
+  }
+
+  .shipment-table__item__remove-warning {
+    color: $brand-error-red;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+
+  .shipment-table__item__property--quantity-spinner {
+    padding: 0;
+
+    // this positioning is a workaround for issues with full height divs in table cells
+    // using it means we can't simply allow the quantity to have an arbitrary number of chars and expect it to look right
+    width: $quantity-spinner-width;
+    position: relative;
+    .number-spinner {
+      position: absolute;
+      width: $quantity-spinner-width;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      display: flex;
+    }
+  }
+}
+
+.cart__bottom-cta {
+  margin-bottom: 20px;
+  text-align: right;
+
+  .cart__bottom-cta__prompt {
+    font-size: 13px;
+    font-family: $font-family-avenir;
+    font-weight: $heavy-font-weight;
+    margin-bottom: 1em;
+  }
+  .cart__bottom-cta__prompt__subtotal {
+    padding-left: 2em; //space it out
+  }
+  .cart__bottom-cta__button {
+    margin: 0;
+    max-width: 272px; // width of the panel button when full width
+  }
+}
+
+.cart-order-panel {
+  font-family: $font-family-avenir;
+  font-size: 13px;
+  font-weight: $heavy-font-weight;
+
+  .cart-order-panel__prompt,
+  .cart-order-panel__subtotal {
+    padding-bottom: 1.4em;
+  }
+
+  .cart-order-panel__error {
+    color: $brand-error-red;
+    line-height: 1.3em;
+  }
+  .cart-order-panel__subtotal {
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.5px;
+  }
+}
+
+.cart-order-legal {
+  padding: 12px;
+  .legal {
+    color: $brand-medium-grey;
+    font-size: 12px;
+    line-height: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+  }
+}
+
+.panel--cart-gift {
+  align-items: center;
+  display: flex;
+  padding: 20px;
+
+  &::before {
+    @include sprite-icon($icons-cart_gift_icon, inline-block);
+    content: '';
+    margin-right: 8px;
+  }
+  .panel--cart-gift__label {
+    flex-grow: 1;
+    margin: 4px 0 0; // center it next to the icon
+  }
+  .panel--cart-gift__checkbox {
+    font-size: x-large; // make it larger
+    margin: 0;
+  }
+}
+
+.panel.gift { // TODO: remove styles (and image) when we transition to new gifting flow
+  background: url(image_path('components/store/gift_wrap.jpg'));
+  background-position: 95% 10px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-right: 80px;
+  margin-bottom: 16px;
+}
+
+.cart-shoprunner {
+  margin-top: $standard-gutter;
+}
+
+.cart-shoprunner--top { display: none; }
+.cart-shoprunner--bottom { display: block; }
+
+@media screen and (min-width: $medium-min-width) {
+  .cart-shoprunner--top { display: block; }
+  .cart-shoprunner--bottom { display: none; }
+}
+
+.number-spinner--vertical {
+  border-left: $default-border;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  min-width: 34px;
+
+  .number-spinner__value,
+  .number-spinner__button {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .number-spinner__button:first-child { border-bottom: $default-border }
+  .number-spinner__button:last-child { border-top: $default-border }
+  .number-spinner__button {
+    // the full size flexbox does not play nicely with the table row borders (it covers them in some cases)
+    // dropping the opacity allows us to have the same color (on white) without covering borders
+    background: $brand-lighter-grey-transparent;
+    border: none;
+    flex: 0 1 auto;
+    padding: 8px;
+  }
+
+  .number-spinner__value {
+    font-size: 18px;
+    text-align: center;
+    padding: 0 2px;
+  }
+}
+
+@media screen and (max-width: $small-max-width) {
+  .cart__page-heading .heading-row__subheader { display: none; }
+
+  .cart__bottom-cta {
+    .cart__bottom-cta__button { max-width: initial; }
+    .cart__bottom-cta__prompt { text-align: left; }
+  }
+
+  .shipment-table__item__property--price,
+  .shipment-table__item__property--quantity,
+  .shipment-table__item__property--total-price {
+    display: none;
+  }
+}
+
+@media screen and (min-width: $medium-min-width) {
+  .shipment-table__item__property--quantity-spinner,
+  .shipment-table__item__property--price--mobile,
+  .shipment-table__item__remove-warning {
+    display: none;
+  }
+
+  .cart__bottom-cta {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* cart error container */
+.cart-warning__container {
+  @include side-margins-below-medium;
+
+  border: 1px solid $brand-error-red;
+  color: $brand-error-red;
+  font-size: 12px;
+  text-align: left;
+
+  padding: 12px;
+  padding-right: 20px; // give close button some breathing room
+  margin-bottom: 15px;
+  position: relative;
+}
+a.cart-warning__close { color: $brand-error-red; } // override link color
+.cart-warning__close {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 1.625em;
+
+}
+.cart-warning__title {
+  margin-bottom: .4em;
+}
+.cart-warning__error-list {
+  margin-bottom: 0;
+}
+.cart-warning__error-list__item {
+
+  &::before { content: '・'}
+}

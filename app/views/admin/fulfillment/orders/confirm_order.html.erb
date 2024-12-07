@@ -1,0 +1,104 @@
+<% content_for :title, "Minibar Order ##{@order.number.upcase}" %>
+<div class="row">
+  <div class="large-11 columns panel large-centered small-centered">
+    <h1>Minibar Order #<%= @order.number.upcase %></h1>
+    <p>This order was created at <strong><%= @order.completed_at.to_formatted_s(:long) if @order.completed_at %></strong> and confirmed at <strong><%= @order.confirmed_at.to_formatted_s(:long) if @order.confirmed_at %></strong>.</p>
+    <hr>
+    <div class="row">
+      <div class="large-4 columns">
+        <h3>Order Summary</h3>
+        <p>
+          <strong>Order ID:</strong> <%= @order.number.upcase %> <br>
+          <strong>Order Date:</strong> <%= @order.completed_at.to_formatted_s(:long) %> <br>
+          <strong>Items:</strong> <%= @order.order_items.sum(:quantity) %> <br>
+          <strong>Total:</strong> <%= number_to_currency(@order.taxed_total) %> <br>
+        </p>
+      </div>
+      <div class="large-4 columns">
+        <h3>Delivery Information</h3>
+        <p>
+          <strong><%= @order.ship_address&.name_line %></strong><br>
+          <% if @order.ship_address %>
+            <% @order.ship_address.address_lines_array.each do |line| %>
+              <%= line %><br>
+            <% end %>
+          <% else %>
+            In-Store Pickup<br>
+          <% end %>
+          <%= @order.ship_address&.city_state_zip %><br>
+          <strong>Tel:</strong> <%= @order.ship_address&.phone %>
+        </p>
+      </div>
+      <% if @order.gift? %>
+      <div class="large-4 columns">
+        <h3>Gift Message</h3>
+        <p>
+          <%= @order.gift_detail.message %>
+        </p>
+      </div>
+      <% end %>
+      <div class="large-4 columns">
+        <h3>Delivery Notes</h3>
+        <p>
+          <%= @order.ship_address&.notes %>
+        </p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="large-12">
+        <table class="large-12 small-12">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Totals</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order.order_items.group_by(&:variant).each do |variant, items| %>
+              <tr>
+                <td>
+                  <strong><%=  variant.product_name %></strong>
+                  <br>
+                  <small>SKU: <%= variant.sku %></small>
+                </td>
+                <td><%= items.sum(&:quantity) %></td>
+                <td>
+                  $<%=  items.sum(&:total) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <th>Delivery</th>
+              <td>FREE</td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Promos</th>
+              <td><%= number_to_currency(@order.discounts_total) %> </td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Tax</th>
+              <td><%= number_to_currency(@order.taxed_amount) %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Tip</th>
+              <td><%= number_to_currency(@order.tip_amount) %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>TOTAL</th>
+              <td><%= number_to_currency(@order.taxed_total) %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

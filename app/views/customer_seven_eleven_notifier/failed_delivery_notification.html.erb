@@ -1,0 +1,42 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you ordered from Minibar Delivery' %>
+<table class="container sub">
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @recipient.name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Our store partner attempted delivery to <%= @address %> at around <%= @date.strftime('%l:%M%p %m/%d/%Y') %>. Upon arrival, they were unable to reach anyone at the location or by using the phone number, <%= number_to_phone(@phone, area_code: true, delimiter: ' ') %>.<br/><br/>
+                          For this reason, we have canceled and refunded the order. The refund should appear in a few days, depending on your bank.<br/><br/>
+                          If you would still like a delivery and someone will be available to accept it, please feel free to place a new order or our team can assist in placing a new order for you.<br/><br/>
+                          Please let us know if you have any questions!<br/>
+                        </p><br/>
+                        <p class="indent dark small">
+                          Best, <br/>
+                          Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>

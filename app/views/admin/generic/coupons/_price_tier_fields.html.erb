@@ -1,0 +1,15 @@
+<div class="nested-fields row tier-nested-fields">
+  <div class="large-5 columns">
+    <%= f.input :minimum %>
+  </div>
+  <div class="large-5 columns tier-percent-field">
+    <%= f.input :percent %>
+  </div>
+  <div class="large-5 columns tier-amount-field">
+    <%= f.input :amount %>
+  </div>
+  <div class="large-2 columns">
+    <br/> <!-- Align with min and percent -->
+    <%= link_to_remove_association "remove tier", f, class:"button small" %>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+// Can reference both fonts, using the weight prop to set the weight.
+// Note that only 400 and 600 are supported
+@font-face{
+  font-family: "Avenir-Custom";
+  font-weight: 400;
+  src: font-url("2F78F1_0_0.woff2") format('woff2'),
+    font-url("2F78F1_0_0.woff") format('woff'),
+    font-url("2F78F1_0_0.ttf") format('truetype');
+  unicode-range: U0-FF;
+}
+
+@font-face{
+  font-family: "Avenir-Custom";
+  font-weight: 600;
+  src: font-url("350DB7_0_0.woff2") format('woff2'),
+  font-url("350DB7_0_0.woff") format('woff'),
+  font-url("350DB7_0_0.ttf") format('truetype');
+  unicode-range: U0-FF;
+}
+
+@font-face {
+  font-family: 'TiemposHeadlineWeb-Bold';
+  src:font-url('TiemposHeadlineWeb-Bold.eot');
+  src:font-url('TiemposHeadlineWeb-Bold.eot?#iefix') format('embedded-opentype'),
+      font-url('TiemposHeadlineWeb-Bold.woff') format('woff'),
+      font-url('TiemposHeadlineWeb-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+// Explictly loading the local copy serves two purposes.
+// 1) Makes it clearer in font-family declarations that we're using a non-standard local font
+// 2) Also us to load the 600 "heavy" weight, which otherwise wouldn't show up.
+@font-face {
+  font-family: "Avenir-Local";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Avenir-Book"),
+       local("Avenir"),
+       local("Avenir-Regular");
+}
+
+@font-face {
+  font-family: "Avenir-Local";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Avenir-Heavy");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 200;
+  src: url("avenir-300-light-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 200;
+  src: url("avenir-300-light-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 300;
+  src: url("avenir-400-book-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 300;
+  src: url("avenir-400-book-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 400;
+  src: url("avenir-500-roman-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 400;
+  src: url("avenir-500-roman-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 500;
+  src: url("avenir-600-medium-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 500;
+  src: url("avenir-600-medium-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 600;
+  src: url("avenir-700-heavy-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 600;
+  src: url("avenir-700-heavy-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 700;
+  src: url("avenir-800-black-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 700;
+  src: url("avenir-800-black-oblique.woff") format("woff");
+}

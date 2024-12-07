@@ -1,0 +1,21 @@
+<% if @email.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@reason.errors.count, "error") %> prohibited this from being saved:</h2>
+
+    <ul>
+    <% @email.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <label>Tag Name</label>
+  <%= f.text_field :tag_name %>
+  <label>Email Subject Line</label>
+  <%= f.text_field :subject %>
+  <label>Email Template Slug</label>
+  <%= f.text_field :template_slug %>
+  <label>Active?</label>
+  <%= f.check_box :active %>
+</fieldset>

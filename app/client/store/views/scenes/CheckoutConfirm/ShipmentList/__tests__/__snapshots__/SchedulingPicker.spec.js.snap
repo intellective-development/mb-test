@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchedulingPicker renders 1`] = `
+<form
+  class="csl__scheduling__container"
+>
+  <p
+    class="elMBText_P elMBText elMBText_ResetSpacing csl__scheduling__section-label csl__scheduling__section-label--error"
+  >
+    Schedule delivery:
+  </p>
+  <div
+    class="csl__scheduling__select-container"
+  >
+    <select
+      class="csl__scheduling__date-select"
+      name="date"
+    >
+      <option
+        selected=""
+        value=""
+      >
+        Select Date
+      </option>
+    </select>
+    <select
+      class="csl__scheduling__time-select"
+      disabled=""
+      name="time"
+    >
+      <option
+        disabled=""
+        selected=""
+        style="display:none"
+        value=""
+      >
+        Select Time
+      </option>
+    </select>
+  </div>
+</form>
+`;
+
+exports[`SchedulingPicker renders a loader 1`] = `
+<div
+  class="csl__scheduling__loader"
+/>
+`;

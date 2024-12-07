@@ -1,0 +1,46 @@
+@import "../../../../../../assets/stylesheets/minibar/variables.scss";
+
+.sort-toggle {
+  align-items: center;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0 none transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  font-weight: 700;
+  justify-content: center;
+  margin: 0;
+  padding: 3px 6px;
+  text-transform: uppercase;
+
+  &,
+  &:hover {
+    background-color: transparent;
+    color: #6f6f6f;
+  }
+
+  &:active,
+  &.active {
+    background-color: transparent;
+    color: $brand-red;
+  }
+
+  &::before {
+    background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><path d='M14 50l23-18 23 18M37 90V32M60 70l23 18 23-18M83 30v58' fill='none' stroke='%236f6f6f' stroke-width='5'/></svg>");
+    background-repeat: no-repeat;
+    content: " ";
+    display: inline-block;
+    height: 22px;
+    margin-right: 4px;
+    width: 22px;
+  }
+
+  &:active::before,
+  &.active::before {
+    background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><path d='M14 50l23-18 23 18M37 90V32M60 70l23 18 23-18M83 30v58' fill='none' stroke='%23781214' stroke-width='5'/></svg>");
+  }
+}

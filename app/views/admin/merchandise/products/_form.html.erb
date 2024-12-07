@@ -1,0 +1,188 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'chosen/chosen.jquery', 'admin/merchandise_product' %>
+  <%= stylesheet_link_tag 'chosen' %>
+<% end %>
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'admin/edit_variants' %>
+<%- end %>
+<% content_for :below_body do -%>
+  <script>
+    var product_id = parseInt('<%= @product.id %>') || null;
+    var remote_url = '<%= product_search_admin_merchandise_merge_index_path %>';
+    Minibar.AdminMerchandiseProductForm.initialize(product_id, remote_url);
+  </script>
+<% end %>
+<%= error_messages_for 'product' %>
+
+  <div class="row">
+    <div class='selection small-6 columns'>
+      <select name="products-1" id="product_id_1" class="product-select-1">
+        <option value="">Find product to clone...</option>
+      </select>
+    </div>
+  </div>
+
+<fieldset id="admin-product-general-info" >
+
+  <legend>General Info</legend>
+
+  <div class="six large-6 columns">
+    <%= form.label 'item volume text' %>
+    <%= form.text_field :item_volume, disabled: true %>
+
+    <div class='large-6 columns'>
+      <%= form.label :volume_value %>
+      <%= form.text_field :volume_value %>
+    </div>
+    <div class='large-6 columns'>
+      <%= form.label :volume_unit %>
+      <%= form.select :volume_unit, select_product_volume(@product), { include_blank: true } %>
+    </div>
+
+    <div class='large-6 columns'>
+      <%= form.label :container_count %>
+      <%= form.text_field :container_count %>
+    </div>
+    <div class='large-6 columns'>
+      <%= form.label :container_type %>
+      <%= form.select :container_type, [@product.container_type, 'BOTTLE', 'CAN', 'BOX', 'KEG', 'BAG'].uniq, { include_blank: true } %>
+    </div>
+    <div class='large-6 columns'>
+      <%= form.label :max_quantity_per_order %>
+      <%= form.text_field :max_quantity_per_order %>
+    </div>
+    <div class='large-12 columns'>
+      <%= form.check_box :default_search_hidden %>
+      <%= form.label :label_default_search_hidden, 'Hide from MiniBarDelivery.com site?', for: :product_default_search_hidden %>
+    </div>
+    <div class='large-12 columns'>
+      <%= form.check_box :allows_back_order %>
+      <%= form.label :label_allows_back_order, 'Allows Back Order' %>
+    </div>
+
+    <% if current_user.super_admin? %>
+      <div class='large-12 columns'>
+        <%= form.check_box :master %>
+        <%= form.label :label_master, 'Master' %>
+      </div>
+    <% end %>
+    <div class='large-12 columns'>
+      <%= form.label 'Product ID' %>
+      <%= form.text_field :id, disabled: true %>
+    </div>
+    <div class='large-12 columns'>
+      <%= form.label 'Merchant SKU' %>
+      <%= form.text_field :mechant_sku, disabled: true %>
+    </div>
+  </div>
+  <div class='six large-6 columns'>
+    <%= form.label 'Tax Category (Leave blank if alcohol)' %>
+    <%= form.select :tax_category_id, @select_tax_category, include_blank: true  %>
+
+    <%= form.label :upc %>
+    <%= form.text_field :upc %>
+    <%= render  partial: 'admin/merchandise/products/additional_upcs', locals: {form: form, additional_upcs: @product.additional_upcs, product: @product} %>
+    <a id="button-add-additional-upc" href="#" data-reveal-id="modal-add-additional-upc" class="button">Add Additional UPC</a>
+    <%= render 'admin/merchandise/products/modal_add_additional_upc', product: @product %>
+
+    <%= form.label 'upc_ext (wines: use year)' %>
+    <%= form.text_field :upc_ext %>
+
+    <%= form.label :pre_engraved_message %>
+    <%= form.text_field :pre_engraved_message %>
+  </div>
+
+  <p class="note--grey">NOTE: If you're looking to edit other attributes, most can be found at the grouping level (access from "grouped under" tile above)</p>
+
+</fieldset>
+
+<%= render "admin/merchandise/images/products/form", :form => form %>
+
+<% if Feature[:limited_time_offer_feature].enabled? %>
+  <fieldset>
+    <legend>Limited Time Offer <%= form.check_box :limited_time_offer, style: "margin: 0;" %></legend>
+    <% states = ::State.us_states.by_abbreviation %>
+    <div class="row lto_box <%= form.object.limited_time_offer ? '' : 'hide' %>">
+      <%= form.simple_fields_for :limited_time_offer_data do |field| %>
+        <div class="medium-4 column">
+          <div class="row">
+            <div class="medium-12 column">
+              <label>Global Limit</label>
+              <%= field.number_field :global_limit, value: form.object.limited_time_offer_data["global_limit"] %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="medium-12 column">
+              <label>Delivery Expectation</label>
+              <%= field.text_field :delivery_expectation, value: form.object.limited_time_offer_data["delivery_expectation"] %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="medium-12 column">
+              <label>Max Delivery Expectation</label>
+              <%= field.text_field :maximum_delivery_expectation, value: form.object.limited_time_offer_data["maximum_delivery_expectation"] %>
+            </div>
+          </div>
+        </div>
+        <div class="medium-8 column">
+          <fieldset>
+            <legend>No Ship States</legend>
+            <% states.each do |state| %>
+              <div class="small-2 columns">
+                <%= field.check_box :states,
+                                   { multiple: true, checked: form.object.limited_time_offer_data["states"]&.include?(state.abbreviation) },
+                                   state.abbreviation,
+                                   nil %>
+                <label class="row collapse" style="font-weight: normal"><%= state.abbreviation %></label>
+              </div>
+            <% end %>
+            <div class="small-2 columns"> </div>
+          </fieldset>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
+<% end %>
+
+<fieldset>
+  <legend>Tax</legend>
+  <p>Avalara Tax Code, used for calculating the tax rate and value. If needed you can overwrite it.</p>
+  <div class="row">
+    <div class="medium-6 column">
+      <p><%= form.text_field :tax_code %></p>
+    </div>
+    <div class="medium-6 column">
+      <% default_tax_code = @product.default_tax_code || "NONE" %>
+      <p id="autofill-image"><strong><a href="https://taxcode.avatax.avalara.com/search?q=<%= default_tax_code %>&category=&tab=decision_tree" target="_blank"><%= default_tax_code %></a></strong> &mdash; default tax code for this product.</p>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Annotations</legend>
+  <p>Annotations are used internally to note specific information about a product. These may be used by automated processes so please only use annotations defined here.</p>
+  <div class="row">
+    <div class="medium-6 column">
+      <p><%= form.text_field :annotation_list %></p>
+    </div>
+    <div class="medium-6 column">
+      <p id="autofill-image"><strong>no_image</strong> &mdash; Unable to find matching image.</p>
+    </div>
+  </div>
+</fieldset>
+
+<script>
+$(function(){
+  $('#autofill-image').click(function(){
+    $('#product_annotation_list').val('no_image');
+  });
+
+  $("#product_limited_time_offer").on('change', function(e) {
+    if (this.checked) {
+      $(".lto_box").removeClass('hide')
+    } else {
+      $(".lto_box").addClass('hide')
+    }
+  });
+});
+</script>

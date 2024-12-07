@@ -1,0 +1,18 @@
+<tr>
+  <td>
+    <%=  link_to String(shipment.order_number).upcase, edit_admin_fulfillment_order_path(shipment.order_id) %>
+  </td>
+  <td>
+    <%= link_to shipment.user_name, admin_customer_path(shipment.user.id) %>
+    <% if shipment.order.vip? %>
+      <span class="label round vip">VIP</span>
+    <% end %>
+    <%= image_tag "ui/icon-gift.svg", align: 'right', width: 16 if shipment.order.gift? %>
+  </td>
+  <td><%= shipment.supplier_name %></td>
+  <td><%= shipment.age_in_days_and_hours %></td>
+  <td>
+    <span class="label round <%=  shipment.state.downcase %>"><%= shipment.display_state %></span>
+  </td>
+  <td><%= number_to_currency(shipment.shipment_total_amount) %> </td>
+</tr>

@@ -1,0 +1,10 @@
+<div id="tree">
+  <h2>Product Type Hierarchy</h2>
+  <div class="row">
+    <ul>
+      <% @categories.each do |category| %>
+        <%= render partial: 'product_type', locals: { item: category } %>
+      <% end %>
+    </ul>
+  </div>
+</div>

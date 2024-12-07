@@ -1,0 +1,6 @@
+<h3>Edit Macro Message</h3>
+
+<%= simple_form_for(@macro_message, :url => admin_config_macro_message_path(@macro_message)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit "Save Macro", class: "button" %>
+<% end %>

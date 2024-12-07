@@ -1,0 +1,29 @@
+<%- if shipping_method.persisted? %>
+  <div id="modal-send-promotion-addresses-<%= shipping_method.id %>" class="reveal-modal tiny" data-reveal>
+    <%= form_for('', url: send_promotion_zipcodes_admin_inventory_supplier_path(shipping_method.supplier_id), method: :post) do |f| %>
+      <h3>Send promotion to covered addresses</h3>
+      <p>This will send an event to Iterable, which will send a promotional email offering a code to all addresses covered by this shipping method.</p>
+      <p id="delivery_zone_amount_<%= shipping_method.id %>"></p>
+      <%- delivery_zones_options = shipping_method.delivery_zones.map{|dz| [dz.is_a?(DeliveryZoneState) ? "State: #{dz.value}" : "Zone ID #{dz.id}", dz.id] } %>
+      <%= f.select :delivery_zone_id, options_for_select(delivery_zones_options), { prompt: 'Select delivery zone' }, { id: "delivery_zone_id_#{shipping_method.id}" } %>
+      <%= f.select :promotion_type, options_for_select([['Free Delivery', 'free_delivery'], ['Dollar Off', 'dollar_off']], selected: 'free_delivery') %>
+      <%= f.submit 'Send', class: "small button" %>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('select#delivery_zone_id_<%= shipping_method.id %>').change(function(evt) {
+    var zoneId = evt.target.value;
+    $.ajax( {
+      type : "GET",
+      url : '/admin/inventory/shipping_methods/delivery_zone_covered_users',
+      data : { delivery_zone_id : zoneId } ,
+      complete : function(res) {
+        if (res.status == 200) {
+          $('#delivery_zone_amount_<%= shipping_method.id %>').html('Users covered by this delivery zone: ' + res.responseJSON.users);
+        }
+      },
+    })
+  });
+</script>

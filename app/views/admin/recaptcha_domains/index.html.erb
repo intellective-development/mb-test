@@ -1,0 +1,19 @@
+<div class='admin_title_header'>
+  <h3>ReCaptcha Domains</h3>
+  <%= link_to 'Edit Domains', new_admin_recaptcha_domain_url, class: 'button' %>
+</div>
+
+<div class='admin_properties'>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <% @recaptcha_domains.each do |domain| %>
+      <tr>
+        <td><%= domain %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

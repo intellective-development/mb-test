@@ -1,0 +1,729 @@
+/* ----- GENERAL ----- */
+#party-planner {
+  margin-bottom: 40px;
+}
+
+.party-heading {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+  margin-top: 60px;
+}
+/*
+h4.party-heading{
+  font-size:24px;
+}*/
+/* ----- PARTY PARAMS ----- */
+$form-line-height:60px;
+
+.party-params-container {
+  margin-bottom: 10px;
+}
+
+.form-block {
+  //padding:0px 10px;
+  font-size: 34px;
+  font-family: $font-family-avenir;
+  width: 100%;
+  text-align: center;
+  line-height: $form-line-height;
+  margin: 30px 0px 40px 0px;
+}
+
+.inline-text-field {
+  border: 0px;
+  outline: 0px;
+  font-size: inherit;
+  font-family: inherit;
+  display: inline-block;
+  color: $brand-dark-grey;
+  text-align: center;
+  transition: width 0.25s;
+  //padding:0px 5px;
+  border-radius: 0px;
+  padding-bottom: -2px;
+  border-bottom: 2px solid $brand-black;
+  height: 1.4em;
+  padding: 0px 4px;
+  line-height: 1.6em;
+}
+//could mae them all inputs to standardise
+span.inline-text-field {
+  @extend .inline-text-field;
+  //height: 1.2em;
+  cursor: pointer;
+}
+input.inline-text-field {
+  @extend .inline-text-field;
+  width: 45px;
+  min-width: 25px;
+  max-width: 125px;
+  padding: 0px;
+  //height:1.2em;
+  overflow: visible;
+}
+
+#party-params-content {
+  button {
+    @include pixel-antialiased;
+    font-size: 13px;
+    padding: 14px 20px 11px 20px;
+  }
+}
+
+#error-message-container {
+  text-align: center;
+  font-family: $font-family-avenir;
+  opacity: 0;
+  height: 1em;
+}
+
+/* ----- BOTTOM LAYOUT ----- */
+
+//container
+#beverage-breakdown-content {
+  display: none;
+  padding-top: 40px;
+  border-top: 1px solid $brand-light-grey;
+  text-align: center;
+
+  h4 {
+    margin: 0px;
+    font-size: 24px;
+  }
+}
+
+//outer box, do vertical borders
+$suggestions-border: 1px solid $brand-light-grey;
+#suggestions-container {
+  margin: 10px;
+  padding: 0px;
+  font-size: 15px;
+  display: inline-block;
+  > div {
+    padding: 0px;
+    margin: 0px;
+    border-left: $suggestions-border;
+  }
+  >:first-child, >:last-child, .last-visible {
+    border-right: $suggestions-border;
+  }
+}
+
+//inner cells, they do horizontal borders
+$section-min-height:76px;
+#suggestions-container {
+  .bottle-breakdown-title, .bottles, .shop-now, .bottle-type-breakdown-container {
+    border-top: $suggestions-border;
+    font-family: $font-family-avenir;
+    width: 100%;
+  }
+  .bottle-breakdown-title, .bottles, .shop-now {
+    padding: 0px 10px;
+    display: table;
+    min-height: $section-min-height;
+    > div {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+  .bottles {
+    min-height: $section-min-height + 10;
+  }
+  #wine-container, #liquor-container, #beer-container {
+    > :last-child { //same as above, apply to last grandchild (not great-nth-grandchild)
+      > :last-child {
+        border-bottom: $suggestions-border;
+      }
+    }
+  }
+}
+
+
+.bottle-details div {
+  display: table;
+  width: 100%;
+  font-family: $font-family-avenir;
+  div {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+
+@mixin container($parent-cols, $child-cols) {
+  @include grid-column($parent-cols, false, true);
+  padding-left: 0px;
+  padding-right: 0px;
+  > div {
+    @include grid-column($child-cols);
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  > div:first-child {
+    @include grid-column(12);
+  }
+}
+#suggestions-container, .slider-drinks-container {
+  @include container(12, 4);
+}
+#suggestions-container.two, .slider-drinks-container.two {
+  @include container(8, 6);
+}
+#suggestions-container.one, .slider-drinks-container.one {
+  @include container(5, 12);
+}
+
+.slider-drinks-container.one {
+  >div {
+    display: none;
+  }
+}
+
+/* ----- BEVERAGE BREAKDOWN -----*/
+$sub-headers-height:50px;
+$recc-height:20px;
+
+.bottle-breakdown-title {
+  h6 {
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+}
+
+.drink-heading { //drinks count heading
+  h1.party-heading {
+    font-size: 72px;
+    line-height: .5em;
+
+    height: 1.2em;
+    margin: 0px;
+    #drink-count.inline-text-field {
+      color: $brand-black;
+      width: 100%;
+      max-width: initial;
+      vertical-align: top;
+      border-bottom: 0px;
+    }
+  }
+  h4 {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+  h6 {
+    font-size: 14px;
+    color: $brand-medium-grey;
+    text-transform: lowercase;
+  }
+  #drinks-subheaders {
+    height: 50px;
+    margin-bottom: 10px;
+
+    //puts it on top of the stack
+    opacity: .999;
+    background-color: $brand-white;
+    #recommended-drinks {
+      display: none;
+    }
+  }
+}
+
+.wine-drinks, .liquor-drinks, .beer-drinks {
+  font-family: $font-family-avenir;
+  margin-top: 30px;
+  margin-bottom: 35px;
+}
+
+
+/* ----- BOTTLE DETAILS ----- */
+
+.bottle-type-breakdown-container {
+  padding: 20px 30px;
+  overflow: hidden;
+
+  .subtype-container {
+    color: $brand-black;
+    text-align: left;
+    padding: 8px 0px 7px 0px;
+    cursor: pointer;
+
+   // background-color:$brand-white;
+    .first-row {
+      font-size: 15px;
+      padding-bottom: 5px;
+    }
+    .second-row {
+      font-size: 12px;
+      color: $brand-medium-grey;
+    }
+    .type-name {
+      text-transform: capitalize;
+    }
+  }
+  .subtype-container:hover {
+    background-color: $brand-lighter-grey;
+  }
+  .subtype-container.excluded {
+    color: $brand-medium-grey;
+  }
+}
+.shop-now-button {
+  margin-top: 10px;
+}
+
+.bottle-notes {
+  color: $brand-medium-grey;
+  text-align: left;
+  font-size: 12px;
+  padding-top: 16px;
+  line-height: 1.4em;
+}
+#case-counts, #case-size {
+  color: $brand-medium-grey;
+  font-size: 12px;
+}
+
+#cases {
+  span {
+    color: $brand-medium-grey;
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+/* ----- NAV ELEMENTS ----- */
+
+#nav-container {
+  text-align: center;
+}
+
+button.planner-nav {
+  background-color: $brand-black;
+  border: 0px;
+  text-transform: uppercase;
+  font-family: $font-family-avenir;
+  letter-spacing: 3px;
+  font-size: 10px;
+  display: inline-block;
+  padding: 14px 15px 10px 15px;
+}
+
+button.planner-nav:hover {
+  background-color: $brand-charcoal;
+}
+
+button:focus {
+  outline: 0;
+}
+
+
+
+
+
+/* ----- UI COMPONENTS -----*/
+
+.strikeout {
+  text-decoration: line-through;
+}
+
+
+/* --- custom selects ---*/
+
+.wrapper-dropdown {
+  /* Size and position */
+  display: inline-block;
+  position: relative;
+  height: 0px;
+  width: 100%;
+  //padding: 10px;
+
+  /* Styles */
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+}
+
+.wrapper-dropdown .dropdown {
+  /* Size & position */
+  position: absolute;
+
+  /* Styles */
+  background: white;
+  border: 1px solid $brand-light-grey;
+  box-shadow: 0px 0px 5px $brand-light-grey;
+  border-radius: 4px;
+  transition: all 0.08s ease-in;
+  list-style: none;
+  /* Hiding */
+  pointer-events: none;
+  opacity: 0;
+
+  li {
+    //display:inline-block;
+    background-color: inherit;
+
+    font-family: $font-family-avenir;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    float: left;
+    margin-left: 0px;
+    padding: 10px 15px 7px 15px;
+    border-right: 1px solid $brand-light-grey;
+  }
+
+  li:first-child { //gotta radius those borders
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  li:nth-last-child(2) { //second to last child, last is the after arrow
+    border-right-width: 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  li.selected {
+    background-color: $brand-lighter-grey;
+  }
+
+  li:hover {
+    background-color: $brand-black;
+    color: $brand-white;
+    //font-weight:normal;
+  }
+}
+
+.dropdown.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-5px);
+}
+
+
+// Bottom Triangles
+.wrapper-dropdown .dropdown .after-arrow {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid $brand-white;
+}
+.wrapper-dropdown .dropdown:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid $brand-light-grey;
+}
+
+
+
+
+/* ----- MEDIA QUERIES ----- */
+@media only screen and (max-width: 40em) {
+
+  .form-block {
+    font-size: 26px;
+    line-height: 1.8em;
+  }
+
+  /* Adjust layout of suggestions at bottom */
+  #suggestions-container, #suggestions-container.two, #suggestions-container.one {
+    @include container(8, 12);
+  }
+
+  #suggestions-container {
+    #wine-container, #liquor-container, #beer-container {
+      border-right: $suggestions-border;
+    }
+  }
+
+  .wrapper-dropdown .dropdown li {
+    font-size: 18px;
+    padding: 7.5px 10px 2.5px 10px;
+  }
+
+  .wine-drinks, .liquor-drinks, .beer-drinks {
+    font-size: 12px;
+    h4, h4 span {
+      font-size: 18px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 32em) {
+
+  .form-block {
+    font-size: 18px;
+    line-height: 1.8em;
+  }
+
+  /* Adjust layout of suggestions at bottom */
+  #suggestions-container, #suggestions-container.two, #suggestions-container.one {
+    @include container(10, 12);
+  }
+
+  .inline-text-field { border-bottom: 1px solid $brand-black; }
+
+  .wrapper-dropdown .dropdown li {
+    font-size: 14px;
+    //padding:5px 7.5px 0px 7.5px;
+  }
+}
+
+
+
+
+
+
+
+/* JQUERY.NOUISLIDER.CSS */
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+.noUi-target,
+.noUi-target * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-touch-action: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  box-sizing: border-box;
+}
+.noUi-base {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.noUi-origin {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.noUi-handle {
+  position: relative;
+  z-index: 1;
+}
+.noUi-stacking .noUi-handle {
+/* This class is applied to the lower origin when
+   its values is > 50%. */
+  z-index: 10;
+}
+.noUi-stacking + .noUi-origin {
+/* Fix stacking order in IE7, which incorrectly
+   creates a new context for the origins. */
+  *z-index: -1;
+}
+.noUi-state-tap .noUi-origin {
+  transition: left 0.3s, top 0.3s;
+}
+.noUi-state-drag * {
+  cursor: inherit !important;
+}
+
+/* Slider size and handle placement;
+ */
+.noUi-horizontal {
+  height: 18px;
+}
+.noUi-horizontal .noUi-handle {
+  width: 34px;
+  height: 28px;
+  left: -17px;
+  top: -6px;
+}
+.noUi-horizontal.noUi-extended {
+  padding: 0 15px;
+}
+.noUi-horizontal.noUi-extended .noUi-origin {
+  right: -15px;
+}
+.noUi-vertical {
+  width: 18px;
+}
+.noUi-vertical .noUi-handle {
+  width: 28px;
+  height: 34px;
+  left: -6px;
+  top: -17px;
+}
+.noUi-vertical.noUi-extended {
+  padding: 15px 0;
+}
+.noUi-vertical.noUi-extended .noUi-origin {
+  bottom: -15px;
+}
+
+/* Styling;
+ */
+.noUi-background {
+  background: #fafafa;
+  box-shadow: inset 0 1px 1px #f0f0f0;
+}
+.noUi-connect {
+  background: #3fb8af;
+  box-shadow: inset 0 0 3px rgba(51, 51, 51, 0.45);
+  transition: background 450ms;
+}
+.noUi-origin {
+  border-radius: 2px;
+}
+.noUi-target {
+  border-radius: 4px;
+  border: 1px solid #d3d3d3;
+  box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
+}
+.noUi-target.noUi-connect {
+  box-shadow: inset 0 0 3px rgba(51, 51, 51, 0.45), 0 3px 6px -5px #bbb;
+}
+
+/* Handles and cursors;
+ */
+.noUi-dragable {
+  cursor: w-resize;
+}
+.noUi-vertical .noUi-dragable {
+  cursor: n-resize;
+}
+.noUi-handle {
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  background: #fff;
+  cursor: default;
+  box-shadow: inset 0 0 1px #fff,
+        inset 0 1px 7px #ebebeb,
+        0 3px 6px -3px #bbb;
+}
+.noUi-active {
+  box-shadow: inset 0 0 1px #fff,
+        inset 0 1px 7px #ddd,
+        0 3px 6px -3px #bbb;
+}
+
+/* Handle stripes;
+ */
+.noUi-handle:before,
+.noUi-handle:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 14px;
+  width: 1px;
+  background: #e8e7e6;
+  left: 14px;
+  top: 6px;
+}
+.noUi-handle:after {
+  left: 17px;
+}
+.noUi-vertical .noUi-handle:before,
+.noUi-vertical .noUi-handle:after {
+  width: 14px;
+  height: 1px;
+  left: 6px;
+  top: 14px;
+}
+.noUi-vertical .noUi-handle:after {
+  top: 17px;
+}
+
+/* Disabled state;
+ */
+[disabled].noUi-connect,
+[disabled] .noUi-connect {
+  background: #b8b8b8;
+}
+[disabled] .noUi-handle {
+  cursor: not-allowed;
+}
+
+
+/* --- MY SLIDER CUSTOMIZATION ---- */
+$grip-radius: 20px;
+$bar-height: 4px;
+
+.slider-container {
+  padding: 0px 20px;
+}
+
+.noUi-background {
+  height: $bar-height;
+  border: 0px;
+  box-shadow: none;
+}
+
+.noUi-base {
+  height: $bar-height;
+  border-width: 0px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.noUi-handle {
+  background-color: $brand-white;
+  border: 1px solid $brand-light-grey;
+  height: $grip-radius!important;
+  width: $grip-radius!important;
+  border-radius: 100000px;
+  margin-top: $bar-height/-2;
+  cursor: pointer;
+}
+.noUi-handle:before, .noUi-handle:after { //kill two lines on the slider
+  display: none;
+}
+
+.noUi-connect {
+  background-color: $brand-red;
+  height: $bar-height;
+  border: none;
+}
+
+//set color of sliders based on which are chosen
+$wine-color:$brand-red;
+$liquor-color:$brand-dark-grey;
+$beer-color:#b3691d;
+@mixin slider-colors($bar-color, $background-color) {
+  .noUi-base {
+    background-color: $bar-color;
+    .noUi-background { background-color: $background-color; }
+  }
+}
+
+#category-slider.all-categories {
+  .noUi-base {
+    background-color: $wine-color;
+    .noUi-connect { background-color: $liquor-color; }
+    .noUi-background { background-color: $beer-color; }
+  }
+}
+#category-slider.no-wine {
+  @include slider-colors($liquor-color, $beer-color)
+}
+#category-slider.no-liquor {
+  @include slider-colors($wine-color, $beer-color)
+}
+#category-slider.no-beer {
+  @include slider-colors($wine-color, $liquor-color)
+}

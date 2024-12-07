@@ -1,0 +1,33 @@
+<fieldset>
+  <legend> Delivery Hours </legend>
+  <div class="row">
+    <div class="large-12 column">
+      <p><strong>To change a stores opening hours, you need to edit individual shipping methods on the zones tab.</strong></p>
+      <p>Changes made on this page will not affect a stores opening hours for the purposes of routing and out-of-hours orders.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 column">
+      <label>
+        <%= form.check_box :closed_hours_effective %>
+        &nbsp;Do not show products outside working hours
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <%- (Date.today.beginning_of_week..Date.today.end_of_week).each do |date| %>
+      <div class="large-12 column">
+        <%= form.label date.strftime('%A') %>
+            <%- obj = @supplier.delivery_hours.find{|dh| dh.wday == date.wday } ||
+                      @supplier.delivery_hours.find_or_initialize_by(wday: date.wday) %>
+
+            <%= form.fields_for :delivery_hours, obj do |df| %>
+              <%= df.hidden_field :wday, value: date.wday %>
+              <%= df.hidden_field :id, value: obj.id %>
+              <div class="small-3 columns"><%= df.text_field :starts_at, class: 'ui-timepicker'%></div>
+              <div class="small-3 columns"><%= df.text_field :ends_at, class: 'ui-timepicker'%></div>
+            <%- end %>
+      </div>
+    <%- end %>
+  </div>
+</fieldset>

@@ -1,0 +1,265 @@
+//PRODUCT GRID STYLE
+
+$product-grid-tile-padding: 18px;
+
+$grid-product-stroke: #d0d0d0;
+$grid-product-stroke-light: #e6e6e6;
+$grid-product-hover-transparent: rgba(#000,0.06);
+$grid-product-hover-opaque: rgb(240,240,240); // this is the same as the above color (over white)
+
+.grid-product__container {
+  margin: 0;
+  flex: 1;
+}
+
+.grid-product {
+  @include flex-grid__fullsize-child;
+  position: relative;
+
+  .actions {
+    @include visibility-transition-invisible;
+    @include visibility-transition-base;
+    top: 40%;
+    width: 100%;
+    padding: 0 10%;
+    position: absolute;
+    display: block;
+    a {
+      font-size: 14px;
+    }
+    @media screen and (max-width: $small-max-width) {
+      top: 35%;
+    }
+  }
+}
+
+@mixin product-grid-tile-transition {
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+
+// this one is optional, used to switch to a row. fairly trivial:
+// put this on same level as image
+// below breapoint make grid-product__contents a flex-row
+// leave this a column, arrange contents appropriately.
+.grid-product__property__container--small-row {
+  @include flex-grid__fullsize-child;
+  align-self: stretch; // full width of container
+  flex-grow: 1;
+}
+
+.grid-product__contents {
+  @include flex-grid__contents;
+  align-items: stretch;
+  color: $brand-black;
+  padding: $product-grid-tile-padding;
+  text-align: left;
+  transition: background 0.2s ease-in-out;
+}
+
+.grid-product__button-label {
+  backdrop-filter: blur(8px);
+  background-color: $brand-white-transparent;
+  color: $brand-dark-grey;
+  display: inline-block;
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+  user-select: none;
+  width: 100%;
+}
+
+.grid-product__property__hover-wrapper {
+  @include flex-grid__fullsize-child;
+}
+
+.grid-product__property__hover-wrapper--inactive {
+  @include flex-grid__fullsize-child;
+}
+
+@mixin product-tile-hover-padding($padding){
+  left: -1 * $padding;  // puts background at edge of container
+  right: -1 * $padding;
+
+  // pad out products to be in correct spot
+  padding-left: $padding;
+  padding-right: $padding;
+  padding-bottom: $padding;
+}
+
+.grid-product__property__hover-wrapper--active {
+  @include flex-grid__fullsize-child;
+  @include visibility-transition-invisible;
+  @include visibility-transition-base;
+
+  background-color: rgb(240,240,240);
+  display: flex;
+  height: auto;
+  top: 0;
+
+  //only useful because if we start from transparent, its hover effect has a weird overlap
+  background-color: white;
+  .grid-product__property--link--hidden {
+    display: none; // if we're hiding it in the hover, I want it totally gone, not taking up height
+  }
+}
+
+.grid-product__image {
+  align-self: center;
+  z-index: -1;
+
+  //default size, should be overridden
+  height: 192px;
+  width: 115px;
+}
+
+.grid-product__property {
+  color: $brand-black;
+  flex-grow: 0;
+  font-size: 13px; //default, should be overridden
+  font-family: $font-family-helvetica;
+  font-weight: normal; // remove 300 that comes from heading styles
+  line-height: 1.4em;
+  letter-spacing: 0.5px;
+  margin-bottom: 0;
+  margin-top: 0;
+  overflow: hidden;
+  &.grid-product__property--main {
+    @extend .product-list__main-heading;
+  }
+  &.grid-product__property--discount {
+    margin-left: 2px;
+    text-decoration: line-through;
+  }
+}
+
+$name-max-height: 3.75em;
+$name-max-lines: 3;
+.grid-product__property--name {
+  @include flex-grid__contents__stretcher;
+  color: $brand-black;
+  margin-bottom: 0.35em;
+
+  // this prevents the title from overflowing - max three lines.
+  line-height: $name-max-height / $name-max-lines;
+  max-height: $name-max-height + .1em; // extra 1em to acccomodate top padding on PLP
+}
+
+$product-grid-tag-height: 13px;
+.grid-product__property--tag {
+  @include pixel-antialiased;
+  color: $brand-white;
+  font-family: $font-family-avenir;
+  font-size: 9px;
+  font-weight: $heavy-font-weight;
+  height: $product-grid-tag-height;
+  letter-spacing: 2px;
+  line-height: 15px; // extra 2px verticaly centers caps
+  padding: 0 5px;
+  text-transform: uppercase;
+  align-self: flex-start;
+
+  // This is needed to cover the top border of the name element with the tag
+  margin-bottom: -1px;
+  position: relative;
+
+  &.grid-product__property--tag--golden_delivery {
+    background-color: $brand-gold;
+  }
+
+  &.grid-product__property--tag--featured {
+    background-color: $brand-black;
+  }
+
+  &.grid-product__property--tag--flash_deal {
+    background-color: $brand-red;
+  }
+
+  &.grid-product__property--tag--sale, &.grid-product__property--tag--special_offer {
+    background-color: $sale-red;
+  }
+
+  &.grid-product__property--tag--staff_pick {
+    background-color: $brand-dark-grey;
+    &::before { //add star beforehand
+      content: '\2605';
+      padding-right: 2px;
+    }
+  }
+}
+
+
+.grid-product__property--link {
+  color: $brand-link-red;
+  font-size: 12px;
+  height: 15px;
+  &.grid-product__property--link--hidden {
+    visibility: hidden;
+  }
+}
+
+.grid-product__property--type {
+  text-transform: capitalize;
+}
+
+.grid-product__property--volume {
+  @include flex-bottom;
+  .grid-product__property--volume__value {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.grid-product__property--volume-options {
+  @include flex-grid(3, 3px);
+}
+
+.property--volume-options__element {
+  @include flex-grid__fullsize-child;
+  @include cap-at-nth(3);
+  margin-top: 9px;
+  margin-bottom: 3px;
+  min-height: 32px;
+
+  .button {
+    @include flex-center;
+    font-family: $font-family-helvetica;
+    font-size: 11px;
+    line-height: 1.25em;
+    margin-bottom: 0;
+    padding: 0 .1em;
+    text-transform: none;
+  }
+}
+
+.property--volume-options__element--selected {
+  .button {
+    &, &:hover {
+      background-color: $brand-red;
+      color: $brand-white;
+    }
+  }
+}
+
+.grid-product {
+  @include hover-no-mobile {
+    .actions {
+      @include visibility-transition-visible;
+    }
+    .grid-product__property--name {
+      border-color: $grid-product-stroke;
+    }
+    .grid-product__contents{
+      background: $grid-product-hover-transparent;
+    }
+    .grid-product__contents.grid-product__contents--loading{
+      background: initial;
+    }
+    .grid-product__property__hover-wrapper--active {
+      @include visibility-transition-visible;
+      background-color: $grid-product-hover-opaque;
+    }
+  }
+}

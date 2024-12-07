@@ -1,0 +1,326 @@
+//Layout
+
+#facets {
+  margin-top: $standard-spacing * 1.5;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .facet-top-container {
+    display: flex;
+
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+
+  #facet-list {
+    flex: auto;
+    margin-top: $standard-spacing / 2;
+  }
+
+  .breadcrumb-container {
+    flex: auto;
+    margin-top: $standard-spacing;
+
+    @media screen and (max-width: 767px) {
+      white-space: nowrap;
+      margin: 10px 0;
+    }
+  }
+
+  .inline-list {
+    margin-bottom: 0;
+    overflow: visible;
+  }
+  .facets__bottom-border {
+    margin-top: $standard-spacing * 1.5;
+    margin-bottom: 0;
+    border-color: $brand-light-grey;
+  }
+
+  .product-count {
+    font-size: 15px;
+  }
+}
+
+//Stats
+#stats-container { //keeps facets from sliding right before load
+  min-height: 1px;
+}
+
+//Breadcrumbs
+// .filter-toggle__list {
+//   li {
+//     margin-top: 5px;
+//   }
+// }
+
+// .filter-toggle{
+//   @include label(
+//     $radius: 4px,
+//     $bg: $brand-lighter-grey
+//   );
+//   color: $brand-black;
+//   display: inline-block;
+//   letter-spacing: 0;
+//   padding: 5px 5px 2px 5px;
+//   text-transform: none;
+//   &::after{
+//     @include sprite-icon($icons-icon-x-simple);
+//     content: '';
+//     display: inline-block;
+//     margin-left: 4px;
+//     opacity: .5;
+//   }
+//   &:hover::after {
+//     opacity: 1;
+//   }
+//   &:hover{
+//     background-color: $brand-light-grey;
+//     color: $brand-black;
+//   }
+//   &:visited{
+//     color: $brand-black;
+//   }
+// }
+
+//Facet Selectors
+.facet {
+  &.facet--sort {
+    position: relative;
+  }
+
+  .dropdown {
+    color: #222;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $font-family-avenir;
+    font-size: 15px;
+    line-height: 16px;
+    user-select: none;
+    &::after {
+      @include sprite-icon($icons-icon-dropdown);
+      content: '';
+      display: inline-block;
+      margin-bottom: 1px;
+      margin-left: 5px;
+    }
+    &:hover::after {
+      opacity: .5;
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 13px;
+    }
+  }
+  .f-dropdown {
+    box-shadow: rgb(230, 230, 230) 0px 0px 5px 0px;
+    border-color: $brand-light-grey;
+    padding: 12px 6px;
+    text-align: left;
+
+    li {
+      border-radius: 4px;
+      margin-bottom: 1px;
+      padding-left: 6px;
+      padding-top: 3px;
+      font-family: $font-family-avenir;
+      line-height: normal;
+      @media screen and (max-width: 767px) {
+        font-size: 13px;
+      }
+      &:hover {
+        background-color: #f6f6f6;
+      }
+      a {
+        position: relative;
+        padding-left: 20px;
+        span{
+          color: $brand-medium-grey;
+        }
+      }
+      a.selected::before {
+        @include sprite-icon($icons-icon-check);
+        content: '';
+        display: inline-block;
+        left: 0;
+        top: 12px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.dropdown-sort__toggle__label {
+  display: inline;
+  font-family: $font-family-avenir;
+  font-size: 15px;
+  line-height: 16px;
+  letter-spacing: normal;
+  margin-right: 5px;
+}
+.dropdown-sort__toggle{
+  border: 1px solid $brand-light-grey;
+  background-color: $brand-white;
+  padding: 8px;
+  border-radius: 4px;
+  min-width: 160px;
+  margin-left: 4px;
+
+  &::after{
+    float: right;
+    margin-right: 4px;
+    margin-top: 4px;
+    transition: transform .12s ease-in-out;
+  }
+  &.open::after{
+    transform: rotate(-180deg);
+  }
+}
+.dropdown-sort{
+  width: 160px;
+  border-radius: 4px;
+
+  position: absolute;
+  right: 0;
+  top: 45px;
+  left: auto;
+  z-index: 1;
+
+  &:before{
+    left: initial;
+    right: 10px;
+  }
+  &:after{
+    left: initial;
+    right: 9px;
+  }
+  &.hidden{
+    display: none;
+  }
+}
+
+
+@media screen and (min-width: $small-screen) {
+  .sort-option--descriptor {
+    display: none;
+  }
+}
+
+
+@mixin filter-hollow-button {
+  @include flex-center;
+  background-color: transparent;
+  border: 1px solid $brand-black;
+  color: $brand-black;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: $font-family-avenir;
+  min-height: 30px;
+  padding: 0.5em;
+  text-align: center;
+
+  &:focus, &.selected, &.open {
+    background-color: $brand-black;
+    color: $brand-white;
+  }
+}
+
+$mobile-breadcrumb-height: 38px;
+@media screen and (max-width: $small-screen - 1px) {
+  #facets {
+    margin-top: 0;
+    min-height: $mobile-breadcrumb-height;
+    .heading-metadata {
+      margin-top: 4px;
+    }
+  }
+
+  //hide other facet options, leaving sort
+  .inline-list > li.facet-list__wrapper { display: none; }
+
+  .facet--sort { float: right !important; }
+
+  .dropdown-sort__toggle__label {
+    display: none;
+  }
+
+  .facet.facet--sort {
+    position: initial; // let the dropdowns expand to full screen width
+  }
+
+  // .facet to win specificity
+  .facet .dropdown-sort__toggle {
+    @include filter-hollow-button;
+
+    font-size: 12px;
+    padding: 0 15px;
+    margin-top: 4px;
+
+    &::before{
+      content: 'Sort:';
+      padding-right: 5px;
+      text-transform: uppercase;
+    }
+    &.open {
+      color: $brand-white;
+      background-color: $brand-black;
+    }
+
+    &::after { display: none; }
+  }
+
+  #facet-selection-container {
+    position: static;
+  } // align dropdown to page
+
+  // all of the styles for the actual size dropdown
+  .dropdown-sort {
+    @include flex-grid(3, 4px);
+    display: flex; //override foundation
+
+    background-color: $brand-lighter-grey;
+    border-top: 0;
+
+    justify-content: space-around;
+    margin: 0;
+    border-radius: 0;
+
+    &.f-dropdown {
+      left: 0;
+      width: 100%;
+      max-width: none;
+      top: $mobile-breadcrumb-height;
+    }
+
+    &::before, &::after { // hide arrow on container
+      display: none;
+    }
+
+    li {
+      @include flex-grid__fullsize-child;
+    }
+
+    li.sort-option--descriptor {
+      @include filter-hollow-button;
+      border: none;
+    }
+
+    li a.sort-option {
+      @include filter-hollow-button;
+      padding: 0;
+
+      &::before { // remove checkbox on selected
+        opacity: 0;
+      }
+    }
+
+  }
+}
+
+
+
+
+
+
+

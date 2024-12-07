@@ -1,0 +1,12 @@
+<% content_for :nav, true %>
+<% content_for :title, 'Add Shipping Address' %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class="row">
+  <div class="large-8 medium-8 large-centered medium-centered column">
+    <h3 class="hero-h3">Add Shipping Address</h3>
+    <%= form_for(@address, :url => account_addresses_path(@address)) do |f| %>
+      <%= render :partial => 'form', :locals => {:f => f} %>
+    <% end %>
+  </div>
+</div>

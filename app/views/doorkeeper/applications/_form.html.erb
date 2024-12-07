@@ -1,0 +1,88 @@
+<%= form_for application, url: url, html: {class: 'form-horizontal', role: 'form'} do |f| %>
+  <% if application.errors.any? %>
+    <div class="alert alert-danger" data-alert><p>Whoops! Check your form for possible errors</p></div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group#{' has-error' if application.errors[:name].present?}" do %>
+    <%= f.label :name, class: 'col-sm-2 control-label', for: 'application_name' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: 'form-control' %>
+      <%= doorkeeper_errors_for application, :name %>
+    </div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group#{' has-error' if application.errors[:redirect_uri].present?}" do %>
+    <%= f.label :redirect_uri, class: 'col-sm-2 control-label', for: 'application_redirect_uri' %>
+    <div class="col-sm-10">
+      <%= f.text_area :redirect_uri, class: 'form-control' %>
+      <%= doorkeeper_errors_for application, :redirect_uri %>
+      <span class="help-block">
+         Use one line per URI
+        </span>
+      <% if Doorkeeper.configuration.native_redirect_uri %>
+          <span class="help-block">
+            Use <code><%= Doorkeeper.configuration.native_redirect_uri %></code> for local tests
+          </span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group" do %>
+    <%= f.label :storefront, class: 'col-sm-2 control-label', for: 'application_name' %>
+    <div class="col-sm-10">
+      <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items), include_blank: true  %>
+    </div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group#{' has-error' if application.errors[:capture_defaults_on_authorization].present?}" do %>
+    <%= f.label :capture_defaults_on_authorization, class: 'col-sm-2 control-label', for: 'capture_defaults_on_authorization' %>
+    <div class="col-sm-10">
+      <%= f.check_box :capture_defaults_on_authorization, class: 'form-control' %>
+      <%= doorkeeper_errors_for application, :capture_defaults_on_authorization %>
+      <span class="help-block">
+        This prompts the user to select/add default shipping and delivery addresses during the authorization grant flow. It is intended for use by non-traditional API clients such as Amazon Alexa and IoT buttons.
+      </span>
+    </div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group#{' has-error' if application.errors[:capture_payment_method_on_authorization].present?}" do %>
+    <%= f.label :capture_payment_method_on_authorization, class: 'col-sm-2 control-label', for: 'capture_payment_method_on_authorization' %>
+    <div class="col-sm-10">
+      <%= f.check_box :capture_payment_method_on_authorization, class: 'form-control' %>
+      <%= doorkeeper_errors_for application, :capture_payment_method_on_authorization %>
+      <span class="help-block">
+        This prompts the user to select/add a payment method during the authorization flow. It is intended for clients who do not wish to host a secure capture form.
+      </span>
+    </div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group#{' has-error' if application.errors[:allow_order_finalization].present?}" do %>
+    <%= f.label :allow_order_finalization, class: 'col-sm-2 control-label', for: 'allow_order_finalization' %>
+    <div class="col-sm-10">
+      <%= f.check_box :allow_order_finalization, class: 'form-control' %>
+      <%= doorkeeper_errors_for application, :allow_order_finalization %>
+      <span class="help-block">
+        This determines if clients are able to finalize orders. This is useful if we wish to test on production without worrying about actual credit card charges.
+      </span>
+    </div>
+  <% end %>
+
+  <%= content_tag :div, class: "form-group#{' has-error' if application.errors[:skip_account_take_over_check].present?}" do %>
+    <%= f.label :skip_account_take_over_check, class: 'col-sm-2 control-label', for: 'skip_account_take_over_check' %>
+    <div class="col-sm-10">
+      <%= f.check_box :skip_account_take_over_check, class: 'form-control' %>
+      <%= doorkeeper_errors_for application, :skip_account_take_over_check %>
+      <span class="help-block">
+        This determines if clients are able to log in without receiving a verification email. If activated, log in attempts by API Partners will NOT be checked by Sift Science Account Takeover (ATO) workflow.
+      </span>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Submit', class: "btn btn-primary" %>
+      <%= link_to "Cancel", oauth_applications_path, :class => "btn btn-default" %>
+    </div>
+  </div>
+<% end %>
+

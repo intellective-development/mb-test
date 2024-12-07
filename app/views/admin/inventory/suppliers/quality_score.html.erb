@@ -1,0 +1,41 @@
+
+<div class="score-wrapper">
+  <h1><strong><%= @supplier.name %></strong> Score - BETA</h1>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <h1 class="main-score <%=@score_class.call(@scores[:score])%>">
+        <%= number_to_percentage(@scores[:score], precision:2) %>
+      </h1>
+    </div>
+  </div>
+
+  <div class="score-row">
+    <% @scores[:categories].each do |category| %>
+      <div class="score-container">
+        <h2>
+          <%= category[:name].titleize %>
+          <small>
+            - <%= category[:count] %>
+          </small>
+        </h2>
+        <div class="progress radius selection-score">
+          <span class="meter <%=@score_class.call(category[:score])%>" style="width: <%= category[:score]%>%">
+          </span>
+          <span class="score-value">
+            <%= number_to_percentage(category[:score], precision:2)%>
+          </span>
+        </div>
+      <% category[:types].each do |type| %>
+        <p class="type-score">
+          <%= type[:name].titleize %>
+          <span class="<%= @score_class.call(type[:score]) %>">
+            <%= "#{type[:count]} - #{number_to_percentage(type[:score], precision:2)}" %>
+          </span>
+        </p>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBRadio renders 1`] = `
+<div
+  className="el-radio__circle-outer"
+>
+  <div
+    className="el-radio__circle-inner"
+  />
+</div>
+`;
+
+exports[`MBRadio renders an active button 1`] = `
+<div
+  className="el-radio__circle-outer el-radio__circle-outer--active"
+>
+  <div
+    className="el-radio__circle-inner el-radio__circle-inner--active"
+  />
+</div>
+`;

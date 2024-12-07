@@ -1,0 +1,33 @@
+<div class="row form-row">
+  <div class="large-5 medium-9 large-centered column">
+    <div class="checkout-frame">
+      <h2 class="modal-header">Pickup Details</h2>
+      <div class="checkout-panel">
+        <form id="checkout-pickup-detail">
+          <div class="row">
+            <div class="large-12 columns">
+              <p class="error hidden"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="pickup_detail_name">Full Name</label>
+              <input type="text" {{#if name}}value="{{name}}"{{/if}} id="pickup_detail_name" name="pickup_detail_name" placeholder="Full Name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="pickup_detail_phone">Phone Number</label>
+              <input type="text" {{#if pickup_detail}}value="{{pickup_detail.phone}}"{{/if}} maxlength="12" id="pickup_detail_phone" name="pickup_detail_phone">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <p class="pickup-warning">To pick up an order, customers must be age 21 or older, and they must show identification and the payment card used.</p>
+              <button action="submit" class="button expand" id="button-update-pickup-detail">Continue</a>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>

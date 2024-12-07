@@ -1,0 +1,16 @@
+<% content_for :title, 'Edit Promoted Filters' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<h3>Edit Promoted Filters</h3>
+
+<%= form_for @promoted_filter, :url  => admin_merchandise_promoted_filter_path(@promoted_filter),
+                        :html => {:id => "promoted_filter", :class => 'prepend-6'}  do |form| %>
+  <%= render :partial => '/admin/merchandise/promoted_filters/form', :locals => {:form => form } %>
+  <div class=" generic_submit_button">
+    <%= submit_tag "Update", :class => "button", :id => "update_promoted_filter_button", :form => "promoted_filter" %>
+  </div>
+<% end %>
+
+<%= render partial: 'add_facet_filter', promoted_filter: @promoted_filter %>
+
+<%= render partial: 'add_highlighted_filter', promoted_filter: @promoted_filter %>

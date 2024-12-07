@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierMap renders 1`] = `
+<div>
+  <div
+    class="elMBModal_SectionHeader elMBModal_SectionHeader_Top"
+  >
+    <div
+      aria-label="Back"
+      class="elMBModal_Back"
+    >
+      <img
+        alt="back"
+        class="el-mbicon--back"
+        src="/assets/components/elements/mb-icon/back.png"
+        srcset="/assets/components/elements/mb-icon/back@2x.png 2x, /assets/components/elements/mb-icon/back@3x.png 3x"
+      />
+      <span
+        class="elMBText elMBText_ResetSpacing elMBModal_BackText"
+      >
+         Back
+      </span>
+    </div>
+    <h4
+      class="elMBText elMBText_ResetSpacing elMBModal_SectionHeaderText"
+    />
+    <div
+      aria-label="Close"
+      class="elMBModal_Close"
+    >
+      <img
+        alt="close"
+        class="el-mbicon--close"
+        src="/assets/components/elements/mb-icon/close.png"
+        srcset="/assets/components/elements/mb-icon/close@2x.png 2x, /assets/components/elements/mb-icon/close@3x.png 3x"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      class="sm__header__container"
+    >
+      <h4
+        class="elMBText elMBText_ResetSpacing sm__header__name"
+      >
+        Manhattan Wine
+      </h4>
+      <h5
+        class="elMBText elMBText_ResetSpacing sm__header__location"
+      >
+         123 Jump Street, New York, New York
+      </h5>
+    </div>
+    <div />
+  </div>
+</div>
+`;

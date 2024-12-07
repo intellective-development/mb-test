@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliverySummary renders 1`] = `
+<div
+  class="el-touchable el-touchable--disabled sp__dm__container"
+  role="button"
+  tabindex="-1"
+>
+  <div
+    class="el-radio__circle-outer sp__dm__radio"
+  >
+    <div
+      class="el-radio__circle-inner"
+    />
+  </div>
+  <div
+    class="sp__dm__name-expectation-container"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing sp__dm__type"
+    >
+      Local Delivery
+    </span>
+    <span
+      class="elMBText elMBText_ResetSpacing sp__dm__next_delivery"
+    >
+      <span>
+        <span
+          class="sp__dm__closed"
+        >
+          Closed
+        </span>
+         - 
+      </span>
+      Next available: 1 hour or less
+    </span>
+  </div>
+  <span
+    class="elMBText elMBText_ResetSpacing sp__dm__cost sp__dm__cost--minimum"
+  >
+    $25 Minimum
+  </span>
+</div>
+`;
+
+exports[`DeliverySummary renders ShopRunner divs 1`] = `
+<div
+  class="el-touchable el-touchable--disabled sp__dm__container"
+  role="button"
+  tabindex="-1"
+>
+  <div
+    class="el-radio__circle-outer sp__dm__radio"
+  >
+    <div
+      class="el-radio__circle-inner"
+    />
+  </div>
+  <div
+    class="sp__dm__name-expectation-container"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing sp__dm__type"
+    >
+      Local Delivery
+    </span>
+    <span
+      class="elMBText elMBText_ResetSpacing sp__dm__next_delivery"
+    >
+      <span>
+        <span
+          class="sp__dm__closed"
+        >
+          Closed
+        </span>
+         - 
+      </span>
+      Next available: 1 hour or less
+    </span>
+  </div>
+  <div
+    style="display:flex;flex-grow:1;text-align:right;min-width:200px"
+  >
+    <div
+      style="width:100%"
+    >
+      <div
+        class="_SRD"
+        style="display:inline-block;vertical-align:middle;margin-right:0.5em"
+      >
+        <div
+          class="srd_iconline"
+        >
+          <div
+            class="srd_logo"
+          />
+        </div>
+      </div>
+      Free delivery
+    </div>
+  </div>
+</div>
+`;

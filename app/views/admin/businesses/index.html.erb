@@ -1,0 +1,31 @@
+<% content_for :title, 'Businesses' %>
+<div class="admin_title_header">
+  <h3>Businesses</h3>
+  <%= link_to "New Business", new_admin_business_path, class: "button" %>
+</div>
+
+<%= form_tag admin_businesses_path, method: :get, id: "businesses_filter" do %>
+  <div class="row collapse">
+    <div class="small-6 columns">&nbsp;</div>
+    <div class="small-4 columns">
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :name => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'><%= sortable "name", "Name" %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @businesses, as: 'business', cache: true %>
+  </tbody>
+</table>
+<%= paginate @businesses %>
+

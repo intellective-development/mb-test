@@ -1,0 +1,259 @@
+<% if order.ship_address %>
+  <div id="modal-address-<%= order.ship_address&.id %>" class="reveal-modal small row" data-reveal>
+      <a class="close-reveal-modal">&#215;</a>
+          <%= form_for order.ship_address, url: admin_user_datas_user_address_path(user_id: order.ship_address&.addressable_id, id: order.ship_address&.id),   method: :put  do |f| %>
+            <div class="large-12 column">
+              <label for="name">Name</label>
+              <%= f.text_field :name %>
+            </div>
+            <div class="large-12 column">
+              <label for="address1">Address Line 1</label>
+              <%= f.text_field :address1 %>
+              <label for="address2">Address Line 2</label>
+              <%= f.text_field :address2 %>
+            </div>
+            <div class="large-5 column">
+              <label for="city">City</label>
+              <%= f.text_field :city %>
+            </div>
+            <div class="large-3 column">
+              <label for="state_name">State</label>
+              <%= f.text_field :state_name %>
+            </div>
+            <div class="large-4 column">
+              <label for="zip_code">Zip</label>
+              <%= f.text_field :zip_code %>
+            </div>
+            <div class="large-12 column">
+              <label for="zip_code">Phone</label>
+              <%= f.text_field :phone %>
+            </div>
+            <div class="large-12 column">
+              <%= f.submit 'Save', class: 'button expand', id: 'save-address' %>
+            </div>
+          <% end %>
+    </div>
+
+
+<% end %>
+<div class="row order">
+  <div class="large-12 column panel">
+    <div class="row">
+      <div class="large-4 column">
+        <h4>Shipping address</h4>
+        <% if order.courier %><p><strong>This is a courier order.</strong></p><% end %>
+        <ul>
+          <li>
+            <%= render partial: '/shared/compact_address', locals: { shopping_address: order.ship_address} %>
+          </li>
+          <li>
+            <span class='t'>Tel:</span>
+            <% if order.gift? && !order&.gift_detail&.recipient_phone.blank? %>
+              <%= order.gift_detail.recipient_phone.phony_formatted(normalize: :US, format: :international) %>
+            <% else %>
+              <%= number_to_phone(order&.ship_address&.phone, area_code: true, delimiter: ' ') %>
+            <% end %>
+          </li>
+          <% if order.ship_address %>
+            <a href="#" data-reveal-id="modal-address-<%= order.ship_address&.id %>">edit</a>
+          <% end %>
+          <li>
+            <%= form_for(order, url: update_notes_admin_fulfillment_order_path, method: :post) do |f| %>
+              <span class='t'>Notes:</span>
+              <%= f.text_area :delivery_notes, placeholder: 'Leave blank (and click update) to remove delivery notes.' %>
+              <%= f.submit 'Update', class: 'button small' %>
+            <% end %>
+          </li>
+        </ul>
+        <% if order.pickup_detail && order.shipments.any?(&:pickup?) %>
+          <h4>Pickup Details</h4>
+          <ul>
+            <li><%= order.pickup_detail.name %> &mdash; <%= number_to_phone(order.pickup_detail.phone, area_code: true, delimiter: ' ') %></li>
+          </ul>
+          <% end %>
+      </div>
+      <div class="large-4 column billing-details">
+        <h4>Billing Details</h4>
+      <% if order.payment_profile %>
+        <div class="panel card">
+          <% if PaymentProfile::CREDIT_CARD_METHODS.include?(order.payment_profile.payment_type) %>
+            <span class="icon-card <%= order.payment_profile.cc_type.parameterize %>"></span>
+            <p>
+              <% if order.payment_profile.payment_type == PaymentProfile::AFFIRM %>
+                Affirm<br>
+              <% end %>
+              <strong>XXXX-XXXX-XXXX-<%= order.payment_profile.last_digits %></strong>
+              <br>Expires <%= order.payment_profile.month %>/<%= order.payment_profile.year %>
+            </p>
+          <% elsif order.payment_profile.payment_type == PaymentProfile::PAYPAL %>
+            <p>PayPal</p>
+          <% elsif order.payment_profile.payment_type == PaymentProfile::APPLE_PAY %>
+            <p>Apple Pay</p>
+          <% else %>
+            <p><%= order.payment_profile&.payment_type %></p>
+          <% end %>
+          <p>
+            <%= render partial: '/shared/compact_address', locals: { shopping_address: order.payment_profile.address} %>
+          </p>
+        </div>
+      <% end %>
+       </div>
+       <div class="large-4 column">
+        <% if order.shipments.any?(&:engraving?) && !order.gift? %>
+          <h4>Engraving</h4>
+          <p>
+            <strong>
+              This is an engraving order.
+            </strong>
+          </p>
+          <% engraving_items = order.shipments.engraving.map { |s| s.order_items.select { |oi| oi.item_options&.line1.present? } } %>
+          <div id="update-engraving-options"></div>
+        <% else  %>
+          <h4>Gift Options</h4>
+          <% if order.gift? %>
+            <p>
+              <strong>
+                This is a gift order.
+                <% unless order.gift_detail.recipient_name.blank? %>The recipient's name is <%= order.gift_detail.recipient_name %>.<% end %>
+                <% unless order.gift_detail.recipient_phone.blank? %>The recipient's contact number is <%= order.gift_detail.recipient_phone.phony_formatted(normalize: :US, format: :international) %>.<% end %>
+                <% unless order.gift_detail.recipient_email.blank? %>The recipient's email is <%= order.gift_detail.recipient_email %>.<% end %>
+              </strong>
+            </p>
+            <%= form_for(order.gift_detail, url: update_notes_admin_fulfillment_order_path, method: :post) do |f| %>
+              <%= f.text_area :message, required: true, placeholder: 'Please enter a gift message.' %>
+              <%= f.submit 'Update', class: 'button small' %>
+            <% end %>
+          <% else  %>
+            <p>This is not a gift order.</p>
+          <% end %>
+        <% end %>
+      </div>
+      <% if order.shipments.any?(&:engraving?) && order.gift? %>
+        <div class="large-4 column">
+          <h4>Engraving</h4>
+          <p>
+            <strong>
+              This is an engraving order.
+            </strong>
+          </p>
+          <% engraving_items = order.shipments.engraving.map { |s| s.order_items.select { |oi| oi.item_options&.line1.present? } } %>
+          <div id="update-engraving-options"></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="large-12 column">
+        <% shipment = order.shipments.map { |s| ShipmentPresenter.new(s, self) }.compact %>
+        <%= render partial: 'admin/fulfillment/orders/edit/shipment', collection: shipment, locals: { order: order }, cache: false %>
+        <h5>Order Totals</h5>
+        <table>
+          <% if order.membership_plan_id.present? && order.adjustable? %>
+            <tr>
+              <th colspan="7">
+                <%= order.membership_plan.name %>
+                <br>
+                <small>
+                  <%= link_to 'Remove Membership', remove_membership_plan_admin_fulfillment_order_path(order), data: { confirm: 'Are you sure you want to remove this membership?' }, method: :delete %>
+                </small>
+              </th>
+              <td><%= number_to_currency(order.membership_price) %></td>
+            </tr>
+          <% end %>
+          <%- if order.gift_card_amounts_list.empty? && (order.coupon.present? || order.coupons.exists?) %>
+            <tr>
+              <th colspan="7" align='right'>Coupons (not charged yet): <%= order.related_coupon_codes.join(", ") %></th>
+              <td><%= number_to_currency(-order.coupon_amount) %></td>
+            </tr>
+          <%- else %>
+            <%- order.gift_card_amounts_list.each do |code, coupon|  %>
+              <tr>
+                <th colspan="7" align='right'> <%= coupon[:type] %>: (<%= code %>)</th>
+                <td><%= number_to_currency(-coupon[:amount]) %></td>
+              </tr>
+            <% end %>
+          <% end %>
+          <% if order.shipping_charges.to_f > 0 %>
+          <tr>
+            <th colspan="7" align='right'> Shipping: </th>
+            <td><%= number_to_currency(order.shipping_charges) %></td>
+          </tr>
+          <% end %>
+          <% if order.bottle_deposits.to_f > 0 %>
+          <tr>
+            <th colspan="7" align='right'> Bottle Deposit Fees: </th>
+            <td><%= number_to_currency(order.bottle_deposits) %></td>
+          </tr>
+          <% end %>
+          <% if order.bag_fee.to_f > 0 %>
+            <tr>
+              <th colspan="7" align='right'> Bag Fees: </th>
+              <td><%= number_to_currency(order.bag_fee) %></td>
+            </tr>
+          <% end %>
+          <% unless order.retail_delivery_fee.zero? %>
+            <tr>
+              <th colspan="7" align='right'> Retail Delivery Fee: </th>
+              <td><%= number_to_currency(order.retail_delivery_fee) %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <th colspan="7" align='right'> Sales Tax: </th>
+            <td><%= number_to_currency(order.order_items_tax) %></td>
+          </tr>
+          <% if order.shipping_tax.to_f > 0 %>
+            <tr>
+              <th colspan="7" align='right'> Shipping Tax: </th>
+              <td><%= number_to_currency(order.shipping_tax) %></td>
+            </tr>
+          <% end %>
+          <% if order.membership_tax.to_f > 0 %>
+            <tr>
+              <th colspan="7" align='right'> Membership Tax: </th>
+              <td><%= number_to_currency(order.membership_tax) %></td>
+            </tr>
+          <% end %>
+          <% if order.shipping_methods.where(allows_tipping: true).exists? %>
+            <tr>
+              <th colspan="7" align='right'> Tips: </th>
+              <td><%= number_to_currency(order.tip_amount) %></td>
+            </tr>
+          <% end %>
+          <% if order.service_fee.to_f > 0 %>
+            <tr>
+              <th colspan="7" align='right'> Service Fee: </th>
+              <td><%= number_to_currency(order.service_fee) %></td>
+            </tr>
+          <% end %>
+          <% if order.service_fee_discounts.to_f > 0 && !order.membership_plan_record&.no_service_fee %>
+            <tr>
+              <th colspan="7" align='right'> Service Fee Discount: </th>
+              <td><%= number_to_currency(-order.service_fee_discounts) %></td>
+            </tr>
+          <% end %>
+          <% if order.video_gift_fee.positive? %>
+            <tr>
+              <th colspan="7" align='right'> Video Gift Fee: </th>
+              <td><%= number_to_currency(order.video_gift_fee) %></td>
+            </tr>
+          <% end %>
+          <% if order.membership_discount.to_f > 0 %>
+            <tr>
+              <th colspan="7" align='right'> Membership Discount (service fee, delivery, engraving): </th>
+              <td><%= number_to_currency(-order.membership_discount) %></td>
+            </tr>
+          <% end %>
+          <% if order.membership_coupon_discount.to_f > 0 %>
+            <tr>
+              <th colspan="7" align='right'> Membership Coupon Discount: </th>
+              <td><%= number_to_currency(-order.membership_coupon_discount) %></td>
+            </tr>
+          <% end %>
+          <tr class='order-total-row'>
+            <th colspan='7' align='right'> Order Total: </th>
+            <td><%= number_to_currency(order.taxed_total) %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

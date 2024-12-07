@@ -1,0 +1,6 @@
+<tr>
+  <td><%= transaction.transaction_id %></td>
+  <td><%= transaction.transaction_type.humanize %></td>
+  <td><%= transaction.sale? ? transaction.amount : -transaction.amount %></td>
+  <td><%= transaction.status.humanize %> </td>
+</tr>

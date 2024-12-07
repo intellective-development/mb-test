@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Business Supplier' %>
+<h3>New Business Supplier</h3>
+
+<%= form_for @business_supplier, url: admin_business_suppliers_path(supplier_id: @supplier.id) do |form| %>
+  <%= render partial: 'form', locals: { form: form, supplier: @supplier } %>
+
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>

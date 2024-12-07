@@ -1,0 +1,35 @@
+<div class='variant-tab'>
+  <div class="variants-table">
+    <div class="variants-table__cell thin-header" style="width: 6%">Delete</div>
+      <div class="variants-table__cell thin-header" style="width: 47%">Code</div>
+      <div class="variants-table__cell thin-header" style="width: 47%">Recipient</div>
+    </div>
+    <%= oi.fields_for :coupons, coupons do |c| %>
+      <div class="variants-table">
+        <%- coupon = c.object %>
+        <div class="variants-table__cell thin-cell" style="width: 6%">
+          <%= c.check_box :deleted, {checked: coupon.expired?} %>
+        </div>
+        <div  class="variants-table__cell" style="width: 47%">
+          <%= c.text_field :code, { id:'code-'+coupon.id.to_s, class: 'large-3 left variants-table__cell', disabled: true} %>
+          &nbsp;<%= link_to 'Details', admin_generic_coupon_path(coupon), :target => "_blank" %>
+        </div>
+        <div class="variants-table__cell" style="width: 47%">
+          <%= c.text_field :recipient_email, { class: 'variants-table__cell', placeholder: 'Recipient', value: coupon.attributes['recipient_email'] } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .variant-tab-form .variant-tab-form__input {
+    width: 100%;
+  }
+  .variant-tab-form .no-padding {
+    padding: 0;
+  }
+  .variant-tab-form .no-padding-left {
+    padding-left: 0;
+  }
+</style>

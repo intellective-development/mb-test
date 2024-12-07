@@ -1,0 +1,6 @@
+<% if session[:su_user].present? && current_user.present? %>
+  <div class="su-warning-filler"></div>
+  <div class="su-warning-bar">
+    <p>Currently acting as <strong><%= "#{current_user.name}" %></strong>. <%= link_to "Return to you", unsu_admin_customer_path(current_user) %> </p>
+  </div>
+<% end %>

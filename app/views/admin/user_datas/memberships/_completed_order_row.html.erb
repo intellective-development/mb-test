@@ -1,0 +1,24 @@
+<tr class="<%= order_row_style(order) %>">
+  <td>
+    <%= image_tag "ui/icon-out_of_hours.svg", align: 'right', width: 16 if order.shipments.any?(&:out_of_hours) %>
+    <%= image_tag "ui/icon-fraud.svg", align: 'right', width: 16 if order.fraud? %>
+    <%=  link_to order.number, edit_admin_fulfillment_order_path(order.number) %>
+  </td>
+  <td><%= order.order_suppliers.map(&:name).join(', ') %></td>
+  <td>
+    <% if order.shipments.any?{ |s| s.exception? } %>
+      <span class="label round alert">EXCEPTION</span>
+    <% elsif order.late_confirmation? %>
+      <span class="label round alert">UNCONFIRMED</span>
+    <% else %>
+      <span class="label round <%= order.state.downcase %>"><%= order.state.upcase %></span>
+    <% end %>
+  </td>
+  <td>
+    <% if order.completed_at %>
+      <%= order.completed_at.strftime('%H:%M %Z') %><br>
+      <small><%= order.completed_at.strftime('%a %d %B') %></small>
+    <% end %>
+  </td>
+  <td><%= number_to_currency(order.taxed_total) %> </td>
+</tr>

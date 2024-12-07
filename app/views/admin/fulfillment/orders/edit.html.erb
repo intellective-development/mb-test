@@ -1,0 +1,107 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, "Order #{@order.number}" %>
+<% content_for :strip do -%>
+  <%= render partial: 'admin/fulfillment/orders/edit/strip', object: @order, as: 'order' %>
+<% end %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/exception', object: @order, as: 'order' if @order.shipments.any?{ |s| s.current_state == 'exception' } %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/survey', object: @order, as: 'order' if @order.order_survey&.completed? %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/order_complete', object: @order, as: 'order' if @order.finalizing? %>
+<%= render partial: 'admin/fulfillment/orders/edit/order_verifying', object: @order, as: 'order' if @order.verifying? %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/order_detail', object: @order, as: 'order', cache: true  %>
+
+
+<%= render partial: 'admin/fulfillment/orders/edit/supplier_comments', object: @order, as: 'order', cache: true  %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/internal_comments', object: @order, as: 'order', cache: true  %>
+
+<%= render(partial: 'admin/fulfillment/orders/edit/order_substitutions', object: @order, as: 'order', cache: false) if @order.allow_substitution %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/order_adjustments', object: @order, as: 'order', cache: true  %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/shipment_history', object: @order, as: 'order', cache: @order.shipments.max{ |s| s.updated_at.to_i } %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/order_history', object: @order, as: 'order', cache: true %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/tracking_updates', object: @order, as: 'order' %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/payment_history', object: @order, as: 'order' %>
+
+<div id="modal-adjustment" class="reveal-modal medium" data-reveal></div>
+
+<%= render partial: 'admin/fulfillment/orders/edit/modal_fraud', object: @order, as: 'order' %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/modal_message', object: @order, as: 'order' %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/modal_text', object: @order, as: 'order' %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/modal_notification', object: @order, as: 'order' %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/modal_deliver', object: @order, as: 'order' %>
+
+<%= render partial: 'admin/fulfillment/orders/edit/modal_apply_gift_card', object: @order, as: 'order' %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag "cupertino/jquery-ui-1.8.12.custom" %>
+  <%= stylesheet_link_tag "vendor/slimselect", media: "all" %>
+<% end %>
+
+<%= content_for :head do %>
+  <%= javascript_include_tag 'admin/shipment' %>
+<%- end %>
+
+<%= render 'admin/fulfillment/orders/edit/dt_picker' %>
+
+<%= render 'admin/fulfillment/orders/edit/modal_js' %>
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [{
+      selector: 'fraudulent-accounts-component',
+      component: 'FraudulentAccounts',
+      options: {
+        fraudulent_account: {
+          id: <%= raw @order.user.id.to_json %>,
+          code: <%= raw @order.user.referral_code.to_json %>,
+          email: <%= raw @order.user.account.email.to_json %>
+        },
+        initial_related_accounts: <%= raw @initial_related_accounts.to_json %>,
+        related_accounts: <%= raw @related_accounts.to_json %>
+      }
+    }];
+
+    var order_items = <%= raw @order.shipments.engraving.map { |s| s.order_items.select { |oi| oi.engraving? } }.flatten.to_json(include: [:item_options, :variant]) %>;
+    var updateEngravingOptionsConfig = {
+      selector: 'update-engraving-options',
+      component: 'UpdateEngravingOptions',
+      options: {
+        order_items: order_items
+      }
+    };
+    component_config_block.push(updateEngravingOptionsConfig);
+
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+
+    function toggle_component(id){
+        const element = document.getElementById(id);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+  </script>
+<% end %>

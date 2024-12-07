@@ -1,0 +1,28 @@
+<h2>Adjustments (to be invoiced)</h2>
+<%= form_tag credits_admin_suppliers_invoice_path(invoice.uuid) do %>
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th>&#x2713;</th>
+      <th>Adjustment Date</th>
+      <th>Reason</th>
+      <th>Description</th>
+      <th>Order No</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% potential_adjustments.each do |adj| %>
+        <tr class='<%= cycle("odd", "")%>'>
+          <td><%= check_box_tag "adjustments[#{adj.id}]" %></td>
+          <td><%= adj.created_at.strftime("%m/%d/%Y") %></td>
+          <td><%= adj.reason.description %></td>
+          <td><%= adj.description %></td>
+          <td><%= adj.order.number %></td>
+          <td><%= number_to_currency(adj.amount) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag "Invoice Selected Adjustments", class: "button" %>
+<% end %>

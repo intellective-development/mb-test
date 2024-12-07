@@ -1,0 +1,120 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, 'Supplier Invoices' %>
+<% content_for :sidemenu do %>
+  <div class="admin_filters panel">
+    <%= form_tag admin_suppliers_invoices_path, :method => 'get', :id => "invoices_filter" do %>
+      <%= hidden_field_tag 'business', @business.name  %>
+      <label>Supplier</label>
+      <%= text_field_tag :supplier_name_query, params[:supplier_name_query] %>
+      <label>Month</label>
+      <%= month_field_tag :month, params[:month] %>
+      <label>
+        <%= check_box_tag :only_finalized, true, params[:only_finalized] %>
+        Show only finalized
+      </label>
+      <div>
+        <%= submit_tag "Filter", :name => nil, :class => "button small expand" %>
+        <%= link_to "Export", admin_suppliers_invoices_path(format: 'csv', business: @business.name, supplier_name_query: params[:supplier_name_query], month: params[:month]), class: 'button small expand' %>
+      </div>
+    <% end %>
+  </div>
+  <div class="admin_filters panel">
+    <%= form_tag new_admin_suppliers_invoice_path, :method => 'get', :id => "invoices_create" do %>
+      <%= hidden_field_tag 'business', @business.name  %>
+      <div class="invoice-recipient-select" id="recipient-select-component"></div>
+      <label>Month to Invoice</label>
+      <%= month_field_tag :month %>
+      <label>
+        <%= check_box_tag :all %>
+        Start All (Ignores above)
+      </label>
+      <div>
+        <%= submit_tag "Start Invoice", :name => nil, :class => "button small expand" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<div class="row">
+  <h1><%= @business.name %> Invoices</h1>
+  <%
+    enqueued = Sidekiq::Queue.new('invoicing').size
+    if enqueued.positive?
+  %>
+    <div data-alert class='alert-box'>
+      There are <b><%= enqueued  %></b> invoices still processing
+    </div>
+  <% end %>
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th>Recipient</th>
+      <th>Period</th>
+      <th>Created at</th>
+      <th>Status</th>
+      <th>Total</th>
+      <th>Shipments</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @invoices.each do |invoice| %>
+        <tr class='<%= cycle("odd", "")%>'>
+          <td><%= link_to invoice.recipient_name, admin_suppliers_invoice_path(invoice.uuid, business: @business.name) %></a></td>
+          <td><%= invoice.period_start.utc.strftime("%m/%d/%Y") %></td>
+          <td><%= invoice.created_at.strftime("%m/%d/%Y %l:%M %p") %></td>
+          <td><%= invoice.status %></td>
+          <td><%= invoice.total_amount %></td>
+          <td><%= invoice.invoiced_shipments %></td>
+          <td>
+            <% if invoice.finalized? %>
+              <%= link_to 'Rerun',
+                          rerun_admin_suppliers_invoice_path(invoice.uuid,
+                                                             business: @business.name,
+                                                             month: params[:month],
+                                                             supplier_name_query: params[:supplier_name_query],
+                                                             only_finalized: params[:only_finalized]),
+                          method: :post %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @invoices %>
+</div>
+
+<%= content_for :bottom do -%>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script>
+    var CHARS_PER_LINE = 20;
+    var HEIGHT_INCREASE_ON_WRAP = 8;
+    // options become larger as text wraps
+    function calculate_option_height(obj) {
+      var height = 24;
+      var text = obj.option.name;
+      height = height + (Math.floor(text.length / CHARS_PER_LINE) * HEIGHT_INCREASE_ON_WRAP);
+      return height;
+    };
+
+    var component_config_block = [
+      {
+        selector: 'recipient-select-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'recipient',
+          label: 'Recipient Name'
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<%- end %>

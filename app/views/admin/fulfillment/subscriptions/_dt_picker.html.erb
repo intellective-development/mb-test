@@ -1,0 +1,11 @@
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'vendor/jquery.simple-dtpicker' %>
+  <%= stylesheet_link_tag 'vendor/jquery.simple-dtpicker' %>
+  <script>
+    $(function(){
+      $('#next_order_date').appendDtpicker({
+        "futureOnly": true
+      });
+    });
+  </script>
+<% end %>

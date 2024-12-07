@@ -1,0 +1,215 @@
+.vineyard-select {
+
+  .header {
+    background: $brand-white url(image_path('landing_pages/vineyard_select/header.jpg')) no-repeat center;
+    background-size: cover;
+    padding: 5rem 25%;
+    @media only screen and (max-width: $medium-min-width) {
+      padding: 10%;
+    }
+  }
+  .header__content {
+    color: $brand-white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: $font-family-avenir;
+    text-align: center;
+    h1 {
+      font-family: $font-family-tiempos;
+      color: $brand-white;
+      font-size: 36px;
+      text-shadow: 0 0 4px black;
+    }
+    .subhead {
+      font-size: 18px;
+      margin: 10px 0;
+      text-shadow: 0 0 4px black;
+    }
+    .shipping {
+      align-self: center;
+      padding: 5px 50px;
+      background-color: rgba(97, 187, 124, 0.5);
+      font-size: 14px;
+    }
+    .legal-thin {
+      text-align: left;
+    }
+  }
+}
+
+.vs-page__logo {
+  margin: 0 auto 1rem auto;
+}
+
+.vs-page__body-wrapper {
+  .vs-page__description {
+    padding-top: 64px;
+  }
+  .vs-page__description-body {
+    @include font-size(16);
+    line-height: 1.7em;
+    padding: 28px 23% 58px;
+    font-family: $font-family-avenir;
+    font-weight: $heavy-font-weight;
+    text-align: center;
+  }
+
+
+  .vs-page__instructions {
+    padding: 88px 0 52px;
+    background-color: $brand-lighter-grey;
+  }
+
+  .vs-page__instructions__item-list{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 24px;
+
+    @media only screen and (max-width: $medium-min-width) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .vs-page__instructions__item{
+    max-width: 300px;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 24px;
+  }
+
+  .vs-page__instructions__icon {
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .vs-page__instructions__title {
+    @include font-size(14);
+
+    font-family: $font-family-avenir;
+    font-weight: $heavy-font-weight;
+    color: $brand-black;
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+    padding-bottom: 16px;
+  }
+
+  .vs-page__instructions__body {
+    @include font-size(16);
+
+    font-family: $font-family-avenir;
+    color: $brand-charcoal;
+    line-height: 24px;
+    padding: 0 40px;
+  }
+
+  .vs-page__vineyard {
+    margin: 44px auto;
+  }
+
+  .vs-page__vineyard__description {
+    padding: 24px 0 16px;
+    display: flex;
+    align-items: center;
+
+    @media only screen and (max-width: $medium-min-width) {
+      flex-direction: column;
+    }
+  }
+
+  .vs-page__vineyard__body {
+    flex: 1 1 0;
+    font-family: $font-family-avenir;
+    line-height: 26px;
+    padding-right: 50px;
+
+    @media only screen and (max-width: $medium-min-width) {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-right: 0;
+    }
+  }
+
+  .vs-page__vineyard__image {
+    flex: 1 1 0;
+  }
+
+  .vs-page__bottle-container {
+    display: flex;
+    background-color: $brand-lighter-grey;
+    padding: 32px 24px;
+    margin-bottom: 32px;
+    font-family: $font-family-avenir;
+
+    @media only screen and (max-width: $medium-min-width) {
+      flex-wrap: wrap;
+    }
+  }
+
+  .vs-page__bottle-image {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .vs-page__bottle-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    @media only screen and (max-width: $medium-min-width) {
+      margin: 20px 0;
+    }
+    .bottle-headline {
+      font-size: 20px;
+      font-weight: $heavy-font-weight;
+    }
+    .bottle-description {
+      font-weight: $heavy-font-weight;
+      font-size: 14px;
+      line-height: 1.3em;
+
+      @media only screen and (max-width: $medium-min-width) {
+        margin: 10px 0;
+      }
+    }
+    .bottle-price {
+      font-weight: $heavy-font-weight;
+      font-size: 14px;
+    }
+  }
+}
+
+.vs-page__headline {
+  @include font-size(14);
+  text-align: center;
+  position: relative;
+
+  >span {
+    background-color: $brand-white;
+    font-family: $font-family-avenir;
+    font-weight: $heavy-font-weight;
+    color: $brand-black;
+    letter-spacing: 1.9px;
+    text-transform: uppercase;
+    padding: 0 20px;
+  }
+
+  &:before {
+    content: '\a0';
+    display: block;
+    background-color: $brand-light-grey;
+    height: 1px;
+    position: absolute;
+    top: 0.5em;
+    width: 100%;
+    z-index: -1;
+  }
+}

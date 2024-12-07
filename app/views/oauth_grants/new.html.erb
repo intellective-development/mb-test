@@ -1,0 +1,53 @@
+<div class="row push-down">
+  <div class="large-5 medium-5 large-centered column">
+    <div class="checkout-frame" id="checkout-login-form">
+      <h3 class="modal-header">Log in to Minibar Delivery</h3>
+      <div class="checkout-panel">
+        <%= form_for resource, as: resource_name, method: :post, url: oauth_session_path(resource) do |form| %>
+          <%= form.hidden_field :return_to,   value: session['oauth_return_to'] %>
+          <%= form.hidden_field :remember_me, value: true %>
+          <% if resource.errors.any? %>
+          <div id="error_explanation" class="errors">
+            <h2 class="subhead-4"><%= pluralize(resource.errors.count, "error") %> prohibited you from logging in:</h2>
+            <ul>
+            <% resource.errors.full_messages.uniq.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if resource.errors.any? %>
+          <div id="error_explanation" class='errors'>
+            <ul>
+            <% resource.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if flash[:alert].present? %>
+          <p class="notice center red errors"><%= flash[:alert] %></p>
+        <% end %>
+          <div class="row form-row">
+            <div class="large-12 column">
+              <%=form.label :email, 'Email' %>
+              <%= form.email_field :email, autocomplete: 'on', autocapitalize: 'off', placeholder: 'you@yourdomain.com' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 column">
+              <label for="password">Password</label>
+              <%= form.password_field :password, autocomplete: 'on', autocapitalize: 'off' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 column">
+              <button type="submit" class="button expand" id="button-log-in">Continue</button><br>
+            </div>
+            <p class="center secondary">Need an account? <%= link_to 'Sign Up', oauth_registration_path(params.symbolize_keys) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

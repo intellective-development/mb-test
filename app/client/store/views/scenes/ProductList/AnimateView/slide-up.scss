@@ -1,0 +1,31 @@
+@keyframes SlideUpEnter {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes SlideUpExit {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.slide-up {
+  &-enter,
+  &-exit {
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+  }
+  &-enter {
+    animation-name: SlideUpEnter;
+  }
+  &-exit {
+    animation-name: SlideUpExit;
+  }
+}

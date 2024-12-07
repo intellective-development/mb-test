@@ -1,0 +1,61 @@
+<div class="row push-down">
+  <div class="large-5 medium-5 large-centered column">
+    <div class="checkout-frame" id="checkout-login-form">
+      <h3 class="modal-header">Create an Account</h3>
+      <div class="checkout-panel">
+        <%= form_for resource, as: resource_name, method: :post, url:  new_oauth_registration_path(resource) do |form| %>
+          <%= form.hidden_field :return_to, value: session['oauth_return_to'] %>
+          <% if resource.errors.any? %>
+          <div id="error_explanation" class="errors">
+            <p class="error">Please correct the following errors:</p>
+            <ul>
+            <% resource.errors.full_messages.uniq.each do |msg| %>
+              <li class="error"><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if flash[:alert].present? %>
+          <p class="notice center red errors"><%= flash[:alert] %></p>
+        <% end %>
+          <div class="row form-row">
+            <div class="large-12 column">
+              <%= form.label :first_name, 'First Name' %>
+              <%= form.text_field :first_name, autocomplete: 'on', autocapitalize: 'on' %>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="large-12 column">
+              <%= form.label :last_name, 'Last Name' %>
+              <%= form.text_field :last_name, autocomplete: 'on', autocapitalize: 'on' %>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="large-12 column">
+              <%= form.label :email, 'Email' %>
+              <%= form.email_field :email, autocomplete: 'on', autocapitalize: 'off', placeholder: 'you@yourdomain.com' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 column">
+              <label for="password">Password</label>
+              <%= form.password_field :password, autocomplete: 'on', autocapitalize: 'off' %>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="large-12 column">
+              <label for="password">Confirm Password</label>
+              <%= form.password_field :password_confirmation, autocomplete: 'on', autocapitalize: 'off' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 column">
+              <button type="submit" class="button expand" id="button-log-in">Continue</button><br>
+            </div>
+            <p class="center secondary">Have an account? <%= link_to 'Sign In', oauth_session_path(params.symbolize_keys) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

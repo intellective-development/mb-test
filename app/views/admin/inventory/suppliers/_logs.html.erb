@@ -1,0 +1,56 @@
+<head>
+<style>
+  table { border-collapse: collapse; border-bottom: 1px solid black; }
+  tbody { border-left: 1px solid black; border-right: 1px solid black; }
+  tr:nth-child(even) { background-color: #eee !important; }
+</style>
+<% [
+  { title: "Supplier", records: @supplier_logs },
+  { title: "Delivery Hours", records: @delivery_logs },
+  { title: "Address", records: @address_logs },
+  { title: "Notification", records: @notification_logs },
+  { title: "Contract", records: @invoice_logs },
+  { title: "Businesses", records: @business_logs }
+].each do |logs| %>
+  <fieldset>
+    <legend><%= logs[:title] %></legend>
+    <% if logs[:records] %>
+      <div class="row">
+        <div class="large-12 column">
+          <table>
+            <tbody>
+              <% logs[:records].each do |log| %>
+                <tr style="border-top: 1px solid black">
+                  <td><strong>Event: <%= log.event %></strong></td>
+                  <td><strong>Admin: <%= log.whodunnit ? User.find(log.whodunnit)&.email : "System" %></strong></td>
+                  <td><%= format_date log.created_at %></td>
+                  <td></td>
+                </tr>
+                <% log.object_changes&.each do |change, values| %>
+                  <tr>
+                    <td><strong>Change:</td>
+                    <td><%= change %></td>
+                    <td><%= values.first %></td>
+                    <td><%= values.last %></td>
+                  </tr>
+                <% end %>
+                <% if log.transaction_id && log.transaction_id != log.id %>
+                  <% associated = Version.find_by(id: log.transaction_id) %>
+                  <% associated&.object_changes&.each do |change, values| %>
+                    <tr>
+                      <td><%= "#{associated.item_type} (##{associated.item_id})" %></td>
+                      <td><%= change %></td>
+                      <td><%= values.first %></td>
+                      <td><%= values.last %></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate logs[:records] %>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+<% end %>

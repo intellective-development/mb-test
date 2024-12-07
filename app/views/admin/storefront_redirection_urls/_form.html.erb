@@ -1,0 +1,62 @@
+<%= error_messages_for 'storefront_redirection_url' %>
+<%= error_messages_for 'order' %>
+<%= form.hidden_field :storefront_id, value: @storefront.id %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Name</label>
+        <%= form.text_field :name %>
+      </div>
+      <div>
+        <label>User ID (Blank for Guest User)</label>
+        <%= number_field_tag :user_id %>
+      </div>
+      <div>
+        <label>Cart ID</label>
+        <%= number_field_tag :cart_id, required: true %>
+      </div>
+      <div>
+        <label>Address</label>
+        <%= select_tag :shipping_address_id, options_from_collection_for_select(Address.where(addressable: current_user), :id, :name), include_blank: true %>
+      </div>
+      <div>
+        <label>Allow Substitution</label>
+        <%= check_box_tag :allow_substitution, true, false %>
+      </div>
+    </div>
+    <div class="large-6 column">
+      <div>
+        <label>Tip</label>
+        <%= number_field_tag :tip %>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<h3>Order Gift Options</h3>
+
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Message</label>
+        <%= text_field_tag 'gift_options[recipient_name]' %>
+      </div>
+      <div>
+        <label>Recipient Phone</label>
+        <%= telephone_field_tag 'gift_options[recipient_phone]' %>
+      </div>
+    </div>
+    <div class="large-6 column">
+      <div>
+        <label>Recipient Email</label>
+        <%= text_field_tag 'gift_options[recipient_email]' %>
+      </div>
+      <div>
+        <label>Message</label>
+        <%= text_field_tag 'gift_options[message]' %>
+      </div>
+    </div>
+  </div>
+</fieldset>

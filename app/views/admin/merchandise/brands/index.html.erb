@@ -1,0 +1,61 @@
+<% content_for :title, 'Brands' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <div class='admin_filters panel'>
+    <h5>Search Brands</h5>
+    <%= form_tag admin_merchandise_brands_path, :method => 'get', :id => "brands_search" do %>
+      <label>Name</label>
+      <div class="row collapse">
+        <%= text_field_tag :name, params[:name] %>
+        <p><small>To perform a search on a partial name, use wildcard <em>%</em> characters. For example <em>%vodka%</em>.</small></p>
+      </div>
+      <div class="row collapse">
+        <div class="small-1 column"><%= check_box_tag 'sponsored', true, params[:sponsored] %></div>
+        <div class="small-11 columns"><%= label_tag 'Sponsored only', nil, class: "sponsored-label" %></div>
+      </div>
+      <div style="text-align:center; margin-top: 15px">
+        <%= submit_tag "Search", :name => nil, :class => 'button alert' %>
+      </div>
+      <div id="order_hidden">
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
+      </div>
+    </div>
+    <% end %>
+    <div class='clearfix'></div>
+  </div>
+<% end %>
+<div class='admin_title_header'>
+  <h3>Brands</h3>
+  <%= link_to "New Brand", new_admin_merchandise_brand_path, :class => 'button' %>
+</div>
+
+<div class="admin_brands">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th></th>
+      <th class='column1_header'>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <% for brand in @brands %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td><%= image_tag "ui/icon-star.svg", align: 'left', width: 16 if brand.parent? %></td>
+        <td>
+          <%= link_to brand.name, admin_merchandise_brand_path(brand) %><br>
+          <small>
+          ID: <%= brand.id %> &mdash;&nbsp;
+          <% if brand.parent? %>
+            Sub-Brands: <%= brand.sub_brands.size %> &mdash;&nbsp;
+          <% end %>
+          Product Groupings: <%= brand.product_size_groupings.active.count %> &mdash; <%= link_to 'View Product Groupings', admin_catalog_index_path(brand_ids: brand.id) %> <%= "Distributors: #{brand.distributors.count}" if brand.distributors.any? %>
+          </small></td>
+        <td><%= link_to "Edit", edit_admin_merchandise_brand_path(brand) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @brands %>
+</div>

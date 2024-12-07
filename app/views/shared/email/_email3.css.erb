@@ -1,0 +1,505 @@
+/* -------------------------------------
+    GLOBAL
+------------------------------------- */
+/*
+* {
+  margin:0;
+  padding:0;
+}
+
+{ font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; }
+*/
+
+img {
+  max-width:100%;
+}
+body {
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:none;
+  width: 100%!important;
+  height: 100%;
+  background-color: #f9f9f9;
+}
+
+/* -------------------------------------
+    INK OVERWRITES
+------------------------------------- */
+  .panel{
+    background-color: #ffffff;
+    border:0px;
+    padding:0px;
+    margin:0px;
+  }
+
+  table.container{
+    background-color: #ffffff;
+  }
+
+  table.button{
+    width:auto;
+    padding-left:20px;
+  }
+
+  table.button.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  table.button td a,
+  table.tiny-button td a,
+  table.small-button td a,
+  table.medium-button td a,
+  table.large-button td a {
+    padding:20px;
+    text-transform: uppercase;
+    font-size:16px;
+    letter-spacing: 2px;
+  }
+
+  table.button td {
+    border: transparent;
+  }
+
+  .wrapper{
+    padding-top: 0px;
+  }
+
+/* -------------------------------------
+    ELEMENTS
+------------------------------------- */
+a { color: #2BA6CB;}
+
+p.border-line{
+  border-bottom:1px solid #eee;
+  background-color: #ffffff;
+  width:100px;
+  margin-top:5px;
+}
+
+td.panel{
+  padding:0px;
+}
+
+/*td{
+  padding:0px;
+}
+*/
+
+
+
+/* -------------------------------------
+    CONFIRMATION SUB-GRID HACK
+------------------------------------- */
+.product-image{
+  width:130px;
+}
+
+.product-name{
+  padding-left:15px;
+  width:240px;
+}
+
+.size-and-cost{
+  padding-left:10px;
+  width:80px;
+}
+
+/* -------------------------------------
+    TABLES THAT ARE TABLES
+------------------------------------- */
+table.true-table{
+  font-family:"Avenir-Book", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 80%;
+}
+
+table.true-table tr td, th{
+  font-family: inherit;
+  padding:5px 10px;
+  white-space: nowrap;
+}
+
+table.true-table tr td a{
+  font-size:14px;
+  color:#63b0b5;
+}
+/* -------------------------------------
+    LAYOUT
+------------------------------------- */
+
+/* ----- Containers ----- */
+table.container.main{
+  margin-bottom: 10px !important;
+  border:1px solid #e6e6e6;
+}
+
+table.container.main-first{
+  margin-top:10px !important;
+  margin-bottom: 10px !important;
+  border:1px solid #e6e6e6;
+}
+
+table.container.sub{
+  border:1px solid #e6e6e6;
+  border-top: 0px;
+  padding-bottom:0px;
+}
+
+table.container.top-border{
+  margin-top: 20px !important;
+  border-top: 1px solid #e6e6e6 !important;
+}
+
+table.container.sub-top{
+  border:1px solid #e6e6e6;
+  padding-bottom:0px;
+}
+
+table.container.sub-top-first{
+  border:1px solid #e6e6e6;
+  margin-top: 10px !important;
+  padding-bottom:0px;
+}
+
+table.container.invis{
+  border:0px solid #e6e6e6;
+  border-top: 0px;
+  padding-bottom:0px;
+}
+
+td.pred{
+  min-width: 100px !important;
+}
+
+
+
+/* ----- Vertical ----- */
+.section {
+  margin-top:45px; /* Extra 20 to account for inks bottom margins */
+  margin-bottom:25px;
+}
+
+.section-even{
+  margin-top:45px;
+  margin-bottom:35px;
+}
+
+.section-less {
+  margin-top:30px; /* Extra 20 to account for inks bottom margins */
+  margin-bottom:10px;
+}
+
+.section-bottom-less {
+  margin-top:45px; /* Beneath subgrid, occasionally Ink adds 20*/
+  margin-bottom:15px;
+}
+
+.section-logo {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.no-bottom {
+  margin-bottom:0px;
+}
+
+.no-top {
+  margin-top:0px !important;
+}
+
+.no-vertical{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* ----- Horizonatal ----- */
+.indent{
+  margin-right:50px;
+  margin-left:50px;
+}
+
+.indent-minor{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.indent-major{
+  margin-left:80px;
+  margin-right:80px;
+}
+
+.no-left{
+  margin-left: 0px;
+  padding-left: 0px !important;
+}
+
+.no-right{
+  margin-right: 0px;
+}
+
+.no-sides{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.bottom-border{
+  border-bottom:1px solid #e6e6e6;
+}
+
+.no-bottom-border{
+  border-bottom:none!important;
+}
+
+/* -------------------------------------
+    MIXINS(?)
+------------------------------------- */
+table.container.no-box{ padding:0px; border:0px; margin:0px; }
+.wrapper.no-box{ padding:0px; border:0px; margin:0px; }
+
+/* -------------------------------------
+    TYPOGRAPHY
+------------------------------------- */
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Avenir-Book", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.1; letter-spacing:3px; margin-bottom:15px; color:#212F40;
+}
+
+h5.title {
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { font-size: 60%; color: #212F40; line-height: 0; text-transform: none; }
+
+h1 { font-size: 28px;}
+h2 { font-size: 24px;}
+h3 { font-size: 20px;}
+h4 { font-size: 18px;}
+h5 { font-size: 16px; text-transform: uppercase;}
+h6 { font-size: 14px;}
+
+.collapse { margin:0!important;}
+
+a, p, b, li {
+  font-family: "Avenir-Book", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #A2A1A1;
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size:18px;
+  line-height:1.4;
+}
+
+p.center{
+  text-align: center;
+}
+
+.dark{
+  color:#222222;
+}
+
+.small{
+  font-size: 16px;
+}
+
+.tiny{
+  font-size: 12px;
+}
+
+b.red{
+  font-weight:normal !important;
+  color:#990000;
+  font-size: inherit;
+}
+
+b.green{
+  font-weight:normal !important;
+  color:#63b0b5;
+  font-size: inherit;
+}
+
+b {
+  font-weight:bold;
+  font-size: inherit;
+}
+
+.text-link {
+  color: #781214 !important;
+  font-weight: none;
+  font-size: inherit;
+}
+
+.text-link:hover{
+  text-decoration: underline;
+}
+
+.heading-image-left {
+  margin-right: 15px;
+}
+.text-legal {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+em {
+  font-style: italic;
+}
+
+ul li {
+  margin-left:5px;
+  list-style-position: inside;
+}
+
+.footer-legal {
+  background-color: #f9f9f9 !important;
+  padding-top:10px;
+}
+
+/* -------------------------------------
+    GIFT CARDS
+------------------------------------- */
+
+table.gift-card {
+    width: 100%;
+    font-family: Avenir;
+}
+
+table.gift-card h2 {
+    font-family: TiemposHeadlineWeb-Bold;
+    font-weight: 900;
+    letter-spacing: 0;
+    margin: 0;
+}
+
+table.gift-card table.banner {
+    margin-top: 28px;
+    margin-bottom: 19px;
+    width: 553px;
+    height: 275px;
+}
+
+table.gift-card table.banner td {
+    height: 275px;
+    overflow: hidden;
+    display: block;
+}
+
+table.gift-card img.image {
+    margin: 20px auto 0;
+    width: 293px;
+    float: none;
+}
+
+table.gift-card b {
+    font-weight: 800;
+    color: #000;
+}
+
+table.gift-card p.price  {
+    font-size: 22px;
+    color: #000;
+}
+
+table.gift-card p.message, table.gift-card p.sender, table.gift-card p.code {
+    font-size: 16px;
+    color: #000;
+    padding: 0 6px 26px;
+    max-width: 541px;
+    overflow-wrap: break-word;
+}
+
+table.gift-card table.button {
+    margin-bottom: 40px;
+}
+
+table.gift-card table.button td {
+    width: 214px !important;
+}
+
+table.gift-card table.button td a {
+    font-size: 13px;
+}
+
+
+/* ---------------------------------------------------
+    RESPONSIVENESS
+    Nuke it from orbit. It's the only way to be sure.
+------------------------------------------------------ */
+
+/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+.container {
+  display:block!important;
+  max-width:650px!important;
+  margin:0 auto!important; /* makes it centered */
+  clear:both!important;
+}
+
+/* Be sure to place a .clear element after each set of columns, just to be safe */
+.clear { display: block; clear: both; }
+
+
+/* -------------------------------------------
+    PHONE
+    For clients that support media queries.
+    Nothing fancy.
+-------------------------------------------- */
+
+@media only screen and (max-width: 580px) {
+
+  /* ----- Vertical ----- */
+  .section, .section-even, .section-less, .section-logo, .section-bottom-less  {
+    margin-top:20px !important; /* Extra 10 to account for inks bottom margins */
+    margin-bottom:0px !important;
+  }
+
+  .section-logo{
+    margin-top:30px !important;
+  }
+
+  .no-top{
+    margin-top:0px !important;
+  }
+
+  /* ---- Horizontal ---- */
+  .indent{
+    margin-right:15px !important;
+    margin-left:15px !important;
+  }
+
+  .indent-minor{
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+
+  .indent-major{
+    margin-left:20px !important;
+    margin-right:20px !important;
+  }
+
+  a, p, ul, b, center {
+    font-size:16px;
+  }
+}
+
+@media only screen and (max-width: 756px) {
+
+  .product-name{
+    padding-left:10px !important;
+    width:260px !important;
+  }
+
+  .size-and-cost{
+    padding-left:5px !important;
+    width:50px !important;
+  }
+}

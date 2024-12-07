@@ -1,0 +1,33 @@
+<%
+  if storefront.active?
+    button_label = 'Inactivate'
+    button_color = 'alert'
+  else
+    button_label = 'Activate'
+    button_color = 'secondary'
+  end
+%>
+  
+<tr>
+  <td>
+    <%= storefront.name %>
+  </td>
+  <td>
+    <%= storefront.pim_name %>
+  </td>
+  <td>
+    <%= storefront.status %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_storefront_path(storefront), class: 'button tiny' %>
+    <%= link_to "Edit Storefront Links", admin_storefront_storefront_links_path(storefront), class: 'button tiny' %>
+    <%= link_to "Edit Storefront Fonts", admin_storefront_storefront_fonts_path(storefront), class: 'button tiny' %>
+    <%= link_to "Generate Storefront Checkout URL", admin_storefront_storefront_redirection_urls_path(storefront), class: 'button tiny' %>
+    <%= link_to "Digital Packing Slip Placements", admin_storefront_digital_packing_slip_placements_path(storefront), class: 'button tiny' %>
+    <%= link_to "CNAME Setup", admin_storefront_cname_records_path(storefront), class: 'button tiny' %>
+
+    <%= form_for storefront, url: toggle_status_admin_storefront_path(storefront) do |form| %>
+      <%= submit_tag button_label, class: "button tiny #{button_color}" %>
+    <% end %>
+  </td>
+</tr>

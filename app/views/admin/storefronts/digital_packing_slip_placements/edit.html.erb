@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Digital Packing Slip Placements' %>
+<h3>Update Digital Packing Slip Placement</h3>
+
+<%= form_for @digital_packing_slip_placement, url: admin_storefront_digital_packing_slip_placement_path(@storefront), method: :put do |form| %>
+  <%= render partial: 'form', locals: {form: form } %>
+
+  <%= submit_tag "Update", :class  => "button" %>
+<% end %>

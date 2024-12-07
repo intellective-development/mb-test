@@ -1,0 +1,39 @@
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Model</th>
+      <th>Event</th>
+      <th>Change</th>
+      <th>Who</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @versions.each do |version| %>
+      <tr>
+        <td>
+          <%= version.created_at.in_time_zone.strftime('%D %R') %>
+        </td>
+        <td>
+          <%= version.item_type %>
+          <br>
+          <small><%= version.item.respond_to?(:name) ? version.item&.name :  version.item_id %></small>
+        </td>
+        <td>
+          <%= version.event %>
+        </td>
+        <td>
+          <pre>
+            <%= version.changeset %>
+          </pre>
+        </td>
+        <td>
+          <%= version.whodunnit ? User.find(version.whodunnit)&.name : 'System' %>
+          <br>
+          <small><%= version.whodunnit ? User.find(version.whodunnit)&.email : '' %></small>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @versions %>

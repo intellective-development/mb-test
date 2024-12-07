@@ -1,0 +1,47 @@
+// Can reference both fonts, using the weight prop to set the weight.
+// Note that only 400 and 500 are supported
+@font-face{
+  font-family: "Avenir-Custom";
+  font-weight: 400;
+  src: asset-data-url("2F78F1_0_0.woff2") format('woff2'),
+    asset-data-url("2F78F1_0_0.woff") format('woff'),
+    asset-data-url("2F78F1_0_0.ttf") format('truetype');
+  unicode-range: U0-FF;
+}
+
+@font-face{
+  font-family: "Avenir-Heavy";
+  font-weight: 600;
+  src: asset-data-url("350DB7_0_0.woff2") format('woff2'),
+    asset-data-url("350DB7_0_0.woff") format('woff'),
+    asset-data-url("350DB7_0_0.ttf") format('truetype');
+  unicode-range: U0-FF;
+}
+
+@font-face {
+  font-family: 'TiemposHeadlineWeb-Bold';
+  src: asset-data-url('TiemposHeadlineWeb-Bold.eot'),
+      asset-data-url('TiemposHeadlineWeb-Bold.woff') format('woff'),
+      asset-data-url('TiemposHeadlineWeb-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Explictly loading the local copy serves two purposes.
+// 1) Makes it clearer in font-family declarations that we're using a non-standard local font
+// 2) Also us to load the 500 "medium" weight, which otherwise wouldn't show up.
+@font-face {
+  font-family: "Avenir-Local";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Avenir-Book"),
+       local("Avenir"),
+       local("Avenir-Regular");
+}
+
+@font-face {
+  font-family: "Avenir-Local";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Avenir-Heavy");
+}

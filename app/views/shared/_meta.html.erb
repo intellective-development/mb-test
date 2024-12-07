@@ -1,0 +1,45 @@
+<%= csrf_meta_tag %>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="access-token" content="<%= get_access_token(ENV['WEB_STORE_CLIENT_ID']) %>" />
+<%if @product_grouping.present? %>
+  <meta name="description" content="<%= I18n.t(:product_meta, product_name: @product_grouping.name) %>" />
+  <meta name="keywords" content="<%= @product_grouping.brand&.present? ? [I18n.t(:meta_keywords), @product_grouping.brand&.name].join(', ') : I18n.t(:meta_keywords) %>" />
+<%else%>
+  <meta name="description" content="<%= yield(:meta_description).present? ? yield(:meta_description) : I18n.t(:meta_description) %>" />
+  <meta name="keywords" content="<%= I18n.t(:meta_keywords) %>" />
+<% end %>
+<meta name="pinterest" content="nopin" />
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="theme-color" content="#222222">
+<meta name="twitter:app:country" content="US">
+<meta name="twitter:app:id:googleplay" content="minibar.android">
+<meta name="twitter:app:id:ipad" content="720850888">
+<meta name="twitter:app:id:iphone" content="720850888">
+<meta name="twitter:app:name:ipad" content="Minibar Delivery">
+<meta name="twitter:app:name:iphone" content="Minibar Delivery">
+<meta name="twitter:card" content="app">
+<meta name="twitter:site" content="@minibardelivery">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<% if Feature[:logrocket].enabled?(@current_user) && ENV['LOGROCKET_DESTINATION'] %>
+  <meta name="logrocket" content="<%= ENV['LOGROCKET_DESTINATION'] %>" />
+<% end %>
+<meta property="al:android:url" content="<%= "minibar://minibar#{request.fullpath}" %>" />
+<meta property="al:android:app_name" content="Minibar Delivery">
+<meta property="al:android:package" content="minibar.android">
+<meta property="al:ios:url" content="<%= "minibar://minibar#{request.fullpath}" %>" />
+<meta property="al:ios:app_name" content="Minibar Delivery">
+<meta property="al:ios:app_store_id" content="720850888">
+<meta property="og:image:height" content="538" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1024" />
+<meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{image_path('facebook_default.jpg')}" %>" />
+<meta property="og:site_name" content="Minibar Delivery" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>" />
+<% unless Feature[:branch_smart_banners].enabled? %>
+  <meta name="apple-itunes-app" content="app-id=720850888, affiliate-data=11l5XB, app-argument=<%= request.original_url %>">
+<% end %>
+<link rel="apple-touch-icon" href="<%= image_path('touch-icon.png') %>" />
+<link rel="apple-touch-icon" sizes="76x76" href="<%= image_path('touch-icon-76x76.png') %>" />
+<link rel="apple-touch-icon" sizes="120x120" href="<%= image_path('touch-icon-120x120.png') %>" />
+<link rel="apple-touch-icon" sizes="152x152" href="<%= image_path('touch-icon-152x152.png') %>" />

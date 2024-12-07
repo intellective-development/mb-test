@@ -1,0 +1,4 @@
+<li>
+  <%= link_to product.admin_item_volume.presence || '(No Vol)', admin_merchandise_product_path(product) %>
+  <small><%= product.name %> (variants: <%= product.variants.self_active.size %>)</small>
+</li>

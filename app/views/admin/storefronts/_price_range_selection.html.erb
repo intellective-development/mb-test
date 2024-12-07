@@ -1,0 +1,22 @@
+<div>
+  <%= form.check_box :enable_price_range_selection %>
+  <%= form.label 'Enable Price Range Selection?', for: :storefront_enable_price_range_selection %>
+  <p><small>Whether to enable price thresholds(min and max) on RSA execution</small></p>
+</div>
+
+<div>
+  <%= form.check_box :allow_price_range_fallback %>
+  <%= form.label 'Allow Price Range Fallback?', for: :storefront_allow_price_range_fallback %>
+  <p><small>Whether to return other retailers if no variants within the price range can be found</small></p>
+</div>
+
+<div class="row">
+  <div class="large-6 column">
+    <label>Min Selection Price</label>
+    <%= form.number_field :min_selection_price %>
+  </div>
+  <div class="large-6 column">
+    <label>Max Selection Price</label>
+    <%= form.number_field :max_selection_price %>
+  </div>
+</div>

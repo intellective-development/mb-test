@@ -1,0 +1,24 @@
+<h2>Device Blacklist</h2>
+<p>These devices are blacklisted, usually relating to fraud or abuse. They are blocked at the API level &emdash; when customers attempt to shop they will receive a generic <em>"Minibar is not currently available."</em> error message.</p>
+<p>When an order is marked as fraud, device ID's are automatically added. Currently device ID collection is only supported for iOS.</p>
+
+<%= form_tag("", method: :get) do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag "Search", class: "btn" %>
+<% end %>
+<br />
+<br />
+
+<table>
+  <thead>
+    <th>Device ID</th>
+    <th>Associated Order</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <%= render partial: 'blacklisted_device', as: 'blacklisted_device', collection: @device_blacklists, cache: true %>
+  </tbody>
+</table>
+
+<%= paginate @device_blacklists if @device_blacklists %>

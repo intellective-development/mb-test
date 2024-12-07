@@ -1,0 +1,30 @@
+<% if @mobile_screen.errors.any? %>
+  <div id="#error_explanation">
+    <h2><%= pluralize(@mobile_screen.errors.count, "error") %> prohibited this placement from being saved:</h2>
+    <ul>
+      <% @mobile_screen.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <label>Screen Name Name
+    <small>This is the name that is used to fetch content for this screen in API requests. It must be unique and should follow our naming conventions.</small>
+    <%= f.text_field :name, placeholder: 'e.g. Mobile_Home_Screen' %>
+  </label>
+
+  <label>Description
+    <small>This is an optional human readable description of the screen.</small>
+    <%= f.text_field :description %>
+  </label>
+
+  <label>Platform
+    <small>This determines which platform this screen is for.</small>
+    <%= f.select :platform, Content::MobileScreen.platforms.map { |k, v| [k.humanize, k] } %>
+  </label>
+
+</fieldset>
+
+<%= f.submit "Save", class: "button" %>
+

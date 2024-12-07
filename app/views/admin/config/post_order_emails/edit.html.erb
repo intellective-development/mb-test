@@ -1,0 +1,5 @@
+<h3>Edit Post-Order Email</h3>
+<%= form_for(@email, url: admin_config_post_order_email_path(@email)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit "Update", class: "button" %>
+<% end %>

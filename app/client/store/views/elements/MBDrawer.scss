@@ -1,0 +1,46 @@
+@import "../style/variables";
+
+$drawer-width: 300px;
+$drawer-animate-in-speed: 0.35s;
+$drawer-animate-out-speed: 0.2s;
+
+.elMBDrawer {
+  position: fixed;
+  background-color: $brand-white;
+  box-shadow: -5px 0px 5px -5px rgba(0,0,0,0.55);
+  overflow-y: scroll;
+
+  top: 0;
+  left: 0;
+  width: $drawer-width;
+  height: 100%;
+  z-index: 10;
+
+  transition: all $drawer-animate-in-speed ease-out; // animate in behavior
+}
+.elMBDrawer__Hidden {
+  transition: all $drawer-animate-out-speed ease-in; // animate out behavior
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+  visibility: hidden;
+}
+
+.elMBDrawer_Overlay {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: $brand-black;
+  opacity: 0.5;
+  z-index: 10;
+
+  transition: all $drawer-animate-in-speed ease-out; // animate in behavior
+}
+
+.elMBDrawer_Overlay__Hidden {
+  transition: all $drawer-animate-out-speed ease-in; // animate out behavior
+  opacity: 0;
+  visibility: hidden;
+}
+

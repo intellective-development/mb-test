@@ -1,0 +1,6 @@
+<% content_for :title, 'Create Tax Rate' %>
+<h3>New Tax Rate</h3>
+
+<%= form_for(@tax_rate, :url => admin_config_tax_rates_path()) do |f| %>
+  <%= render :partial =>  'form', :locals => {:f => f} %>
+<% end %>

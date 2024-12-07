@@ -1,0 +1,19 @@
+@mixin sticky-footer($footer-height, $root-selector: unquote("#root"), $root-footer-selector: unquote("#root_footer"), $footer-selector: unquote("#footer")) {
+  html, body {
+    height: 100%;
+    background-color: #fff;
+  }
+  #{$root-selector} {
+    clear: both;
+    height: 100%;
+    height: auto !important;
+    margin-bottom: -$footer-height;
+    min-height: 100%;
+    #{$root-footer-selector} {
+      height: $footer-height; } }
+  #{$footer-selector} {
+    clear: both;
+    position: relative;
+    height: $footer-height; } }
+
+@include sticky-footer(380px, "#layout", "#layout_footer", "#footer");

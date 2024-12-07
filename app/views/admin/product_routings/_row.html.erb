@@ -1,0 +1,48 @@
+<%
+  if product_routing.active?
+    button_label = 'Inactivate'
+    button_color = 'alert'
+  else
+    button_label = 'Activate'
+    button_color = 'secondary'
+  end
+%>
+
+<tr>
+  <td>
+    <%= link_to product_routing.storefront.name, edit_admin_storefront_path(product_routing.storefront) if product_routing.storefront %>
+  </td>
+  <td>
+    <%= link_to product_routing.product.display_name, edit_admin_merchandise_product_path(product_routing.product) if product_routing.product %>
+  </td>
+  <td>
+    <%= link_to product_routing.supplier.display_name, edit_admin_inventory_supplier_path(product_routing.supplier) if product_routing.supplier %>
+  </td>
+  <td>
+    <% if product_routing.order_qty_limit.present? %>
+      <%= product_routing.current_order_qty %> / <%= product_routing.order_qty_limit %>
+    <% end %>
+  </td>
+  <td>
+    <%= product_routing.states_applicable&.join(',') %>
+  </td>
+  <td>
+    <%= product_routing.comments %>
+  </td>
+  <td>
+    <%= product_routing.starts_at&.strftime('%d %B %Y') %>
+  </td>
+  <td>
+    <%= product_routing.ends_at&.strftime('%d %B %Y') %>
+  </td>
+  <td>
+    <%= product_routing.engravable? ? 'yes' : 'no' %>
+  </td>
+  <td>
+    <%= product_routing.active? ? 'yes' : 'no' %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_product_routing_path(product_routing), class: 'button tiny' %>
+    <%= link_to button_label, toggle_status_admin_product_routing_path(product_routing), data: { confirm: "Are you sure you want to #{button_label}?" }, method: :patch, class: "button tiny #{button_color}" %>
+  </td>
+</tr>

@@ -1,0 +1,17 @@
+<% content_for :body_class, 'modal-bg' %>
+<% content_for :title, 'Reset Password' %>
+<% content_for :hide_footer, true %>
+<% content_for :store, false %>
+<% content_for :standard_template, true %>
+
+<div class="row push-down">
+  <div class="large-5 large-centered column">
+    <div class="checkout-frame" id="checkout-login-form">
+      <h3 class="modal-header">Reset Password</h3>
+      <div class="checkout-panel">
+        <p><%= flash[:notice] %></p>
+        <p><a class="button expand" href="<%= login_path %>">Sign In</a></p>
+      </div>
+    </div>
+  </div>
+</div>

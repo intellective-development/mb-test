@@ -1,0 +1,44 @@
+// Not aiming for exactness, just need to make sure they match
+$one-third: 0.3333;
+$two-thirds: 1 - $one-third;
+$height-width-ratio: 0.57;
+$row-height: $height-width-ratio * 100vw;
+$row-height-gt-small: $height-width-ratio * 100vw * $two-thirds;
+$row-height-gt-breakpoint: $height-width-ratio * $max-grid-size * $two-thirds;
+$tile-gutter: 0.5em;
+
+.el-image-grid.el-image-grid { // ugly hack to overcome mb-grid styles
+  margin-bottom: 3 * $standard-gutter;
+}
+
+.el-image-grid__container {
+  display: flex;
+  align-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0 (-1 * $tile-gutter);
+}
+
+.el-image-grid__tile {
+  height: auto;
+  width: 25%;
+  padding: $tile-gutter;
+  overflow: hidden;
+  @media only screen and (max-width: $medium-max-width) {
+    width: 33%;
+  }
+  @media only screen and (max-width: $small-max-width) {
+    width: 50%;
+  }
+  @media only screen and (max-width: $extra-small-max-width) {
+    width: 100%;
+  }
+}
+
+.el-image-grid__image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+}

@@ -1,0 +1,49 @@
+<% if filters.values.any?(&:present?) %>
+  <div class="row collapse">
+    <div class="small-4 column">
+      <span>Applied filters:</span>
+    </div>
+
+    <div class="small-8 column">
+      <% if filters[:product_id].present? %>
+        <%= link_to admin_fulfillment_back_orders_url(filters.except(:product_id)) do %>
+          <span class="label round">
+            (x) Product: <%= Product.find(filters[:product_id]).name %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if filters[:brand_id].present? %>
+        <%= link_to admin_fulfillment_back_orders_url(filters.except(:brand_id)) do %>
+          <span class="label round">
+            (x) Brand: <%= Brand.find(filters[:brand_id]).name %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if filters[:supplier_id].present? %>
+        <%= link_to admin_fulfillment_back_orders_url(filters.except(:supplier_id)) do %>
+          <span class="label round">
+            (x) Supplier: <%= Supplier.find(filters[:supplier_id]).name %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if filters[:start_date].present? %>
+        <%= link_to admin_fulfillment_back_orders_url(filters.except(:start_date)) do %>
+          <span class="label round">
+            (x) Start date: <%= filters[:start_date] %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if filters[:end_date].present? %>
+        <%= link_to admin_fulfillment_back_orders_url(filters.except(:end_date)) do %>
+          <span class="label round">
+            (x) End date: <%= filters[:end_date] %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

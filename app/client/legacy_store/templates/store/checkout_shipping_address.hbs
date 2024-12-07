@@ -1,0 +1,78 @@
+<div class="row form-row">
+  <div class="large-5 medium-9 large-centered column">
+    <div class="checkout-frame">
+      <h2 class="modal-header">Delivery Address</h2>
+      <div class="checkout-panel">
+        <form id="checkout-confirm-delivery">
+          <div class="row">
+            <div class="large-12 columns">
+              <p class="error hidden"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Type of Address</label>
+              <label class="label-radio"><input type="radio" name="address_type" class="radio-address_type" id="address_type_residential" value="residential" checked="checked"> Residential</label>
+              <label class="label-radio"><input type="radio" name="address_type" class="radio-address_type" id="address_type_business" value="business"> Business</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="address_name">Name</label>
+              <input type="text" {{#if name}}value="{{name}}"{{/if}} id="address_name" name="address_name">
+            </div>
+          </div>
+          <div class="row show-for_business">
+            <div class="large-12 columns show-for_business">
+              <label for="address_name">Business Name</label>
+              <input type="text" {{#if company}}value="{{company}}"{{/if}} id="address_company" name="address_company">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-8 columns no-right-padding">
+              <label>Address Line</label>
+              <input type="text" {{#if shipping_address}}value="{{shipping_address.address1}}"{{/if}} disabled="disabled">
+            </div>
+            <div class="large-4 columns">
+              <label for="address_address2"><span class="show-for_residential">Apt #</span><span class="show-for_business">Floor/Suite</span></label>
+              <input type="text" {{#if shipping_address}}value="{{shipping_address.address2}}"{{/if}} id="address_address2" name="address_address2" autofocus="autofocus">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-6 columns no-right-padding">
+              <label>City</label>
+              <input type="text" {{#if shipping_address}}value="{{shipping_address.city}}"{{/if}} disabled="disabled">
+            </div>
+            <div class="large-2 columns no-right-padding">
+              <label>State</label>
+              <input type="text" {{#if shipping_address}}value="{{shipping_address.state}}"{{/if}} disabled="disabled">
+            </div>
+            <div class="large-4 columns">
+              <label>Zipcode</label>
+              <input type="text" {{#if shipping_address}}value="{{shipping_address.zip_code}}"{{/if}} disabled="disabled">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="address_phone">Phone Number</label>
+              <input type="text" {{#if shipping_address}}value="{{shipping_address.phone}}"{{/if}} maxlength="12" id="address_phone" name="address_phone">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="address_delivery_notes">Delivery Notes</label>
+              <textarea id="address_delivery_notes" placeholder="e.g. On arrival buzz for entry." data-residential_placeholder="e.g. On arrival buzz for entry." data-business_placeholder="e.g. Use service entrance on 34th Street">{{delivery_notes}}</textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <button action="submit" class="button expand" id="button-update-address">Continue</a>
+            </div>
+            <p class="center secondary">
+              <a class="change-address secondary-action">Change Delivery Address</a>
+            </p>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>

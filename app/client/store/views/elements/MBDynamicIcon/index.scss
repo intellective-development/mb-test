@@ -1,0 +1,17 @@
+@import "../../style/variables";
+
+.elMBDynamicIcon {
+  display: flex;
+}
+
+.elMBDynamicIcon__black {
+  fill: $brand-black;
+}
+
+.elMBDynamicIcon__white {
+  fill: $brand-white;
+}
+
+.elMBDynamicIcon__red {
+  fill: $brand-red;
+}

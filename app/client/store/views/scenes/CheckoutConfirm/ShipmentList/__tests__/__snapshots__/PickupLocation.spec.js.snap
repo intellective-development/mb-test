@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PickupLocation renders 1`] = `
+<div
+  class="el-touchable csl__pickup__container"
+  role="button"
+  tabindex="-1"
+>
+  <p
+    class="elMBText_P elMBText elMBText_ResetSpacing csl__pickup__section-label"
+  >
+    Pickup Location:
+  </p>
+  <p
+    class="elMBText_P elMBText elMBText_ResetSpacing csl__pickup__address"
+  >
+     123 Jump Street, New York, New York・1.1 mi
+  </p>
+</div>
+`;
+
+exports[`PickupLocation renders nothing if its a non pickup delivery method 1`] = `null`;

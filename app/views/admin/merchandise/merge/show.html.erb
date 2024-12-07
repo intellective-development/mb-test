@@ -1,0 +1,5 @@
+<% if @product.nil? %>
+  <p>Product Not Found, did you already merge it? If so then this list is probably cached.</p>
+<% else %>
+  <%= render :partial => '/admin/merchandise/merge/product', :locals => {product: @product}%>
+<% end %>

@@ -1,0 +1,1 @@
+class CreateOrUpdateOrderError < StandardError; end

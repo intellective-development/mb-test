@@ -1,0 +1,70 @@
+<% content_for :user_facing, true %>
+<% target_url = store_cart_share_url(@cart_share, utm_source: 'web', utm_medium: 'email', utm_campaign: 'cart_abandonment') %>
+
+<table class="container container-main" align="center">
+  <tr>
+    <td>
+    <%= render partial: 'header_logo' %>
+
+<!-- Header Banner -->
+      <table align="center" class="row cart-abandon_pre-product-module">
+        <tbody>
+          <tr>
+            <td>
+
+              <th class="small-12 large-12 columns first last">
+                <table>
+                  <tr>
+                    <th class="float-center">
+                      <center data-parsed="">
+                        <img src="<%= asset_url('email/cart_abandonment/hero.png') %>" alt="You Have Great Taste" class="banner--hero" width="404" height="39" />
+                        <p class="text-center avenir-body body-text banner-subtext--hero">
+                          You left these items in your cart and we don't want you to miss out.
+                        </p>
+                      </center>
+                    </th>
+                    <th class="expander"></th>
+                  </tr>
+                </table>
+              </th>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Discount Offer -->
+      <%= render partial: 'discount_offer_module', object: @offer, as: 'offer' if @offer %>
+      <!-- Products -->
+      <!-- Product Row -->
+      <%= render partial: 'product_grid_module', locals: { items: @cart_share.cart_share_items, grouping_size: 3, utm_campaign: 'cart_abandonment' } %>
+<!-- CTA Button -->
+      <center>
+        <table class="button radius">
+          <tr>
+            <td class="bottom-padding-medium">
+              <table>
+                <tr>
+                  <td>
+                    <a href="<%= target_url %>">
+                      Take Another Look
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </center>
+
+<!-- end of container -->
+    </td>
+  </tr>
+</table>
+
+<%= render partial: 'social_footer' %>
+
+<% if @offer_group %>
+  <p class="cart-abandon_legal">
+    *Offer expires after 1 week. Only valid on <%= @offer_group[:order] %>. Max discount <%= @offer_group[:discount] %>. Not eligible on previous purchases. Offer is non-transferable and cannot be combined. In TX &amp; IN, promo codes are only valid on delivery fees and non-alcoholic items. The purchase of alcohol is not required. Other restrictions may apply. These services are not affiliated with the MINIBAR restaurant or Jose Andres. You must be 21 or over to use Minibar Delivery.
+  </p>
+<% end %>

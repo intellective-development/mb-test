@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="large-6 column">
+    <%= form.fields_for :recaptcha_domains do |subform| %>
+      <% @recaptcha_domains&.each do |domain| %>
+        <%= subform.text_field :names, value: domain, multiple: true %>
+      <% end %>
+      <div id='original-inputs'>
+        <%= subform.text_field :names, multiple: true %>
+      </div>
+      <div id='dynamic-inputs'></div>
+      <button type='button' onclick="addMore()">Add Field (+)</button>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function addMore(){
+      $("#dynamic-inputs").append($("#original-inputs").html())
+  }
+</script>

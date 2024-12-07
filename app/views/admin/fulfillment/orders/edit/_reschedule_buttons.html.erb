@@ -1,0 +1,10 @@
+<% if @order.can_be_rescheduled? %>
+  <a id="button-schedule" class="button small">Reschedule</a>
+  <ul class="dropdown">
+    <% @order.reschedulable_shipments.each do |shipment| %>
+      <li><%=link_to shipment.supplier_name, schedule_admin_fulfillment_shipment_path(shipment), class: "button-schedule-shipment-#{shipment.id}" %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <a class="button small disabled" title="None of shipments can be rescheduled" disabled="disabled">Reschedule</a>
+<% end %>

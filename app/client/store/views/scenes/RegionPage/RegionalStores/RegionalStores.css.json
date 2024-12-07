@@ -1,0 +1,32 @@
+{
+  "button": {
+    ":hover": {
+      "backgroundColor": "inherit",
+      "color": "inherit"
+    },
+    "cursor": "pointer",
+    "display": "block",
+    "fontSize": 15,
+    "fontWeight": 700,
+    "margin": "20px 0",
+    "textAlign": "center",
+    "textDecoration": "underline",
+    "width": "100%"
+  },
+  "section": {
+    "margin": "40px auto",
+    "padding": 20
+  },
+  "stores": {
+    "display": "flex",
+    "flexDirection": "row",
+    "flexWrap": "wrap",
+    "margin": 20
+  },
+  "title": {
+    "fontSize": 24,
+    "fontWeight": 700,
+    "margin": "20px 10px",
+    "textAlign": "center"
+  }
+}

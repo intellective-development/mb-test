@@ -1,0 +1,7 @@
+<% content_for :title, 'Manage No Ship State' %>
+<h3>Manage No Ship State</h3>
+
+<%= form_for :no_ship_state, url: admin_no_ship_states_path do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+  <%= submit_tag "Update", :class  => "button" %>
+<% end %>

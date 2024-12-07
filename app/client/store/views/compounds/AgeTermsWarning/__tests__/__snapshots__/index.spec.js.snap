@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgeTermsWarning renders 1`] = `
+<p
+  class="elMBText_P elMBText elMBText_ResetSpacing cmAgeTerms"
+>
+  ✓ I'm 21+ years of age and agree to the
+  <a
+    class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+    href="/terms"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+     terms of service.
+  </a>
+</p>
+`;

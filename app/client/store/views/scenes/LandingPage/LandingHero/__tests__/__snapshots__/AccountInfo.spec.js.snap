@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountInfo renders fetching user 1`] = `<div />`;
+
+exports[`AccountInfo renders logged out user 1`] = `
+<div>
+  <a
+    href="/login"
+  >
+    <button
+      class="elMBButton elMBButton__Hollow elMBButton__Small"
+      id="user-menu-toggle"
+    >
+      Log In
+    </button>
+  </a>
+</div>
+`;
+
+exports[`AccountInfo renders with user 1`] = `
+<div>
+  <div>
+    <button
+      class="elMBButton elMBButton__Hollow elMBButton__Small"
+      id="user-menu-toggle"
+    >
+      <span
+        class="elMBText elMBText_ResetSpacing cmUserInfo_Prompt"
+      >
+        Hi, Brian
+      </span>
+      <img
+        alt="down_arrow_red"
+        class="el-mbicon--down_arrow_red cmUserInfo_DiscloseIcon"
+        src="/assets/components/elements/mb-icon/down_arrow_red.png"
+        srcset="/assets/components/elements/mb-icon/down_arrow_red@2x.png 2x, /assets/components/elements/mb-icon/down_arrow_red@3x.png 3x"
+      />
+    </button>
+    <ul
+      class="cmUserInfo_Menu cmUserInfo_Menu__Invisible"
+    >
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+          href="/referrals"
+        >
+          Share & Earn $10
+        </a>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+          href="/account/orders"
+        >
+          Orders
+        </a>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+          href="/account/overview"
+        >
+          Account
+        </a>
+      </li>
+      <li>
+        <div
+          class="el-touchable cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+          role="button"
+          tabindex="-1"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Help
+          </span>
+        </div>
+      </li>
+      <li
+        class="cmUserInfo_Menu_LinkDivider"
+      />
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Secondary"
+          href="/logout"
+        >
+          Sign Out
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

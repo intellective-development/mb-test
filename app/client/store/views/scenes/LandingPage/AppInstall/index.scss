@@ -1,0 +1,34 @@
+@import "~client/store/views/style/variables";
+
+.cmAppInstallSection_Wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: $small-max-width) {
+    display: none;
+  }
+}
+
+.cmAppInstallSection_CopyWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 250px;
+  max-width: 425px;
+}
+
+.cmAppInstallSection_Headline {
+  @include font-size(32);
+
+  margin: 0;
+  font-family: $font-family-tiempos;
+}
+
+.cmAppInstallSection_Body {
+  @include font-size(16);
+}
+
+.cmAppInstallSection_App_Icons {
+  max-width: 260px;
+}

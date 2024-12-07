@@ -1,0 +1,28 @@
+{
+  "select": {
+    ":focus": {
+      "borderColor": "rgba(0,0,0,.4)",
+      "boxShadow": [
+        "0 0 1px 3px rgba(0,0,0,.2)",
+        "0 0 0 3px -moz-mac-focusring"
+      ]
+    },
+    ":hover": {
+      "borderColor": "rgba(0,0,0,.4)"
+    },
+    "backgroundPosition": [
+      "right 8px top 50%"
+    ],
+    "backgroundRepeat": "no-repeat",
+    "backgroundSize": [
+      "16px 16px"
+    ],
+    "border": "1px solid rgba(0,0,0,.1)",
+    "borderRadius": 5,
+    "paddingBottom": 8,
+    "paddingLeft": 8,
+    "paddingRight": 40,
+    "paddingTop": 8,
+    "placeItems": "center"
+  }
+}

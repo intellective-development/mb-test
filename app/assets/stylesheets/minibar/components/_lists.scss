@@ -1,0 +1,12 @@
+.no-bullets {
+  list-style: none;
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.multi-inline {
+  .inline-list:not(:first-child) { margin-top: 0; }
+  .inline-list:not(:last-child) { margin-bottom: 0; }
+}

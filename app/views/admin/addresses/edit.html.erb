@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Address' %>
+<h3>Update Address</h3>
+
+<%= form_for @address, url: admin_address_path(@address), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", class: :button %>
+<% end %>

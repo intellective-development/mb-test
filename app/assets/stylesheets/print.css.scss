@@ -1,0 +1,160 @@
+* {
+  -ms-filter: none !important;
+  background-color: transparent !important;
+  color: #000 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+html,
+body {
+  height: auto;
+}
+
+#section-contact {
+  border-bottom: 5px solid #000;
+  border: 1px solid #ddd;
+  padding: 5px 20px;
+  text-align: center;
+  p {
+    display: inline;
+    line-height: 25px;
+  }
+}
+
+body {
+  margin-top: 100px;
+}
+
+pre, blockquote {
+  border: 1px solid #999;
+  page-break-inside: avoid;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tr, img {
+  page-break-inside: avoid;
+}
+img {
+  max-width: 100% !important;
+}
+
+@page {
+  margin: 0.5cm;
+}
+
+p, h2, h3 {
+  orphans: 3;
+  widows: 3;
+}
+
+h2, h3 {
+  page-break-after: avoid;
+}
+
+.row, #layout {
+  float: none;
+  margin: 0;
+  width: 100%;
+}
+
+body {
+  background: white;
+}
+
+p, h1, h2, h3, h4, h5, h6, a, td, tr {
+  color: #000;
+  font-family: "Helvetica", "Arial", sans-serif;
+}
+
+p {
+  font-size: 12pt;
+}
+
+h1, h2 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 16pt;
+  text-transform: uppercase;
+}
+
+label, textarea, form, #link-back {
+  display: none;
+}
+
+table {
+  width: 100%;
+  th {
+    text-align: left;
+  }
+}
+
+#section-info, .supplier-header, .center-table {
+  display: none;
+}
+
+#section-delivery-notes, #section-gift-notes {
+  border: 1px solid black;
+  margin: 0 auto 20pt;
+  padding: 0 20pt;
+  width: 90%;
+}
+
+
+#section-comments {
+  display: none;
+}
+
+#section-map {
+  display: none;
+  img {
+    border: 1px solid #999;
+    max-width: 400px;
+  }
+  .heading-panel {
+    text-transform: uppercase;
+    border-bottom: 1px solid #000;
+  }
+}
+
+#section-gift-info {
+  .message {
+    font-style: italic;
+    padding: 0 20px;
+  }
+  border-bottom: 5px solid #000;
+}
+
+.row .row {
+  margin: 10px;
+}
+
+.large-4 {
+  width: 33.33333%;
+}
+
+.large-4.logo {
+  text-align: center;
+}
+
+.large-8 {
+  width: 66.66667%;
+}
+
+table thead tr th,
+table tbody tr td {
+  font-size: 0.5rem;
+  line-height: 1rem;
+  padding: 0.2rem;
+}
+
+.admin_main_content p {
+  font-size: 0.8rem;
+  line-height: 1rem;
+}

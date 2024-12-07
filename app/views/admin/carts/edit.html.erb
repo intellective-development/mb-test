@@ -1,0 +1,84 @@
+<% content_for :title, 'Update Cart' %>
+
+<h3> Cart </h3>
+
+<%= form_for @cart, url: admin_cart_path(@cart), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", class: :button %>
+<% end %>
+
+<h3>RSA Products</h3>
+
+<fieldset class="span-12">
+  <div class="large-6 column">
+    <div>
+      <label>Address</label>
+      <%= select_tag :address_id, options_for_select(Address.where(addressable: current_user).map { |address| [address.name, address.id] }), { include_blank: true } %>
+    </div>
+    <div>
+      <label>Bundle ID</label>
+      <%= text_field_tag :bundle_id, nil %>
+    </div>
+    <a id="rsa_form_submit" class="button" data-formid="rsa_form">Retrieve Products</a>
+  </div>
+  <div class="large-6 column">
+    <div>
+      <label>Product Grouping ID</label>
+      <%= number_field_tag :product_grouping_id, nil %>
+    </div>
+  </div>
+  <div id='rsa_fields'></div>
+</fieldset>
+
+<%= render partial: 'admin/carts/cart_items', object: @cart, as: 'cart', cache: true  %>
+
+<script>
+  $(function(){
+    $("#bundle_id").on('change', function() {
+      if ($("#bundle_id").val() != '') {
+        $("#product_grouping_id").prop("disabled", true);
+        $("#bundle_id").prop("disabled", false);
+      } else {
+        $("#product_grouping_id").prop("disabled", false);
+      }
+    })
+  });
+
+  $(function(){
+    $("#product_grouping_id").on('change', function() {
+      if ($("#product_grouping_id").val() != '') {
+        $("#bundle_id").prop("disabled", true);
+        $("#product_grouping_id").prop("disabled", false);
+      } else {
+        $("#bundle_id").prop("disabled", false);
+      }
+    })
+  });
+
+  $(document).on('click','#rsa_form_submit', function() {
+    var storefrontId = "<%= @cart.storefront&.id %>";
+    var productGroupingId = $("#product_grouping_id").val();
+    var bundleId = $("#bundle_id").val();
+    var addressId = $("#address_id").find(":selected").val();
+    $.ajax({
+      url:  "<%= @cart.id ? admin_cart_rsa_data_url(@cart) : '' %>",
+      type: 'GET',
+      data: {
+        'storefront_id': storefrontId,
+        'product_grouping_id': productGroupingId,
+        'bundle_id': bundleId,
+        'address_id': addressId
+      },
+      dataType: 'html',
+      success: function (data) {
+        $('#rsa_products').remove();
+        $('#rsa_fields').append(data);
+      },
+      error: function(request,error)
+      {
+        alert('There was an error while processing your request. Check if your Storefront ID, Address, Bundle ID and Product Grouping ID are correct');
+      }
+    });
+  });
+</script>

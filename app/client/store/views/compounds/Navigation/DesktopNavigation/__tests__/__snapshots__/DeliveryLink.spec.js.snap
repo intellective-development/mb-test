@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryLink renders 1`] = `
+<div
+  class="el-touchable cmDeliveryLink"
+  role="button"
+  tabindex="-1"
+>
+  <div>
+    <img
+      alt="on_demand"
+      class="cmDeliveryMethodIcon_Multi"
+      height="24"
+      src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+      width="24"
+    />
+    <div>
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+        Delivery to
+      </span>
+      <br />
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+         123 Jump Street, Apt. 10
+      </span>
+    </div>
+  </div>
+  <span
+    class="elMBText elMBText_ResetSpacing cmDeliveryLink_Change"
+  >
+    Change
+  </span>
+</div>
+`;
+
+exports[`DeliveryLink renders without address 1`] = `
+<div
+  class="el-touchable cmDeliveryLink cmDeliveryLink__NoAddress"
+  role="button"
+  tabindex="-1"
+>
+  <div>
+    <img
+      alt="on_demand"
+      class="cmDeliveryMethodIcon_Multi"
+      height="24"
+      src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+      width="24"
+    />
+    <div>
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+        Delivery to
+      </span>
+      <br />
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+        Add delivery address
+      </span>
+    </div>
+  </div>
+  <span
+    class="elMBText elMBText_ResetSpacing cmDeliveryLink_Change cmDeliveryLink_Change__NoAddress"
+  >
+    Change
+  </span>
+</div>
+`;

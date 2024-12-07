@@ -1,0 +1,81 @@
+$rater-star-font-size: 48px;
+
+.order-survey {
+  background-color: #f9f9f9;
+  margin-top: 40px;
+  .mega-header, .mega-body {
+    padding-top: 2em;
+    padding-bottom: 1.5em;
+  }
+
+  .mega-body.rating {
+    padding-top: 12px;
+    .p-large {
+      font-size: 22px;
+      line-height: 28px;
+    }
+    .react-rater {
+      font-size: 48px;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .rating-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      .rating {
+        font-size: $rater-star-font-size;
+        color: $brand-medium-grey;
+        margin-bottom: 0.5em;
+        &:hover {
+          cursor: pointer;
+        }
+        &.active {
+          color: #f3cf6c;
+        }
+      }
+    }
+    .react-reasons-section {
+      &.hidden {
+          display: none;
+      }
+      .header {
+        text-align: center;
+        font-style: italic;
+      }
+      .react-reasons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0 35px 0;
+      .reason {
+        margin: 5px;
+        padding: 10px;
+        background: $brand-white;
+        color: $brand-black;
+        border: 2px solid $brand-black;
+        border-radius: $form-border-radius;
+        font-size: 15px;
+        font-weight: $heavy-font-weight;
+        letter-spacing: 1px;
+        outline: none;
+        &::first-letter { text-transform: uppercase;}
+        text-transform: lowercase;
+        &:hover {
+          cursor: pointer;
+          }
+        &.selected {
+          background: $brand-black;
+          color: $brand-white;
+          }
+        }
+      }
+    }
+    .send {
+      margin: 10px 0;
+      padding: 10px 0;
+    }
+  }
+}

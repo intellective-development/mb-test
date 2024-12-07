@@ -1,0 +1,46 @@
+<% content_for :store, false %>
+<% content_for :standard_template, true %>
+<% content_for :title, 'Subscriptions' %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class="title-bar">
+  <div class="row">
+    <div class="large-12 column center">
+      <h1 class="heading-title">Subscriptions</h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-3 medium-3 column nav-column">
+    <%= render partial: 'account/shared/navigation' %>
+  </div>
+  <div class="large-9 medium-9 column">
+    <% if @subscriptions.length < 1 %>
+      <p class="lead">You do not have any active subscriptions.</p>
+    <% else %>
+      <table class="table-history">
+        <thead>
+          <tr>
+            <th class="header-4">Status</th>
+            <th class="header-4">Interval</th>
+            <th class="header-4">Next Shipment</th>
+            <th class="header-4"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @subscriptions.each do |subscription| %>
+            <tr>
+              <td class="uppercase"><%= subscription.state %></td>
+              <td><%= pluralize(subscription.interval/7, 'Week') %></td>
+              <td><%= subscription.active? ? subscription.next_order_date.strftime('%B %e') : '' %></td>
+              <td>
+                <%= link_to subscription_toggle_label(subscription), toggle_account_subscription_path(subscription), data: { confirm: subscription_toggle_warning(subscription)}, method: :post %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p class="text-center"><%=  paginate @subscriptions %></p>
+    <% end %>
+  </div>
+</div>

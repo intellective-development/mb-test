@@ -1,0 +1,66 @@
+@import "~client/store/views/style/variables";
+
+.cmPreviousOrder{
+}
+
+.cmPreviousOrder__Loading{
+  // This is the approximate height of a loaded card
+  min-height: 388px;
+  @media screen and (min-width: $medium-min-width){ min-height: 420px; }
+}
+
+.cmPreviousOrder__LoaderContainer{
+  display: flex;
+  height: 20 * $standard-spacing;
+  align-items: center;
+  justify-content: center;
+}
+
+.cmPreviousOrder__HiddenCardSection{
+  visibility: hidden;
+}
+
+.cmPreviousOrder__OrderNumber{
+  display: block;
+  color: $brand-dark-grey;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.cmPreviousOrder__DeliveryInfo{
+  display: block;
+  font-weight: $heavy-font-weight;
+}
+
+.cmPreviousOrder__Items{
+  // This is the approximate height of two items
+  // It is brittle as if the item design changes this may become incorrect
+  min-height: 190px;
+  border-top: $default-border;
+
+  @media screen and (min-width: $medium-min-width){
+    max-height: 47px + 190px; // See all link is 47 px
+    overflow-y: scroll;
+  }
+}
+
+.cmPreviousOrder__Items .cmCartDropdown_ItemRow_Animation:first-of-type .cmCartDropdown_ItemRow{
+  border-top: none;
+}
+
+.cmPreviousOrder__ShowMoreText{
+  display: inherit;
+  text-align: center;
+  font-weight: $heavy-font-weight;
+}
+
+.cmPreviousOrder__PriceRow{
+  display: flex;
+  justify-content: space-between;
+  font-weight: $heavy-font-weight;
+
+  .elMBText{
+    line-height: 14px;
+    margin-top: 2px;
+  }
+}

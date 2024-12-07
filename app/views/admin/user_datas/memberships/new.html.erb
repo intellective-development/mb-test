@@ -1,0 +1,7 @@
+<% content_for :title, 'Create Membership' %>
+<h3>New Membership</h3>
+
+<%= form_for @membership, url: admin_user_datas_memberships_path do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+  <%= submit_tag 'Create', class: 'button' %>
+<% end %>

@@ -1,0 +1,17 @@
+<% if @user&.errors.present? || @bulk_order.errors.present? %>
+  <div class="flash_messages">
+    <% @bulk_order.errors.full_messages.each do |error_message| %>
+      <div data-alert class='alert-box alert'><%= error_message %><a href='' class='close'>&times;</a></div>
+    <% end %>
+    <% @user.errors.full_messages.each do |error_message| %>
+      <div data-alert class='alert-box alert'><%= error_message %><a href='' class='close'>&times;</a></div>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>New Bulk Order</h3>
+
+<%= form_for @bulk_order, :url => admin_fulfillment_bulk_orders_path do |bulk_order_form| %>
+  <%= render partial: 'form', object: bulk_order_form, as: 'bulk_order_form' %>
+  <%= bulk_order_form.submit "Create", :class => 'button' %>
+<% end %>

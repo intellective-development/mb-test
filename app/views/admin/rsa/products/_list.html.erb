@@ -1,0 +1,24 @@
+<% if products.any? %>
+  <div id='rsa_products'>
+        <%= render partial: 'admin/rsa/products/row', collection: products, as: 'product' %>
+    <%= link_to 'Add Products to Cart', admin_cart_add_products_path(@cart, products: products.map(&:to_h)), method: 'post', class: 'button', data: { confirm: 'Are you sure?' } %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    var errorMsg = "<%= defined?(error_msg) ? error_msg : '' %>";
+    var products = <%= products %>;
+    if (errorMsg) {
+      $('#rsa_fields').append(`<p id='flash'>${errorMsg}</p>`)
+    } else if (products.length === 0) {
+      $('#rsa_fields').append(`<p id='flash'>No Products</p>`)
+    }
+  });
+
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#flash').remove();
+    }, 5000);
+  });
+</script>

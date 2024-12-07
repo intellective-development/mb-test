@@ -1,0 +1,7 @@
+<% if @supplier.region %>
+<fieldset>
+  <legend>Deep Link</legend>
+  <p>This can be used to link directly to this supplier from an external website or email.</p>
+  <input class="large-12" value="https://<%= ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"] %>/partner/<%= @supplier.region.slug %>/<%=  @supplier.permalink %>" disabled>
+</fieldset>
+<% end %>

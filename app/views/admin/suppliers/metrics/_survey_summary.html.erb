@@ -1,0 +1,7 @@
+<tr>
+  <td><%= survey.updated_at.strftime('%b %e') %></td>
+  <td><%= link_to(survey.order.number, edit_admin_fulfillment_order_path(survey.order.number)) %></td>
+  <td><%= link_to(survey.user.name, admin_customer_path(survey.user)) %></td>
+  <td><%= survey.score %></td>
+  <td><%= survey.comment %></td>
+</tr>

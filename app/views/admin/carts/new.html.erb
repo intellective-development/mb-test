@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Cart' %>
+<h3>New Cart</h3>
+
+<%= form_for @cart, url: admin_carts_path do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Create", class: "button" %>
+<% end %>

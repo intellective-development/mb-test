@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBLoader renders 1`] = `
+<div>
+  <div
+    class="MBLoader_Ball MBLoader_Ball__1"
+  />
+  <div
+    class="MBLoader_Ball MBLoader_Ball__2"
+  />
+  <div
+    class="MBLoader_Ball MBLoader_Ball__3"
+  />
+</div>
+`;

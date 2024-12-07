@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBImageGrid renders 1`] = `
+<StandardGrid
+  className="el-image-grid"
+  cols={1}
+>
+  <MBHeader
+    title="foo"
+  />
+  <Grid
+    tiles={Array []}
+  />
+</StandardGrid>
+`;

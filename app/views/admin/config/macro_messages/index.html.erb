@@ -1,0 +1,35 @@
+<% content_for :title, 'Macro Messages' %>
+
+<% content_for :sidemenu do %>
+  <%= link_to "Create New Macro", new_admin_config_macro_message_path, class: "button secondary" %>
+<% end %>
+
+<div class='admin_title_header'>
+  <h3>Macro Messages</h3>
+</div>
+
+<div class="admin_products">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th></th>
+      <th>Name</th>
+      <th>Backend key</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @macro_messages.each do |macro_message| %>
+        <tr class='<%= cycle('odd') %>'>
+          <td></td>
+          <td><%= link_to macro_message.name, edit_admin_config_macro_message_path(macro_message) %></td>
+          <td><%= macro_message.key %></td>
+          <td>
+              <%= link_to "Edit",  edit_admin_config_macro_message_path(macro_message), class: "button secondary" %></li>
+              <%= link_to "Delete",  admin_config_macro_message_path(macro_message), method: :delete, class: "button secondary" %></li>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

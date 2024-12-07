@@ -1,0 +1,40 @@
+<% content_for :title, 'Storefronts' %>
+<div class="admin_title_header">
+  <h3>Storefront</h3>
+</div>
+
+<%= form_tag admin_storefronts_path, method: 'get', id: 'storefronts_filter' do %>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      <div class="row collapse">
+        <div class="small-6 columns">
+          <%= check_box_tag 'status[]', 'active', params[:status]&.include?('active') %>
+          <%= label_tag 'Active', nil, class: 'active-label' %>
+          <%= check_box_tag 'status[]', 'inactive', params[:status]&.include?('inactive') %>
+          <%= label_tag 'Inactive', nil, class: 'inactive-label' %>
+        </div>
+      </div>
+    </div>
+    <div class="small-4 columns">
+      <%= text_field_tag "name" , params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag 'Search', class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'><%= sortable 'name', 'Name' %></th>
+    <th class='column1_header'><%= sortable 'pim_name', 'Pim Name' %></th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @storefronts, as: 'storefront', cache: true %>
+  </tbody>
+</table>
+<%= paginate @storefronts %>

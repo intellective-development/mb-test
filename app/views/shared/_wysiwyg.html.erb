@@ -1,0 +1,65 @@
+<%= tinymce_assets %>
+<script type="text/javascript">
+	var tinyMCEOptions = {
+    selector: 'textarea.tinymce',
+		content_style: "body { text-align: center; color: black; }",
+		menubar: false,
+		statusbar: true,
+		plugins: ['image', 'link', 'code'],
+		file_picker_types: 'image',
+		file_picker_callback: function (cb, value, meta) {
+			// All this JS is a copied thing from https://www.tiny.cloud/docs/plugins/opensource/image/#interactiveexample
+			// it creates a fake file input for when you click it, then gets the blob
+			// and uses it as the image source
+			var input = document.createElement('input');
+			input.setAttribute('type', 'file');
+			input.setAttribute('accept', 'image/*');
+			input.onchange = function () {
+				var file = this.files[0];
+
+				var reader = new FileReader();
+				reader.onload = function () {
+					/*
+						Note: Now we need to register the blob in TinyMCEs image blob
+						registry. In the next release this part hopefully won't be
+						necessary, as we are looking to handle it internally.
+					*/
+					var id = 'blobid' + (new Date()).getTime();
+					var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+					var base64 = reader.result.split(',')[1];
+					var blobInfo = blobCache.create(id, file, base64);
+					blobCache.add(blobInfo);
+
+					/* call the callback and populate the Title field with the file name */
+					cb(blobInfo.blobUri(), { title: file.name });
+				};
+				reader.readAsDataURL(file);
+			};
+			input.click();
+		},
+		automatic_uploads: true,
+		toolbar: "undo redo | fontselect fontsizeselect | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | blockquote removeformat | link | forecolor | image | code",
+		font_formats: 
+			'Arial=Arial, sans-serif; \
+			Avenir=Avenir, Avenir-Local, Helvetica Neue, Helvetica, Arial, sans-serif; \
+			Avenir Custom=Avenir-Custom, Avenir-Local, Helvetica Neue, Helvetica, Arial, sans-serif; \
+			Helvetica=Helvetica, Arial, sans-serif; \
+			Helvetica Neue=Helvetica Neue, Helvetica, Arial, sans-serif; \
+			Verdana=Verdana, Arial, sans-serif;',
+		fontsize_formats: '8pt 9pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 28pt 32pt 36pt',
+		setup : function(ed) {
+			ed.on('init', function (ed) {
+				ed.target.editorCommands.execCommand("FontName", false, "Avenir");
+				ed.target.editorCommands.execCommand("FontSize", false, "13pt");
+			});
+    }
+  }
+
+	<% if @skip_empty_p_tag_in_tinymce %>
+		tinyMCEOptions['forced_root_block'] = '';
+		tinyMCEOptions['force_br_newlines'] = true;
+		tinyMCEOptions['force_p_newlines'] = false;
+	<% end %>
+
+  tinyMCE.init(tinyMCEOptions);
+</script>

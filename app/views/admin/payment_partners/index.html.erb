@@ -1,0 +1,22 @@
+<% content_for :title, 'Payment Partners' %>
+<div class='admin_title_header'>
+  <h3>Payment Partners</h3>
+  <%= link_to 'New Payment Partner', new_admin_payment_partner_path, class: 'button' %>
+</div>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>ID</th>
+    <th>Name</th>
+    <th>API Client ID</th>
+    <th>API Client Secret</th>
+    <th>API Salt Secret</th>
+    <th>HMAC Secret</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @payment_partners, as: 'payment_partner', cache: true %>
+  </tbody>
+</table>

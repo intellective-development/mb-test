@@ -1,0 +1,48 @@
+<% content_for :title, 'Product Routing' %>
+<div class="admin_title_header">
+  <h3>Product routing</h3>
+  <%= link_to "New product_routing", new_admin_product_routing_path, class: "button" %>
+</div>
+
+<%= form_tag admin_product_routings_path, method: 'get', id: "product_routings_filter" do %>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      <div class="row collapse">
+        <div class="small-6 columns">
+          <%= check_box_tag "active[]", true, params[:active]&.include?('true') %>
+          <%= label_tag 'Active', nil, class: "active-label" %>
+          <%= check_box_tag "active[]", false, params[:active]&.include?('false') %>
+          <%= label_tag 'Inactive', nil, class: "inactive-label" %>
+        </div>
+      </div>
+    </div>
+    <div class="small-5 columns">
+      <%= text_field_tag "name" , params[:name] %>
+    </div>
+    <div class="small-1 columns end">
+      <%= submit_tag "Search", class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>Storefront</th>
+    <th>Product</th>
+    <th>Supplier</th>
+    <th>Order Limit</th>
+    <th>Ship States Applicable</th>
+    <th>Comments</th>
+    <th class='column1_header'><%= sortable "starts_at", "Starts at" %></th>
+    <th class='column1_header'><%= sortable "ends_at", "Ends at" %></th>
+    <th>Engravable?</th>
+    <th>Active?</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @product_routings, as: 'product_routing', cache: true %>
+  </tbody>
+</table>
+<%= paginate @product_routings %>

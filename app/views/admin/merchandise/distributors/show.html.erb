@@ -1,0 +1,16 @@
+<% content_for :title, "#{@distributor.name} - Distributors" %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+<h3>Distributor - <em><%= @distributor.name %></em></h3>
+<p>Associated to brands:
+  <ul>
+    <% @distributor.brands.each do |brand| %>
+    <li>- <%= brand.name %></li>
+    <% end %>
+  </ul>
+</p>
+<p>
+  <%= link_to "Edit", edit_admin_merchandise_distributor_path(@distributor), :class => 'button' %>
+  <%= link_to "Delete", admin_merchandise_distributor_path(@distributor), :data => {:confirm => 'Are you sure?'}, :method => :delete, :class => 'button' %>
+  <%= link_to "New Distributor", new_admin_merchandise_distributor_path, :class => 'button' %>
+  <%= link_to "View All", admin_merchandise_distributors_path, :class => 'button' %>
+</p>

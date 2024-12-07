@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Storefront Link' %>
+<h3>New Storefront Link</h3>
+
+<%= form_for @storefront_link, url: admin_storefront_storefront_links_path(@storefront) do |form| %>
+  <%= render partial: 'form', locals: {form: form } %>
+
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>

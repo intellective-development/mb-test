@@ -1,0 +1,383 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you ordered from Minibar Delivery' %>
+<style>
+    table.container {
+        width: 555px;
+    }
+
+    table.container.sub-top-first{
+        border-bottom: none;
+    }
+
+    table.container table.row .product {
+        width: 33%;
+        white-space: normal;
+    }
+
+    table.container table.row .product-title {
+        cursor: pointer;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px 6px;
+        white-space: normal;
+    }
+
+    table.container table.row .product-title a {
+        color: #222 !important;
+        text-decoration: none;
+        margin: 10px 0;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 1.4em;
+        text-align: center;
+    }
+
+    table.container table.row th.large-1 {
+        width: 10%;
+    }
+
+    table.container table.row.favorite {
+        width: 400px;
+        margin: 0 auto 20px !important;
+    }
+
+    table.container table.row.favorite tbody {
+        width: 100%;
+        display: table;
+    }
+
+    table.container table.row.favorite.wide {
+        width: 100% !important;
+    }
+
+    table.container table.row th.large-10 {
+        width: 400px;
+        border: solid 1px #bfbfbf;
+        border-left: none;
+        border-right: none;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    table.container table.row th.large-10 p {
+        color: #3b3b3b;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        line-height: 2.4em;
+        text-transform: uppercase;
+        margin: 0 auto;
+        padding: 0;
+        font-family: Avenir,'Helvetica Neue',Arial,sans-serif !important;;
+    }
+
+    table.bottom {
+        margin-top: 16px !important;
+        border: solid 1px #ededed;
+        display: table !important;
+    }
+
+    table.container .links-section {
+        width: 100%;
+    }
+
+    table.container .links-section > tbody > tr {
+        border-bottom: solid 1px #ededed;
+    }
+
+    table.container .social-media-handles {
+        margin: 0 auto;
+    }
+
+    table.container .social-media-handles th {
+        padding: 20px 0;
+    }
+
+    table.container .social-media-handles p,
+    table.container .app-links p,
+    table.container .app-links a{
+        margin: 0;
+        color: #3b3b3b;
+        font-family: "Avenir", "Helvetica Neue", Arial, sans-serif;
+        font-size: 14px;
+        font-width: 600;
+        letter-spacing: 2px;
+        line-height: 2.4em;
+        padding: 0;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    table.container .app-links p {
+        text-align: right;
+    }
+
+    table.container .social-media-handles img,
+    table.container .app-links img {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        min-height: 44px;
+        font-size: 10px;
+        word-break: break-word;
+        margin: 0 8px 0 0;
+    }
+
+    table.container .app-links img {
+        margin: 0;
+    }
+
+    table.container .app-links th,
+    table.container .app-links td {
+        vertical-align: middle;
+    }
+
+    table.container .app-links {
+      width: 100%;
+    }
+
+    table.container .app-links table {
+      margin: 0 auto;
+    }
+
+    table.container .app-links > tbody > tr > th {
+        padding: 16px 0 14px;
+    }
+
+    table.container .mobile-apps {
+        border-right: solid 1px #ededed;
+        padding-right: 8px;
+    }
+
+    table.container .referrals {
+        background-color: #000;
+        width: 100%;
+    }
+
+    table.container .referrals p {
+        color: #fff;
+        cursor: pointer;
+        font-family: "Avenir", "Helvetica Neue", Arial, sans-serif;
+        font-size: 14.1px;
+        font-stretch: 100%;
+        font-style: normal;
+        font-weight: 700;
+        letter-spacing: 1.41px;
+        line-height: 23.97px;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        padding: 16px 0;
+    }
+</style>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table>
+              <tr>
+                <td class="panel">
+                  <table class="gift-card">
+                    <tr>
+                      <td>
+                        <h2 class="center dark">You've received an eGift Card!</h2>
+
+                        <table class="banner" background="<%= asset_url(@banner_src) %>">
+                          <tr>
+                            <td>
+                              <img class="image" src="<%= asset_url(@image_src) %>" />
+                            </td>
+                          </tr>
+                        </table>
+
+                        <p class="center dark price">
+                          Gift card value: <b><%= number_to_currency(@gift_card_item.price) %></b>
+                        </p>
+
+                        <p class="center dark code">
+                          Redemption code: <b><%= @coupon.code.upcase %></b>
+                        </p>
+
+                        <% if @gift_card_item.item_options.message.present? %>
+                          <p class="center dark message">
+                            <i><%= @gift_card_item.item_options.message %></i>
+                          </p>
+                        <% end %>
+
+                        <% if @gift_card_item.item_options.sender.present? %>
+                          <p class="center dark sender">
+                            From: <b><%= @gift_card_item.item_options.sender %></b>
+                          </p>
+                        <% end %>
+
+                        <p class="center">
+                          <table class="button radius center no-vertical">
+                            <tr>
+                              <td>
+                                <a class="no-vertical button-text" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/?utm_source=mailgun&utm_medium=email&utm_campaign=campaign_auto_gift_card_received" %>">Shop Now</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table class="row favorite">
+        <tbody>
+          <tr>
+            <th class="large-10">
+              <p class="avenir-heading-medium text-center">our favorite gifts</p>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <table class="row favorite wide">
+        <tbody>
+          <% @favorites.each_slice(3).each do |chunks| %>
+            <tr>
+              <% chunks.each do |favorite| %>
+                <th class="product">
+                  <a target="_blank" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/store/product/#{favorite.permalink}" %>">
+                    <%
+                      image_url = favorite.image_urls(:product).first
+                      image_url = asset_url(image_url) if image_url.start_with?("/")
+                    %>
+                    <img alt="<%= favorite.name %>" src="<%= image_url %>" />
+                  </a>
+                  <p class="avenir-body-small text-center product-title">
+                    <a target="_blank" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/store/product/#{favorite.permalink}" %>">
+                      <br />
+                      <%= favorite.name %> ▸
+                    </a>
+                  </p>
+                </th>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->
+
+<table class="container bottom">
+  <tr>
+    <td>
+      <table class="links-section">
+        <tbody>
+        <tr>
+          <td>
+            <table class="social-media-handles">
+              <tbody>
+              <tr>
+                <th>
+                  <p>Connect With Us</p>
+                  <table align="center">
+                    <tbody>
+                    <tr>
+                      <td>
+                        <a href="https://facebook.com/minibardelivery" target="_blank">
+                          <img alt="Facebook" width="44" height="44" src="<%= asset_url('email/gift_card/facebook-icon.png') %>">
+                        </a>
+                      </td>
+                      <td>
+                        <a href="https://instagram.com/minibardelivery" target="_blank">
+                          <img alt="Instagram" width="44" height="44" src="<%= asset_url('email/gift_card/instagram-icon.jpg') %>">
+                        </a>
+                      </td>
+                      <td>
+                        <a href="https://twitter.com/minibardelivery" target="_blank">
+                          <img alt="Twitter" width="44" height="44" src="<%= asset_url('email/gift_card/twitter-icon.png') %>">
+                        </a>
+                      </td>
+                      <td>
+                        <a href="https://www.pinterest.com/minibardelivery/" target="_blank">
+                          <img alt="Pinterest" width="44" height="44" src="<%= asset_url('email/gift_card/pinterest-icon.png') %>">
+                        </a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </th>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="app-links">
+              <tbody>
+              <tr>
+                <th width="310px">
+                  <table class="mobile-apps">
+                    <tbody>
+                    <tr>
+                      <td width="100%"><p>Download our app:</p></td>
+                      <td><a target="_blank" href="https://apps.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?ign-mpt=uo%3D4&utm_source=mailgun&utm_medium=email&utm_campaign=campaign_auto_gift_card_received">
+                        <img alt="iOS" width="44" height="44" src="<%= asset_url('email/gift_card/ios-icon.png') %>">
+                      </a></td>
+                      <td><a target="_blank" href="https://play.google.com/store/apps/details?id=minibar.android&utm_source=mailgun&utm_medium=email&utm_campaign=campaign_auto_gift_card_received">
+                        <img alt="Android" width="44" height="44" src="<%= asset_url('email/gift_card/android-icon.png') %>">
+                      </a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </th>
+
+                <th>
+                  <table>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <p>
+                          <a target="_blank" href="https://blog.minibardelivery.com/?utm_source=mailgun&utm_medium=email&utm_campaign=campaign_auto_gift_card_received">Blog</a>
+                          <span> | </span>
+                          <a target="_blank" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/store/cocktails?utm_source=mailgun&utm_medium=email&utm_campaign=campaign_auto_gift_card_received" %>">Cocktails</a>
+                        </p>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </th>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="referrals">
+              <tbody>
+              <tr>
+                <th>
+                  <a target="_blank" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/referrals?utm_source=mailgun&utm_medium=email&utm_campaign=campaign_auto_gift_card_received" %>">
+                    <p>Refer a friend: give $10, get $10</p>
+                  </a>
+                </th>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>

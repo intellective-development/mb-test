@@ -1,0 +1,38 @@
+<% content_for :title, 'City/Region Pages' %>
+<h3>City/Region Pages</h3>
+<div class="row">
+  <div class="column large-9">
+  </div>
+  <div class="column large-3">
+    <%= link_to 'New Region', new_admin_config_region_page_path, class: 'button' %>
+    <%= link_to 'New State', new_admin_config_state_path, :class => 'button' %>
+  </div>
+</div>
+
+<% @states.each do |state| %>
+    <h6><%= link_to state.name, edit_admin_config_state_path(state.id) %></h6>
+    <p>
+      <b>Cities:</b>
+      <% state.deliverable_cities.each_with_index do |city, index| %>
+        <%= index == 0 ? '' : '|' %>
+      <%= link_to city.name, edit_admin_config_city_path(city.id) %>
+      <% end%>
+    </p>
+
+    <table>
+      <thead>
+        <tr class='odd'>
+          <th class='column1_header'>Name</th>
+          <th>URL</th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @regions.select{ |r| r.state_id == state.id }.map { |region| %>
+        <tr class='<%= cycle("odd", "")%>'>
+            <td><%= region.name %></td>
+            <td><a href="<%= "/regions/#{region.slug}" %>" target="_blank"><%= "/regions/#{region.slug}" %></a></td>
+            <td><%= link_to 'Edit', edit_admin_config_region_page_path(region) %></td>
+        </tr>
+      <% } %>
+    </table>
+<% end %>

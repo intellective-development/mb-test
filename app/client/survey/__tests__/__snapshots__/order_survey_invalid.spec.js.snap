@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  class="checkout-frame no-bottom-margin"
+>
+  <div
+    class="modal-header mega-header"
+  >
+    <h3>
+      Sorry, the link you followed was invalid
+    </h3>
+    <h2>
+      Go to 
+      <a
+        href="/"
+      >
+        minibardelivery.com
+      </a>
+    </h2>
+  </div>
+</div>
+`;

@@ -1,0 +1,46 @@
+@import "../style/variables";
+
+$base-diameter: 6px;
+$animation-duration: 1000ms;
+$step-duration: $animation-duration / 4;
+$ball-spacing: 3px;
+
+// There are four steps in this animation:
+// o o o
+// O o o
+// o O o
+// o o O
+// We accomplish this by staggering the starting times of each element and adding equivalent dead space to the end of animation,
+// such that while the second circle is active (25%) the first is back to normal (50%) and the third has yet to begin (0%).
+
+@keyframes ball-grow {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.5); }
+  50% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.MBLoader_Ball {
+  display: inline-block;
+  background-color: $brand-light-grey;
+  border-radius: $base-diameter;
+  width: $base-diameter;
+  height: $base-diameter;
+  animation: ball-grow $animation-duration linear infinite;
+}
+
+.MBLoader_Ball__1 {
+  animation-delay: 0ms;
+  margin-right: $ball-spacing;
+}
+
+.MBLoader_Ball__2 {
+  animation-delay: $step-duration; // we offset this by 1 step
+  margin-left: $ball-spacing;
+  margin-right: $ball-spacing;
+}
+
+.MBLoader_Ball__3 {
+  animation-delay: $step-duration * 2; // we offset this by 2 steps
+  margin-left: $ball-spacing;
+}

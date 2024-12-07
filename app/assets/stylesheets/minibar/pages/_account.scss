@@ -1,0 +1,25 @@
+.past-order-pagination {
+  margin: 0.5625em 0.625em;
+}
+
+.page {
+  padding: em-calc(40) 0;
+  h1, h2, h3, h4, h5 {
+    color: $page-heading-color;
+    margin-bottom: em-calc(20);
+  }
+  h3 {
+    font-weight: $heavy-font-weight;
+  }
+  h5 {
+    border-bottom: 1px solid rgba($brand-white, 0.1);
+    font-size: convert-to-em(16);
+    font-weight: 300;
+    padding-bottom: convert-to-em(12);
+    text-transform: uppercase;
+  }
+  p, li {
+    color: rgba($page-text-color, 0.8);
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Payment Partner' %>
+<h3>New Payment Partner</h3>
+
+<%= form_for @payment_partner, url: admin_payment_partners_path do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Create", class: "button" %>
+<% end %>

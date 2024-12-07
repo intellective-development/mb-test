@@ -1,0 +1,22 @@
+<div class="bottles">
+  <div>
+    <h4 class="bottle-count" name="bottles"/> 
+    <span name="bottle_size">{{bottles}}</span> bottles <br/>
+    <div id="cases">
+      <span name="case_counts"/><span class="hidden" name="case_size"/>
+    </div>
+  </div>
+</div>
+
+<div class="bottle-type-breakdown-container">
+  <div class="bottle-type-breakdown" data-type="{{type}}"/>
+  <div class="bottle-notes" data-type="{{type}}" name="notes">{{notes}}</div>
+</div>
+
+<div class="shop-now">
+  <div>
+    <a href="/store/products/{{type}}">
+      <button type="button" id="shop-{{type}}" class="shop-now-button planner-nav">Shop {{type}}</button>
+    </a>
+  </div>
+</div>  

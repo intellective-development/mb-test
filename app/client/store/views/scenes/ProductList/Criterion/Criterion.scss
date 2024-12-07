@@ -1,0 +1,57 @@
+@import "../../../../../../assets/stylesheets/minibar/variables.scss";
+
+.criterion {
+  list-style-type: none;
+
+  & input {
+    display: none;
+  }
+
+  & label {
+    -webkit-user-select: none;
+    align-items: flex-start;
+    border-radius: 4px;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-family: $font-family-avenir;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: flex-start;
+    letter-spacing: normal;
+    line-height: 20px;
+    margin: 2px;
+    padding: 8px 20px 6px 4px;
+
+    &::before {
+      background-repeat: no-repeat;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+      content: " ";
+      display: inline-block;
+      margin-right: 6px;
+      min-height: 15px;
+      min-width: 15px;
+    }
+  }
+
+  & :checked + label {
+    color: $brand-red;
+
+    &::before {
+      background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><path fill='none' stroke='%23781214' stroke-width='16' d='M14 60l28 28 64-64'/></svg>");
+    }
+  }
+
+  .product-list-filters-container & label {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 2px 4px;
+    overflow: hidden;
+    padding: 6px 4px 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

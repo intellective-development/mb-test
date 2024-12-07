@@ -1,0 +1,104 @@
+.currdel__address__container {
+  padding: 22px $standard-gutter 12px $standard-gutter;
+}
+.currdel__supplier-name{
+  @include font-size(14);
+}
+.currdel__supplier-location, .currdel__dm-delivery-expectation{
+  @include font-size(12);
+  color: $brand-dark-grey;
+}
+.currdel__dm-delivery-expectation--closed{
+  @include font-size(12);
+  color: $brand-red;
+  font-weight: $heavy-font-weight;
+}
+
+.currdel__sl__container{ position: relative; }
+.currdel__sl__loading-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $brand-white;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+
+.currdel__sr-row {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  flex-wrap: wrap;
+  color: $brand-dark-grey;
+
+  margin-left: -1px;
+  margin-bottom: 2rem;
+
+  .currdel__sr__container{
+    padding: $standard-gutter;
+    flex: 1;
+    min-width: 246px;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    @media screen and (max-width: 1024px) {
+      min-width: 220px;
+    }
+  }
+
+  .cmDeliveryMethodIcon {
+    margin-left: 0;
+  }
+}
+
+.currdel__sr__header {
+  display: flex;
+  padding-bottom: 6px;
+  align-items: center;
+}
+
+.currdel__sr__supplier {
+  flex: auto;
+}
+
+.currdel__sr__change-button {
+  flex: none;
+  margin-left: 6px;
+
+  // switch between icon and text depending on screen size
+  .currdel__sr__change-button__icon { display: none; }
+  @media screen and (max-width: $small-max-width) {
+    // show icon, with adjusted padding
+    & { padding: 8px 7px 5px; }
+    .currdel__sr__change-button__icon { display: initial; }
+
+    // hide text
+    .currdel__sr__change-button__text { display: none; }
+  }
+}
+
+.currdel__dm-container {
+  align-items: center;
+  display: flex;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  transition: background-color 300ms ease-out;
+}
+
+
+.currdel__dm-icon {
+  flex: none;
+}
+
+.currdel__dm-name{
+  @include font-size(12);
+  color: $brand-dark-grey;
+  font-weight: $heavy-font-weight;
+}
+
+.currdel__done-container {
+  margin: 0 $standard-gutter;
+  padding-bottom: $standard-gutter;
+}

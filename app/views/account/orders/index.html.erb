@@ -1,0 +1,46 @@
+<% content_for :store, false %>
+<% content_for :standard_template, true %>
+<% content_for :title, 'Orders' %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class="title-bar">
+  <div class="row">
+    <div class="large-12 column center">
+      <h1 class="heading-title">Orders</h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-3 medium-3 column nav-column">
+    <%= render partial: 'account/shared/navigation' %>
+  </div>
+  <div class="large-9 medium-9 column">
+    <% if @orders.length < 1 %>
+      <p class="lead">You haven't placed any orders yet. When you do they will appear here.</p>
+    <% else %>
+      <table class="table-history">
+        <thead>
+          <tr>
+            <th class="header-4">Order #</th>
+            <th class="header-4">Date</th>
+            <th class="header-4">Items</th>
+            <th class="header-4">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td class="uppercase"><%= link_to order.number, account_order_path(order) %></td>
+              <td><%= display_completed_at(order) %></td>
+              <td><%= order.order_items.sum(:quantity) %></td>
+              <td>
+                <%= number_to_currency(order.taxed_total) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="past-order-pagination"><%= paginate @orders %></div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<%= error_messages_for :storefront %>
+
+<fieldset class="span-12">
+  <dl class="tabs" data-tab>
+    <dd class="active">
+      <%= link_to 'Fields', '#fields_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'Toggles', '#toggles_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'Files', '#files_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'Authentication', '#authentication_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'Membership', '#membership_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'Recaptcha Domains', '#recaptcha_domains_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'RSA', '#rsa_tab' %>
+    </dd>
+    <dd>
+      <%= link_to 'Webhooks', '#webhooks_tab' %>
+    </dd>
+  </dl>
+  <div class="tabs-content">
+    <div class="content active" id="fields_tab">
+      <%= render 'fields_tab', form: form %>
+    </div>
+    <div class="content" id="toggles_tab">
+      <%= render 'toggles_tab', form: form %>
+    </div>
+    <div class="content" id="files_tab">
+      <%= render 'files_tab', form: form %>
+    </div>
+    <div class="content" id="authentication_tab">
+      <%= render 'authentication_tab', form: form %>
+    </div>
+    <div class="content" id="membership_tab">
+      <%= render 'membership_tab', form: form %>
+    </div>
+    <div class="content" id="recaptcha_domains_tab">
+      <%= render 'recaptcha_domains_tab', form: form %>
+    </div>
+    <div class="content" id="rsa_tab">
+      <%= render 'rsa_tab', form: form %>
+    </div>
+    <div class="content" id="webhooks_tab">
+      <%= render 'webhooks_tab', form: form %>
+    </div>
+  </div>
+</fieldset>

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBDrawer renders 1`] = `
+<div>
+  <div
+    class="elMBDrawer_Overlay"
+  />
+  <div
+    class="elMBDrawer"
+  >
+    <div>
+      Fun!
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MBDrawer renders hidden state 1`] = `
+<div>
+  <div
+    class="elMBDrawer_Overlay elMBDrawer_Overlay__Hidden"
+  />
+  <div
+    class="elMBDrawer elMBDrawer__Hidden"
+  >
+    <div>
+      Fun!
+    </div>
+  </div>
+</div>
+`;

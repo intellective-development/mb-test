@@ -1,0 +1,102 @@
+<div class='admin_title_header'>
+  <div class="small-7 columns">
+    <div class="row">
+      <h3><%= @product.name %> - <%= (@product.item_volume.present? ? @product.item_volume : 'No Volume')%></h3>
+    </div>
+    <div class="row">
+      <h6>
+        <% if @product.product_size_grouping %>
+          grouped under
+          <a class="" href="<%= admin_merchandise_product_size_grouping_path(@product.product_size_grouping)%>">
+            <div class="parent-grouping-stub">
+              <%= image_tag(@product.product_size_grouping.view.image_url(:mini)) unless @product.product_size_grouping.view.image_url.nil? %>
+              <%= @product.product_size_grouping.name %>
+                <a class="parent-grouping-stub__ungroup-link" href="<%= regroup_admin_merchandise_product_path(@product)%>" title="ungroup">
+                  <span data-tooltip aria-haspopup="true" class="has-tip" title="Ungroup and Create New Grouping">×
+                  </span>
+                </a>
+            </div>
+          </a>
+        <% else %>
+          (No Parent Grouping)
+        <% end %>
+      </h6>
+    </div>
+  </div>
+  <div class="small-5 columns">
+    <ul class="button-group">
+      <li><%= link_to "Edit", edit_admin_merchandise_product_path(@product), class: 'button' %></li>
+      <li>
+        <%= link_to "Merge", admin_merchandise_merge_index_path(source_id: @product.id), class: 'button primary' %>
+      </li>
+    </ul>
+    <ul class="button-group">
+      <li><%= link_to (@product.inactive? ? 'Activate' : 'Deactivate'),
+                          activate_admin_merchandise_product_path(@product),
+                          method: :put,
+                          class: 'button alert' %></li>
+      <li><%= link_to "Refresh Product", reindex_admin_merchandise_product_path(@product), class: 'button secondary' %></li>
+    </ul>
+  </div>
+</div>
+<hr>
+<%= render partial: 'product_detail' if @product %>
+<hr>
+<fieldset id="admin-product-properties" class='span-12'>
+  <legend>SKU/Price</legend>
+  <% if @product.variants.size == 0 %>
+    <p>No sku added yet.
+      <%- link_to 'Add Variant', edit_admin_merchandise_multi_product_variant_path(@product) %>
+      <%= link_to 'Add Variant', edit_admin_merchandise_product_path(@product), :class => :button %>
+    </p>
+  <% else %>
+    <p><%- link_to 'Edit Variants', edit_admin_merchandise_multi_product_variant_path(@product) %></p>
+    <div class="large-2 column no-padding">
+      <% business_id = params[:business_id] ? params[:business_id] : Business::MINIBAR_ID %>
+      <select id="business_search" onchange="search()" class="variant-tab-form__input">
+        <%= options_from_collection_for_select(Business.all, 'id', 'name', business_id) %>
+      </select>
+    </div>
+    <table>
+        <tr>
+          <th>State</th>
+          <th>Price</th>
+          <th>Original Price</th>
+          <th>Supplier</th>
+          <th>Created At</th>
+          <th>SKU</th>
+          <th>Variant</th>
+          <th>Inventory</th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @variants.includes(:supplier, :inventory, :product).order('suppliers.name asc').each do |variant|  %>
+        <tr class= <%= "inactive-variant" unless variant.self_active? %>>
+          <td><%= variant.self_active? ? 'Active' : 'Inactive' %></td>
+          <td>
+            <% if variant.on_sale? %>
+              <strike><%= variant.original_price %></strike>
+            <% end %>
+            <% business = Business.find(business_id) %>
+            <%= business_variant_price(variant.price, variant.real_price, variant.supplier.id, business, variant) %>
+          </td>
+          <td><%= variant.original_price %></td>
+          <td><%= variant.supplier_name %></td>
+          <td><%= variant.created_at.strftime('%B %d %Y, %H:%M ') %></td>
+          <td><%= variant.sku %></td>
+          <td><%= variant.id %></td>
+          <td><%= variant.count_on_hand %> </td>
+          <td>
+            <%= link_to (variant.self_active? ? 'Deactivate' : 'Activate'),  toggle_variant_state_admin_merchandise_product_path(@product, variant_id: variant.id), method: :put %>
+          </td>
+        </tr >
+      <% end %>
+    </table>
+  <% end %>
+</fieldset>
+<script type="text/javascript">
+  function search() {
+    const business = $('#business_search').val();
+    window.location.href= window.location.href.split('?')[0] + '?business_id=' + encodeURIComponent(business);
+  }
+</script>

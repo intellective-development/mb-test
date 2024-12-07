@@ -1,0 +1,15 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, 'Edit Bundle' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<h3>Editing Bundle</h1>
+
+<%= form_for(@bundle, :url => admin_merchandise_bundle_path(@bundle)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+
+  <%= f.submit 'Update', :class => 'button' %>
+<% end %>
+
+<p>
+  <%= link_to 'View All', admin_merchandise_bundles_path, :class => 'button' %>
+</p>

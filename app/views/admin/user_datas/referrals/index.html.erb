@@ -1,0 +1,26 @@
+<% content_for :title, 'Referrals' %>
+<h1><%= Referral.count %> Total Referrals </h1>
+
+<div id="admin_referral_grid_wrapper" class='pretty_table'>
+  <table>
+    <tr class='odd'>
+      <thead>
+        <th>Referring User</th>
+        <th>Referred User</th>
+        <th>Purchase Date</th>
+        <th>Code Issued?</th>
+        <th></th>
+      </thead>
+    </tr>
+    <% for referral in @referrals %>
+      <tr class='<%= cycle("odd", "")%>'>
+          <td><%= link_to referral.referring_user.name, admin_customer_path(referral.referring_user) %></td>
+          <td><%= link_to referral.referral_user.try(:name), admin_customer_path(referral.referral_user) %></td>
+          <td><%= referral.purchased_at %></td>
+          <td><%= referral.applied ? 'Yes' : 'No' %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= paginate @referrals %>

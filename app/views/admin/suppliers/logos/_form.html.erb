@@ -1,0 +1,56 @@
+<% content_for :auth_tokens, true %>
+
+<% if @logo.errors.any? %>
+  <div id="#error_explanation">
+    <h2><%= pluralize(@logo.errors.count, "error") %> prohibited this logo from being saved:</h2>
+    <ul>
+      <% @logo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="row">
+  <div class="large-6 columns">
+    <label>Image (larger than 280x280 pixels)</label>
+    <div class='date-select'>
+      <p><%= f.file_field :image %> </p>
+    </div>
+    <% if @logo.image.present? %>
+      <%= image_tag @logo.image.url(:original) %>
+    <% end %>
+    <div id="supplier_select_component"></div>
+    <br>
+  </div>
+</div>
+
+<%= f.submit "Save", class: "button" %>
+
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+
+  <script type="text/javascript">
+    var component_config_block = [{
+      selector: 'supplier_select_component',
+      component: 'SupplierSelect',
+      options: {
+        name: 'logo[supplier_ids][]',
+        label: 'Suppliers',
+        initialValueIds: <%= raw @logo.suppliers.map(&:id) %>,
+        multi: true
+      }
+    }];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

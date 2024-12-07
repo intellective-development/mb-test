@@ -1,0 +1,18 @@
+<% if @invoice.status == 'pending' %>
+  <%= form_tag build_admin_suppliers_invoice_path(@invoice.uuid, business: @business.name) do %>
+    <%= submit_tag "Build", class: "button" %>
+  <% end %>
+<% elsif @invoice.status == 'built' %>
+  <%= form_tag finalize_admin_suppliers_invoice_path(@invoice.uuid, business: @business.name) do %>
+    <%= submit_tag "Finalize", class: "button" %>
+  <% end %>
+<% elsif @invoice.status == 'finalized' %>
+  <%= link_to "View Printable Invoice", pdf_admin_suppliers_invoice_path(@invoice.uuid, business: @business.name), class: "button" %>
+  <%= link_to "Download CSV", csv_admin_suppliers_invoice_path(@invoice.uuid, business: @business.name), class: "button" %>
+  <%= link_to "Mark as Paid", pay_admin_suppliers_invoice_path(@invoice.uuid, business: @business.name), method: :post, class: "button" %>
+<% end %>
+<% unless @invoice.status == 'voided' %>
+  <%= form_tag void_admin_suppliers_invoice_path(@invoice.uuid, business: @business.name) do %>
+    <%= submit_tag "Void Invoice", class: "button" %>
+  <% end %>
+<% end %>

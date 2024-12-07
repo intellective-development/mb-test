@@ -1,0 +1,5 @@
+<% content_for :title, 'Editing Holiday' %>
+<h2>Editing Holiday</h2>
+<%= form_for(@holiday, url: admin_suppliers_holiday_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+<% end %>

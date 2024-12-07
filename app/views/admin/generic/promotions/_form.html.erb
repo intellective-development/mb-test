@@ -1,0 +1,278 @@
+<style>
+  .promotion_promotion_filters input {
+    margin-right: .5rem
+  }
+</style>
+
+<% if @promotion.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this promotion from being saved:</h2>
+    <ul>
+    <% @promotion.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Type<br>
+        <small>The type of promotion. This cannot be changed once set.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <% if @promotion.id? %>
+        <p> <%= @promotion.type %> </p>
+      <% else %>
+        <%= select_tag :p_type, @promotion_types.map{|pt| "<option>#{pt}</option>"}.join().html_safe , { include_blank: true } %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Internal Name
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :internal_name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Display Name<br>
+        <small>This may be displayed in the app or as alt text.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :display_name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Position<br>
+        <small>For iOS banners this determines the position in the list.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :position %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Target<br>
+        <small>Where the promotion should take you when clicked, for iOS this is a URL.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :target %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Image<br>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.file_field  :image %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Not present for logged-in Users <br>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box  :exclude_logged_in_user %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Not present for logged-out Users <br>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box  :exclude_logged_out_user %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Starts at<br>
+        <small>The start date for the promo. It will be valid from 00:00 EST.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <div class='date-select'>
+        <%= f.text_field :starts_at, :class => 'ui-datepicker' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Ends at<br>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <div class='date-select'>
+        <%= f.text_field :ends_at, :class => 'ui-datepicker' %>
+      </div>
+    </div>
+  </div>
+
+
+  <fieldset>
+      <legend>Placement</legend>
+      <label>Select a content placement that this applies to.</label>
+      <%= f.select :content_placement_id, @placement_options, include_blank: true  %>
+  </fieldset>
+
+
+  <fieldset>
+    <legend>Suppliers</legend>
+    <br/>
+       <%#= f.select :promotable_type, promotable_types,
+                  { :include_blank => true },
+                  { 'data-url' => types_admin_generic_sales_path , class:"j-types" } %>
+
+    <label> Items </label>
+    <%#= f.select :promotable_ids, @promotables, { include_blank: true, size: 25 }, multiple: true, class:"j-multi-select" %>
+    <%= f.hidden_field :promotable_type, value: "Supplier" %>
+    <%= f.select :promotable_ids, supplier_dropdown_items, { size: 25 }, multiple: true, class:"j-multi-select" %>
+  </fieldset>
+  <fieldset>
+    <legend>PLP Banners, PLP Heroes &amp; Web Homepage Categories</legend>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Search Query
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.text_field :match_search %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Product Type ID
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.text_field :match_product_type %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Tag
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.select :match_tag, @tag_options, { include_blank: true, size: 25 }, multiple: false %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Page Type <br />
+          <small>"Search", "Type", "Reorder", etc.</small>
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.text_field :match_page_type %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Web Hero</legend>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Text Content<br/>
+          <small>Alternate, text content for the promo. Used only if no image specified.</small>
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.text_field :text_content %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Background Color (e.g. '#f1f334')
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.text_field :background_color %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Mobile Image<br>
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.file_field  :secondary_image %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>
+          Priority (1 highest, 10 lowest)
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.select :priority, options_for_select(1..10, @promotion.priority || 10) %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+      <legend>Filters</legend>
+      <%= f.association :promotion_filters, label_method: :description, as: :check_boxes, label: "Select the filters that will be visible for PLP" %>
+  </fieldset>
+</fieldset>
+
+<%= f.submit "Save Promotion", class: "button" %>
+
+<%= content_for :bottom do -%>
+   <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min',
+                                'datePickerInitialize' %>
+   <%= javascript_include_tag 'admin/promotions' %>
+
+   <%= javascript_tag do %>
+    jQuery(document).ready(function($) {
+      var promotable_type = $("#promotion_promotable_type");
+      var promotable_ids   = $("#promotion_promotable_ids");
+      Minibar.promotionsItem(promotable_type, promotable_ids);
+   });
+  <%- end %>
+
+<%- end %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<% end %>
+
+<script>
+  $(function(){
+    $(".j-multi-select").zmultiselect({
+      live: true,
+      filter: true,
+    });
+  });
+</script>

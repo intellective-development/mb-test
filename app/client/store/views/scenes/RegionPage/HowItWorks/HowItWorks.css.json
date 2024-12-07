@@ -1,0 +1,59 @@
+{
+  "div": {
+    "@media (max-width: 767px)": {
+      "flexDirection": "column"
+    },
+    "@media (min-width: 768px)": {
+      "flexDirection": "row"
+    },
+    "display": "flex"
+  },
+  "h2": {
+    "@media (max-width: 767px)": {
+      "fontSize": 26
+    },
+    "@media (min-width: 768px)": {
+      "fontSize": 32
+    },
+    "fontWeight": 700,
+    "marginBottom": 30,
+    "marginTop": 30,
+    "textAlign": "center"
+  },
+  "h3": {
+    "::before": {
+      "height": 72,
+      "marginBottom": 10,
+      "width": 72
+    },
+    "alignItems": "center",
+    "color": "#222",
+    "display": "flex",
+    "flexDirection": "column",
+    "fontSize": 18,
+    "fontWeight": 700,
+    "letterSpacing": 0.5,
+    "margin": 10,
+    "textTransform": "uppercase"
+  },
+  "hr": {
+    "margin": 30
+  },
+  "p": {
+    "color": "#222",
+    "fontSize": 16,
+    "marginBottom": 10,
+    "marginLeft": 10,
+    "marginRight": 10,
+    "marginTop": 10
+  },
+  "panel": {
+    "flexBasis": "33%",
+    "margin": 10,
+    "textAlign": "center"
+  },
+  "section": {
+    "margin": "40px auto",
+    "padding": 20
+  }
+}

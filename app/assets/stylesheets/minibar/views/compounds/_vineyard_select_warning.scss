@@ -1,0 +1,25 @@
+.cm-shipping-warning-text-container {
+  padding: 1em;
+}
+
+.cm-shipping-warning-title {
+  font-weight: $heavy-font-weight;
+}
+
+.cm-shipping-warning-shipping-info {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: $standard-gutter;
+}
+
+.cm-shipping-warning-shipping-info__icon {
+  @include hide-for-small;
+
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.cm-shipping-warning-shipping-info__text {
+  margin: 0;
+}

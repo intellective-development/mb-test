@@ -1,0 +1,512 @@
+<script>
+
+  $(document).ready(function(){
+    function hideTierAmount() {
+      $(".tier-percent-field").show();
+      $(".tier-amount-field").hide();
+    }
+
+    function hideTierPercent() {
+      $(".tier-percent-field").hide();
+      $(".tier-amount-field").show();
+    }
+
+    function hideTierFields() {
+      let couponType = $("#c_type").val();
+      if ("CouponTiered" === couponType ){
+        hideTierAmount();
+      }else if ("CouponTieredDecreasingBalance" === couponType){
+        hideTierPercent();
+      }
+    }
+
+    $("#c_type").change(() => {
+      if(["CouponTieredDecreasingBalance", "CouponTiered"].includes($("#c_type").val())){
+        $(".price-tier-container").fadeIn('fast');
+        hideTierFields();
+      }
+      else{
+        $(".price-tier-container").fadeOut('fast');
+      }
+    });
+
+    $(document).on('DOMNodeInserted', function(e) {
+      if ( $(e.target).hasClass('tier-nested-fields') ) {
+        hideTierFields();
+      }
+    });
+  });
+</script>
+
+<% if @coupon.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+    <ul>
+    <% @coupon.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <legend>General</legend>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Storefront<br>
+        <small>Storefront this coupon can be used with. This cannot be changed once set.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <% unless @coupon.new_record? %>
+        <p> <%= @coupon.storefront.name %> </p>
+      <% else %>
+        <%= f.select :storefront_id, options_for_select(storefronts_dropdown_items), include_blank: 'Select storefront' %>
+      <% end %>
+    </div>
+    <div class="large-6 columns">
+      <label>
+        Type<br>
+        <small>The type of coupon. This cannot be changed once set.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <% unless @coupon.new_record? %>
+        <p id="c_type"><%= @coupon.type %></p>
+      <% else %>
+        <%= select_tag :c_type, @coupon_types.map{|ct| "<option>#{ct}</option>"}.join().html_safe , { include_blank: true } %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Code<br>
+        <small>This must be unique and is case-insensitive. For decreasing balance coupons, this should be at least 10 characters long.
+        <br><strong>Suggestion:</strong> <%= Coupons::CouponCodeService.new.generate_code %></small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :code %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Category<br>
+        <small>This is used for reporting purposes and not exposed to the customer.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+        <%= f.select :reporting_type_id, options_for_select(@reporting_types.order(:name).collect{ |rt| [rt.name, rt.id] }, (f.object.reporting_type_id || ReportingType.select(:id).find_by(name: "Other")&.id)) %>
+    </div>
+  </div>
+ <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Description<br>
+        <small>This is currently not exposed to the customer.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_area :description %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Value</legend>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Amount<br>
+        <small>The value of this coupon.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :amount %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Percent<br>
+        <small>The percent value of this coupon.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :percent %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Engraving Percent<br>
+        <small>If provided it reduces engraving fees by a % value.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :engraving_percent %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Maximum Rebate Value<br>
+        <small>The maximum value of the coupon. This should always be set when creating percentage discounts or free delivery coupons.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :maximum_value %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Free Delivery<br>
+        <small>Removes on demand charges and taxes. Still restricted by the Maximum Rebate Value.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :free_delivery %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Free Shipping<br>
+        <small>Removes shipping charges and taxes. Still restricted by the Maximum Rebate Value.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :free_shipping %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Free Service Fee<br>
+        <small>Should this coupon also remove the service fee.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :free_service_fee %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Combine<br>
+        <small>Should this coupon apply to all order items, or a single item. In general this should always be checked.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :combine %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Free Product <br />
+        <small>Limit 1 free bottle per order.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <div id="free-product-selector-component"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Free Product Nth Count<br>
+        <small>Total quantity of free product items needed for discount to be applied.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.number_field :free_product_id_nth_count, min: 1 %>
+    </div>
+  </div>
+  <%- show = ["CouponTieredDecreasingBalance", "CouponTiered"].include?(@coupon.type) %>
+  <fieldset class="price-tier-container" style="display:<%= show ? 'block' : 'none' %>;">
+    <legend>Price Tiers</legend>
+    <p><tiny> Note that the "percent" field should be the actual percentage you want. So to make 10% off, input 10.</tiny></p>
+    <div id="price_tiers">
+
+      <%= f.simple_fields_for :price_tiers, @coupon.price_tiers.order('minimum') do |ff| -%>
+        <%= render partial: 'price_tier_fields', locals: {f: ff} %>
+        <br/>
+      <% end %>
+
+      <div class="links">
+        <%= link_to_add_association 'add price tier', f, :price_tiers, class: "button" %>
+      </div>
+    </div>
+  </fieldset>
+</fieldset>
+
+<fieldset>
+  <legend>Restrictions</legend>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Starts at<br>
+        <small>The start date for the coupon. It will be valid from 00:00 EST.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <div class='date-select'>
+        <%= f.text_field :starts_at, :class => 'ui-datepicker' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Expires at<br>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <div class='date-select'>
+        <%= f.text_field :expires_at, :class => 'ui-datepicker' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>NTH Order Item<br>
+        <small>The minimum distinct items to be eligible</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :nth_order_item %>
+    </div>
+  </div>
+  <% if @coupon.is_a?(CouponReferral) && @coupon.id %>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Expire Rewards<br>
+        <small>This will expire any issued rewards upon save of this record, assuming that the expires at date is in the past.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <div class='date-select'>
+        <input type="checkbox" name="expire_rewards" />
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Minimum Value<br>
+        <small>The minimum sellable value required for a coupon to be eligible.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :minimum_value %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Minimum Units<br>
+        <small>The minimum sellable units required for a coupon to be eligible.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :minimum_units, value: @coupon.minimum_units || 1 %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        nth Order<br>
+        <small>The order for which the coupon is eligible. For example "2" will only apply to a second order. Leave blank or set to "0" if it should apply on any order.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :nth_order %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Quota<br>
+        <small>Maximum number of times this coupon can be used.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :quota %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Domain<br>
+        <small>Limit to customer with email domain.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :domain_name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Supplier Type<br>
+        <small>Restricts the coupon to a specific Supplier Type.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.select :supplier_type, supplier_dashboard_type_dropdown_items(f.object.supplier_type) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Membership Plan<br>
+        <small>Restricts the coupon to a specific Membership Plan.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.select :membership_plan_id, membership_plan_dropdown_items(f.object.membership_plan_id) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Platform(s)<br>
+        <small>The platform(s) on which the coupon can be redeemed. Leaving blank will default to all platforms.</small>
+      </label>
+    </div>
+    <div class="large-6 columns coupon_platforms">
+      <% Doorkeeper::Application.all.each do |doorkeeper_application| %>
+        <div class="large-6 columns"><%= f.check_box(:doorkeeper_application_ids, {multiple: true, class: 'coupon_platform'}, doorkeeper_application.id, nil) %> <%= doorkeeper_application.name %></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Single Use<br>
+        <small>Restricts the coupon to a single use per user.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :single_use %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Skip Fraud Check<br>
+        <small>This will allow the coupon to be used without performing a promo-fraud check with Sift. Generally you should leave this option unchecked.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :skip_fraud_check %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Restrict Items<br>
+        <small>Restricts the maximum discount to the taxed total of qualified items, plus tip and delivery fee.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :restrict_items %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Exclude pre sale<br>
+        <small>Restricts the coupon so that it cannot be used for pre sale items.</small>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.check_box :exclude_pre_sale %>
+    </div>
+  </div>
+  <fieldset>
+    <legend> Sellable </legend>
+    <p>A coupon can be universal or restricted to either a set of suppliers, products or brands.</p>
+    <div class="row">
+      <div class="large-6 columns">
+        <label>Exclude Rule<br>
+          <small>Make this rule an exclusion rule instead of a restriction. When this option is selected, this coupon won't be able to be applied to the restrictions selected.</small>
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <%= f.check_box :sellable_restriction_excludes %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <label>Restriction<br>
+          <small>If you select a supplier that is parent of other suppliers the coupon will be applied to the parent and
+            it's children.</small>
+        </label>
+        <div id="sellable-select-component"></div>
+      </div>
+    </div>
+  </fieldset>
+</fieldset>
+
+
+<%= f.submit "Save Coupon", class: "button" %>
+
+<%= content_for :bottom do -%>
+   <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min',
+                                'datePickerInitialize' %>
+   <%= javascript_include_tag 'admin/sales' %>
+   <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script>
+    var component_config_block = [
+      {
+        selector: 'sellable-select-component',
+        component: 'SellableSelect',
+        options: {
+          initialType: <%= wrap_string (escape_javascript @coupon.sellable_type) %>,
+          sellableTypes: <%= raw sellable_types %>,
+          initialSellables: <%= raw @coupon.sellable_ids %>,
+          name: 'coupon',
+          couponId: <%= @coupon.id || 'null' %>
+        }
+      },
+      {
+        selector: 'free-product-selector-component',
+        component: 'ProductSelect',
+        options: {
+          name: 'coupon[free_product_id]',
+          placeholder: 'Choose Product',
+          initialValues: [{
+            <% unless @coupon&.free_product&.id.nil? %>
+            value: <%= @coupon.free_product.id %>,
+            label: '<%= @coupon.free_product.display_name_with_id %>'
+            <% end %>
+          }],
+          id: 'free_product_id',
+          label: ''
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<%- end %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<% end %>

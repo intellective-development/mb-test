@@ -1,0 +1,48 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'as you referred a customer to Minibar Delivery </p><p class="text-legal indent-major center no-vertical">Only one reward credit can be used per order.'.html_safe %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark">
+                          Hi <%= @user.first_name %>,<br/><br/>
+                          We raise our glass to you! Your friend, <%= "#{@referral_user.first_last_initial}" %>, recently completed their first Minibar Delivery purchase - which means you've earned $10 off your next order.<br/><br/>
+                          Use promo code <b><%= @coupon.code.upcase %></b> to redeem and don't forget to keep spreading the word so you can earn more drinks on us.</br><br/>
+                          </p>
+                          
+                         <table class="button radius indent no-vertical">
+                          <tr>
+                            <td>
+                              <a class="no-vertical button-text" href="https://minibardelivery.com/referrals">Invite More Friends</a>
+                            </td>
+                          </tr>
+                        </table><br/><br/>
+
+                        <p class="indent dark">
+                          Cheers,<br/>
+                          Minibar Delivery<br/>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

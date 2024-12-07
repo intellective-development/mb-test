@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentDeliveryInfoModal renders nothing when hidden 1`] = `
+<Modal
+  show={false}
+  size="large"
+>
+  <[object Object]
+    deliveryInfoRouteTo={[Function]}
+  />
+</Modal>
+`;
+
+exports[`CurrentDeliveryInfoModal renders the current_delivery_info view 1`] = `
+<Modal
+  show={true}
+  size="large"
+>
+  <[object Object]
+    deliveryInfoRouteTo={[Function]}
+  />
+</Modal>
+`;
+
+exports[`CurrentDeliveryInfoModal renders the supplier switching view after routing to it 1`] = `
+<Modal
+  show={true}
+  size="large"
+>
+  <[object Object]
+    routeBack={[Function]}
+    supplier_id={1}
+  />
+</Modal>
+`;
+
+exports[`CurrentDeliveryInfoModal renders the waitlist view after routing to it 1`] = `
+<Modal
+  show={true}
+  size="large"
+>
+  <[object Object]
+    routeBack={[Function]}
+  />
+</Modal>
+`;

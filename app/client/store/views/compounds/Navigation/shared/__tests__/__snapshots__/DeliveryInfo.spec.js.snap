@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryInfo renders 1`] = `
+<div>
+  <img
+    alt="on_demand"
+    class="cmDeliveryMethodIcon_Multi"
+    height="24"
+    src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+    width="24"
+  />
+  <div>
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+      Delivery to
+    </span>
+    <br />
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+       123 Jump Street, Apt. 10
+    </span>
+  </div>
+</div>
+`;
+
+exports[`DeliveryInfo renders with an address loading 1`] = `
+<div>
+  <img
+    alt="on_demand"
+    class="cmDeliveryMethodIcon_Multi"
+    height="24"
+    src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+    width="24"
+  />
+  <div>
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+      Delivery to
+    </span>
+    <br />
+    <div>
+      <div
+        class="MBLoader_Ball MBLoader_Ball__1"
+      />
+      <div
+        class="MBLoader_Ball MBLoader_Ball__2"
+      />
+      <div
+        class="MBLoader_Ball MBLoader_Ball__3"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DeliveryInfo renders with an address missing 1`] = `
+<div>
+  <img
+    alt="on_demand"
+    class="cmDeliveryMethodIcon_Multi"
+    height="24"
+    src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+    width="24"
+  />
+  <div>
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+      Delivery to
+    </span>
+    <br />
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+      Add delivery address
+    </span>
+  </div>
+</div>
+`;
+
+exports[`DeliveryInfo renders with different delivery method types 1`] = `
+<div>
+  <img
+    alt="pickup__shipped"
+    class="cmDeliveryMethodIcon_Multi"
+    height="24"
+    src="/assets/components/compounds/delivery_method_icon/pickup__shipped.svg"
+    width="24"
+  />
+  <div>
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+      In-store pickup and shipping
+    </span>
+    <br />
+    <span
+      class="elMBText elMBText_ResetSpacing"
+    >
+       123 Jump Street, Apt. 10
+    </span>
+  </div>
+</div>
+`;

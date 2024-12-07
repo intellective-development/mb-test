@@ -1,0 +1,34 @@
+<%= render partial: 'shared/store_landing_javascript' %>
+
+<% content_for :store, false %>
+<% content_for :hide_header, true %>
+<% content_for :homepage, true %>
+<% content_for :body_class, 'homepage' %>
+<% content_for :title, 'Minibar Delivery: The best way to buy wine, liquor, and beer online' %>
+
+<% content_for :head do %>
+<script>
+  window.Data = window.Data || {};
+  window.Entry = window.Entry || {};
+  window.Store = window.Store || {};
+  Store.boot = false;
+</script>
+<link href="https://minibardelivery.com" rel="canonical" />
+<% end %>
+
+<%= render partial: 'shared/assume_identity_warning' %>
+
+<%= render partial: 'content/react_partial', locals: { component: 'LandingHero', server_render: true,
+  props: { destination: flash[:store_redirect_destination] || '/store/' },
+  server_props: { show_address_entry_placeholder: true }
+} %>
+<%= render partial: 'content/react_partial', locals: { component: 'LandingAppInstall', server_render: true } %>
+
+<% unless current_user %><div id="email-capture-section"></div><% end %>
+<% content_for :deferred_load do %>
+  <link rel="prefetch" href='<%= asset_path('generated/store_bundle') %>'>
+<% end %>
+<% if Feature[:email_capture].enabled?(current_user) %>
+  <%= render partial: 'content/react_partial', locals: { component: 'EmailCaptureModal', server_render: false } %>
+<% end %>
+

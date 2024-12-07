@@ -1,0 +1,15 @@
+
+<ul class='vertical-list large-4'>
+  <%- @suppliers.each do |supplier| %>
+    <li>
+      <%- variant = @product.variants.find_or_initialize_by(:supplier_id => supplier.id) %>
+      <%= form.fields_for :variants, variant do |ff| %>
+        <label> <%= supplier.name %> </label>
+        <p>
+            <%= ff.text_field :price %>
+            <%= ff.check_box :_add %>
+        </p>
+      <%- end %>
+    </li>
+  <%- end %>
+</ul>

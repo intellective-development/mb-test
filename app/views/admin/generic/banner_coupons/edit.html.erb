@@ -1,0 +1,8 @@
+<% content_for :auth_tokens, true %>
+<h1> Edit Banner Coupon </h1>
+
+<%= simple_form_for(@banner_coupon, :as => :banner_coupon, :url => admin_generic_banner_coupon_path(@banner_coupon)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to 'View All', admin_generic_coupons_path, :class => 'button' %>

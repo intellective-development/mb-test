@@ -1,0 +1,24 @@
+<tr>
+  <td>
+    <%= payment_partner.id %>
+  </td>
+  <td>
+    <%= payment_partner.name %>
+  </td>
+  <td>
+    <%= payment_partner.api_client_id %>
+  </td>
+  <td>
+    <%= payment_partner.api_client_secret %>
+  </td>
+  <td>
+    <%= payment_partner.api_salt_secret %>
+  </td>
+  <td>
+    <%= payment_partner.hmac_secret %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_payment_partner_path(payment_partner), class: 'button tiny' %>
+    <%= link_to "Delete", admin_payment_partner_path(payment_partner), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

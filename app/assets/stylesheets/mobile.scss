@@ -1,0 +1,149 @@
+$color-dark-grey: #222;
+$color-light-grey: #e4e4e4;
+$color-medium-grey: #444;
+$color-white: #fff;
+
+$default-spacing: 16px;
+
+$font-bold: Avenir-Heavy;
+$font-normal: Avenir-Book;
+
+html {
+  touch-action: manipulation;
+}
+
+body {
+  background-color: $color-white;
+  color: $color-medium-grey;
+  font-family: $font-normal;
+  margin: $default-spacing;
+}
+
+a {
+  border: 0;
+  color: #781214;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, h1 a {
+  color: $color-dark-grey;
+  font-family: $font-bold;
+  margin-bottom: $default-spacing;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+p, li, dd {
+  color: $color-medium-grey;
+  font-family: $font-normal;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 1.4;
+  margin-bottom: $default-spacing;
+}
+
+strong {
+  color: $color-dark-grey;
+  font-family: $font-bold;
+}
+
+li {
+  margin-right: $default-spacing;
+  padding-left: $default-spacing;
+}
+
+hr {
+  background-color: $color-light-grey;
+  border-top: 1px solid $color-light-grey;
+  border: 0;
+  color: $color-light-grey;
+  display: block;
+  height: 1px;
+}
+
+.links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    font-family: $font-bold;
+    font-size: 16px;
+    margin-bottom: $default-spacing;
+    padding: 0;
+    text-transform: uppercase;
+  }
+}
+
+.faq {
+  .title {
+    align-items: center;
+    color: $color-medium-grey;
+    cursor: pointer;
+    display: flex;
+    font-family: $font-bold;
+    font-size: 16px;
+    justify-content: space-between;
+    letter-spacing: 0;
+    min-height: 30px;
+    padding: $default-spacing 0;
+    border-bottom: 1px solid $color-light-grey;
+    margin-bottom: 0;
+    width: 100%;
+    .text {
+      max-width: 90%;
+    }
+    &.open {
+
+    }
+  }
+  .content {
+    color: $color-medium-grey;
+    font-family: $font-normal;
+    font-size: 14px;
+    letter-spacing: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    transition: all 0.1s ease;
+    &.open {
+      border-bottom: 1px solid $color-light-grey;
+      max-height: 1000px;
+      opacity: 1;
+    }
+  }
+  .arrow {
+    display: table-cell;
+    height: 100%;
+    text-align: center;
+    transition: all 200ms ease-in-out;
+    background-color: red;
+    background: transparent url(image_path('ui/arrow-down@3x.png')) no-repeat 0 0;
+    background-size: 10px 6px;
+    width: 10px;
+    height: 6px;
+  }
+
+  .open .arrow {
+    transform: rotate(0.5turn);
+  }
+}

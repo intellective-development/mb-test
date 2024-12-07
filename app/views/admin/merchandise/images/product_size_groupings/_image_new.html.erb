@@ -1,0 +1,9 @@
+<fieldset class='new_fields'>
+
+  <label>Photo ( larger than 500x500 pixels recommended, no watermarks )</label>
+  <p><%= image_form.file_field  :photo %> </p>
+
+  <label>Link to image</label>
+  <%= image_form.text_field :photo_from_link, class: "js-product-image image-link-text-box" %>
+
+</fieldset>

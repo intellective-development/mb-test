@@ -1,0 +1,230 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you are enrolled in auto-refill with Minibar Delivery' %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @subscription.user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Your upcoming delivery is scheduled to be sent to the address below tomorrow between <%= format_time_range(@subscription.next_order_date, 120, @order.shipments.first.supplier.timezone ) %>. Please see below for a list of items in your order. If you need to cancel, you can suspend your subscription at any time from the account page <%= link_to 'here', account_subscriptions_url, class: 'text-link' %>
+                          <br><br>
+                          If you need anything at all, please don’t hesitate to reach out! You can email <a class="text-link" href="mailto:help@minibardelivery.com">help@minibardelivery.com</a> or call us at <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>.
+                        </p><br/>
+                        <p class="indent dark small">
+                        Cheers, <br/>
+                        Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->
+<table class="container sub"> <!-- ORDER DETAILS BEGIN -->
+  <tr>
+    <td>
+
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="one sub-columns">
+                </td>
+                <td class="seven sub-columns last">
+                  <table class="section-bottom-less">
+                    <tr>
+                      <td>
+                        <h5>Deliver To:</h5>
+                        <p class="dark small">
+                        <% if @order.ship_address %>
+                          <% @order.ship_address.address_lines_array.each do |line| %>
+                            <%= line %> <br/>
+                          <% end %>
+                        <% else %>
+                          In-Store Pickup <br/>
+                        <% end %>
+                        <%= @order.ship_address&.city_state_zip %>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <% if @order.try(:delivery_notes).present? %>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <% if @order.gift_detail&.message %>
+                  <table class="section no-vertical">
+                  <% else %>
+                  <table class="section no-top">
+                  <% end %>
+                    <tr>
+                      <td>
+                        <h5 class="indent"> Instructions: </h5>
+                        <p class="indent dark small"> <%= @order.try(:delivery_notes) %></p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+
+      <% if @order.gift_detail&.message %>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section no-top">
+                    <tr>
+                      <td>
+                        <h5 class="indent"> Gift Message: </h5>
+                        <p class="indent dark small"> <%= @order.gift_detail.message || 'None Provided' %> </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+
+    </td>
+  </tr>
+</table> <!-- ORDER DETAILS END -->
+
+
+
+<table class="container sub no-bottom-border"> <!-- PRODUCTS BEGIN -->
+  <tr>
+    <td>
+
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td>
+                  <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+                    <table class="bottom-border" style="width:100% !important">
+                      <tr>
+                        <td class="product-image hide-for-small">
+                          <table width="40" height="40">
+                            <tr>
+                              <td>
+                                <img class="section-less indent no-right hide-for-small" src="<%= variant.product.featured_image(:thumb) %>"/>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td class="product-name">
+                          <p class="section-less no-bottom dark small"> <%= variant.name %> </p>
+                          <p class="section-less no-top small"><%= variant.product.try(:item_volume).to_s %> </p>
+                        </td>
+                        <td class="size-and-cost">
+                          <p class="section-less dark small">Qty: <%= order_items.sum(&:quantity) %></p>
+                        </td>
+                        <td class="size-and-cost last">
+                          <p class="section-less dark small"><%= number_to_currency order_items.sum{|t| t.total } %></p>
+                        </td>
+                      </tr>
+                    </table>
+                  <% end %>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table class="container sub"> <!-- TOTALS START -->
+  <tr>
+    <td>
+
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table style="float:right" class="section">
+                    <tr>
+
+                      <td class="pred">
+                        <p class="dark small">
+                          Estimated Sub-Total: <br/>
+                        </p>
+                      </td>
+
+                      <td style="min-width:100px;" >
+                        <p class="dark small">
+                          <%= number_to_currency(@order.sub_total) %>
+                        </p>
+                      </td>
+
+                    </tr>
+                    <tr>
+                       <td class="pred" colspan="2">
+                        <p class="dark small">
+                          Final total including sales tax<br> will be calculated at time<br> of processing.<br/>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- TOTALS END -->

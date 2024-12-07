@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryDropdownContentModule renders a carousel 1`] = `
+<a
+  class="cmDCategoryDropdown_ContentModule cmDCategoryDropdown_Carousel"
+  href="https://sandbox.minibardelivery.com/store/products/veuve-cliquot"
+>
+  <img
+    alt="Celebrate every day!"
+    src="https://placebear.com/640/150"
+  />
+</a>
+`;
+
+exports[`CategoryDropdownContentModule renders a link_list 1`] = `
+<div
+  class="cmDCategoryDropdown_ContentModule cmDCategoryDropdown_LinkList_Container"
+>
+  <h3
+    class="elMBText elMBText_ResetSpacing"
+  >
+    Featured
+  </h3>
+  <div>
+    <ul>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmDCategoryDropdown_LinkList_ElLink"
+          href="/store/category/wine"
+        >
+          Some Wines
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`CategoryDropdownContentModule renders a product_type_link_list 1`] = `
+<div
+  class="cmDCategoryDropdown_ContentModule cmDCategoryDropdown_LinkList_Container"
+>
+  <h3
+    class="elMBText elMBText_ResetSpacing"
+  >
+    Categories
+  </h3>
+  <div>
+    <ul>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmDCategoryDropdown_LinkList_ElLink"
+          href="/store/category/wine/wine-red"
+        >
+          Red
+        </a>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmDCategoryDropdown_LinkList_ElLink"
+          href="/store/category/wine/wine-white"
+        >
+          White
+        </a>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmDCategoryDropdown_LinkList_ElLink cmDCategoryDropdown_LinkList_ElLink__ShopAll"
+          href="/store/category/wine"
+        >
+          Shop All
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

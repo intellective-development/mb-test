@@ -1,0 +1,15 @@
+<div class="row order">
+  <div class="large-12 column panel">
+    <% if @order.fraud? %>
+      <h4>Suspected Fraud</h4>
+      <p>This order has been marked as fraud by <em>SiftScience</em>. It has not yet been sent to the store partner. Please review and cancel as per protocol. </p>
+      <p>If you feel this is a legitimate order then you can also <%= link_to "process this order", skip_verification_admin_fulfillment_order_path(order), confirm: 'Are you sure?', method: :post %>.</p>
+    <% else %>
+      <h4>Verification in Progress</h4>
+      <p>We are verifying this order, it has not yet been sent to the store partner. This process is automatic and should complete within 30 seconds.</p>
+      <p>
+        You can also <%= link_to "skip verification", skip_verification_admin_fulfillment_order_path(order), confirm: 'Are you sure?', method: :post %>.
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<h2>Holidays</h2>
+<p>Holidays are used to temporarily close a supplier without changing their standard delivery hours. They should be used for public holidays such as Thanksgiving and also to close a specific supplier for the day.</p>
+<p>
+  <%= link_to 'Create Holiday', new_admin_suppliers_holiday_path %>
+</p>
+<%= form_tag admin_suppliers_holidays_path, :method => 'get', :id => "holidays_filter" do %>
+  <div class="row collapse">
+    <div class="small-8 columns">
+      <%= text_field_tag :name, params[:name], placeholder: 'Search by Supplier Name' %>
+    </div>
+    <div class="small-4 columns end">
+      <%= submit_tag "Search", name: nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Suppliers</th>
+    <th>Shipping Types</th>
+    <th>Created by</th>
+    <th></th>
+  </tr>
+  <% @holidays.each do |holiday| %>
+  <tr>
+    <td><%= holiday.as_date.strftime('%B %d, %Y') %></td>
+    <td>
+      <% if holiday.supplier_holidays.size == 1 %>
+        <%= holiday.supplier_holidays.first.supplier.name %>
+      <% else %>
+        <abbr title="<%= holiday.supplier_holidays.map{ |sh| sh.supplier.name }.join(', ') %>"><%= pluralize(holiday.supplier_holidays.size, 'supplier') %></abbr>
+      <% end %>
+    </td>
+    <td>
+      <%= holiday.shipping_types.size === 0 || holiday.shipping_types.size === ShippingMethod::IN_STORE_SHIPPING_TYPES.size ? 'All' : holiday.shipping_types.map { |s| I18n.t("admin.shipping_method.#{s}") }.join(', ') %>
+    </td>
+    <td>
+      <%= holiday.user ? holiday.user.email : 'Unknown' %>
+    </td>
+    <td>
+      <%= link_to 'Edit', edit_admin_suppliers_holiday_path(holiday) %> | <%= link_to 'Delete', admin_suppliers_holiday_path(holiday), data: { confirm: 'This will remove the selected holiday, it will no longer apply.'}, method: :delete %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<h2>Store Breaks</h2>
+<p>Breaks are essentially short-lived holidays. Start and End times are in the supplier's timezone.</p>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Supplier</th>
+    <th>Created by</th>
+    <th></th>
+  </tr>
+  <% @breaks.each do |store_break| %>
+  <tr>
+    <td><%= store_break.as_date.strftime('%B %d, %Y') %></td>
+    <td><%= store_break.start_time %></td>
+    <td><%= store_break.end_time %></td>
+    <td>
+      <%= store_break.supplier.name %>
+    </td>
+    <td>
+      <% if store_break.type %>
+      <%= store_break&.user&.email || 'Unknown' %>
+      <% else %>
+      Admin console
+      <% end %>
+    </td>
+    <td>
+      <%= link_to 'Delete',  admin_suppliers_holiday_destroy_supplier_break_path(store_break), data: { confirm: 'This will remove the selected break, it will no longer apply.'}, method: :delete %>
+    </td>
+  </tr>
+  <% end %>
+  <% @external_breaks.each do |supplier| %>
+    <tr>
+      <td class="center" colspan="3">external automatic ongoing break</td>
+      <td>
+        <%= supplier.name %>
+      </td>
+      <td>
+        <% if supplier.dashboard_type == Supplier::DashboardType::SEVEN_ELEVEN %>
+          7NOW
+        <% else %>
+          unknown
+        <% end %>
+      </td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate @paginator %>

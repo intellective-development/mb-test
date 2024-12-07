@@ -1,0 +1,8 @@
+<tr class='<%= cycle("odd", "")%>'>
+  <td><%= link_to bulk_order.humanized_name, admin_fulfillment_bulk_order_path(bulk_order) %></td>
+  <td><%= bulk_order.supplier_names %></td>
+  <td><%= bulk_order.orders.size %></td>
+  <td><%= bulk_order.status %></td>
+  <td><%= bulk_order.storefront.name %></td>
+  <td><%= bulk_order.created_at.strftime('%m-%d-%Y') %></td>
+</tr>

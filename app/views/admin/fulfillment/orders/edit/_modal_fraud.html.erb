@@ -1,0 +1,54 @@
+<div id="modal-fraud" class="fraud-dialog reveal-modal medium" data-reveal>
+  <%= form_for(@fraud_record, url: admin_fulfillment_order_fraud_path(@fraud_record, order_id: order.id), method: :post) do |f| %>
+    <h3>Report Fraud</h3>
+    <ul class="small-block-grid-1">
+      <li class="fraud-dialog__type-option">
+        <label>
+          <h5 class="fraud-dialog__type-option-heading"><%= f.radio_button(:payment_fraud_type, 'payment_fraud', disabled: !@fraud_record.type_editable?) %> Payment Fraud</h5>
+          This order appears to be an instance of <strong>payment fraud</strong>, meaning the customer is using a stolen credit card.
+        </label>
+      </li>
+      <li class="fraud-dialog__type-option">
+        <label>
+          <h5 class="fraud-dialog__type-option-heading"><%= f.radio_button(:payment_fraud_type, 'account_takeover', disabled: !@fraud_record.type_editable?) %> Account Takeover</h5>
+          This order appears to be an instance of <strong>account takeover</strong>, meaning the customers account has been accessed by a 3rd party and has placed unauthorized orders.
+        </label>
+      </li>
+      <li class="fraud-dialog__type-option">
+        <label>
+          <h5 class="fraud-dialog__type-option-heading"><%= f.radio_button(:payment_fraud_type, 'unrecognized_charge', disabled: !@fraud_record.type_editable?) %> Unrecognized Charge</h5>
+          This order appears to be an instance of <strong>unrecognized charge</strong>, meaning the customer did not recognize the Minibar charge on their card statement.
+        </label>
+      </li>
+      <li class="fraud-dialog__type-option">
+        <label>
+          <h5 class="fraud-dialog__type-option-heading"><%= f.radio_button(:payment_fraud_type, 'promo_abuse', disabled: !@fraud_record.type_editable?) %> Promo Abuse</h5>
+          This order appears to be an instance of <strong>promo abuse</strong>, meaning the customer is violating Minibar's terms of service.
+        </label>
+      </li>
+      <li class="fraud-dialog__type-option">
+        <label>
+          <h5 class="fraud-dialog__type-option-heading"><%= f.radio_button(:payment_fraud_type, 'pending', disabled: !@fraud_record.type_editable?) %> Investigating</h5>
+          We are still investigating this order.
+        </label>
+      </li>
+      <li class="fraud-dialog__type-option">
+        <label>
+          <h5 class="fraud-dialog__type-option-heading">Actions</h5>
+        </label>
+        <div id="fraudulent-accounts-component"></div>
+        <label>
+          <%= f.check_box(:cancel_account) %> Cancel selected accounts <%= f.check_box(:block_device) %> Block devices for selected accounts
+        </label>
+      </li>
+    </ul>
+    <hr />
+    <label style="text-align: right;">
+      <%= f.check_box(:chargeback_reported, disabled: @fraud_record.chargeback_reported) %> A chargeback has been reported for this order.
+    </label>
+    <br>
+    <p>
+      <%= f.submit 'Report Fraud', class: 'button alert' %>
+    </p>
+  <% end %>
+</div>

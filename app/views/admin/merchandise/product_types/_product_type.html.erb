@@ -1,0 +1,9 @@
+<li><%= link_to item.name, admin_merchandise_products_path(type: item.id) %> <small>(<%= item.products.count %> Products, ID: <%= item.id %>) <% unless item.tax_code.nil? %><b>[ Tax Code: <a href="https://taxcode.avatax.avalara.com/search?q=<%= item.tax_code %>&category=&tab=decision_tree" target="_blank"><%= item.tax_code %></a> ]</b><% end %></small>
+<% unless item.leaf? %>
+<ul>
+  <% item.children.each do |child| %>
+    <%= render partial: 'product_type', locals: { item: child } %>
+  <% end %>
+</ul>
+<% end %>
+</li>

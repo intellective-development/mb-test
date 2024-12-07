@@ -1,0 +1,19 @@
+<h2>Products with Enhanced PDP's</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @product_contents.each do |product_content| %>
+      <tr class='<%= product_content.active? ? '' : 'row-expired' %>'>
+        <td><%= product_content.product_size_groupings.map(&:name).join(', ').presence || 'N/A' %></td>
+        <td><%= product_content.template %></td>
+        <td><%= link_to "Edit", edit_admin_merchandise_product_content_path(product_content) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,74 @@
+You have a new <%= I18n.t("supplier.invoice.order_type.#{@shipment.shipping_type}").downcase %> order.
+
+This order was placed at <%= @order.completed_at.in_time_zone(@supplier.timezone).to_formatted_s(:long) if @order.completed_at %>.
+
+<% if @shipment.scheduled_for.present? %>
+This order is scheduled for delivery - <%= "#{format_time_range(@shipment.scheduled_for, @shipment.shipping_method.scheduled_interval_size, @shipment.supplier.timezone)} #{@shipment.scheduled_for.in_time_zone(@shipment.supplier.timezone).strftime('%A, %b %e')}" %>.
+<% elsif @shipment.out_of_hours? %>
+This order was placed outside of your operating hours. Please deliver when you re-open on <%= @shipment.shipping_method.opens_at(@order.completed_at).strftime("%A at%l%P") %>.
+<% end %>
+
+If there are any problems with this order, please call Minibar at (855) 487-0740.
+
+ORDER ITEMS
+===========
+<% @order_items.group_by(&:variant).each do |variant, order_items| %>
+<%= order_items.sum(&:quantity) %> x <%= variant.name %> <%= variant.product.item_volume%> (SKU: <%= variant.sku %>) <%= number_to_currency order_items.sum{|t| t.total } %>
+<% end %>
+
+<%- if @gift_order %>
+***** THIS IS A GIFT ORDER *****
+
+GIFT OPTIONS
+============
+PLEASE GIFT WRAP AND INCLUDE THE FOLLOWING MESSAGE:
+<%= @order.gift_detail.message %>
+
+<% if @order.gift_detail.recipient_name %>
+The recipient's name is <%= @order.gift_detail.recipient_name %>.
+<% end %>
+<% if @order.gift_detail.recipient_phone %>
+<p>The recipient's contact number is <%= @order.gift_detail.recipient_phone.phony_formatted(normalize: :US, format: :international) %>.</p>
+<% end %>
+<%- end %>
+
+<%= I18n.t("supplier.invoice.address_header.#{@shipment.shipping_type}").upcase %>
+====================
+<%= @shipment.long_recipient_name %>
+Tel: <%= number_to_phone(@shipment.recipient_phone, area_code: true) %>
+
+<% unless @shipment.pickup? %>
+<% @order.ship_address&.address_lines_array.each do |line| %>
+<%= line %>
+<% end %>
+<%= @order.ship_address&.city_state_zip %>
+<% end %>
+
+***** IF THERE IS A PROBLEM WITH THIS ORDER, PLEASE CONTACT MINIBAR ON 855-487-0740. *****
+
+<% if @order.delivery_notes || @shipment.has_white_or_sparkling_wine? %>
+ORDER NOTES:
+<%= @order.try(:delivery_notes) %>
+<% if @shipment.has_white_or_sparkling_wine? %>
+*** PLEASE SEND WHITE & SPARKLING WINE CHILLED IF POSSIBLE ***
+<% end %>
+<% end %>
+
+***** PLEASE CHECK ID - MINIMUM DATE OF BIRTH <%= (21.years.ago).strftime('%B %e %Y').upcase %> ******
+
+
+ORDER DETAILS
+=============
+Paid by <%= @order.payment_profile.try(:cc_type)%> (**** **** **** <%= @order.payment_profile.try(:last_digits) %>)
+
+Order ID:         <%= @order.number.upcase %>
+<%- unless @gift_order %>
+Subtotal:         <%= number_to_currency(@shipment.shipment_sub_total) %>
+Discounts:        <%= number_to_currency(@shipment.shipment_discounts_total) %>
+Tax:              <%= number_to_currency(@shipment.shipment_taxed_amount) %>
+Delivery:         <%= number_to_currency(@shipment.shipment_shipping_charges) %>
+Tip:              <% if !@supplier.get_setting("email_tip") -%>SEE WEB <% else -%><%= @order.courier ? 'N/A - Courier' : number_to_currency(@shipment.shipment_tip_amount) %><% end -%>
+TOTAL:            <%= number_to_currency(@shipment.shipment_total_amount) %>
+<%- end %>
+
+Thank you and have a great day!

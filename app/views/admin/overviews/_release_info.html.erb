@@ -1,0 +1,3 @@
+<div class="alert-box secondary">
+    <strong>NERDY DETAILS:</strong> Commit Hash <code><%= String(ENV['HEROKU_SLUG_COMMIT']).slice(0,8) %></code>, released at <%= Time.parse(ENV['HEROKU_RELEASE_CREATED_AT']).strftime('%H:%M (%Z), %a %e %B %Y') %>.
+</div>

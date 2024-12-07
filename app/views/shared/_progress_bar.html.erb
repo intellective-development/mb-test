@@ -1,0 +1,10 @@
+<%= stylesheet_link_tag "admin/progress_bar", media: "all" %>
+<%
+    total_amount = 100 unless total_amount.positive?
+    current_amount ||= 0
+
+    percentage = ((current_amount.to_f / total_amount.to_f) * 100).clamp(0, 100)
+%>
+<div class="progress-bar">
+  <div class="progress-content" style="width: <%= percentage %>%"></div>
+</div>

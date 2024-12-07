@@ -1,0 +1,17 @@
+<tr>
+  <td class="indicator <%= feed.active? ? 'active' : 'inactive' %>">&#x2b24;</td>
+  <td>
+    <% if feed.supplier %>
+      <%= link_to feed.supplier.try(:name), edit_admin_inventory_supplier_path(feed.supplier) %><br>
+    <% end %>
+    <small>
+      <%= feed.url %> &mdash; <%= String(feed.feed_type).upcase %><br>
+      <%= link_to feed.active? ? 'Click to deactivate' : 'Click to activate', activate_admin_inventory_data_feed_path(feed.id), method: :put %>
+    </small>
+  </td>
+  <td><%= feed.last_fetched.nil? ? 'Never' : feed.last_fetched %></td>
+  <td>
+    <%= link_to "View", admin_inventory_data_feed_path(feed) %> |
+    <%= link_to "Edit", edit_admin_inventory_data_feed_path(feed) %>
+  </td>
+</tr>

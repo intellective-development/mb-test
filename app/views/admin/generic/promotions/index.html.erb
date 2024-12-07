@@ -1,0 +1,33 @@
+<% content_for :title, 'Promotions' %>
+<div class="admin_title_header clearfix">
+  <h3>Promotions</h3>
+  <%= link_to "New Promotion", new_admin_generic_promotion_path, :class => 'button' %>
+</div>
+<p>Expired promotions are marked in red. Future promotions are marked in grey.</p>
+<% @promotions.each do |k,v| %>
+  <h3><%= k %></h3>
+  <% cache("admin:promotions:tables:#{k.parameterize}:#{v.max_by(&:updated_at)}") do %>
+    <table>
+      <thead>
+        <tr class='odd'>
+          <th class='column1_header'>Name</th>
+          <th>Type</th>
+          <th>Starts at</th>
+          <th>Expires at</th>
+          <th></th>
+        </tr>
+      </thead>
+      <% for promotion in v %>
+        <tr class='<%= cycle("odd", "")%> <%= promotion.expired? ? 'row-expired' : promotion.pending? ? 'row-pending' : '' %>'>
+          <td>
+            <%= link_to promotion.internal_name, admin_generic_promotion_path(promotion), :style => "#{(promotion.ends_at <= Time.zone.now) ? 'color:#F65566' : ''}" %>
+          </td>
+          <td><%= promotion.type %></td>
+          <td><%= promotion.display_start_time %></td>
+          <td><%= promotion.display_expires_time %></td>
+          <td><%= link_to "Edit", edit_admin_generic_promotion_path(promotion) %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

@@ -1,0 +1,14 @@
+@import "~client/store/views/style/variables";
+@import "~app/assets/stylesheets/minibar/animations/_cutout_spinner";
+
+.cmContentLayout__Loading{
+  position: relative;
+  height: 200px;
+  width: 100%;
+
+  &::after {
+    @include centered-cutout-loader();
+    content: '';
+    display: block;
+  }
+}

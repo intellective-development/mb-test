@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryCostPrompt renders a below min warning when below the delivery_minimum 1`] = `
+<tr>
+  <td
+    class="sp__cost__minimum-container"
+    colspan="5"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing sp__cost__minimum-text"
+    >
+      Add $15.00 to meet the local delivery minimum or $15.00 for the shipping minimum
+    </span>
+  </td>
+</tr>
+`;
+
+exports[`DeliveryCostPrompt renders a free threshold prompt when above the delivery_minimum but below the threshold 1`] = `
+<tr>
+  <td
+    class="sp__cost__threshold-container"
+    colspan="5"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing sp__cost__threshold-text"
+    >
+      Free local delivery for orders over $50
+    </span>
+  </td>
+</tr>
+`;
+
+exports[`DeliveryCostPrompt renders nothing when a ShopRunner token is present 1`] = `null`;
+
+exports[`DeliveryCostPrompt renders nothing when above both the delivery_minimum and the free_delivery_threshold 1`] = `null`;

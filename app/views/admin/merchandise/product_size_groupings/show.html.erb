@@ -1,0 +1,65 @@
+<div class='admin_title_header'>
+  <div class="small-7 columns">
+    <h3><%= @product_grouping.name %></h3>
+  </div>
+  <div class="small-5 columns">
+    <ul class="button-group">
+      <li><%= link_to "Edit", edit_admin_merchandise_product_size_grouping_path(@product_grouping), class: 'button' %></li>
+      <li>
+        <%= link_to "Merge", admin_merchandise_merge_groupings_path(source_grouping_id: @product_grouping.id), class: 'button primary' %>
+      </li>
+    </ul>
+    <ul class="button-group">
+      <li><%= link_to "Refresh Grouping", reindex_admin_merchandise_product_size_grouping_path(@product_grouping), class: 'button secondary' %></li>
+    </ul>
+  </div>
+</div>
+<hr>
+<%= render partial: 'grouping_detail' if @product_grouping %>
+<% if Feature[:admin_featured_products].enabled? %>
+  <fieldset class="span-12">
+    <legend>Frequently Purchased With</legend>
+    <% if @product_grouping.frequently_purchased_with.present? %>
+      <ul>
+        <% ProductSizeGrouping.where("id in (?)", @product_grouping.frequently_purchased_with).each do |psg| %>
+          <li><%= link_to psg.name, admin_merchandise_product_size_grouping_path(psg) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </fieldset>
+<% end %>
+<fieldset id="admin-product-properties" class='span-12'>
+  <legend>Associated Products - <%= link_to 'Add Product', new_admin_merchandise_product_path(grouping: @product_grouping) %>
+</legend>
+  <% if @product_grouping.products.size == 0 %>
+    <p>There are no products in this grouping.</p>
+  <% else %>
+    <table>
+        <tr>
+          <th>State</th>
+          <th>Product Image</th>
+          <th>Name</th>
+          <th>Volume</th>
+          <th>Pack Size</th>
+          <th>Container</th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @product_grouping.products.not_merged.order('volume_value ASC').each do |product|  %>
+        <tr class= <%= "inactive-variant" unless product.active? %>>
+          <td><%= product.state.titleize %></td>
+          <td>
+            <%= image_tag(product.images.first&.photo&.url(:mini)) unless product.images.empty? %>
+          </td>
+          <td><%= link_to product.name, admin_merchandise_product_path(product) %></td>
+          <td><%= product.item_volume %></td>
+          <td><%= product.container_count %> </td>
+          <td><%= String(product.container_type).titleize %></td>
+          <td>
+            <%= link_to (product.active? ? 'Deactivate' : 'Activate'),  toggle_product_state_admin_merchandise_product_size_grouping_path(@product_grouping, product_id: product.id), method: :put %>
+          </td>
+        </tr >
+      <% end %>
+    </table>
+  <% end %>
+</fieldset>

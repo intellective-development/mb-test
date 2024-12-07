@@ -1,0 +1,14 @@
+<tr>
+  <td>
+    <%= storefront_redirection_url.name %>
+  </td>
+  <td>
+    <%= storefront_redirection_url.order.state %>
+  </td>
+  <td>
+    <%= link_to storefront_redirection_url.build_url, storefront_redirection_url.build_url, target: :_blank %>
+  </td>
+  <td>
+    <%= link_to "Delete", admin_storefront_storefront_redirection_url_path(@storefront, storefront_redirection_url), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

@@ -1,0 +1,92 @@
+.bud-light-hoops {
+  #module-banner {
+    background: #e6e6e6;
+    margin-bottom: 1em;
+    .column {
+      padding: 0;
+    }
+  }
+  #module-products {
+    margin-bottom: 1em;
+  }
+  #module-address_entry {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    h4 {
+      font-family: $font-family-avenir;
+      font-size: 15px;
+      color: #851214;
+      margin-bottom: 1em;
+      line-height: 21px;
+    }
+    .panel {
+      border-color: #e9e9e9;
+      background-color: #F8F8F8;
+      border-radius: 4px;
+      padding: 12px 24px 0;
+    }
+    .legal-thin {
+      font-size: 10px;
+      color: #222;
+      text-align: left;
+      margin-bottom: 12px;
+    }
+  }
+  #module-explainer {
+    margin-bottom: 2em;
+    h2 {
+      margin-bottom: 2em;
+    }
+    .value-prop {
+      border-color: #979797;
+    }
+  }
+  #module-party_planning {
+    background: #222;
+    margin-bottom: 2em;
+    .content {
+      color: #fff;
+      font-family: $font-family-avenir;
+      h5 {
+        color: #fff;
+        font-family: $font-family-avenir;
+        font-size: 20px;
+        letter-spacing: 2px;
+        margin: 3em 0 1.75em;
+      }
+      .button {
+        border-color: #fff;
+        color: #fff;
+        &:hover {
+          color: #000;
+          background: #fff;
+        }
+      }
+    }
+    .image {
+      background: #BB351A url(image_path('/assets/promos/bud-light-hoops/image-party_planner.jpg')) 0 0 no-repeat;
+      height: 350px;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+  #module-secondary_value_prop {
+    margin-bottom: 1em;
+    p {
+      font-size: 15px;
+      line-height: 22px;
+      color: #979797;
+      font-family: $font-family-avenir;
+    }
+  }
+  #value-prop-footer {
+    margin-top: 2em;
+    h3 {
+      margin: 1.75em;
+    }
+  }
+}

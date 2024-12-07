@@ -1,0 +1,55 @@
+  <div class="variants-table">
+    <div class="variants-table__cell supplier <%= 'inactive-variant' if variant.inactivated?%>">
+      <div>
+        <%= check_box_tag "selected[]", variant.id, @selected&.include?(variant.id), class: 'select-variant' %>
+        <%= '⚡' if variant.supplier.integrated_inventory? %>
+        <%= variant.supplier_admin_name %><br>
+        <small>Variant: <%= variant.id %></small>
+        <% if variant.original_name.present? %>
+          <small>Original Name: <%= variant.original_name %>, Created <%= variant.created_at.strftime('%e %b %y') %></small>
+       <% end %>
+      </div>
+    </div>
+    <div class="variants-table__cell thin-cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.check_box :deleted, {checked: variant.inactivate} %>
+    </div>
+    <div class="variants-table__cell thin-cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.check_box :protected %>
+    </div>
+    <div class="variants-table__cell thin-cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.check_box :case_eligible %>
+    </div>
+    <div class="variants-table__cell thin-cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.check_box :two_for_one, {disabled: !variant.two_for_one_visible?} %>
+    </div>
+    <div class="variants-table__cell thin-cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.check_box :tax_exempt %>
+    </div>
+    <div class="variants-table__cell thin-cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.check_box :frozen_inventory %>
+    </div>
+    <div class="variants-table__cell inactive-variant">
+      <% price_from_bvps = business_variant_price(variant.price, variant.real_price, variant.supplier.id, business, variant) %>
+      <%= ff.text_field :price, { class: 'variants-table__cell', placeholder: 'Price', value: price_from_bvps, disabled: !business.default_business? } %>
+    </div>
+    <div class="variants-table__cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.text_field :sale_price, { class: 'variants-table__cell', placeholder: 'Sale Price', disabled: !business.default_business? } %>
+    </div>
+    <div class="variants-table__cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.text_field :original_price, { class: 'variants-table__cell', placeholder: 'Original Price', disabled: !business.default_business? } %>
+    </div>
+    <div class="variants-table__cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.text_field :sku, { placeholder: 'SKU', class: 'variants-table__cell' } %>
+    </div>
+    <div class="variants-table__cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <% unless variant.inventory.nil? %>
+        <%= ff.text_field :qty_to_add, { class: 'large-3 left variants-table__cell', placeholder: "#{variant.inventory.count_on_hand} in stock, enter quantity to add", value: ''} %>
+      <% end %>
+    </div>
+    <div class="variants-table__cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.text_field :original_upc, { class: 'variants-table__cell', placeholder: "Original UPC"} %>
+    </div>
+    <div  class="variants-table__cell <%= 'inactive-variant' if variant.inactivated?%>">
+      <%= ff.text_field :two_for_one, { id:'two_for_one-'+variant.id.to_s, class: 'large-3 left variants-table__cell', disabled: !variant.two_for_one_visible?} %>
+    </div>
+  </div>

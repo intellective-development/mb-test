@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierSwitching renders 1`] = `
+<div>
+  <div
+    class="elMBModal_SectionHeader elMBModal_SectionHeader_Top"
+  >
+    <div
+      aria-label="Back"
+      class="elMBModal_Back"
+    >
+      <img
+        alt="back"
+        class="el-mbicon--back"
+        src="/assets/components/elements/mb-icon/back.png"
+        srcset="/assets/components/elements/mb-icon/back@2x.png 2x, /assets/components/elements/mb-icon/back@3x.png 3x"
+      />
+      <span
+        class="elMBText elMBText_ResetSpacing elMBModal_BackText"
+      >
+         Back
+      </span>
+    </div>
+    <h4
+      class="elMBText elMBText_ResetSpacing elMBModal_SectionHeaderText"
+    >
+      Change Store
+    </h4>
+    <div
+      aria-label="Close"
+      class="elMBModal_Close"
+    >
+      <img
+        alt="close"
+        class="el-mbicon--close"
+        src="/assets/components/elements/mb-icon/close.png"
+        srcset="/assets/components/elements/mb-icon/close@2x.png 2x, /assets/components/elements/mb-icon/close@3x.png 3x"
+      />
+    </div>
+  </div>
+  <ul
+    class="el-mbgrid el-mbgrid--1 el-mbgrid--2--medium el-mbgrid--3--large ssw__grid"
+  >
+    <li
+      class="ssw__grid__item"
+    >
+      <div
+        class="el-touchable ssw__supplier__container ssw__supplier__container--current"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="ssw__supplier__header"
+        >
+          <div
+            class="ssw__supplier__current-badge"
+          >
+            <img
+              alt="check"
+              class="el-mbicon--check"
+              src="/assets/components/elements/mb-icon/check.png"
+              srcset="/assets/components/elements/mb-icon/check@2x.png 2x, /assets/components/elements/mb-icon/check@3x.png 3x"
+            />
+          </div>
+          <h4
+            class="elMBText elMBText_ResetSpacing ssw__supplier-name"
+          >
+            Manhattan Wine
+          </h4>
+          <h5
+            class="elMBText elMBText_ResetSpacing ssw__supplier-location"
+          >
+             123 Jump Street, New York, New York
+          </h5>
+        </div>
+        <div
+          class="ssw__supplier__body"
+        >
+          <ul
+            class="ssw__dm__list"
+          >
+            <li
+              class="ssw__dm__item"
+            >
+              <span
+                class="elMBText elMBText_ResetSpacing ssw__dm__name"
+              >
+                Local Delivery・
+              </span>
+              <span
+                class="elMBText elMBText_ResetSpacing ssw__dm__details ssw__dm__details--closed"
+              >
+                Closed
+              </span>
+            </li>
+            <li
+              class="ssw__dm__item"
+            >
+              <span
+                class="elMBText elMBText_ResetSpacing ssw__dm__name"
+              >
+                Local Delivery・
+              </span>
+              <span
+                class="elMBText elMBText_ResetSpacing ssw__dm__details ssw__dm__details--closed"
+              >
+                Closed
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+`;

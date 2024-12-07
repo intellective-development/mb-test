@@ -1,0 +1,11 @@
+<div id="modal-deliver" class="reveal-modal tiny" data-reveal>
+  <%= form_for('delivered', url: deliver_order_admin_fulfillment_order_path(order), method: :post) do |f| %>
+    <h3>Deliver Order</h3>
+    <% if order.can_transition_to?(:delivered)%>
+      <p>Are you sure in set this order as delivered?</p>
+      <%= f.submit 'Deliver' %>
+    <% else %>
+      <p>Order can't transition to delivered</p>
+    <% end %>
+  <% end %>
+</div>

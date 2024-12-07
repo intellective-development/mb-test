@@ -1,0 +1,22 @@
+<%= error_messages_for 'storefront_font' %>
+<%= form.hidden_field :storefront_id, value: @storefront.id %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Name</label>
+        <%= form.text_field :name %>
+      </div>
+
+       <div>
+        <label>Font Type</label>
+        <%= form.select :font_type, StorefrontFont.font_types.keys.map {|type| [type.to_s.humanize, type]} %>
+      </div>
+
+      <div>
+        <label>Font File</label>
+        <%= form.file_field :font_file %>
+      </div>
+    </div>
+  </div>
+</fieldset>

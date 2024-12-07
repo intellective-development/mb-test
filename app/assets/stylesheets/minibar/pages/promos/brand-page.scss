@@ -1,0 +1,330 @@
+$pernod-blue-transparent: rgba(0,157, 216, .75);
+$pernod-blue: rgb(0, 157, 216);
+$pernod-dark-grey: #999;
+$pernod-grey: #eee;
+$pernod-light-blue: #7DBDD8;
+$pernod-white: #fff;
+
+.brand-page__hero-module {
+  background: #999;
+  background-size: cover;
+  padding: 40px 0 0 0;
+  position: relative;
+
+  &.tab-1 {
+    background: #999 url(image_path('promos/pernod-ricard/hero-1-bg@2x.jpg')) 50% 0 no-repeat;
+    background-size: cover;
+  }
+
+  &.tab-2 {
+    background: #999 url(image_path('promos/pernod-ricard/hero-2-bg@2x.jpg')) 50% 0 no-repeat;
+    background-size: cover;
+  }
+
+  &.tab-3 {
+    background: #999 url(image_path('promos/pernod-ricard/hero-3-bg@2x.jpg')) 50% 0 no-repeat;
+    background-size: cover;
+  }
+}
+
+.brand-page__rebate-banner-desktop {
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.brand-page__rebate-banner-mobile {
+  display: none;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    display: block;
+  }
+}
+
+.brand-page__hero-image {
+  clear: both;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.brand-page__hero-heading {
+  background: $pernod-blue-transparent;
+  clear: both;
+  color: $pernod-white;
+  display: inline-block;
+  font-family: $font-family-avenir;
+  font-size: 26px;
+  line-height: 1em;
+  padding: 14px 24px;
+}
+
+.brand-page__hero-subheading {
+  color: $pernod-white;
+  font-family: $font-family-avenir;
+  font-size: 22px;
+  line-height: 1.5em;
+  margin-bottom: 40px;
+}
+
+.brand-page__hero-tabs-container {
+  -webkit-align-items: center;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: center;
+  align-items: center;
+  bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    margin-bottom: 40px;
+  }
+}
+
+.brand-page__hero-tabs {
+  color: $pernod-blue;
+  clear: left;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+.brand-page__hero-tab {
+  background-color: $pernod-white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: pointer;
+  display: block;
+  float: left;
+  height: 60px;
+  list-style: none;
+  margin: 0 2px 0 0;
+  padding: 0;
+  right: 50%;
+  .brand-page__hero-tab-title {
+    color: $pernod-blue;
+    font-family: $font-family-avenir;
+    font-size: 16px;
+    line-height: 54px;
+    padding: 0 60px 0 100px;
+    @media screen and (max-width: 1000px) {
+      padding: 0 30px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    float: none;
+    border-radius: 4px;
+  }
+  &:last {
+    margin-right: 0;
+  }
+  &:hover {
+    background-color: #e0f6ff;
+  }
+  &.active {
+    background-color: $pernod-blue;
+    .brand-page__hero-tab-title {
+      color: $pernod-white;
+    }
+    &:hover {
+      background-color: $pernod-blue;
+    }
+  }
+}
+
+.brand-page__content-tabs-container {
+  -webkit-align-items: center;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: center;
+  align-items: center;
+  bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    position: relative;
+  }
+}
+
+.brand-page__content-tabs {
+  clear: left;
+  color: $pernod-blue;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  @media screen and (max-width: 767px) {
+    float: none;
+  }
+}
+
+.brand-page__content-tab {
+  background-color: $pernod-light-blue;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: pointer;
+  display: block;
+  float: left;
+  height: 50px;
+  list-style: none;
+  margin: 0 2px 0 0;
+  padding: 0;
+  right: 50%;
+  @media screen and (max-width: 767px) {
+    float: none;
+    border-radius: 4px;
+  }
+  .brand-page__content-tab-title {
+   color: $pernod-white;
+   font-family: $font-family-avenir;
+   font-size: 16px;
+   line-height: 44px;
+   padding: 0 20px;
+  }
+  &:last {
+    margin-right: 0;
+  }
+  &:hover {
+    background-color: #e0f6ff;
+    .brand-page__content-tab-title {
+      color: $pernod-blue !important;
+    }
+  }
+  &.active {
+    background-color: $pernod-grey;
+    .brand-page__content-tab-title {
+      color: $pernod-blue;
+    }
+    &:hover {
+      background-color: $pernod-grey;
+      .brand-page__content-tab-title {
+        color: $pernod-blue;
+      }
+    }
+  }
+}
+
+.brand-page__divider-row {
+  border-top: 1px solid $pernod-grey;
+}
+
+.brand-page__footer-logo {
+  margin: 80px 0;
+}
+
+.tab-icon {
+  background-position: 20px bottom;
+  background-repeat: no-repeat;
+  @media screen and (max-width: 1000px) {
+    background-image: none !important;
+   }
+}
+
+.tab-icon__football {
+  background-image: url(image_path('promos/pernod-ricard/tab-football-icon@2x.png'));
+  background-size: 69px 60px;
+}
+
+.tab-icon__holiday {
+  background-image: url(image_path('promos/pernod-ricard/tab-holiday-icon@1x.png'));
+  background-size: 69px 60px;
+}
+
+.tab-icon__thanksgiving {
+  background-image: url(image_path('promos/pernod-ricard/tab-thanksgiving-icon@1x.png'));
+  background-size: 69px 60px;
+}
+
+.brand-page__hero-tab-content {
+  background: $pernod-blue;
+  .module__transparent {
+    padding: 60px 0;
+    position: relative;
+  }
+  .module__light {
+    background: $pernod-white;
+    padding: 60px 0;
+  }
+  .module__dark {
+    background: $pernod-grey;
+    padding: 60px 0;
+  }
+  .no-padding {
+    padding: 0 !important;
+  }
+}
+
+.module__subtitle {
+  color: $pernod-white;
+  font-family: $font-family-avenir;
+  font-size: 22px;
+  margin: 0 0 40px 0;
+}
+
+.product-module {
+
+}
+
+.product-module__title {
+  border-bottom: 1px solid $pernod-dark-grey;
+  color: $pernod-blue;
+  font-family: $font-family-avenir;
+  font-size: 26px;
+  font-weight: $heavy-font-weight;
+  padding-bottom: 12px;
+}
+
+.product-module__product-name {
+  border-top: 1px solid $pernod-dark-grey;
+  color: $pernod-blue;
+  font-size: 26px;
+  font-weight: 300;
+  padding-top: 8px;
+  span {
+    color: $pernod-dark-grey;
+    font-size: 16px;
+  }
+}
+
+.product-module__heading {
+  color: $pernod-blue;
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 1em;
+  text-transform: uppercase;
+}
+
+.product-module__ingredients {
+  color: $pernod-dark-grey;
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.product-module__text {
+  color: $pernod-dark-grey;
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.product-module__button {
+  background-color: $pernod-blue;
+  border-color: $pernod-blue;
+  &:hover{
+    background-color: $pernod-white;
+    border-color: $pernod-blue;
+    color: $pernod-blue;
+  }
+}

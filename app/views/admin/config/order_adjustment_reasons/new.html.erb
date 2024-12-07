@@ -1,0 +1,7 @@
+
+<h1>New Reason</h1>
+
+<%= form_for(@reason, :url => admin_config_order_adjustment_reasons_path) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+<%= link_to 'Back', admin_config_order_adjustment_reasons_path, :class => 'button' %>

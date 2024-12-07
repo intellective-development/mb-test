@@ -1,0 +1,6 @@
+<h2 class="subhead-thin">Switch supplier</h2>
+
+<%= form_tag update_supplier_for_pre_sale_admin_fulfillment_order_shipment_path(@order, @shipment), method: :put do %>
+  <%= select_tag :supplier_id, options_for_select(pre_sale_shipment_suppliers_eligible_for_switching_dropdown_items(@shipment), @shipment.supplier_id) %>
+  <%= submit_tag("Update supplier", class:"button postfix") %>
+<% end %>

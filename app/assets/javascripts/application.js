@@ -1,0 +1,9 @@
+//= require vendor/jquery
+//= require slim-select
+//= require jquery-ui
+//= require jquery_ujs
+//= require foundation
+//= require selectize
+//= require cocoon
+//= require_tree  ./jquery
+//= require_tree  ./layout

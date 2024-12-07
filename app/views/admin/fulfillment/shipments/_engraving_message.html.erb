@@ -1,0 +1,84 @@
+<% shipment.engraving_items.each do |order_item| %>
+  <tr>
+    <td class="center">
+      <%= order_item.quantity %>
+    </td>
+
+    <td class="engraving-message-area">
+      <div class="engraving-message-area__sideline">
+        Product Engraving &mdash;
+      </div>
+      <% if order_item.product.pre_engraved_message.blank? %>
+        <% if order_item&.item_options&.line1.present? %>
+          <div class="engraving-message-area__line1">
+            Line 1 &mdash;
+            <%= order_item.item_options.line1 %>
+          </div>
+        <% end %>
+        <% if order_item&.item_options&.line2.present? %>
+          <div class="engraving-message-area__line2">
+            Line 2 &mdash;
+            <%= order_item.item_options.line2 %>
+          </div>
+        <% end %>
+        <% if order_item&.item_options&.line3.present? %>
+          <div class="engraving-message-area__line3">
+            Line 3 &mdash;
+            <%= order_item.item_options.line3 %>
+          </div>
+        <% end %>
+        <% if order_item&.item_options&.line4.present? %>
+          <div class="engraving-message-area__line4">
+            Line 4 &mdash;
+            <%= order_item.item_options.line4 %>
+          </div>
+        <% end %>
+        <% if order_item&.variant&.product&.product_trait&.engraving_location.present? %>
+          <div class="engraving-message-area__location">
+            Location &mdash;
+            <%= order_item.variant.product.product_trait.engraving_location %>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+
+    <% unless order_item.order.gift_detail %>
+      <td>
+        <%= number_to_currency(order_item.order.storefront.engraving_fee) %>
+      </td>
+      <td>
+        <%= number_to_currency(order_item.quantity * order_item.order.storefront.engraving_fee) %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>
+
+  <style>
+  .engraving-message-area{
+      display: grid;
+      grid-template-areas:
+          "sideline line1 line1 line1 line1 line1"
+          "sideline line2 line2 line2 line2 line2"
+          "sideline line3 line3 line3 line3 line3"
+          "sideline line4 line4 line4 line4 line4"
+          "sideline location location location location location";
+    }
+  .engraving-message-area__line1{
+    grid-area: line1;
+  }
+  .engraving-message-area__line2{
+    grid-area: line2;
+  }
+  .engraving-message-area__line3{
+    grid-area: line3;
+  }
+  .engraving-message-area__line4{
+    grid-area: line4;
+  }
+  .engraving-message-area__location{
+    grid-area: location;
+  }
+  .engraving-message-area__sideline{
+    grid-area: sideline;
+  }
+</style>

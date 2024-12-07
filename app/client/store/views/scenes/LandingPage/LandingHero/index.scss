@@ -1,0 +1,175 @@
+@import "~client/store/views/style/variables";
+
+$category-transition: all 500ms ease-in-out;
+
+.cmLandingHero {
+  width: 100%;
+  position: relative;
+  height: 600px;
+
+  @media screen and (min-width: $medium-min-width) {
+    height: 90vh;
+    max-height: 900px;
+    min-height: 600px;
+  }
+}
+
+.cmLandingHero_CategoryHero {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; // should always be background content
+  opacity: 0;
+  visibility: hidden;
+  transition: $category-transition;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+}
+.cmLandingHero_CategoryHero__Active {
+  opacity: 1;
+  visibility: visible;
+}
+
+// these correspond to their respective images' background colors
+$wine-hero-bg: #dbebf5;
+$liquor-hero-bg: #f4d8cd;
+$beer-hero-bg: #d5f0eb;
+.cmLandingHero_CategoryHero__Wine {
+  background-color: $wine-hero-bg;
+  background-image: url(mb-image-path('components/scenes/LandingPage/wine_hero_mobile.jpg'));
+
+  @media screen and (min-width: $medium-min-width + 1) {
+    background-image: url(mb-image-path('components/scenes/LandingPage/wine_hero.jpg'));
+  }
+}
+.cmLandingHero_CategoryHero__Liquor {
+  background-color: $liquor-hero-bg;
+  background-image: url(mb-image-path('components/scenes/LandingPage/liquor_hero_mobile.jpg'));
+
+  @media screen and (min-width: $medium-min-width + 1) {
+    background-image: url(mb-image-path('components/scenes/LandingPage/liquor_hero.jpg'));
+  }
+}
+.cmLandingHero_CategoryHero__Beer {
+  background-color: $beer-hero-bg;
+  background-image: url(mb-image-path('components/scenes/LandingPage/beer_hero_mobile.jpg'));
+
+  @media screen and (min-width: $medium-min-width + 1) {
+    background-image: url(mb-image-path('components/scenes/LandingPage/beer_hero.jpg'));
+  }
+}
+
+.cmLandingHero_ContentWrapper {
+  padding: $standard-gutter * 3.5 0 $standard-gutter;
+  position: relative;
+
+  @media screen and (min-width: $medium-min-width) {
+    padding: 52px 0;
+  }
+}
+
+.cmLandingHero_PrimaryContent {
+  max-width: 768px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cmLandingHero_Logo {
+  margin-bottom: $standard-gutter * 2;
+  text-align: center; // firefox centering fix
+}
+
+.cmLandingHero_Tagline {
+  @include font-size(52);
+
+  font-family: $font-family-tiempos;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-align: center;
+  line-height: 56px;
+  margin-bottom: $standard-gutter * 2.5;
+
+  @media screen and (max-width: $small-max-width) {
+    @include font-size(28);
+
+    line-height: 35px;
+    margin-bottom: $standard-gutter * 1.25;
+  }
+
+  @media screen and (max-width: $extra-small-max-width) {
+    @include font-size(24);
+  }
+}
+
+// START MOBILE ONLY CONTENT
+
+.cmLandingHero_AppStoreLink {
+  width: 264px;
+  margin-bottom: $standard-gutter * 3;
+  justify-content: space-around; // center it when only 1 is present
+
+  @media screen and (min-width: $medium-min-width) {
+    display: none;
+  }
+}
+
+// END MOBILE ONLY CONTENT
+
+.cmLandingHero_CategoryText {
+  font-family: inherit;
+  text-transform: capitalize;
+  transition: $category-transition;
+}
+.cmLandingHero_CategoryText__Active {
+  color: $brand-red;
+}
+
+.cmLandingHero_EntryWrapper {
+  align-self: stretch;
+  margin-bottom: $standard-gutter * 0.5;
+}
+
+.cmLandingHero_AgeTermsWarning {
+  @include font-size(10);
+
+  margin-bottom: $standard-gutter;
+
+  @media screen and (min-width: $medium-min-width) {
+    @include font-size(12);
+  }
+}
+
+// Acount Info Content
+.cmLandingHero_AccountContainer {
+  position: absolute;
+  right: $standard-gutter;
+  top: $standard-gutter;
+}
+
+.cmLandingHero_AccountInfoButton {
+  background-color: transparentize($brand-white, 0.25);
+  user-select: none;
+
+  &:focus {
+    // overwrite foundation hover
+    background-color: transparentize($brand-white, 0.25);
+  }
+
+  &:hover {
+    background-color: $brand-white;
+  }
+}
+
+.cmLandingHero_AccountInfoMenu {
+  border-radius: 4px;
+  left: initial;
+  right: 0;
+  top: 38px;
+}

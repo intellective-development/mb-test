@@ -1,0 +1,183 @@
+<% content_for :title, 'Merge Products' %>
+<% content_for :auth_tokens, true %>
+
+<style>
+.selectize-input {
+  height: 31px !important;
+}
+</style>
+
+<div class="row">
+  <div class="large-12 columns"><h2>Move Variants to new Product</h2></div>
+</div>
+
+<div class="row">
+  <div class="large-10 columns end">
+    <h4>Selected Variants to move from <%= @product.name %> <%= @product.item_volume %> to the selected product</h4>
+    <div class="variants-table">
+      <div class="variants-table__cell supplier">
+        <div>
+          <strong> Supplier </strong>
+        </div>
+      </div>
+      <div class="variants-table__cell">
+        <strong> SKU </strong>
+      </div>
+      <div class="variants-table__cell">
+        <strong> Price </strong>
+      </div>
+      <div class="variants-table__cell">
+        <strong> Original UPC </strong>
+      </div>
+    </div>
+    <% for variant in @variants.sort_by{ |v| v.supplier.name } %>
+      <div class="variants-table">
+        <div class="variants-table__cell supplier <%= 'inactive-variant' if !variant.self_active?%>">
+          <div>
+            <%= '⚡' if variant.supplier.integrated_inventory? %>
+            <%= variant.supplier_name %><br>
+            <% if variant.original_name.present? %>
+              <small>Original Name: <%= variant.original_name %>, Created <%= variant.created_at.strftime('%e %b %y') %></small>
+          <% end %>
+          </div>
+        </div>
+        <div class="variants-table__cell <%= 'inactive-variant' if !variant.self_active?%>">
+          <span> <%= variant.attributes['sku'] %> </span>
+        </div>
+        <div class="variants-table__cell <%= 'inactive-variant' if !variant.self_active?%>">
+          <span> <%= variant.attributes['price'] %> </span>
+        </div>
+        <div class="variants-table__cell <%= 'inactive-variant' if !variant.self_active?%>">
+          <span> <%= variant.attributes['original_upc'] %> </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+</br>
+</br>
+
+<div class="row">
+  <div class="large-10 columns end">
+
+    <h4>Select the product you want to move the variants to.</h4>
+    <p>This will search <strong>all products</strong>.</p>
+    <div class='selection'>
+      <select name="products-1" id="product_id_1" class="product-select-1">
+        <option value="">Search products...</option>
+      </select>
+    </div>
+  </div>
+</div>
+</br>
+</br>
+<div class="row">
+  <div class="large-3" id="control-panel">
+    <p>
+      <a class="button large expand" id="button_save">Save</a>
+    </p>
+  </div>
+</div>
+
+
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    window.Data = {
+      out_of_stock:         false,
+      pending:              true,
+      show_all:             true,
+      remote_url:           '<%= product_search_admin_merchandise_merge_index_path %>'
+    };
+
+    var selectizeRemoteOptions = function(list){
+      return {
+        valueField: 'id',
+        searchField: ['name', 'item_volume'],
+        labelField: 'name',
+        score: function(search) {
+          var score = this.getScoreFunction(search);
+          return function(item) {
+            if (list === 'mergee') {
+              return item.merged_count + 1;
+            }
+            return score(item);
+          }
+        },
+        loadThrottle: 500,
+        create: false,
+        load: function(query, callback) {
+          if (query.length < 4) return callback(); //don't search under 4 chars
+          if (!query.length) return callback();
+          $.ajax({
+            url: Data.remote_url,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: {
+              list: list,
+              term: query,
+              out_of_stock: Data.out_of_stock,
+              pending: Data.pending
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+              callback();
+            },
+            success: function(results) {
+              callback(results);
+            }
+          });
+        },
+        render: {
+          option: function(item, escape) {
+            return cellTemplate(item, escape);
+          }
+        }
+      }
+    };
+
+    $('.product-select-1').selectize(selectizeRemoteOptions("mergee")); //init
+    var selectize_1 = $('.product-select-1')[0].selectize; //get object
+
+    var cellTemplate = function(item, escape){
+    var template =
+      '<div class="search-cell-'+escape(item.state)+'">' +
+        '<span class="title">' +
+          '<span>' + escape(item.name) + ' - ' + escape(item.item_volume) + '</span>' +
+        '</span>' +
+        '<ul class="meta">' +
+          '<li>' + 'variants: ' +  escape(item.variant_count) + '</li>' +
+          '<li>' + 'state: ' + escape(item.state) + '</li>' +
+        '</ul>' +
+      '</div>'
+    return template
+  }
+
+
+  $('#button_save').click(function() { // save
+    $.ajax({
+      url: '<%= admin_merchandise_product_save_change_variants_product_path(@product) %>',
+      data: {
+        variant_ids: '<%= @variants.map(&:id).join(',') %>',
+        old_product: '<%= @product.id %>',
+        new_product: $("#product_id_1").val()
+      },
+      dataType: 'json',
+      method: 'POST',
+      success: function(response){
+        // TODO
+        window.location = '<%= edit_admin_merchandise_product_path(@product.id) %>'
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+        Raven.captureMessage(jqXHR.responseText);
+        if(jqXHR.responseJSON && jqXHR.responseJSON.text == "NoPossibleMerge"){
+          $('#status').html(jqXHR.responseJSON.side + ' Product with <span><b>id: ' + jqXHR.responseJSON.id + "</b></span> can't be merged");
+        }else{
+          $('#status').html('Cannot Merge!');
+        }
+      }
+    });
+  });
+  </script>
+<% end %>

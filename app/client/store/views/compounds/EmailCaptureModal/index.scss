@@ -1,0 +1,230 @@
+@import "~client/store/views/style/variables";
+
+$copy-button-width: 130px;
+
+.cmEmailCaptureModal {
+  width: 554px !important;
+  border-radius: 0;
+}
+
+.cmEmailCaptureModal_Body {
+  @include font-size(14);
+
+  font-weight: $heavy-font-weight;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.cmEmailCaptureModal_Body__Large {
+  @include font-size(15);
+
+  font-weight: $heavy-font-weight;
+  letter-spacing: 2.5px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_Body__BoldCaps {
+  text-transform: uppercase;
+  font-weight: $heavy-font-weight;
+}
+
+.cmEmailCaptureModal_Body__Small {
+  @include font-size(15);
+  margin-bottom: 20px;
+}
+
+.cmEmailCaptureModal_CloseButton {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.cmEmailCaptureModal_Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 20px 10px 0;
+}
+
+.cmEmailCaptureModal_ContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 12px solid $brand-black;
+  height: 462px;
+}
+
+.cmEmailCaptureModal_Coupon {
+  display: flex;
+  flex-direction: row;
+  width: 330px;
+  justify-content: space-around;
+}
+
+.cmEmailCaptureModal_CouponCopyButton {
+  width: $copy-button-width;
+}
+
+.cmEmailCaptureModal_CouponCopyButton__Copied {
+  border: none;
+  background-color: $brand-green;
+  width: $copy-button-width;
+}
+
+.cmEmailCaptureModal_CouponCopyButton__Copied:hover {
+  border: none;
+  background-color: $brand-green;
+  width: $copy-button-width;
+}
+
+.cmEmailCaptureModal_CouponCopyButton__Copied:focus {
+  border: none;
+  background-color: $brand-green;
+  width: $copy-button-width;
+}
+
+.cmEmailCaptureModal_CouponCopyButton__Copied:active {
+  border: none;
+  background-color: $brand-green;
+  width: $copy-button-width;
+}
+
+.cmEmailCaptureModal_CouponCode {
+  @include font-size(18);
+
+  border: 1px dashed $brand-medium-grey;
+  text-transform: none;
+  font-weight: $heavy-font-weight;
+  padding: 15px 50px;
+}
+
+.cmEmailCaptureModal_Form {
+  width: 100%;
+}
+
+.cmEmailCaptureModal_ExistingUserHeadline__Large {
+  @include font-size(36);
+
+  font-weight: $heavy-font-weight;
+  letter-spacing: 2px;
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_ExistingUserHeadline__Small {
+  @include font-size(15);
+
+  font-weight: $medium-font-weight;
+  color: $brand-charcoal;
+  line-height: 24px;
+  letter-spacing: 2.3px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_NewUserContentCopy {
+  height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.cmEmailCaptureModal_NewUserHeadline__Large {
+  @include font-size(36);
+
+  font-weight: $heavy-font-weight;
+  letter-spacing: 2px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_NewUserHeadline__Small {
+  @include font-size(15);
+
+  font-weight: $medium-font-weight;
+  color: $brand-charcoal;
+  line-height: 20px;
+  letter-spacing: 2.3px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_NewUserContentCopy__Lowercase {
+  @include font-size(16);
+
+  color: $brand-black;
+  font-weight: $medium-font-weight;
+  line-height: 26px;
+  text-transform: none;
+}
+
+.cmEmailCaptureModal_Headline__Large {
+  @include font-size(60);
+
+  font-weight: $heavy-font-weight;
+  line-height: 60px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_Headline__Small {
+  @include font-size(15);
+
+  color: $brand-dark-grey;
+  font-weight: $heavy-font-weight;
+  letter-spacing: 2.3px;
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.cmEmailCaptureModal_Link {
+  @include font-size(11);
+
+  font-weight: $heavy-font-weight;
+  color: $brand-dark-grey;
+  letter-spacing: 1.57px;
+  line-height: 16px;
+  padding-bottom: 2px;
+  margin: 25px 100px 0;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: 1px solid $brand-medium-grey;
+}
+
+.cmEmailCaptureModal_TextField {
+  height: 48px !important;
+  border-radius: 0 !important;
+}
+
+.cmEmailCaptureModal_TextField__Error {
+  height: 48px !important;
+  border-radius: 0 !important;
+  border-color: $brand-red !important;
+}
+
+.cmEmailCaptureModal__ValidationErrorMessage {
+  @include font-size(13);
+
+  text-transform: none;
+  color: $brand-red;
+  font-weight: bolder;
+}
+
+.cmEmailCaptureModal_SubmitButton {
+  @include font-size(13);
+
+  margin-top: 0.5rem;
+  padding: 15px;
+  height: 48px;
+}

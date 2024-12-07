@@ -1,0 +1,515 @@
+//store partners
+
+.title-bar-drop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 20px 5%;
+  @media screen and (max-width: $product-grid-medium-breakpoint) {
+    padding: 20px 10%;
+  }
+  .header {
+    width: 50%;
+    justify-content: flex-start;
+  }
+}
+
+
+.title-bar-drop.brand {
+  background-image: url(image_path('components/brand-partners/BrandPartnership_Header.jpg'));
+  .header {
+    .headline {
+      color: $brand-white;
+    }
+    .copy {
+      max-width: 400px;
+      color: $brand-white;
+    }
+    .button {
+      color: $brand-white;
+      border-color: $brand-white;
+    }
+  }
+}
+
+.title-bar-drop.corporate {
+  background-image: url(image_path('components/corporate-partners/CorporateAccount_Header.jpg'));
+  .header {
+    .headline {
+      color: $brand-black;
+    }
+    .copy {
+      max-width: 400px;
+      color: $brand-black;
+    }
+    .button {
+      color: $brand-black;
+      border-color: $brand-black;
+    }
+  }
+}
+
+.rowmargin {
+  margin-top: 2.5em;
+}
+
+.header-wrapper {
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: $brand-white;
+  font-family: $font-family-avenir;
+  margin: 0 auto;
+  @media screen and (max-width: $product-grid-medium-breakpoint) {
+    flex-direction: column;
+  }
+  .header-copy-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 3em;
+    @media screen and (max-width: $product-grid-medium-breakpoint) {
+      padding: 2em;
+    }
+    .headline {
+      @include font-size(45);
+      font-family: $font-family-tiempos;
+      color: $brand-red;
+      max-width: 450px;
+      @media screen and (max-width: $product-grid-medium-breakpoint) {
+        @include font-size(28);
+        text-align: center;
+        padding: 0 1em;
+      }
+    }
+    .header-copy {
+      display: grid;
+      grid-template-columns: 2fr 5fr;
+      grid-template-rows: 50px 50px;
+      max-width: 450px;
+      .subheadline {
+        @include font-size(12);
+        color: $brand-red;
+        font-weight: $heavy-font-weight;
+        letter-spacing: 0.92px;
+        padding-top: 5px;
+        @media screen and (max-width: $product-grid-medium-breakpoint) {
+          @include font-size(10);
+        }
+      }
+      .copy {
+        @include font-size(16);
+        line-height: 22px;
+        color: $brand-dark-grey;
+        @media screen and (max-width: $product-grid-medium-breakpoint) {
+          @include font-size(14);
+        }
+      }
+    }
+  }
+  .header-image-wrapper {
+    display: flex;
+    flex-grow: 2;
+    max-width: 50%;
+    @media screen and (max-width: $product-grid-medium-breakpoint) {
+      width: 100%;
+      max-width: initial;
+    }
+    .header-image {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+}
+
+.body-wrapper {
+  display: flex;
+  flex-direction: column;
+  .corporate-offer {
+    text-align: center;
+    color: #890000;
+  }
+
+  .COI-section {
+    margin: 2em auto;
+    max-width: 980px;
+    font-family: $font-family-avenir;
+    line-height: 1.5;
+    @media screen and (max-width: $product-grid-medium-breakpoint) {
+      margin: 2em;
+    }
+  }
+  .no-bottom-border {
+    border-bottom: none;
+  }
+
+  .corporate-gifting {
+    margin: 0 auto;
+    max-width: 980px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    @media screen and (max-width: $product-grid-medium-breakpoint) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .image {
+      padding: 0;
+      min-width: 50%;
+    }
+    .info {
+      max-width: 50%;
+      padding: 0 2em;
+      @media screen and (max-width: $product-grid-medium-breakpoint) {
+        max-width: none;
+      }
+      .headline {
+        margin: 20px 0;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+      .copy {
+        margin-bottom: 1em;
+        line-height: 1.5em;
+      }
+      .button {
+        background-color: $brand-black;
+      }
+    }
+  }
+
+  .form-section {
+    padding: 2em;
+    .headline {
+      @include pixel-antialiased;
+      @include font-size(18);
+      font-weight: $heavy-font-weight;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: $font-family-avenir;
+    }
+    .info {
+      text-align: center;
+    }
+    .form {
+      width: 50%;
+      max-width: 980px;
+      margin: 0 auto;
+      @media screen and (max-width: $product-grid-medium-breakpoint) {
+        width: initial;
+      }
+      input {
+        margin-right: 8px;
+      }
+      .info {
+        text-align: center;
+      }
+      .option-label {
+        color: $brand-black;
+        margin-top: -8px;
+        font-size: 12px;
+        margin-left: 25px;
+      }
+    }
+  }
+
+  .three-up-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $brand-red;
+    padding: 5em 0;
+    &.light-grey-background {
+      background-color: $brand-light-grey;
+      .headline {
+        color: $brand-black;
+      }
+      .items {
+        .item {
+          .headline {
+            color: $brand-black;
+          }
+          p {
+            color: $brand-black;
+          }
+        }
+      }
+    }
+    &.white-background {
+      background-color: $brand-white;
+      .headline {
+        color: $brand-black;
+      }
+      .items {
+        .item {
+          .headline {
+            color: $brand-black;
+          }
+          p {
+            color: $brand-black;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: $product-grid-medium-breakpoint) {
+      flex-direction: column;
+    }
+    .headline {
+      @include pixel-antialiased;
+      @include font-size(18);
+      font-weight: $heavy-font-weight;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: $font-family-avenir;
+      color: $brand-white;
+      padding-bottom: 3em;
+    }
+    .items {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      @media screen and (max-width: $product-grid-medium-breakpoint) {
+        flex-direction: column;
+      }
+      .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 300px;
+        @media screen and (max-width: $product-grid-medium-breakpoint) {
+          width: 100%;
+          border: none;
+          margin-bottom: 25px;
+        }
+        img {
+          align-self: center;
+          height: 47px;
+        }
+        .headline {
+          @include pixel-antialiased;
+          @include font-size(13);
+          font-weight: $heavy-font-weight;
+          letter-spacing: 2px;
+          font-family: $font-family-avenir;
+          color: $brand-white;
+          align-self: center;
+          text-transform: uppercase;
+          margin: 0;
+          padding: 15px 0;
+        }
+        p {
+          @include pixel-antialiased;
+          @include font-size(15);
+          line-height: 22px;
+          min-height: 66px;
+          margin: 0 1em;
+          font-family: $font-family-avenir;
+          color: $brand-white;
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+
+  .featured-partners-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $brand-white;
+    padding: 5em 10em;
+    @media screen and (max-width: $product-grid-medium-breakpoint) {
+      padding: 2em 0;
+    }
+    &.brand-partners {
+      border-top: 1px solid $brand-black;
+      border-bottom: 1px solid $brand-black;
+      .featured-partners{
+        align-items: center;
+        justify-content: space-around;
+        .logo {
+          padding: 1em;
+          margin: 0;
+          height: auto;
+          width: auto;
+        }
+      }
+    }
+    .headline {
+      @include pixel-antialiased;
+      @include font-size(18);
+      font-weight: $heavy-font-weight;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: $font-family-avenir;
+      color: $brand-black;
+      padding-bottom: 3em;
+    }
+    .featured-partners {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .logo {
+        margin: 2em;
+        &.bonnie-brae {
+          height: 58px;
+          width: 156px;
+        }
+        &.shannon-ridge {
+          height: 80px;
+          width: 125px;
+        }
+        &.total-wine {
+          height: 82px;
+          width: 114px;
+        }
+        &.far-west-liquor {
+          height: 57px;
+          width: 146px;
+        }
+        &.street {
+          height: 58px;
+          width: 161px;
+        }
+      }
+    }
+  }
+}
+
+.title-bar-drop {
+  padding-bottom: 2.6em;
+  padding-top: 3em;
+  background-color: #efefef;
+}
+
+.header {
+  .headline {
+    font-size: 34px;
+    letter-spacing: 2px;
+    color: $brand-white;
+  }
+  .copy {
+    color: $brand-white;
+  }
+  .button {
+    background: transparent;
+    border-radius: 4px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border: 1px solid $brand-white;
+    text-transform: uppercase;
+  }
+}
+
+
+
+.pretitledrop {
+  color: #222;
+  font-family: $font-family-avenir;
+  font-size: 25px;
+  letter-spacing: 3px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  /*padding-top: 60px;*/
+  text-transform: uppercase;
+}
+
+
+.titledrop {
+  @include titledrop(2px, #efefef, #ccc);
+  color: #222;
+  font-weight: $heavy-font-weight;
+  font-size: 130px;
+  letter-spacing: 10px;
+  line-height: 1em;
+  margin-top: 0;
+  padding-top: 0;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.titledrop-white {
+   // @include titledrop(2px, #333, $brand-black);
+  color: $brand-white;
+  font-weight: $heavy-font-weight;
+  font-size: 130px;
+  letter-spacing: 10px;
+  line-height: 1em;
+  margin-top: 0;
+  padding-top: 0;
+  text-transform: uppercase;
+
+}
+
+.section-title {
+  font-size: 23px;
+  letter-spacing: 3px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+}
+
+.generic .footer {
+  margin-top: 0;
+}
+
+.marginlast {
+  margin-bottom: 0;
+}
+
+.valupropheadfirst {
+  padding-top: 95px;
+}
+
+.p-bottom {
+  margin-bottom: 100px;
+}
+
+// About page
+.about-name {
+  font-size: 21px;
+  margin-bottom: 0px;
+  font-family: $font-family-avenir;
+}
+.about-name {
+  font-size: 21px;
+  margin-bottom: 0px;
+  font-family: $font-family-avenir;
+}
+
+.about-sub {
+  font-size: 15px;
+  color: $brand-dark-grey;
+  font-family: $font-family-avenir;
+}
+.about-sub {
+  font-size: 15px;
+  color: $brand-dark-grey;
+  font-family: $font-family-avenir;
+}
+
+.about-bg-title {
+  background: $brand-black url(image_path('about/desk.png'))  no-repeat center center;
+  background-size: cover;
+  padding: 5em;
+}
+
+
+//Press
+
+.press p {
+  font-size: 16px;
+  margin-bottom: 0px;
+  font-family: $font-family-avenir;
+}
+
+.press a {
+  font-size: 16px;
+  font-family: $font-family-avenir;
+  color: $brand-medium-grey;
+}

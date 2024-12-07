@@ -1,0 +1,138 @@
+// SEARCH SWITCH
+$wrapper-side-padding: 24px;
+.search-switch-wrapper {
+  display: inline-block;
+  padding: .7em 24px 24px;
+  margin-top: 10px;
+
+  strong {
+    font-weight: $heavy-font-weight;
+  }
+}
+
+.search-switch-confirm__header {
+  @include font-size(15);
+  font-weight: $heavy-font-weight;
+  padding: 24px 0 16px;
+  text-align: center;
+}
+
+.search-switch-confirm__body {
+  @include font-size(13);
+  color: $brand-dark-grey;
+  font-weight: $heavy-font-weight;
+  text-align: center;
+  padding-bottom: (4 * $standard-spacing);
+}
+
+.search-switch-confirm__shipping-info {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding-bottom: (4 * $standard-spacing);
+}
+
+.search-switch-confirm__shipping-text {
+  @include font-size(13);
+  line-height: 26px; // matches height of icon
+  margin: 0;
+  color: $brand-red;
+}
+
+.search-switch-confirm__shipping-icon {
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+// handle the inner flex grid
+.grid-product__container--switch {
+  @include flex-grid;
+  flex-wrap: nowrap;
+
+  //overwrite flex prop from mixin on child
+  .grid-product--switch {
+    flex: 1 1 0;
+  }
+}
+
+@mixin grid-product-switch-border {
+  border-bottom: $default-border;
+  border-top: $default-border;
+  &:first-child { border-left: $default-border; }
+  &:nth-last-child(2) { border-right: $default-border; }
+  &:last-child { border: none; }
+
+  // on small, only 1 will show so that one needs a border
+  @media screen and (max-width: $small-screen - 1) {
+    &:first-child { border-right: $default-border; }
+  }
+}
+
+.grid-product--browse.grid-product--switch--product {
+  @include grid-product-switch-border;
+
+  background-color: $brand-white;
+  text-align: center;
+  margin-bottom: 0;
+  z-index: 1; //so image doesn't get punted behind it
+
+  @media screen and (max-width: $small-screen - 1) {
+    @include cap-at-nth(1); //the supplier tile is the second
+  }
+}
+
+.grid-product.grid-product--switch--supplier {
+  text-align: center;
+  font-family: $font-family-avenir;
+  flex-grow: 1.25;
+  align-items: center;
+
+  // remove product grid hover state
+  @include hover-no-mobile {
+    .grid-product__contents {
+      background-color: transparent;
+    }
+  }
+
+  .grid-product__contents {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 230px;
+
+    // adjust so that it looks even with container padding
+    padding-left: $wrapper-side-padding;
+    padding-right: 0px;
+  }
+
+  .grid-product__property--switch {
+    color: $brand-black;
+    margin-bottom: 1.25em;
+  }
+
+  .grid-product__property--delivery-estimate {
+    color: $brand-medium-grey;
+    margin-bottom: 0;
+  }
+
+  .grid-product__property--store-name {
+    font-weight: $heavy-font-weight;
+  }
+
+  .button {
+    border: 0;
+    padding: 10px 15px 8px;
+  }
+
+  hr {
+    width: 60px;
+    margin: 20px 0;
+  }
+}
+
+
+#search-change-supplier-confirmation {
+  .button {
+    border: 0;
+  }
+}

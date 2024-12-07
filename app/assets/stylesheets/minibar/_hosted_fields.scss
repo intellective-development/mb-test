@@ -1,0 +1,7 @@
+div.hosted-field {
+    @include form-element;
+}
+
+.cc-number .hosted-field {
+    padding-left: 50px;
+}

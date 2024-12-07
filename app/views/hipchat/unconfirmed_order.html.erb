@@ -1,0 +1,13 @@
+<p>
+  Order <a href="<%= url %>"><%= number %></a> with <strong><%= supplier_name %></strong> has not yet been confirmed.
+  <% if out_of_hours %>
+    <strong>This order was placed out of hours.</strong>
+  <% else %>
+    You can call the supplier on <%= supplier_phone %>.
+  <% end %>
+  <br>
+  <em>Customer - <%= customer_name %> <% if vip %>&mdash; MINIBAR VIP<% end %></em>
+</p>
+<% if state == 'in_progress' %>
+<p><strong>Something may have gone wrong with this order - @chris</strong></p>
+<% end %>

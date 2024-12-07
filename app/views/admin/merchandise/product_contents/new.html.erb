@@ -1,0 +1,7 @@
+<h2>Create new Enhanced PDP</h2>
+<%= form_for(@product_content, url: admin_merchandise_product_contents_path(@product_content)) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+
+  <%= f.hidden_field :product_size_grouping_id, value: @product_size_grouping_id %>
+  <%= f.submit 'Create', class: 'button' %>
+<% end %>

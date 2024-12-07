@@ -1,0 +1,11 @@
+<% content_for :title, 'Edit Personal Information' %>
+<% content_for :nav, true %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class="row">
+  <div class="large-8 medium-8 large-centered medium-centered column">
+    <%= form_for @account, :url => account_overview_path, :method => 'PUT' do |f| %>
+      <%=  render :partial => 'form', :locals => {:f => f} %>
+    <% end %>
+  </div>
+</div>

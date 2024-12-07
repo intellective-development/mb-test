@@ -1,0 +1,49 @@
+<script>
+  $(document).ready(function(){
+    $("#c_type").change(function(){
+        if($("#c_type").val() == "CouponTiered"){
+          $(".hidden").fadeIn('fast');
+        }
+        else{
+          $(".hidden").fadeOut('fast');
+        }
+    });
+  });
+</script>
+
+<% if @banner_coupon.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@banner_coupon.errors.count, "error") %> prohibited this banner coupon from being saved:</h2>
+    <ul>
+    <% @banner_coupon.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Identifier<br>
+        <small>This must be unique and is case-insensitive. It is a way to identify the banner on all platforms.
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <%= f.text_field :key, disabled: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>
+        Coupon Code
+      </label>
+    </div>
+    <div class="large-6 columns">
+        <%= f.text_field :code %>
+    </div>
+  </div>
+</fieldset>
+
+
+<%= f.submit "Save Banner Coupon", class: "button" %>

@@ -1,0 +1,80 @@
+<table class="row">
+  <tbody>
+    <tr>
+     <th class="small-4 large-4 columns first">
+      <table>
+        <tr>
+          <th></th>
+        </tr>
+      </table>
+     </th>
+     <th class="small-4 large-4 columns">
+      <table>
+        <tr>
+          <th>
+            <center data-parsed="">
+            <% unless loyalty_program_module_content[:reward_earned?] %>
+              <img class="loyalty-gif" src="<%= image_path('email/order_confirmation/celebrate.gif') %>">
+            <% else %>
+              <img class="loyalty-gif" src="<%= image_path('email/order_confirmation/reward-badge.png') %>">
+              <% end %>
+            </center>
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+     </th>
+      <th class="small-4 large-4 columns last">
+        <table>
+          <tr>
+            <th></th>
+          </tr>
+        </table>
+      </th>
+    </tr>
+  </tbody>
+</table>
+<% unless loyalty_program_module_content[:reward_earned?] %>
+<table class="row">
+  <tbody>
+    <tr>
+     <th class="small-12 large-12 columns first last">
+      <table>
+        <tr>
+          <th>
+            <center data-parsed="">
+              <img class="loyalty-points" src='<%= image_path("email/order_confirmation/loyalty_points_counter/points_#{loyalty_program_module_content[:points_earned]}.png") %>'>
+            </center>
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+     </th>
+    </tr>
+  </tbody>
+</table>
+<% end %>
+<table class="row">
+  <tbody>
+    <tr>
+      <th class="small-12 large-12 columns first last">
+        <table>
+          <tr>
+            <th>
+              <td class="cart-abandon-offer_copy">
+                <% unless loyalty_program_module_content[:reward_earned?] %>
+                  <p class="cart-abandon-offer_headline text-center">Keep Celebrating!</p>
+                  <p class="cart-abandon-offer_body text-center"><%= raw format_loyalty_program_module_content(loyalty_program_module_content) %></p>
+                <% else %>
+                  <p class="cart-abandon-offer_headline text-center">Congratulations!</p>
+                  <p class="cart-abandon-offer_body text-center">You should receive an email with your reward in the next 24 hours.</p>
+                <% end %>
+              </td>
+            </th>
+            <th class="expander"></th>
+          </tr>
+        </table>
+      </th>
+    </tr>
+  </tbody>
+</table>

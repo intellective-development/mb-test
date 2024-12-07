@@ -1,0 +1,62 @@
+<% cache supplier do %>
+  <%
+      city_background = hex_color(supplier.region_name.to_s.downcase)
+      city_foreground = text_color(city_background)
+  %>
+  <tr>
+    <td>
+      <% if supplier.supplier_type && supplier.supplier_type.name.include?('Wine') %>
+        <%= image_tag('ui/icon-winestore.svg', width: 32, height: 32) %>
+      <% elsif supplier.supplier_type && supplier.supplier_type.name.include?('Beer') %>
+        <%= image_tag('ui/icon-beerstore.svg', width: 32, height: 32) %>
+        <% elsif supplier.supplier_type && supplier.supplier_type.name.include?('Promo') %>
+        <%= image_tag('ui/icon-promostore.svg', width: 32, height: 32) %>
+      <% else %>
+        Other
+      <% end %>
+    </td>
+    <td>
+      <%= link_to supplier.name, edit_admin_inventory_supplier_path(supplier) %>
+      <% if supplier.delegate_supplier_id.present? %>
+        <br><small>Delegating to <strong><%= supplier.delegate.name %></strong></small>
+      <% end %>
+      <% unless supplier.employees.exists? %>
+        <br><small><strong>Supplier has no designated employees</strong></small>
+      <% end %>
+      <br>
+      <small>
+        <% if supplier.active? %>
+          <strong>Active</strong>
+          &ndash; <a href="#" data-reveal-id="modal-deactivate-<%= supplier.id %>">Click to deactivate</a>
+        <% else %>
+          <strong>Inactive</strong>
+          &ndash; <%= link_to 'Click to activate', activate_admin_inventory_supplier_path(supplier.id), method: :put %>
+        <% end %>
+      </small>
+    </td>
+    <td><%= supplier.score.to_f.round_at(2) %></td>
+    <td><span class="label round" style="background-color: <%= city_background %>; color: <%= city_foreground %>"><%= supplier.region_name %></span></td>
+    <td>
+      <small>
+        <strong><%= supplier.variants.active.available.size %></strong> of <strong><%= supplier.variants.active.size %></strong> active in-stock.<br>
+        <strong style="<%= percentage(supplier.variants.available.product_pending.size,supplier.variants.active.size) > 25 ? 'color:red' : ''%>"><%= supplier.variants.available.product_pending.size %></strong> pending<%= link_to(".", quality_score_admin_inventory_supplier_path(supplier)) %>
+      </small>
+    </td>
+    <td>
+      <% if supplier.data_feeds.visible.exists? %>
+        <%= link_to supplier.last_inventory_update_at ? supplier.last_inventory_update_at.strftime('%B %e ') : 'never', edit_admin_inventory_data_feed_path(supplier.data_feeds.visible.last) %>
+      <% else %>
+        <%= supplier.last_inventory_update_at ? supplier.last_inventory_update_at.strftime('%B %e ') : 'never' %>
+      <% end %>
+    </td>
+    <td> <%= link_to "Edit Supplier", edit_admin_inventory_supplier_path(supplier), { class: 'button tiny'} %> </td>
+  </tr>
+
+  <div id="modal-deactivate-<%= supplier.id %>" class="reveal-modal tiny" data-reveal>
+    <%= form_with url: activate_admin_inventory_supplier_path(supplier.id), method: :put do |f| %>
+      <h3>Deactivate <%= supplier.name %></h3>
+      <%= f.text_field :reason, placeholder: 'Reason' %>
+      <%= f.submit 'Deactivate', class: "small button" %>
+    <% end %>
+  </div>
+<% end %>

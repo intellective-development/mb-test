@@ -1,0 +1,58 @@
+@import "../style/variables";
+
+$arrow-size: 6 * $standard-spacing;
+
+.elMBCardCarousel {
+  position: relative;
+}
+
+.elMBCardCarousel__Arrow {
+  display: none;
+  @media screen and (min-width: $medium-min-width){ display: flex; }
+  align-items: center;
+  justify-content: center;
+  height: $arrow-size;
+  width: $arrow-size;
+  border-radius: $arrow-size;
+  margin-top: -0.5 * $arrow-size;
+  position: absolute;
+  top: 50%;
+  background-color: $brand-light-grey;
+  cursor: pointer;
+}
+.elMBCardCarousel__Arrow:hover {
+  background-color: $brand-medium-grey;
+}
+.elMBCardCarousel__CardTitle .elMBCardCarousel__Arrow{
+  display: flex;
+}
+.elMBCardCarousel__Arrow--Left{
+  left: 0;
+}
+.elMBCardCarousel__Arrow--Right{
+  right: 0;
+}
+.elMBCardCarousel__Arrow--Disabled,
+.elMBCardCarousel__Arrow--Disabled:hover{
+  opacity: 0.33;
+  background-color: $brand-light-grey;
+  cursor: initial;
+}
+
+.elMBCardCarousel__CardTitle {
+  @media screen and (min-width: $medium-min-width){ display: none; }
+  position: relative;
+  height: $arrow-size;
+  margin: $standard-spacing 0;
+  text-align: center;
+  line-height: $arrow-size;
+  text-transform: uppercase;
+  font-weight: $medium-font-weight;
+}
+.elMBCardCarousel__Cards {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  @media screen and (min-width: $medium-min-width){ flex-direction: row; }
+  @media screen and (min-width: $medium-min-width){ padding: 0 ($arrow-size + $standard-gutter); }
+}

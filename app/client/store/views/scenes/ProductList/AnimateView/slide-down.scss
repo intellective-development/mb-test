@@ -1,0 +1,31 @@
+@keyframes slideDownEnter {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownExit {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.slide-down {
+  &-enter,
+  &-exit {
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+  }
+  &-enter {
+    animation-name: slideDownEnter;
+  }
+  &-exit {
+    animation-name: slideDownExit;
+  }
+}

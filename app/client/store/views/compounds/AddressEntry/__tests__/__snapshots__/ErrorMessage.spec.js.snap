@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage renders 1`] = `
+<div
+  class="cm-ae-error"
+>
+  <p
+    class="cm-ae-error__text"
+  >
+    Please enter a delivery address to shop.
+  </p>
+</div>
+`;

@@ -1,0 +1,356 @@
+{
+  "regions": {
+    "albany": "new-york",
+    "alexandria": "virginia",
+    "arlington": "texas",
+    "arlington-va": "virginia",
+    "aspen": "colorado",
+    "austin": "texas",
+    "baltimore": "maryland",
+    "boston": "massachusetts",
+    "boulder": "colorado",
+    "brooklyn": "new-york",
+    "cambridge": "massachusetts",
+    "chicago": "illinois",
+    "colorado-springs": "colorado",
+    "dallas": "texas",
+    "denver": "colorado",
+    "el-paso": "texas",
+    "fort-collins": "colorado",
+    "fort-lauderdale": "florida",
+    "fort-worth": "texas",
+    "hartford": "connecticut",
+    "hoboken": "new-jersey",
+    "houston": "texas",
+    "jacksonville": "florida",
+    "jersey-city": "new-jersey",
+    "long-island": "new-york",
+    "los-angeles": "california",
+    "malibu": "california",
+    "memphis": "tennessee",
+    "miami": "florida",
+    "minneapolis": "minnesota",
+    "nashville": "tennessee",
+    "new-haven": "connecticut",
+    "new-york-city": "new-york",
+    "newark": "new-jersey",
+    "north-jersey": "new-jersey",
+    "oakland": "california",
+    "orlando": "florida",
+    "palm-beach": "florida",
+    "phoenix": "arizona",
+    "plano": "texas",
+    "queens": "new-york",
+    "san-antonio": "texas",
+    "san-diego": "california",
+    "san-francisco": "california",
+    "san-jose": "california",
+    "silicon-valley": "california",
+    "stamford": "connecticut",
+    "staten-island": "new-york",
+    "tampa": "florida",
+    "the-bronx": "new-york",
+    "the-hamptons": "new-york",
+    "the-jersey-shore": "new-jersey",
+    "tucson": "arizona",
+    "washington-dc": "washington-dc",
+    "westchester": "new-york",
+    "westport": "connecticut"
+  },
+  "reviews": {
+    "arizona": [
+      {
+        "author": "Diana N.",
+        "review": "Fast, accurate and fun. They deliver so quick! It’s the perfect service when you’re entertaining! Love it!"
+      },
+      {
+        "author": "Peggy R.",
+        "review": "My dad was so impressed and surprised that he said he wanted a martini but didn’t have any vodka and 35 minutes later I had it delivered. He’s 87 and should enjoy what he wants when he wants it. You made me look great!!"
+      },
+      {
+        "author": "Gerald M.",
+        "review": "Ordering was easy and delivery arrived sooner than I expected. A+ service."
+      },
+      {
+        "author": "Allyson B.",
+        "review": "Love the service, great selection, and delivery as promised in less than an hour."
+      }
+    ],
+    "california": [
+      {
+        "author": "John P.",
+        "review": "I love Minibar. For anyone who entertains and needs to stock up just before a party, it is a lifesaver."
+      },
+      {
+        "author": "Karen P.",
+        "review": "Convenient, easy to use app, great customer service, plethora of choices."
+      },
+      {
+        "author": "Diane W.",
+        "review": "Fast reliable service in an instant. Fits my impulsive lifestyle."
+      },
+      {
+        "author": "Oyeyimika O.",
+        "review": "Very wide variety and convenient delivery within the hour!"
+      },
+      {
+        "author": "Lauren T.",
+        "review": "Great service to be used for personal deliveries, or to surprise a friend or loved one with a gift!"
+      },
+      {
+        "author": "Erica K.",
+        "review": "It’s the most reliable alcohol delivery service and the customer support is great."
+      }
+    ],
+    "colorado": [
+      {
+        "author": "Karli C.",
+        "review": "I have always had prompt delivery from extremely nice staff! Makes my life easier!"
+      },
+      {
+        "author": "Allison O.",
+        "review": "The deliveries have been prompt and within the time frame, if not even earlier. The delivery people have always been extremely kind and professional and its really helpful to be able to get items delivered when its difficult to take toddlers into a liquor store."
+      },
+      {
+        "author": "Kristy G.",
+        "review": "Very happy with my experience with Minibar Delivery. I especially love it for when I’m traveling for work, and would love a drink, but don’t feel like dealing with people. Lol. I always highly recommend to friends who travel."
+      },
+      {
+        "author": "Lindsey C.",
+        "review": "I’ve always had great deliveries. There are multiple places to choose from so you can pick the best price and there aren’t any crazy fees."
+      }
+    ],
+    "connecticut": [
+      {
+        "author": "Valene R.",
+        "review": "I absolutely LOVE this app, especially on snow days. It’s efficient and super user friendly."
+      },
+      {
+        "author": "Kate W.",
+        "review": "Great, quick service!"
+      }
+    ],
+    "florida": [
+      {
+        "author": "Joanna R.",
+        "review": "I love the app and the quick service I’ve received, I’ll never delete it from my phone."
+      },
+      {
+        "author": "Gemma C.",
+        "review": "The convenience and service are second to none."
+      },
+      {
+        "author": "Jason L.",
+        "review": "I always recommend Minibar to friends and family. It’s a great service and the pricing is great."
+      }
+    ],
+    "illinois": [
+      {
+        "author": "Kimberly S.",
+        "review": "The price and selection at the store in my delivery area is great, my order was quick, and the free delivery with ShopRunner make this a no brainer."
+      },
+      {
+        "author": "Audrey R.",
+        "review": "It was fast and convenient… and the delivery person was very pleasant and accommodating."
+      },
+      {
+        "author": "Jennifer M.",
+        "review": "Because the service is always prompt and I use it for company events so its super reliable :)"
+      },
+      {
+        "author": "Chantel C.",
+        "review": "Very convenient and professional service! Great for my days off when I don’t want to leave the house."
+      }
+    ],
+    "maryland": [
+      {
+        "author": "Darlene T.",
+        "review": "The shopping was easy! The delivery person was timely! Love the convenience!"
+      },
+      {
+        "author": "Edward B.",
+        "review": "Reasonable prices, fast and courteous service!!"
+      },
+      {
+        "author": "Barbara D.",
+        "review": "This was a great service… I had a last minute change in my delivery request and it was handled perfectly even though it was the busiest time of the year. Highly satisfied and I will definitely use Minibar again! Totally recommend!"
+      },
+      {
+        "author": "Jean-Sebastian H.",
+        "review": "Delivery is incredibly fast and there is a fine selection in various price ranges."
+      }
+    ],
+    "massachusetts": [
+      {
+        "author": "José P.",
+        "review": "I love the convenience of having guests and not having to worry about going out to get liquor in bad weather."
+      }
+    ],
+    "minnesota": [
+      {
+        "author": "Julie F.",
+        "review": "Delivery guys are awesome! Fast, convenient, amazing service and I don’t have to drive anywhere to get what I want! Love you guys!!!"
+      },
+      {
+        "author": "Debra A.",
+        "review": "Good prices, a large variety of product, and speedy delivery."
+      }
+    ],
+    "new-jersey": [
+      {
+        "author": "Elizabeth E.",
+        "review": "It’s super convenient and a safe way to keep the party going without having to make a run to the store."
+      },
+      {
+        "author": "Abby D.",
+        "review": "Makes throwing impromptu gatherings with friends a breeze."
+      },
+      {
+        "author": "Patrick M.",
+        "review": "Always on time, and super convenient! Prices are great, too!"
+      },
+      {
+        "author": "Dianna I.",
+        "review": "Quick, polite service. Great selections & they even bring chilled wines/champagnes when available."
+      },
+      {
+        "author": "Tim B.",
+        "review": "You guys make it so easy for me to get my favorite wine!"
+      },
+      {
+        "author": "Paul W.",
+        "review": "Fair pricing delivered to your door… no brainer."
+      }
+    ],
+    "new-york": [
+      {
+        "author": "Braden W.",
+        "review": "Easy to get drinks I want on demand at a reasonable price. E.g. Going to a party, get it delivered. Running out, order now. Gift for friend, delivery. It’s great!"
+      },
+      {
+        "author": "Anna H.",
+        "review": "Being able to look up who locally has what you want and not having to carry it home is awesome. It’s a no-brainer!"
+      },
+      {
+        "author": "Kelly V.",
+        "review": "I like that it compares prices among my local stores before I order the product. It’s super easy to use, and very convenient!"
+      },
+      {
+        "author": "Leah W.",
+        "review": "I love Minibar and refer friends all the time. It’s convenient, the selection is great, and the couriers are always prompt and professional."
+      },
+      {
+        "author": "Ashleigh B.",
+        "review": "I’ve always had good experiences with this company. Delivery time is fast and prices are better than in store."
+      },
+      {
+        "author": "Christina C.",
+        "review": "This is such a convenient app. You never have to leave home and your delivery comes in no time."
+      },
+      {
+        "author": "Karen L.",
+        "review": "Ordering is so simple and the deliveries are timely. Never have had a mishap."
+      },
+      {
+        "author": "Erin S.",
+        "review": "Super easy and convenient. Use it every week!"
+      },
+      {
+        "author": "Wesley H.",
+        "review": "Vast menu of alcohol delivered straight to your doorstep quickly. What’s not to love? Great service."
+      },
+      {
+        "author": "Lucia L.",
+        "review": "Love that I can order large quantities of beer (which are hard to carry home from the store) and/or last minute things I need for parties. Highly recommend!"
+      },
+      {
+        "author": "Marla M.",
+        "review": "When searching, the app lists products from more than one store, which ensures you’re able to find what you’re looking for. The platform is easy to use (dangerously easy ;) )."
+      },
+      {
+        "author": "Jenna M.",
+        "review": "Your service is fast and convenient and connects me with great wine options from multiple shops in the area. I love Minibar!"
+      },
+      {
+        "author": "Liz G.",
+        "review": "I use Minibar all the time. With a work schedule like mine, its sometimes the only way I can make sure i have wine at my house!"
+      }
+    ],
+    "tennessee": [
+      {
+        "author": "Rachael P.",
+        "review": "This is a service I often wished existed in the past. The delivery is quick and the man who’s brought it to me has been super friendly and helpful. I have recommended Minibar to all my friends in town!"
+      },
+      {
+        "author": "Marlo Z.",
+        "review": "Minibar is so easy to use, there is a good selection and they are very quick with delivery!"
+      },
+      {
+        "author": "Stephanie Z.",
+        "review": "Nice selection and fast delivery. Very convenient when you don’t feel like leaving the house."
+      },
+      {
+        "author": "Laura W.",
+        "review": "It’s very straightforward to use the website or app, and the service is awesome and quick!"
+      }
+    ],
+    "texas": [
+      {
+        "author": "William S.",
+        "review": "Minibar is awesome. The delivery times are short and precise. Delivery person is very polite and personable. I love Minibar!"
+      },
+      {
+        "author": "Heather L.",
+        "review": "It’s SO easy and painless. I like the ability to order liquor or wine for a meeting even at the last minute."
+      },
+      {
+        "author": "Cheryl S.",
+        "review": "We don’t have time to run out and grab wine and beer at the last second for pop up client meetings and having a service deliver chilled drinks to our door in about an hour is AMAZING! They are consistent and the online ordering is simple. We are repeat clients plus they are members on Rakuten so a double win!"
+      },
+      {
+        "author": "Jessica G.",
+        "review": "I love Minibar Delivery! Always on time, amazing customer service, affordable, and convenient."
+      },
+      {
+        "author": "James T.",
+        "review": "So easy and convenient! Great way to stay safe if already drinking!"
+      }
+    ],
+    "virginia": [
+      {
+        "author": "Janet F.",
+        "review": "Efficient ordering and delivery process, well priced and who doesn’t want alcohol delivered to their door?! No lifting, carting up stairs, etc."
+      },
+      {
+        "author": "Michael G.",
+        "review": "For the first time, we can get our favorite champagne delivered to our house, within hours and at a price better than in most stores."
+      },
+      {
+        "author": "Tara B.",
+        "review": "Minibar Delivery is quick and convenient!"
+      }
+    ],
+    "washington-dc": [
+      {
+        "author": "Benjamin W.",
+        "review": "Have been using this service for quite sometime and absolutely love the convenience."
+      },
+      {
+        "author": "Cori G.",
+        "review": "Good selection, good prices and super fast delivery."
+      },
+      {
+        "author": "Nicole T.",
+        "review": "The beer and wine delivered were at the correct temperature and came on time. Excellent service!"
+      },
+      {
+        "author": "Scott D.",
+        "review": "Quick and dependable. Great selections for client gifts. I would recommend for personal and business use."
+      },
+      {
+        "author": "Bennett M.",
+        "review": "Great service. Quick delivery. Really takes the weight off running to the liquor store while being late for a party!"
+      }
+    ]
+  }
+}

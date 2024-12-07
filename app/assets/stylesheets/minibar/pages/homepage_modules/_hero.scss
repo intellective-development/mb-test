@@ -1,0 +1,142 @@
+$hero-background-fallback: #fff;
+$address-unit-transparency: rgba(0, 0, 0, .15);
+
+#module-web-store {
+  background: $hero-background-fallback url(image_path('components/homepage/hero.jpg')) no-repeat center;
+  background-size: cover; //might have to adjust it for the breakpoint
+  padding: 60px 0;
+
+  @media screen and (max-width: $small-screen - 1px) {
+    background-position-x: right;
+    padding: 0;
+    .mobile-overlay {
+      background-color: rgba(255, 255, 255, .75);
+      padding: 20px 0 0 0;
+    }
+  }
+
+  .store-entry-module {
+    background-color: $address-unit-transparency;
+    color: $brand-black;
+    padding: 18px 30px 15px;
+    text-align: left;
+    border-radius: 6px;
+
+    h1, h2, h3, h4, h5, h6, p {
+      color: inherit;
+    }
+
+    @media screen and (max-width: $small-screen - 1px) {
+      & {
+        padding-left: 0;
+        padding-right: 0;
+        background-color: rgba(255, 255, 255, 0);
+      }
+    }
+  }
+
+  .heading-thin-large {
+    font-size: 38px;
+    font-weight: $heavy-font-weight;
+  }
+
+  .subhead-thin {
+    font-family: $font-family-avenir;
+    font-size: 24px;
+    text-shadow: 0 2px 4px rgba(173, 172, 172, 0.5);
+  }
+
+  .legal-thin {
+    color: inherit;
+    margin-bottom: 0;
+    font-size: 10px;
+  }
+
+  #address-container {
+    @media screen and (max-width: $small-screen - 1px) {
+      background-color: rgba(0, 0, 0, 0.15);
+      padding: 10px $mobile-side-margin;
+    }
+    padding: 0;
+  }
+}
+
+.value-prop__container {
+  display: flex;
+  margin-bottom: 15px;
+  padding: 0 $mobile-side-margin;
+  @media screen and (max-width: $small-screen) {
+    order: 99;
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+}
+
+.value-prop__row{
+  @extend .value-prop__container;
+
+  @media screen and (max-width: $small-screen - 1px) {
+    display: block;
+    .value-prop {
+      border-right: none;
+    }
+  }
+}
+
+.value-prop {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+
+  &:not(:last-child) {
+    border-right: 1px solid $brand-dark-grey;
+  }
+
+  p {
+    font-family: $font-family-avenir;
+    font-size: 14px;
+    line-height: 1.4em;
+    margin-bottom: 0;
+  }
+}
+
+.value-prop__icon--location-pin { @include sprite-icon($icons-location_icon, inline-block); }
+.value-prop__icon--delivery {
+  background: transparent url(image_path('delivery.png')) no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+.value-prop__icon--cart {
+  background: transparent url(image_path('cart.png')) no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+ }
+.value-prop__icon--wine-glass {
+  background: transparent url(image_path('wine.png')) no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+ }
+.value-prop__icon--beer-can { @include sprite-icon($icons-beer_icon, inline-block); }
+.value-prop__icon--cocktail-glass {
+  background: transparent url(image_path('cocktail.png')) no-repeat;
+  background-size: contain;
+  width: 37px;
+  height: 32px;
+  display: inline-block;
+}
+
+.icon-gift {
+  width: 15px;
+  margin-right: 2px;
+}
+
+.address-wrapper { /* server rendered wrapper to the address entry component */
+  display: flex;
+  flex-direction: column;
+}

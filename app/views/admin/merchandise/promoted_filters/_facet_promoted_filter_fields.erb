@@ -1,0 +1,112 @@
+<script>
+  $(document).ready(function(){
+
+    $("#facet_hierarchy_type_<%=index%>_<%=is_new%>").zmultiselect({
+      live: false,
+      filter: true,
+      placeholder: "<%= facet_filter_key == 'hierarchy_type' && !is_new ? 'Selected ' + @promoted_filter.facet_promoted_filters[facet_filter_key].size.to_s + ' of ' + @hierarchy_types.size.to_s : 'Filter by Hierarchy Type...' %>"
+    });
+    $("#facet_hierarchy_subtype_<%=index%>_<%=is_new%>").zmultiselect({
+      live: false,
+      filter: true,
+      placeholder: "<%= facet_filter_key == 'hierarchy_subtype' && !is_new ? 'Selected ' + @promoted_filter.facet_promoted_filters[facet_filter_key].size.to_s + ' of ' + @hierarchy_subtypes.size.to_s : 'Filter by Hierarchy Subtype...' %>"
+    });
+
+    setTimeout(function() {
+      var w = $(".large-5").width();
+      if (<%=is_new%> == true) {
+        w = (w/5)*6
+      }
+      $("#div_facet_hierarchy_type_<%= index %>_<%=is_new%> .zselect ul").attr('style', 'width:' + w + 'px!important;' );
+      $("#div_facet_hierarchy_subtype_<%= index %>_<%=is_new%> .zselect ul").attr('style', 'width:' + w + 'px!important;' );
+    }, 500)
+
+    function showCorrectFields(currentValue) {
+      if(currentValue == "brand"){
+        $("#div_facet_hierarchy_type_<%= index %>_<%=is_new%>").fadeOut('fast');
+        $("#div_facet_hierarchy_subtype_<%= index %>_<%=is_new%>").fadeOut('fast');
+        $("#div_facet_term_<%= index %>_<%=is_new%>").fadeOut('fast');
+        $("#div_facet_brand_<%= index %>_<%=is_new%>").fadeIn('fast');
+      }
+      else{
+        if(currentValue == "hierarchy_type"){
+          $("#div_facet_brand_<%= index %>_<%=is_new%>").fadeOut('fast');
+          $("#div_facet_hierarchy_subtype_<%= index %>_<%=is_new%>").fadeOut('fast');
+          $("#div_facet_term_<%= index %>_<%=is_new%>").fadeOut('fast');
+          $("#div_facet_hierarchy_type_<%= index %>_<%=is_new%>").fadeIn('fast');
+        } else {
+          if(currentValue == "hierarchy_subtype"){
+            $("#div_facet_brand_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#div_facet_hierarchy_type_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#div_facet_term_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#div_facet_hierarchy_subtype_<%= index %>_<%=is_new%>").fadeIn('fast');
+          } else {
+            $("#div_facet_brand_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#div_facet_hierarchy_type_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#div_facet_hierarchy_subtype_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#div_facet_term_<%= index %>_<%=is_new%>").fadeIn('fast');
+          }
+        }
+      }
+    }
+    $("#facet_filter_key_<%= index %>_<%=is_new%>").change(function(){
+      showCorrectFields($("#facet_filter_key_<%= index %>_<%=is_new%>").val())
+    });
+    showCorrectFields($("#facet_filter_key_<%= index %>_<%=is_new%>").val())
+  });
+</script>
+<%= fields_for "facet_filter" do |ff| %>
+  <div class="row">
+    <div class="five large-<%=is_new ? 6 : 5%> columns">
+      <%= ff.label :key, 'Filter By' %>
+      <%= ff.select "key_#{index}", @facet_filters_options.map{|ffo| [ ffo[:name], ffo[:id] ]}, {:selected => facet_filter_key, include_blank: false}, id: "facet_filter_key_#{index}_#{is_new}" %>
+    </div>
+    <div id="div_facet_brand_<%= index %>_<%=is_new%>" class="five large-<%=is_new ? 6 : 5%> column <%= @promoted_filter.facet_promoted_filters[facet_filter_key] %>" style="display: none;">
+      <div class="promoted_facet_filters_brand" id="promoted-facet-filters-brand-component-<%= index %>-<%=is_new%>"></div>
+    </div>
+    <div id="div_facet_hierarchy_type_<%= index %>_<%=is_new%>" class="five large-<%=is_new ? 6 : 5%> column <%= @promoted_filter.facet_promoted_filters[facet_filter_key] %>" style="display: none;">
+      <label>Hierarchy Type</label>
+      <%= collection_select("facet_filter", "hierarchy_type_#{index}", @hierarchy_types, :permalink, :name, {include_blank: false, selected: @promoted_filter.facet_promoted_filters[facet_filter_key]}, {multiple: true, size:7, id: "facet_hierarchy_type_#{index}_#{is_new}"}) %>
+    </div>
+    <div id="div_facet_hierarchy_subtype_<%= index %>_<%=is_new%>" class="five large-<%=is_new ? 6 : 5%> column <%= @promoted_filter.facet_promoted_filters[facet_filter_key] %>" style="display: none;">
+      <label>Hierarchy Subtype</label>
+      <%= collection_select("facet_filter", "hierarchy_subtype_#{index}", @hierarchy_subtypes, :permalink, :name, {include_blank: false, selected: @promoted_filter.facet_promoted_filters[facet_filter_key]}, {multiple: true, size:7, id: "facet_hierarchy_subtype_#{index}_#{is_new}"}) %>
+    </div>
+    <div id="div_facet_term_<%= index %>_<%=is_new%>" class="five large-<%=is_new ? 6 : 5%> column <%= @promoted_filter.facet_promoted_filters[facet_filter_key] %>">
+      <label>Term <small>(separate by comma e.g. <code>30ml, 60ml</code>)</small></label>
+      <%= ff.text_field "term_#{index}", value: @promoted_filter.facet_promoted_filters[facet_filter_key]&.join(', ') %>
+    </div>
+    <%- unless is_new %>
+      <div class="four large-2 columns">
+        <%= button_to "Delete Filter", remove_facet_filter_admin_merchandise_promoted_filter_path, params: {:id => @promoted_filter.id, :facet_key => facet_filter_key}, :method=>:post, :class => 'button alert' %>
+      </div>
+    <%- end %>
+  </div>
+<% end %>
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var component_config_block = [{
+        selector: 'promoted-facet-filters-brand-component-<%= index %>-<%=is_new%>',
+        component: 'PromotedFacetFiltersBrand',
+        options: {
+          initialBrandIds: <%= raw facet_filter_key == 'brand' ? Array(@promoted_filter.facet_promoted_filters[facet_filter_key]) : [] %>,
+          name: 'facet_filter[brand_<%= index %>][]',
+          multi: true
+        }
+      }];
+      function ready(fn) {
+        if (document.readyState != 'loading'){
+          fn();
+        } else {
+          document.addEventListener('DOMContentLoaded', fn);
+        }
+      }
+      ready(function(){
+        window.initComponents(component_config_block);
+      });
+    });
+  </script>
+<% end %>

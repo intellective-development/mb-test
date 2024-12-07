@@ -1,0 +1,79 @@
+<% if flash[:alert].present? %>
+  <p class="notice center red errors"><%= flash[:alert] %></p>
+<% end %>
+
+<h2>Add Product for order #<%= @order.number %></h2>
+
+<%= form_tag new_admin_fulfillment_order_shipment_product_path(order_id: @order.id, shipment_id: @shipment.id), :method => 'get', :id => "products_filter" do %>
+  <div class="row collapse">
+    <div class="small-10 columns end">
+      <%= text_field_tag :search_term, params[:search_term], placeholder: 'Search by product name' %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :search_term => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>Product Name</th>
+      <th>Type</th>
+      <th>Volume</th>
+      <th>Inventory</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Paid by</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <%= form_tag create_with_variant_admin_fulfillment_order_shipment_products_path(order_id: @order.id, shipment_id: @shipment.id), method: :post, id: "variant-new" do %>
+      <td><%= text_field_tag :sku, '', placeholder: 'SKU' %></td>
+      <td><%= text_field_tag :name, '', placeholder: 'New product name', input_html: { id: "variant-name-new" } %></td>
+      <td><%= select_tag :product_type_id, options_from_collection_for_select(@product_types, "id", "name") %></td>
+      <td><%= text_field_tag :volume, '', placeholder: 'New product volume', input_html: { id: "variant-volume-new" } %></td>
+      <td><%= text_field_tag :inventory %></td>
+      <td>
+        <%= text_field_tag :price, '', input_html: { id: "price-new" } %>
+      </td>
+      <td>
+        <%= text_field_tag :quantity, '1', id: "quantity-new" %>
+      </td>
+      <td>
+        Customer
+      </td>
+      <td>
+        <%= submit_tag "Create Product", class: "button small", id: "submit-new" %>
+      </td>
+    <% end %>
+  </tr>
+  <% @variants.each do |variant| %>
+    <%= form_for(@order_item, url: admin_fulfillment_order_shipment_products_path(order_id: @order.id, shipment_id: @shipment.id), html: { id: "variant-#{variant.id}" }) do |f| %>
+      <%= f.hidden_field :variant_id, value: variant.id %>
+      <tr>
+        <td><%= variant.sku %></td>
+        <td id="display-name-<%= variant.id %>"><%= variant.product_display_name %></td>
+        <td><%= variant.product.hierarchy_category_name %></td>
+        <td id="volume-<%= variant.id %>"><%= variant.item_volume %></td>
+        <td><%= variant.count_on_hand %></td>
+        <td>
+          <%= f.text_field :price, value: variant.price %>
+        </td>
+        <td>
+          <%= f.text_field :quantity, value: "1" %>
+        </td>
+        <td>
+          Customer
+        </td>
+        <td>
+          <%= f.submit "Add Product", class: "button small", id: "submit-#{variant.id}" %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

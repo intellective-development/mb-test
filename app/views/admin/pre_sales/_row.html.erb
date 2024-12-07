@@ -1,0 +1,34 @@
+<%
+  if pre_sale.active?
+      button_label = 'Inactivate'
+      button_color = 'alert'
+  else
+      button_label = 'Activate'
+      button_color = 'secondary'
+  end
+%>
+<tr>
+  <td>
+    <%=pre_sale.name %>
+  </td>
+  <td>
+    <%= "#{pre_sale.product.display_name} (pid: #{pre_sale.product.id})" %>
+  </td>
+  <td>
+    <%=number_with_precision(pre_sale.price, precision: 2) %>
+  </td>
+  <td>
+    <%=pre_sale.starts_at.strftime('%d %B %Y') %>
+  </td>
+  <td>
+    <%= "#{pre_sale.product_order_limit&.current_order_qty}/#{pre_sale.product_order_limit&.global_order_limit}" %>
+  </td>
+  <td>
+    <%= pre_sale.status %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_pre_sale_path(pre_sale), class: 'button tiny' %>
+    <%= link_to "Orders", orders_admin_pre_sale_path(pre_sale), class: 'button tiny' %>
+    <%= link_to button_label, toggle_status_admin_pre_sale_path(pre_sale), class: "button tiny #{button_color}", method: :patch %>
+  </td>
+</tr>

@@ -1,0 +1,5 @@
+<% if @brand.nil? %>
+  <p>Brand Not Found, did you already merge it? If so then this list is probably cached.</p>
+<% else %>
+  <%= render :partial => '/admin/merchandise/merge_brands/brand', :locals => {brand: @brand}%>
+<% end %>

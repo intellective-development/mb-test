@@ -1,0 +1,48 @@
+<% content_for :title, 'Suppliers' %>
+<div class="admin_title_header">
+  <h3>Suppliers</h3>
+  <%= link_to "New Supplier", new_admin_inventory_supplier_path, class: "button" %>
+</div>
+
+<%= form_tag admin_inventory_suppliers_path, :method => 'get', :id => "suppliers_filter" do %>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      <div class="row collapse">
+        <div class="small-6 columns">
+          <%= check_box_tag "active", true, params["active"]%>
+          <%= label_tag 'Active', nil, class: "active-label" %>
+          <%= check_box_tag "inactive", true, params["inactive"] %>
+          <%= label_tag 'Inactive', nil, class: "inactive-label" %>
+        </div>
+        <div class="small-6 columns">
+          <%= select_tag 'supplier_issue', options_for_select([['All', 'all'], ['Without active shipping method', 'no_active_shipping_method'], ['Without active delivery zone', 'no_active_delivery_zone']], params[:supplier_issue]) %>
+        </div>
+      </div>
+    </div>
+    <div class="small-4 columns">
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :name => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th><%= sortable "supplier_type_id", "Type" %></th>
+    <th class='column1_header'><%= sortable "name", "Name" %></th>
+    <th class='column1_header'><%= sortable "score", "Score" %></th>
+    <th>Region</th>
+    <th>Products</th>
+    <th><%= sortable "last_inventory_update_at", "Last Updated" %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'admin/inventory/suppliers/supplier_row', collection: @suppliers, as: 'supplier'%>
+  </tbody>
+</table>
+<%= paginate @suppliers %>
+

@@ -1,0 +1,33 @@
+<% presenter = ChangesetPresenter.new(product_grouping_changeset, self) %>
+<div class="image-hit panel">
+  <div class="row">
+    <h4><%= link_to presenter.product_grouping_name, admin_merchandise_product_update_path(product_grouping_changeset) %></h4>
+    <h6><%= presenter.brand_name %></h6>
+    <p><small><%= presenter.user_name %></small></p>
+    <div class="column medium-8">
+      <ul>
+        <% product_grouping_changeset.metadata_changes.each do |change| %>
+          <li>
+            <%= format_changes(change) %>
+          </li>
+        <% end %>
+        <% product_grouping_changeset.property_changes.each do |change| %>
+          <li>
+            <%= format_changes(change) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="column medium-4">
+    <% if can? :update, product_grouping_changeset %>
+      <%= button_to admin_merchandise_product_update_path(product_grouping_changeset), method: :put, class: 'button', name: 'product_grouping_changeset[trigger]', value: 'accept' do %>
+        Accept
+      <% end %>
+      <br>
+      <%= button_to admin_merchandise_product_update_path(product_grouping_changeset), method: :put, class: 'button', name: 'product_grouping_changeset[trigger]', value: 'reject' do %>
+        Reject
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+</div>

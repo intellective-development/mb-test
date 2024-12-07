@@ -1,0 +1,57 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you placed an order with Minibar Delivery' %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Dear <%= @order.user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Thank you for placing a bartender order! We want to ensure the bartender is prepared for your event and need to need to gather additional details.
+                          <br>
+                          <br>
+                          Please provide us with the following information and we will pass it along to your bartender:
+                        </p><br/>
+                        <ul>
+                          <li>What is the date of your event and what time does it start and end? Our bartender will arrive shortly before the event to prepare.</li>
+                          <li>What is the location of the event and are there special entry instructions?</li>
+                          <li>What kind of drinks will your bartender be serving? If you have any specific cocktail recipes, please let us know!</li>
+                          <li>How many people will be in attendance? We recommend 1 bartender for every 50 people.</li>
+                          <li>Should your bartender wear any special attire? Our bartenders arrive in a black button down shirt, pants, and shoes.</li>
+                          <li>Is your bartender allowed to display a tip jar or would you like us to add gratuity to your order? If so, how much would you like us to add?</li>
+                        </ul>
+                        <p class="indent dark small">
+                          If you need to reschedule or cancel the bartender for any reason, please let us know as soon as possible. Please note there is a $40 rescheduling fee and an $80 cancellation fee if these changes are made within 24 hours of the event.
+                        </p>
+                        <p class="indent dark small">
+                          We look forward to hearing from you soon, <%= @order.user.first_name %>!
+                        </p>
+                        <p class="indent dark small">
+                          Cheers, <br/>
+                          Team Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->
+

@@ -1,0 +1,41 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you ordered from Minibar Delivery' %>
+<table class="container sub">
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @recipient.name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          We appreciate you placing a 7-Eleven order through Minibar! Unfortunately, they have sold out of your entire order.<br/><br/>
+                          For this reason, we have canceled the order and issued a full refund. The refund should appear in a few days, depending on your bank.<br/><br/>
+                          Please use the code <%= @coupon_code %> for $7.11 off your next order! If you have any questions, just let me know.<br/>
+                        </p><br/>
+                        <p class="indent dark small">
+                          Best, <br/>
+                          Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>

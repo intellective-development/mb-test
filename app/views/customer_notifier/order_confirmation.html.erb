@@ -1,0 +1,191 @@
+<% content_for :user_facing, true %>
+<% content_for :additional_legal do %>
+  <% if String(@order.ship_address&.state_name) == 'TX' %>
+    In Texas discounts are only valid on delivery fees and non-alcoholic items.&nbsp;
+  <% end %>
+  Fulfilled by:&nbsp;
+  <% @order.shipments.each do |shipment| %>
+    <%- if shipment.digital? && shipment.supplier.address.nil? %>
+      <%= shipment.supplier.display_name %>.&nbsp;
+    <%- else %>
+      <%= shipment.supplier.display_name %>, <%= shipment.supplier.address.address_lines_array.join(', ') %>, <%= shipment.supplier.address.city_state_zip %>.&nbsp;
+    <% end %>
+  <% end %>
+  &nbsp;
+  The charge on your statement may appear under our store partner's name.
+<% end %>
+<% content_for :email_reason, 'you ordered from Minibar Delivery' %>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Order",
+  "merchant": {
+    "@type": "Organization",
+    "name": "MinibarDelivery.com"
+  },
+  "orderNumber": "<%= @order.number %>",
+  "priceCurrency": "USD",
+  "price": "<%= @order.taxed_total.to_s %>",
+  "acceptedOffer": [
+    <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "<%= variant.name %>",
+        "image": "<%= variant.product_size_grouping.featured_image(:thumb) %>",
+        "sku": "<%= variant.sku %>"
+      },
+      "price": "<%= variant.price.to_s %>",
+      "priceCurrency": "USD",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "<%= order_items.sum(&:quantity) %>"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": "<%= variant.supplier.display_name %>"
+      }
+    }
+    <% end %>
+  ],
+  "url": "https://minibardelivery.com/",
+  "orderStatus": "http://schema.org/OrderProcessing",
+  "orderDate": "<%= @order.completed_at.iso8601 %>",
+  "isGift": "<%= @order.gift? %>",
+  "customer": {
+    "@type": "Person",
+    "name": "<%= @order.user_name %>"
+  }
+}
+</script>
+<style>
+  .text-center p {
+    text-align: center;
+  }
+</style>
+<table class="container container-main" align="center">
+  <tr>
+    <td class="module">
+      <%= render partial: 'header_logo' %>
+      <table class="row">
+        <tr><!-- INTRO TEXT BEGIN -->
+          <td>
+            <table class="row">
+              <tr>
+                <td class="small-12 large-1 columns"></td>
+                <td class="small-12 large-10 columns">
+                  <p class="avenir-heading center">
+                    Thank you for your order!
+                  </p>
+                  <p class="avenir-body-small center ">
+                    <% if @order.shipments.all?(&:on_demand?) %>
+                      <%= raw on_demand_details(@order) %>
+                      <br />
+                      <%= I18n.t('customer.order_confirmation.have_id_available') %>
+                    <% elsif @order.shipments.all?(&:shipped?) %>
+                      <%= I18n.t('customer.order_confirmation.shipped.generic_eta') %>
+                    <% elsif @order.shipments.all?(&:pickup?) %>
+                      <%= I18n.t('customer.order_confirmation.pickup.generic_eta') %>
+                    <% end %>
+                  </p>
+
+                  <!-- banners -->
+                  <% if @order.shipments.any?(&:on_demand?) && @ondemand_message&.text? %>
+                    <div class="avenir-body-small text-center" style="border: solid 2px black; padding: 2em 1em;text-align: center">
+                      <%= @ondemand_message.text.html_safe %>
+                    </div>
+                  <% elsif @order.shipments.any?(&:shipped?) && @shipping_message&.text? %>
+                    <div class="avenir-body-small text-center" style="border: solid 2px black; padding: 2em 1em;text-align: center">
+                      <%= @shipping_message.text.html_safe %>
+                    </div>
+                  <% elsif @order.shipments.any?(&:pickup?) && @pickup_message&.text? %>
+                    <div class="avenir-body-small text-center" style="border: solid 2px black; padding: 2em 1em;text-align: center">
+                      <%= @pickup_message.text.html_safe %>
+                    </div>
+                  <% end %>
+
+                  <p class="avenir-body-small center">
+                    Want to get in touch? Simply reply to this email! <br />
+                    You can also text <a class="text-link" href="sms:+19176336332">(917) 633-6332</a> or call <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>.
+                  </p>
+                </td>
+                <td class="small-12 large-1 columns"></td>
+              </tr>
+            </table>
+            <%= render partial: 'loyalty_program_module', object: @loyalty_program_module_content, as: 'loyalty_program_module_content' if @loyalty_program_module_content %>
+          </td>
+        </tr><!-- INTRO TEXT END -->
+        <%= render partial: 'pickup_details', collection: @order.shipments, as: 'shipment' %>
+        <%= render partial: 'order_details', locals: { order: @order } %>
+      <% if @order&.delivery_notes.present? || @order.gift? %>
+      <tr><!-- DELIVERY/GIFT INSTRUCTIONS -->
+        <td>
+          <table class="row">
+            <tr>
+              <td>
+                <table class="row">
+                  <tr>
+                    <th class="small-12 large-1 columns"></th>
+                <% if @order&.delivery_notes.present? %>
+                  <% if @order.gift? %>
+                    <th class="small-12 large-4 columns">
+                  <% else %>
+                    <th class="small-12 large-10 columns">
+                  <% end %>
+                      <table class="section no-bottom">
+                        <tr>
+                          <td>
+                            <h5 class="avenir-heading-medium">Instructions:</h5>
+                            <p class="avenir-body-small no-bottom"><%= @order&.delivery_notes %></p>
+                          </td>
+                        </tr>
+                      </table>
+                    </th>
+                  <% if @order.gift? %>
+                    <th class="small-12 large-2 columns"></th>
+                  <% end %>
+                <% end %>
+                <% if @order.gift? %>
+                  <% if @order&.delivery_notes %>
+                    <th class="small-12 large-4 columns">
+                  <% else %>
+                    <th class="small-12 large-10 columns">
+                  <% end %>
+                      <table class="section no-bottom">
+                        <tr>
+                          <td>
+                            <h5 class="avenir-heading-medium">Gift Message:</h5>
+                            <p class="avenir-body-small no-bottom"><%= @order.gift_detail&.message || 'None Provided' %></p>
+                          </td>
+                        </tr>
+                      </table>
+                    </th>
+                <% end %>
+                    <th class="small-12 large-1 columns"></th>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr><!-- DELIVERY/GIFT INSTRUCTIONS -->
+      <% end %>
+      <%= render partial: 'shipment_details', collection: @order.shipments, as: 'shipment' %>
+      <%= render partial: 'order_totals', locals: { order_cost: @order_cost } %>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<% if @bottom_banner&.text.present? %>
+  <%= @bottom_banner.text.html_safe %>
+<% end %>
+
+<% if @bottom_banner_filtered&.text.present? %>
+  <%= @bottom_banner_filtered.text.html_safe %>
+<% end %>
+
+<%= render(partial: 'download_app_banner') %>

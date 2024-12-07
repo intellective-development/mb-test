@@ -1,0 +1,84 @@
+
+@mixin flex-center-contents() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.invite-module {
+  background-color: $brand-lighter-grey;
+  background: url(image_path('components/pages/whiskey.jpg')) no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+
+  input[type=text] {
+    margin-bottom: 0px;
+  }
+
+  p {
+    display: inline-block;
+    font-family: $font-family-avenir;
+    max-width: 420px;
+  }
+
+  #logo {
+    height: 60px;
+    display: inline-block;
+    background: transparent url(image_path('components/header/logo_60@2x.png')) no-repeat;
+    background-size: 60px 60px;
+    margin-bottom: 30px;
+    width: 60px;
+  }
+
+  .button {
+    background-color: $brand-black;
+    border: 0px;
+    display: inline-block;
+    letter-spacing: 3px;
+    margin-top: 35px;
+    padding: 14px 40px 10px 40px;
+    text-transform: uppercase;
+  }
+  .button:hover {
+    background-color: $brand-charcoal;
+  }
+  .button:focus {
+    outline: 0;
+  }
+
+  .center-wrapper {
+  }
+
+  .content-container {
+    @include flex-center-contents;
+    background-color: rgba(255, 255, 255, .95);
+    height: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
+    position: fixed;
+  }
+
+  .code-block {
+    font-family: $font-family-avenir;
+    padding-bottom: 8px;
+    width: auto;
+    .black {
+      color: $brand-black;
+      font-size: 30px;
+    }
+  }
+
+  .legal {
+    color: $brand-medium-grey;
+  }
+
+  .no-left {
+    margin-left: 0px;
+    padding-left: 0px;
+  }
+
+  .row.invite {
+    margin-bottom: 16px;
+  }
+
+}

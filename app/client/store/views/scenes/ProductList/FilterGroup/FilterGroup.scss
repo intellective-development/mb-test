@@ -1,0 +1,91 @@
+@import "../../../../../../assets/stylesheets/minibar/variables.scss";
+
+.filter-group {
+  border: 0 none transparent;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  & > legend {
+    align-items: center;
+    background-color: transparent;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    font-family: $font-family-avenir;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 4px;
+    padding: 14px 4px;
+    position: relative;
+    width: calc(100% - 8px);
+
+    &::after {
+      background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><g id='up' stroke='%23999' stroke-width='12'><line x1='30' x2='65' y1='77' y2='42'/><line x1='90' x2='55' y1='77' y2='42'/></g></svg>");
+      background-repeat: no-repeat;
+      content: ' ';
+      display: inline-block;
+      height: 20px;
+      position: absolute;
+      right: 15px;
+      width: 20px;
+    }
+  }
+
+  &[aria-expanded=true] legend::after {
+    background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><g id='dn' stroke='%23999' stroke-width='12'><line x1='30' x2='65' y1='42' y2='77'/><line x1='90' x2='55' y1='42' y2='77'/></g></svg>");
+  }
+
+  & > ul {
+    display: grid;
+    list-style-type: none;
+    margin: 2px;
+    padding-left: 0;
+  }
+
+  &[aria-expanded=false] ul {
+    display: none;
+  }
+
+  &[aria-expanded=true] ul {
+    display: grid;
+  }
+
+  .product-list-filters-container & {
+    border: 1px solid #d8d8d8;
+    border-radius: 3px;
+    margin: 0.5em 0;
+    min-height: 32px;
+    position: relative;
+
+    & > legend {
+      border-radius: 3px;
+      border-top: 0 none transparent;
+      color: #6e6e6e;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 30px;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      text-indent: 15px;
+      text-transform: uppercase;
+
+      &::after {
+        height: 15px;
+        right: 0;
+        top: 7px;
+        width: 15px;
+      }
+    }
+
+    & > ul {
+      border-top: 1px solid #d8d8d8;
+      margin: 30px 0 0 0;
+    }
+  }
+}

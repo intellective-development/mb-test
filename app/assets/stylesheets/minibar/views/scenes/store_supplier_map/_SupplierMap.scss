@@ -1,0 +1,18 @@
+.sm__map__container {
+  height: 375px; // fallback
+  height: 70vh;
+
+}
+
+.sm__header__container {
+  padding: $standard-gutter;
+}
+
+.sm__header__location {
+  @include font-size(12);
+    color: $brand-dark-grey;
+}
+
+.sm__header__name {
+  @include font-size(16);
+}

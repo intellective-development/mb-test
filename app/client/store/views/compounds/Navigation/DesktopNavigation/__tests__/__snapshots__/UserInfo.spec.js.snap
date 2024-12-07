@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserInfo renders user fetching state 1`] = `
+<div>
+  <div
+    class="el-touchable cmUserInfo_PromptContainer"
+    id=""
+    role="button"
+    tabindex="-1"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing cmUserInfo_Prompt cmUserInfo_Prompt__Loading"
+    >
+      Account
+    </span>
+    <img
+      alt="down_arrow_red"
+      class="el-mbicon--down_arrow_red cmUserInfo_DiscloseIcon"
+      src="/assets/components/elements/mb-icon/down_arrow_red.png"
+      srcset="/assets/components/elements/mb-icon/down_arrow_red@2x.png 2x, /assets/components/elements/mb-icon/down_arrow_red@3x.png 3x"
+    />
+  </div>
+  <ul
+    class="cmUserInfo_Menu cmUserInfo_Menu__Invisible"
+  >
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/login"
+      >
+        Log In
+      </a>
+    </li>
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/signup"
+      >
+        Create Account
+      </a>
+    </li>
+    <li>
+      <div
+        class="el-touchable cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        role="button"
+        tabindex="-1"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          Help
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`UserInfo renders with user 1`] = `
+<div>
+  <div
+    class="el-touchable cmUserInfo_PromptContainer"
+    id="user-menu-toggle"
+    role="button"
+    tabindex="-1"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing cmUserInfo_Prompt"
+    >
+      Hi, Brian
+    </span>
+    <img
+      alt="down_arrow_red"
+      class="el-mbicon--down_arrow_red cmUserInfo_DiscloseIcon"
+      src="/assets/components/elements/mb-icon/down_arrow_red.png"
+      srcset="/assets/components/elements/mb-icon/down_arrow_red@2x.png 2x, /assets/components/elements/mb-icon/down_arrow_red@3x.png 3x"
+    />
+  </div>
+  <ul
+    class="cmUserInfo_Menu cmUserInfo_Menu__Invisible"
+  >
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/referrals"
+      >
+        Share & Earn $10
+      </a>
+    </li>
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/account/orders"
+      >
+        Orders
+      </a>
+    </li>
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/account/overview"
+      >
+        Account
+      </a>
+    </li>
+    <li>
+      <div
+        class="el-touchable cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        role="button"
+        tabindex="-1"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          Help
+        </span>
+      </div>
+    </li>
+    <li
+      class="cmUserInfo_Menu_LinkDivider"
+    />
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Secondary"
+        href="/logout"
+      >
+        Sign Out
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`UserInfo renders without user 1`] = `
+<div>
+  <div
+    class="el-touchable cmUserInfo_PromptContainer"
+    id="user-menu-toggle"
+    role="button"
+    tabindex="-1"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing cmUserInfo_Prompt"
+    >
+      Account
+    </span>
+    <img
+      alt="down_arrow_red"
+      class="el-mbicon--down_arrow_red cmUserInfo_DiscloseIcon"
+      src="/assets/components/elements/mb-icon/down_arrow_red.png"
+      srcset="/assets/components/elements/mb-icon/down_arrow_red@2x.png 2x, /assets/components/elements/mb-icon/down_arrow_red@3x.png 3x"
+    />
+  </div>
+  <ul
+    class="cmUserInfo_Menu cmUserInfo_Menu__Invisible"
+  >
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/login"
+      >
+        Log In
+      </a>
+    </li>
+    <li>
+      <a
+        class="elMBText_A elMBText elMBText_ResetSpacing cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        href="/signup"
+      >
+        Create Account
+      </a>
+    </li>
+    <li>
+      <div
+        class="el-touchable cmUserInfo_Menu_Link cmUserInfo_Menu_Link__Primary"
+        role="button"
+        tabindex="-1"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          Help
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;

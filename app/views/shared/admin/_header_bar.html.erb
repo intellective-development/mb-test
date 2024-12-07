@@ -1,0 +1,214 @@
+<%
+  specific_style = if Rails.env.development?
+                     "top-bar-development"
+                   elsif ENV['ENV_NAME'].present?
+                     "top-bar-#{ENV['ENV_NAME']}"
+                   end
+%>
+<nav class="top-bar <%= specific_style %>" data-topbar data-options="sticky_on: large">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="/admin">MiniAdmin</a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+  <section class="top-bar-section">
+    <ul class="right">
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to "Orders", admin_fulfillment_orders_path %>
+        <ul class="dropdown">
+          <li><%= link_to "Orders", admin_fulfillment_orders_path %></li>
+          <li><%= link_to "Bulk Orders", admin_fulfillment_bulk_orders_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Scheduled Orders", admin_fulfillment_scheduled_orders_path %></li>
+          <li><%= link_to "Back Orders", admin_fulfillment_back_orders_path %></li>
+          <li><%= link_to "PreSale Orders", admin_fulfillment_presale_orders_path %></li>
+          <li><%= link_to "Subscriptions", admin_fulfillment_subscriptions_path %></li>
+        </ul>
+      </li>
+
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to 'Products', admin_merchandise_products_path %>
+        <ul class="dropdown">
+          <li><%= link_to 'Catalog V2', admin_catalogv2_index_path %></li>
+          <% unless Feature[:hide_old_catalog].enabled? %>
+            <li><%=  link_to 'Catalog', admin_catalog_index_path  %></li>
+          <%  end %>
+          <li><%= link_to 'Products', admin_merchandise_products_path %></li>
+          <li><%= link_to 'Product Groupings', admin_merchandise_product_size_groupings_path %></li>
+          <li><%= link_to 'Gift Card Themes', admin_merchandise_gift_card_themes_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Properties', admin_merchandise_properties_path %></li>
+          <li><%= link_to 'Product Types', admin_merchandise_product_types_path %></li>
+          <li><%= link_to 'Prototypes', admin_merchandise_prototypes_path %></li>
+          <li><%= link_to 'Promoted Filters', admin_merchandise_promoted_filters_path %></li>
+          <li><%- link_to 'Image Groups', admin_merchandise_image_groups_path %></li>
+          <li><%= link_to 'Bundles', admin_merchandise_bundles_path %></li>
+          <li><%= link_to 'Brands', admin_merchandise_brands_path %></li>
+          <li><%= link_to 'Distributors', admin_merchandise_distributors_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Approve Brand Submissions', '/admin/merchandise/product_updates' %></li>
+          <li><%= link_to 'Merge Products', admin_merchandise_merge_index_path %></li>
+          <li><%= link_to 'Merge Product Groupings', admin_merchandise_merge_groupings_path %></li>
+          <li><%= link_to 'Merge History', admin_merchandise_merge_logs_path %></li>
+          <li><%= link_to 'Merge Brands', admin_merchandise_merge_brands_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Product Routings', admin_product_routings_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Pre Sales', admin_pre_sales_path %></li>
+        </ul>
+      </li>
+
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to 'Cocktails', '/admin/cocktails' %>
+        <ul class="dropdown">
+          <li><%= link_to 'Cocktails', '/admin/cocktails' %></li>
+          <li><%= link_to 'Tools', '/admin/cocktails/tools' %></li>
+        </ul>
+      </li>
+
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to "Delivery Coverage", admin_delivery_coverages_path %>
+        <ul class="dropdown">
+          <li><%= link_to 'Delivery Coverage', admin_delivery_coverages_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Coverage Map', coverage_map_admin_delivery_coverages_path %></li>
+        </ul>
+      </li>
+
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to "Suppliers", admin_inventory_suppliers_path %>
+        <ul class="dropdown">
+          <li><%= link_to 'Suppliers', admin_inventory_suppliers_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Logos', admin_suppliers_logos_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Holidays', admin_suppliers_holidays_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Data Feeds", admin_inventory_data_feeds_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Metrics', admin_suppliers_metrics_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Minibar Invoices', admin_suppliers_invoices_path(business: "Minibar", only_finalized: true) %></li>
+          <li><%= link_to 'ReserveBar Invoices', admin_suppliers_invoices_path(business: "ReserveBar", only_finalized: true) %></li>
+          <li><%= link_to 'Get Stocked Invoices', admin_suppliers_invoices_path(business: "Get Stocked", only_finalized: true) %></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+
+      <li class="has-dropdown">
+        <%= link_to "Customers", admin_customers_path %>
+        <ul class="dropdown">
+          <li><%= link_to 'Customers', admin_customers_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Zipcode Waitlist', admin_reports_zipcode_wishlists_path %> </li>
+          <li class="divider"></li>
+          <li><%= link_to 'Referrals', admin_user_datas_referrals_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Device Blacklist', admin_config_device_blacklists_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Hacked Accounts', admin_reports_hacked_accounts_path %> </li>
+          <li class="divider"></li>
+          <li><%= link_to 'Memberships', admin_user_datas_memberships_path %> </li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to "Promotions", admin_generic_coupons_path %>
+        <ul class="dropdown">
+          <li><%= link_to 'Coupons', admin_generic_coupons_path %></li>
+          <li><%= link_to 'Promotions', admin_generic_promotions_path %></li>
+          <li><%= link_to 'Promotion Codes', admin_generic_banner_coupons_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Content Placements', admin_content_placements_path %></li>
+          <% if current_user.super_admin? %>
+            <li class="divider"></li>
+            <li><%= link_to 'Bulk Coupons', admin_generic_bulk_coupons_path %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to "Reports", admin_reports_overview_path %>
+        <ul class="dropdown">
+          <li><%= link_to 'View Delivery Zones', '/admin/maps' %></li>
+          <li><%= link_to 'Blazer', '/admin/blazer' %></li>
+          <li><%= link_to 'API Documentation', '/documentation/api' %></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <a>Content</a>
+        <ul class="dropdown">
+          <li><%= link_to 'Content Layouts', admin_content_mobile_screens_path %></li>
+          <li><%= link_to 'Content Placements', admin_content_placements_path %></li>
+          <li><%= link_to 'Content Chunks', admin_generic_promotions_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Post-Order Emails', admin_config_post_order_emails_path %></li>
+          <li><%= link_to 'City Pages', admin_config_region_pages_path %></li>
+          <li><%= link_to 'Promotional Pages', admin_config_promo_pages_path %></li>
+          <li><%= link_to 'Marketing Landing Pages', admin_content_landing_pages_path %></li>
+          <li><%= link_to 'Enhanced PDPs', admin_merchandise_product_contents_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'HP Featured Products', admin_content_homepage_products_path %></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <a>Config</a>
+        <ul class="dropdown">
+          <li><%= link_to 'Flipper', '/admin/flipper' %></li>
+          <li><%= link_to 'OAuth Clients', '/oauth/applications' %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Sidekiq', '/admin/sidekiq' %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Tax Categories',   admin_config_tax_categories_path %></li>
+          <li><%= link_to 'Tax Rates',   admin_config_tax_rates_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Order Adjustment Reasons',   admin_config_order_adjustment_reasons_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Top Banner Message',   admin_config_top_banner_messages_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Macro Messages',   admin_config_macro_messages_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Audits",   admin_audits_path %> </li>
+          <li class="divider"></li>
+          <li><%= link_to "Working Hours", admin_config_working_hours_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Fulfillment Services", admin_fulfillment_services_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Businesses", admin_businesses_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Storefronts", admin_storefronts_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Ship Categories", admin_ship_categories_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "No Ship States", admin_no_ship_states_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Dynamic Shipping", edit_admin_config_dynamic_shipping_config_path(id: 1) %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Payment Partners", admin_payment_partners_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to "reCaptcha Domains", admin_recaptcha_domains_path %></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <a>User</a>
+        <ul class="dropdown">
+          <li><%= link_to 'Carts', '/admin/carts' %></li>
+          <li><%= link_to 'Addresses', '/admin/addresses' %></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-form">
+        <%= link_to 'Logout', admin_logout_path, id: 'admin-logout-button', method: :delete, class: "button" %>
+      </li>
+    </ul>
+  </section>
+</nav>

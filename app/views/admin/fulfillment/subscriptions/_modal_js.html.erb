@@ -1,0 +1,13 @@
+<% content_for :bottom do -%>
+  <script>
+    $(document).ready(function(){
+      $('.next-date').click(function(e){
+        var $link = $(e.target);
+        var $modal = $('#modal-schedule-next');
+        $modal.children('form').attr('action', $link.data('path'))
+        $modal.foundation('reveal', 'open');
+        return false;
+      });
+    });
+  </script>
+<% end %>

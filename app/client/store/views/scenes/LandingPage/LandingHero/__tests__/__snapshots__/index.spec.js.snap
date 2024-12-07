@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingHero renders 1`] = `
+<div>
+  <div
+    class="cmLandingHero_CategoryHero cmLandingHero_CategoryHero__Wine cmLandingHero_CategoryHero__Active"
+  />
+  <div
+    class="cmLandingHero_CategoryHero cmLandingHero_CategoryHero__Liquor"
+  />
+  <div
+    class="cmLandingHero_CategoryHero cmLandingHero_CategoryHero__Beer"
+  />
+  <div
+    class="el-mblayouts-sg _pad_sides"
+  >
+    <div>
+      <a
+        href="/"
+        id="logo"
+        title="Minibar Delivery"
+      >
+        <picture>
+          <source
+            alt="Minibar Delivery"
+            height="140"
+            media="(min-width: 768px)"
+            srcset="/assets/components/scenes/LandingPage/minibar_logo_large.png, /assets/components/scenes/LandingPage/minibar_logo_large@2x.png 2x, /assets/components/scenes/LandingPage/minibar_logo_large@3x.png 3x"
+            width="140"
+          />
+          <source
+            alt="Minibar Delivery"
+            height="100"
+            srcset="/assets/components/scenes/LandingPage/minibar_logo_small.png, /assets/components/scenes/LandingPage/minibar_logo_small@2x.png 2x, /assets/components/scenes/LandingPage/minibar_logo_small@3x.png 3x"
+            width="100"
+          />
+          <img
+            alt="Minibar Delivery"
+            src="/assets/components/scenes/LandingPage/minibar_logo_small.png"
+          />
+        </picture>
+      </a>
+      <h1
+        class="elMBText elMBText_ResetSpacing"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing cmLandingHero_CategoryText cmLandingHero_CategoryText__Active"
+        >
+          Wine
+        </span>
+        , 
+        <span
+          class="elMBText elMBText_ResetSpacing cmLandingHero_CategoryText"
+        >
+          Liquor
+        </span>
+        , and 
+        <span
+          class="elMBText elMBText_ResetSpacing cmLandingHero_CategoryText"
+        >
+          Beer
+        </span>
+        .
+        <br />
+        Straight to Your Door.
+      </h1>
+      <div
+        class="elMBAppStoreLink_Container"
+      >
+        <a
+          href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+          id="app-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Download on the App Store"
+            src="/assets/components/elements/mb-app-store-link/ios-app-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=minibar.android"
+          id="play-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Get it on Google Play"
+            src="/assets/components/elements/mb-app-store-link/play-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x"
+          />
+        </a>
+      </div>
+      <div>
+        <div>
+          <div
+            class="cm-ae-container"
+            id="address-entry"
+          >
+            <div
+              class="cm-ae-error"
+            >
+              <p
+                class="cm-ae-error__text cm-ae-error__text--empty"
+              >
+                An unexpected error has occured.
+              </p>
+            </div>
+            <div
+              class="cm-ae-input__row"
+            >
+              <div
+                class="cm-ae-input__container"
+              >
+                <img
+                  alt="pin"
+                  class="el-mbicon--pin cm-ae-input__pin_icon"
+                  src="/assets/components/elements/mb-icon/pin.png"
+                  srcset="/assets/components/elements/mb-icon/pin@2x.png 2x, /assets/components/elements/mb-icon/pin@3x.png 3x"
+                />
+                <input
+                  autocomplete="off"
+                  class="elMBInput cm-ae-input"
+                  id="addres-input"
+                  name="addres-input"
+                  placeholder="Enter a delivery add​ress to shop"
+                  required=""
+                  type="text"
+                  value=""
+                />
+                <img
+                  alt="clear"
+                  class="el-mbicon--clear cm-ae-input__close_button hidden"
+                  src="/assets/components/elements/mb-icon/clear.png"
+                  srcset="/assets/components/elements/mb-icon/clear@2x.png 2x, /assets/components/elements/mb-icon/clear@3x.png 3x"
+                />
+                <span
+                  class="cm-ae-input__loader"
+                />
+                <div
+                  class="cm-ae-dropdown__container"
+                >
+                  <ul
+                    class="cm-ae-dropdown__list"
+                  />
+                </div>
+              </div>
+              <button
+                class="elMBButton elMBButton__Default elMBButton__Tall cm-ae-button"
+                id="address-button"
+              >
+                Go
+                <div
+                  class="button__loader"
+                />
+              </button>
+            </div>
+            <div
+              id="google_places_target"
+            />
+          </div>
+        </div>
+      </div>
+      <span>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          We need an address to show product availability
+        </span>
+        <span
+          class="el-tooltip"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Why?
+          </span>
+          <span
+            class="el-tooltip__text el-tooltip__text--bottom"
+          >
+            We partner with local stores to fulfill orders. We need to know the destination so we can determine which stores serve that location and which products are available there.
+          </span>
+        </span>
+      </span>
+      <p
+        class="elMBText_P elMBText elMBText_ResetSpacing cmAgeTerms"
+      >
+        ✓ I'm 21+ years of age and agree to the
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/terms"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+           terms of service.
+        </a>
+      </p>
+    </div>
+    <div>
+      <a
+        href="/login"
+      >
+        <button
+          class="elMBButton elMBButton__Hollow elMBButton__Small"
+          id="user-menu-toggle"
+        >
+          Log In
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+`;

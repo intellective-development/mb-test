@@ -1,0 +1,145 @@
+<% content_for :title, "Editing #{@supplier.name}"  %>
+<% content_for :auth_tokens, true %>
+
+<h3>Editing Supplier - <%= @supplier.name %></h3>
+<%= error_messages_for 'supplier' %>
+
+  <dl class="tabs" data-tab>
+    <dd><a href="#panel1">General</a></dd>
+    <dd class="active"><a href="#panel2">Zones</a></dd>
+    <dd><a href="#panel4">Store Hours</a></dd>
+    <dd><a href="#panel5">Settings</a></dd>
+    <dd><a href="#panel6">Permalink</a></dd>
+    <% if current_user.super_admin? %>
+      <dd><a href="#panel7">Delegation</a></dd>
+      <dd><a href="#panel8">Routing</a></dd>
+      <dd><a href="#panel9">Logs</a></dd>
+    <% end %>
+  </dl>
+  <div class="tabs-content">
+    <div class="content" id="panel1">
+      <%= form_for @supplier, url: admin_inventory_supplier_path(@supplier) do |form| %>
+        <%= render partial: '/admin/inventory/suppliers/form_general', locals: {form: form } %>
+        <%= submit_tag "Update", class: "button" %>
+      <% end %>
+    </div>
+
+    <div class="content active" id="panel2">
+      <%= render partial: '/admin/inventory/suppliers/form_zones' unless @supplier.id.nil? %>
+    </div>
+
+    <div class="content" id="panel4">
+      <%= form_for @supplier, url: admin_inventory_supplier_path(@supplier) do |form| %>
+        <%= render partial: '/admin/inventory/suppliers/form_hours', locals: {form: form } %>
+        <%= submit_tag "Update", class: "button" %>
+      <% end %>
+    </div>
+
+    <div class="content" id="panel5">
+      <%= form_for @supplier, url: admin_inventory_supplier_path(@supplier) do |form| %>
+        <%= render partial: '/admin/inventory/suppliers/form_notifications', locals: {form: form } %>
+        <%= submit_tag "Update",  name: "sub_form_notifications_employees", value: "Update", class: "button" %>
+      <% end %>
+    </div>
+
+    <div class="content" id="panel6">
+      <%= form_for @supplier, url: admin_inventory_supplier_path(@supplier) do |form| %>
+        <%= render partial: '/admin/inventory/suppliers/deep_link', locals: {form: form } %>
+      <% end %>
+    </div>
+
+    <% if current_user.super_admin? %>
+      <div class="content" id="panel7">
+        <%= form_for @supplier, url: admin_inventory_supplier_path(@supplier) do |form| %>
+          <%= render partial: '/admin/inventory/suppliers/form_delegation', locals: {form: form } %>
+          <%= submit_tag "Update", class: "button" %>
+        <% end %>
+      </div>
+
+      <div class="content" id="panel8">
+        <%= form_for @supplier, url: admin_inventory_supplier_path(@supplier) do |form| %>
+          <%= render partial: '/admin/inventory/suppliers/form_routing', locals: {form: form } %>
+          <%= submit_tag "Update", class: "button" %>
+        <% end %>
+      </div>
+
+      <div class="content" id="panel9">
+        <%= render partial: '/admin/inventory/suppliers/logs' %>
+      </div>
+    <% end %>
+  </div>
+
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min' %>
+  <script src="//maps.google.com/maps/api/js?v=3.27&amp;libraries=geometry,drawing&amp;key=<%= Settings.google.maps_api_key %>" type="text/javascript"></script>
+  <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+  <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
+  <%= javascript_include_tag "admin/gmaps_google" %>
+  <%= javascript_include_tag "vendor/underscore" %>
+  <%= javascript_include_tag "admin/delivery_hours" %>
+
+<% unless @supplier.id.nil?  %>
+  <script>
+  var supplier_id = <%= @supplier.id %>;
+  var current_shipping_method_id = $("#delivery_zone_info").children().first().data("sm-id");
+  var component_config_block = component_config_block || [];
+
+  registerTabChange();
+
+  function registerTabChange(){
+    $('#sm-tabs').on('toggled', function (event, tab) {
+      // This is an ugly hack to address an incompatibility with the Google Maps component and Foundation tabs.
+      // Tabs are hidden using display:none which prevents the Google Map from rendering correctly (grey tiles).
+      // For now we are destroying and re-rendering the React components on the page on tab change, conveniently
+      // sidestepping the issue.
+      window.destroyComponents(component_config_block);
+      window.initComponents(component_config_block);
+    });
+  }
+
+  setActiveTab();
+
+  function setActiveTab(){
+    if (current_shipping_method_id){
+      $("[data-sm-id="+current_shipping_method_id+"]").addClass("active");
+    } else {
+      $("#tab-sm-new, #sm-new").addClass("active");
+    }
+  }
+
+  //called by the js partial returned by the controllers
+  var successSharedCallback = function(content){
+    $("#panel2").html(content);
+    $(document).foundation();
+    registerTabChange();
+    setActiveTab();
+  }
+
+  function ready(fn) {
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+
+  /* SupplierEmailsEdit component initialization */
+  component_config_block.push({
+    selector: 'supplier-emails-edit-component',
+    component: 'SupplierEmailsEdit',
+    options: {
+      emails: <%= raw @supplier.emails.to_json %>
+    }
+  });
+
+  ready(function(){
+    window.initComponents(component_config_block);
+  });
+</script>
+<% end %>
+<% end %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<% end %>

@@ -1,0 +1,32 @@
+/* Store Switching lightbox */
+#modal-change-address, #store-entry-modal {
+  overflow: visible;
+}
+
+.address-change-container {
+  color: $brand-black;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  text-align: center;
+
+  p {
+    color: inherit;
+    &.cart-change-warning{
+      padding: 0px 14%;
+    }
+    &.cart-change-warning--extra {
+      border: 1px solid $brand-error-red;
+      color: $brand-error-red;
+      display: inline-block;
+      font-size: .75em;
+      line-height: 1.35em;
+      padding: 10px 16px;
+    }
+  }
+
+  .legal-thin {
+    color: $brand-medium-grey;
+    font-size: 12px;
+    text-align: left; /* TODO: do this differently, its forcing weirness in cart_share */
+  }
+}

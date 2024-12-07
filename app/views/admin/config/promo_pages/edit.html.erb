@@ -1,0 +1,8 @@
+<h3>Editing Page:  <%= @page.name %> </h3>
+
+<%= form_for(@page, url: admin_config_promo_page_path(@page)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit "Update", class: "button" %>
+<% end %>
+
+<%= link_to 'Back', admin_config_promo_pages_path, :class => 'button' %>

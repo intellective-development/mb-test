@@ -1,0 +1,38 @@
+<% content_for :title, 'Data Feeds' %>
+<div class="admin_title_header">
+  <h3>Inventory Data Feeds</h3>
+  <%= link_to "New Data Feed", new_admin_inventory_data_feed_path, :class => "button" %>
+</div>
+
+<%= form_tag admin_inventory_data_feeds_path, :method => 'get', :id => "data_feeds_filter" do %>
+  <div class="row collapse">
+    <div class="small-3 columns">
+      <%= check_box_tag 'active', true, params['active']%>
+      <%= label_tag 'Active', nil, class: 'active-label' %>
+      <%= check_box_tag 'inactive', true, params['inactive']%>
+      <%= label_tag 'Inactive', nil, class: 'inactive-label' %>
+    </div>
+    <div class="small-4 columns">
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :name => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+
+<% if @feeds.empty? %>
+  <p>There are no data feeds configured. <%= link_to 'Create a new feed.', new_admin_inventory_data_feed_path %></p>
+<% else %>
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>Feed Details</th>
+      <th>Last Refreshed</th>
+      <th>Actions</th>
+    </tr>
+    <%= render partial: 'feed_row', collection: @feeds, as: 'feed', cache: true %>
+  </table>
+  <%= paginate @feeds %>
+<% end %>

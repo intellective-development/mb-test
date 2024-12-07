@@ -1,0 +1,24 @@
+<% content_for :title, 'Unreviewed Products' %>
+<h2><%= @products.count %> Unreviewed Products</h2>
+<p>Unreviewed products are products which have either recently been imported via. an automated process, or that have been manually flagged for review.</p>
+<p>They will still appear on the website and in the app.</p>
+<table>
+  <% @products.each do |product| %>
+  <tr>
+    <td>
+      <strong><%= product.name %></strong>
+      <small><%= product.product_type.root.name.capitalize %> &rarr; <%= product.product_type.name.capitalize %></small>
+      <br>
+      <small>
+        <%= product.volume %> &mdash; $<%= product.display_price_range %> &mdash; <%= product.images.empty? ? 'No Images' : '' %>
+        <br>
+        <%= product.variants.first.supplier.name %>
+      </small>
+    </td>
+    <td><%= link_to 'Edit', edit_admin_merchandise_product_path(product) %></td>
+    <td><%=  link_to product.active? ? 'Flag for review' : 'Approve', activate_admin_merchandise_product_path(product), :method => :put %></td>
+</td>
+  </tr>
+  <% end %>
+</table>
+<%= paginate @products %>

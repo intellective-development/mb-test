@@ -1,0 +1,46 @@
+<% if @product_content.errors.any? %>
+  <div id="#error_explanation">
+    <h2><%= pluralize(@product_content.errors.count, "error") %> prohibited this content from being saved:</h2>
+    <ul>
+      <% @product_content.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <%= f.label :active %>
+  <%= f.check_box :active %>
+
+  <label>Template</label>
+  <%= f.select :template, options_for_select(ProductContent.templates.keys.collect { |s| [s.humanize, s] }, selected: @product_content.template), {label: :content_type} %>
+
+  <label>Primary Background</label>
+  <%= f.text_field :primary_background_color %>
+
+  <label>Secondary Background</label>
+  <%= f.text_field :secondary_background_color %>
+</fieldset>
+<fieldset>
+  <legend>Video Template</legend>
+  <label>Poster Image (Should be same resolution as video, PNG or JPG)</label>
+  <%= f.file_field  :video_poster %>
+
+  <label>MP4 File (Should be Web optimized MP4 file, 16:9, Dimenstions TBC)</label>
+  <%= f.file_field  :video_mp4 %>
+  <% if @product_content.persisted? %>
+    <fieldset>
+      <legend>Current assets</legend>
+      <%= image_tag @product_content.video_poster&.url, style: 'width: 50%'%>
+      <%= video_tag @product_content.video_mp4&.url, controls: true, style: 'width: 50%' %>
+    </fieldset>
+  <% end %>
+</fieldset>
+<% if @product_content.persisted? %>
+  <fieldset>
+    <legend>Product(s)</legend>
+    <% @product_content.product_size_groupings.each do |product| %>
+      <li><%= link_to product.name, admin_merchandise_product_size_grouping_path(product), target: "_blank" %></li>
+    <% end %>
+  </fieldset>
+<% end %>

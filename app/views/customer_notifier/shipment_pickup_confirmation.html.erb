@@ -1,0 +1,84 @@
+<% content_for :user_facing, true %>
+<% content_for :additional_legal do %>
+  <% if String(@order.ship_address&.state_name) == 'TX' %>
+    In Texas discounts are only valid on delivery fees and non-alcoholic items.&nbsp;
+  <% end %>
+  Fulfilled by:&nbsp;
+  <% @order.shipments.each do |shipment| %>
+    <%= shipment.supplier.display_name %>, <%= shipment.supplier.address.address_lines_array.join(', ') %>, <%= shipment.supplier.address.city_state_zip %>.&nbsp;
+  <% end %>
+<% end %>
+<% content_for :email_reason, 'you ordered from Minibar Delivery' %>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Order",
+  "merchant": {
+    "@type": "Organization",
+    "name": "MinibarDelivery.com"
+  },
+  "orderNumber": "<%= @order.number %>",
+  "priceCurrency": "USD",
+  "price": "<%= @order.taxed_total.to_s %>",
+  "acceptedOffer": [
+    <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "<%= variant.name %>",
+        "image": "<%= variant.product_size_grouping.featured_image(:thumb) %>",
+        "sku": "<%= variant.sku %>"
+      },
+      "price": "<%= variant.price.to_s %>",
+      "priceCurrency": "USD",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "<%= order_items.sum(&:quantity) %>"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": "<%= variant.supplier.display_name %>"
+      }
+    }
+    <% end %>
+  ],
+  "url": "https://minibardelivery.com/",
+  "orderStatus": "http://schema.org/OrderPickupAvailable",
+  "orderDate": "<%= @order.completed_at.iso8601 %>",
+  "isGift": "<%= @order.gift? %>",
+  "customer": {
+    "@type": "Person",
+    "name": "<%= @order.user_name %>"
+  }
+}
+</script>
+<table class="container container-main" align="center">
+  <tr>
+    <td class="module">
+      <%= render partial: 'header_logo' %>
+      <table class="row">
+        <tr><!-- INTRO TEXT BEGIN -->
+          <td>
+            <table class="row">
+              <tr>
+                <td class="small-12 large-1 columns"></td>
+                <td class="small-12 large-10 columns">
+                  <p class="avenir-heading center">
+                    Your order is ready for pickup!
+                  </p>
+                  <p class="avenir-body-small center">
+                    Want to get in touch? Simply reply to this email! <br />
+                    You can also text <a class="text-link" href="sms:+19176336332">(917) 633-6332</a> or call <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>.
+                  </p>
+                </td>
+                <td class="small-12 large-1 columns"></td>
+              </tr>
+            </table>
+          </td>
+        </tr><!-- INTRO TEXT END -->
+        <%= render partial: 'pickup_details', locals: { shipment: @shipment } %>
+      </table>
+    </td>
+  </tr>
+</table>

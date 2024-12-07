@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BrowseBar renders 1`] = `
+<nav>
+  <div>
+    <ul>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmDBrowseBar_CategoryLink"
+          href="/store/category/wine"
+        >
+          wine
+        </a>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText elMBText_ResetSpacing cmDBrowseBar_CategoryLink"
+          href="/store/category/liquor"
+        >
+          liquor
+        </a>
+      </li>
+    </ul>
+    <div
+      class="cmDCategoryDropdown_Wrapper"
+    >
+      <div
+        class="cmDCategoryDropdown_Dropdown"
+      />
+    </div>
+  </div>
+  <div />
+  <div>
+    <div
+      class="cmSearch__ClickOutsideTarget"
+    >
+      <div>
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="26"
+            viewBox="0 0 32 32"
+            width="26"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="#222"
+              fill-rule="nonzero"
+            >
+              <path
+                d="M14.81 24.342c-5.145 0-9.31-4.22-9.31-9.42C5.5 9.72 9.665 5.5 14.81 5.5c5.145 0 9.31 4.22 9.31 9.421 0 5.2-4.165 9.421-9.31 9.421zm0-2c4.035 0 7.31-3.32 7.31-7.42 0-4.102-3.275-7.422-7.31-7.422-4.034 0-7.31 3.32-7.31 7.421 0 4.102 3.276 7.421 7.31 7.421z"
+              />
+              <path
+                d="M20.251 14.921h-2c0-1.936-1.543-3.5-3.44-3.5-.833 0-1.617.3-2.237.84l-1.313-1.509a5.388 5.388 0 0 1 3.55-1.33c3.007 0 5.44 2.464 5.44 5.5zM20.331 21.94l1.424-1.406 4.499 4.56-1.424 1.404z"
+              />
+            </g>
+          </svg>
+        </div>
+        <input
+          autocomplete="off"
+          class="elMBInput"
+          id="search"
+          placeholder="Search products, categories, brands"
+          type="search"
+          value=""
+        />
+      </div>
+      <div
+        class="cmAutocompleteDropdown"
+      />
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`BrowseBar renders default content 1`] = `
+<nav>
+  <div
+    onMouseLeave={[Function]}
+  >
+    <ul>
+      <CategoryElement
+        key="wine"
+        link={
+          Object {
+            "action_url": "/store/category/wine",
+            "internal_name": "wine",
+            "name": "wine",
+          }
+        }
+        selectNavigationCategory={[Function]}
+        selected={false}
+      />
+      <CategoryElement
+        key="liquor"
+        link={
+          Object {
+            "action_url": "/store/category/liquor",
+            "internal_name": "liquor",
+            "name": "liquor",
+          }
+        }
+        selectNavigationCategory={[Function]}
+        selected={false}
+      />
+      <CategoryElement
+        key="beer"
+        link={
+          Object {
+            "action_url": "/store/category/beer",
+            "internal_name": "beer",
+            "name": "beer",
+          }
+        }
+        selectNavigationCategory={[Function]}
+        selected={false}
+      />
+      <CategoryElement
+        key="mixers"
+        link={
+          Object {
+            "action_url": "/store/category/mixers",
+            "internal_name": "mixers",
+            "name": "mixers",
+          }
+        }
+        selectNavigationCategory={[Function]}
+        selected={false}
+      />
+      <CategoryElement
+        key="gifts"
+        link={
+          Object {
+            "action_url": "/store/promos/gift-guide",
+            "internal_name": "gifts",
+            "name": "gifts",
+          }
+        }
+        selectNavigationCategory={[Function]}
+        selected={false}
+      />
+    </ul>
+    <NavigationDropdown
+      content_modules={Array []}
+      is_available={false}
+      is_visible={false}
+      selected_category_name={null}
+    />
+  </div>
+  <div />
+  <SearchInput />
+</nav>
+`;

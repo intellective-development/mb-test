@@ -1,0 +1,64 @@
+<h2 class="subhead-thin">Add Order Adjustment</h2>
+<%= simple_form_for(@order_adjustment, url: admin_fulfillment_shipment_order_adjustments_path) do |f| %>
+  <fieldset>
+    <legend>Details</legend>
+    <%= f.label :supplier_name %>
+    <%= f.text_field :supplier_name, disabled: 'disabled' %>
+    <%= f.label :reason_id, 'Reason' %>
+    <%= f.select :reason_id, order_adjustment_reasons_for_select(shipment_canceled: @shipment.canceled?), {include_blank: true}, {required: true} %>
+    <%= f.label :description %>
+    <%= f.text_field :description, required: true %>
+  </fieldset>
+  <fieldset>
+    <legend>Financial</legend>
+    <% if @shipment.canceled? %>
+      <%= f.hidden_field :financial, value: false %>
+    <% else %>
+      <div id="order_adjustment_financial">
+        <div class="small-3 columns">
+          <label>
+            <%= f.radio_button(:financial, true, checked: true, value: true) %>
+            Customer
+          </label>
+        </div>
+        <div class="small-9 columns">
+          <label>
+            <%= f.radio_button(:financial, false, value: false) %>
+            Supplier
+          </label>
+        </div>
+      </div>
+    <% end %>
+    <%= f.input :amount, value: 0, min: 0, required: true, step:'0.01'  %>
+    <% if @shipment.canceled? %>
+      <%= f.hidden_field :credit, value: false %>
+    <% else %>
+      <div id="order_adjustment_credit">
+        <div class="small-3 columns">
+          <label>
+            <%= f.radio_button(:credit, false, checked: true, value: false) %>
+            Charge Customer
+          </label>
+        </div>
+        <div class="small-9 columns">
+          <label>
+            <%= f.radio_button(:credit, true, value: true) %>
+            Refund Customer
+          </label>
+        </div>
+      </div>
+    <% end %>
+    <div id="order_adjustment_no_credit" style="display:none;">
+      <p class="credit-recipient to-neither">
+        Will not charge Minibar or Supplier.
+      </p>
+      <p class="credit-recipient to-minibar" style="display:none;">
+        Supplier will pay Minibar.
+      </p>
+      <p class="credit-recipient to-supplier" style="display:none;">
+        Minibar will pay Supplier.
+      </p>
+    </div>
+  </fieldset>
+  <%= f.submit 'Create Adjustment', { class: 'button expand' } %>
+<% end %>

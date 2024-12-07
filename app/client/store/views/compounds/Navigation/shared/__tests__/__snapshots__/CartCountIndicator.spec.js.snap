@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CartCountIndicator renders 1`] = `
+<span
+  class="elMBText elMBText_ResetSpacing cmNavCartCount"
+>
+  3
+</span>
+`;
+
+exports[`CartCountIndicator renders when the cart is empty 1`] = `
+<span
+  class="elMBText elMBText_ResetSpacing cmNavCartCount cmNavCartCount__Hidden"
+>
+  0
+</span>
+`;

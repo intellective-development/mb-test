@@ -1,0 +1,220 @@
+ <%= content_for :internal, true %>
+ <table class="container">
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="">
+                  <p>
+                    <% if @hunger_games.size.zero? %>
+                      We had no hunger games participants yesterday.
+                    <% else %>
+                      <h4>Together we earned <%= hunger_games_total_points %>!</h4>
+                      That is an average of <%= hunger_games_average %> points per person.
+                    <% end %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="block-grid four-up">
+                    <tr>
+                      <td class="center">
+                        <center>
+                          <h5>Orders</h5>
+                          <p>
+                            <%= @order_count %>
+                            <br>
+                            <small>(<%= @cancelled_count %> cancelled)</small>
+                          </p>
+                        </center>
+                      </td><td class="center">
+                        <center>
+                          <h5>Revenue</h5>
+                          <p>
+                            <%= number_to_currency(@total) %>
+                            <br>
+                            <small>(<%= number_to_currency(@cancelled_total) %> cancelled)</small>
+                          </p>
+                        </center>
+                      </td><td class="center">
+                        <center>
+                          <h5>AOV</h5>
+                          <p>
+                            <%= number_to_currency(@aov) %>
+                          </p>
+                        </center>
+                      </td><td class="center">
+                        <center>
+                          <h5>New Users</h5>
+                          <p>
+                            <%= @new_users %>
+                          </p>
+                        </center>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td>
+                  <% unless @order_count < 1 %>
+                    <center><p><strong><%= @repeat_orders %></strong> orders were repeat orders.</p></center>
+                  <% end %>
+
+                  <% if @store_data.length > 0 %>
+                    <h4>Top Suppliers</h4>
+                    <p>The most popular store was <strong><%= @top_store[:name] %></strong> with <strong><%= @top_store[:count] %></strong> orders at <%= number_to_currency(@top_store[:value]) %>.</p>
+
+                    <table class="block-grid two-up">
+                      <tr>
+                        <td>
+                          <ol class="no-vertical-spacing">
+                            <% @store_data_first.each do |store| %>
+                              <li><%= store[0] %> - <%= store[1][:count]%> (<%= number_to_currency(store[1][:value]) %>)</li>
+                            <% end %>
+                          </ol>
+                        </td><td>
+                          <ol start=<%= (@store_data_first.length+1).to_s %> class="no-vertical-spacing" >
+                            <% @store_data_second.each do |store| %>
+                              <li><%= store[0] %> - <%= store[1][:count]%> (<%= number_to_currency(store[1][:value]) %>)</li>
+                            <% end %>
+                          </ol>
+                        </td>
+                      </tr>
+                    </table>
+                  <% end %>
+
+                  <% if @product_type_count.length > 0 %>
+                  <h4>Top Products</h4>
+                  <table class="block-grid two-up">
+                    <tr>
+                      <td>
+                        <% if @product_type_count.length > 0 %>
+                          <h6>Products Types</h6>
+                          <ul>
+                          <% @product_type_count[0..9].each do |item| %>
+                            <li><%= raw item[0].titleize %> - <%= item[1] %></li>
+                          <% end %>
+                        </ul>
+                        <% end %>
+                      </td><td>
+                        <% if @order_item_count.length > 0 %>
+                        <h6>Top 10 Products</h6>
+                        <ol>
+                          <% @order_item_count[0..9].each do |item| %>
+                            <li><%= item[0]%> - <%= item[1] %></li>
+                          <% end %>
+                        </ol>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </table>
+                  <% end %>
+                  <% if @product_root_type_count.length > 0 %>
+                    <h4>Categories</h4>
+                    <table class="block-grid two-up">
+                      <tr>
+                        <td>
+                          <h6>Count by Category:</h6>
+                          <ol>
+                            <% @product_root_type_count.each do |type| %>
+                              <li><%= "#{ type[0].capitalize } - #{ type[1] }" %></li>
+                            <% end %>
+                          </ol>
+                        </td><td><img src="<%= @product_type_graph_url %>"></td>
+                      </tr>
+                    </table>
+                    <table class="block-grid two-up">
+                      <tr>
+                        <td>
+                          <h6>Value by Category:</h6>
+                          <ol>
+                            <% @product_root_type_value.each do |type| %>
+                              <li><%= "#{ type[0].capitalize } - #{ number_to_currency(type[1]) }" %></li>
+                            <% end %>
+                          </ol>
+                        </td><td><img src="<%= @product_type_value_graph_url %>"></td>
+                      </tr>
+                    </table>
+                  <% end %>
+                  <% if @platform_count.length > 0 %>
+                    <h4>Platforms</h4>
+                    <table class="block-grid two-up">
+                      <tr>
+                        <td>
+                          <h6>Count by Platform:</h6>
+                          <ol>
+                            <% @platform_count.each do |type| %>
+                              <li><%= "#{ type[0].capitalize } - #{ type[1] }" %></li>
+                            <% end %>
+                          </ol>
+                        </td><td><img src="<%= @platform_count_graph_url %>"></td>
+                      </tr>
+                    </table>
+                    <table class="block-grid two-up">
+                      <tr>
+                        <td>
+                          <h6>Value by Platform:</h6>
+                          <ol>
+                            <% @platform_value.each do |type| %>
+                              <li><%= "#{ type[0].capitalize } - #{ number_to_currency(type[1]) }" %></li>
+                            <% end %>
+                          </ol>
+                        </td><td><img src="<%= @platform_value_graph_url %>"></td>
+                      </tr>
+                    </table>
+                  <% end %>
+                  <h4>Product Stats</h4>
+                  <p>We currently have <strong><%= @product_count %> products</strong> in our database.</p>
+
+                  <% if @product_unrecognized_count > 0 %>
+                    <p>There are <strong><%= @product_unrecognized_count %></strong> unrecognized products with inventory which are currently awaiting classification.</p>
+                  <% else %>
+                    <p>You are doing an awesome job, there are no unrecognized products.</p>
+                  <% end %>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td align="center">
+                  <center>
+                    <p class="footer-text" style="text-align:center;">&copy; <%= Time.zone.now.year %> LLJ Inc, All Rights Reserved &mdash;  Made in NYC &mdash; Confidential. For internal company use only. Do not distribute.</p>
+                  </center>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,6 @@
+
+// we apply a minimal layout here, expecting the parent to decide how they should be laid out
+.elMBAppStoreLink_Container {
+  display: flex;
+  justify-content: space-between;
+}

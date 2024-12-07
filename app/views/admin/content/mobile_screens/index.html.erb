@@ -1,0 +1,27 @@
+<% content_for :title, 'Content Layouts' %>
+<h2>Content Layouts</h2>
+<p>Content layouts define what is displayed on the web and mobile app. They are be composed of various types of content module which can be selectively displayed for logged in and/or logged out users.</p>
+<p>In addition to the Home Screen and Category pages, ad-hoc screens can be defined that are deep linkable.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Page Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mobile_screens.each do |mobile_screen| %>
+      <tr>
+        <td><%= link_to(mobile_screen.name, edit_admin_content_mobile_screen_path(mobile_screen)) %></td>
+        <td><%= mobile_screen.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan='3'>
+        <%= link_to '+ Create a new content layout', new_admin_content_mobile_screen_path %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

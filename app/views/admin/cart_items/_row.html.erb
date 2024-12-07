@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= cart_item.value %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_cart_cart_item_path(@cart, cart_item), class: 'button tiny' %>
+    <%= link_to "Delete", admin_cart_cart_item_path(@cart, cart_item), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

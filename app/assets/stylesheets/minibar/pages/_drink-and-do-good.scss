@@ -1,0 +1,83 @@
+.drink-and-do-good {
+  .wrapper {
+    font-family: $font-family-avenir;
+    margin: 1em;
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2em;
+      @media only screen and (max-width: $medium-min-width) {
+        padding: 0;
+      }
+      .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 850px;
+        .logo {
+          height: 100px;
+          width: 79px;
+        }
+        .headline {
+          @include font-size(32);
+          color: $brand-black;
+          font-family: $font-family-tiempos;
+        }
+        .description {
+          @include font-size(18);
+        }
+      }
+    }
+
+    .divider {
+      @include hr_inset_text($font-size: 13, $color: $brand-medium-grey);
+      color: $brand-black;
+      text-transform: uppercase;
+      font-weight: $heavy-font-weight;
+      letter-spacing: 2px;
+    }
+
+    .body {
+      .charities {
+        padding-top: 4em;
+        @media only screen and (max-width: $medium-min-width) {
+          padding-top: 0;
+        }
+        .charity {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-bottom: 2em;
+          flex-wrap: wrap-reverse;
+          .copy {
+            max-width: 750px;
+            margin-right: 10px;
+            .title {
+              @include font-size(15);
+              font-weight: $heavy-font-weight;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+            }
+            .description {
+              margin-bottom: 0.75em;
+            }
+          }
+          .charity-logo-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 450px;
+            height: 225px;
+            border: $medium-border;
+            @media only screen and (max-width: $medium-min-width) {
+              min-width: inherit;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

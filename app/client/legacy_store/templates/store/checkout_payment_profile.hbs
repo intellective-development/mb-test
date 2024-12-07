@@ -1,0 +1,102 @@
+<div class="row form-row">
+  <div class="large-8 medium-9 large-centered small-centered column">
+    <div class="checkout-frame">
+      <h2 class="modal-header">Payment Information</h2>
+      <div class="checkout-panel">
+        <form id="checkout-add-payment">
+          <div class="row">
+            <div class="large-12 columns">
+              <p class="error hidden"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-6 columns">
+              <h3 class="subhead-5">Billing Address</h3>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <span class = "inline right">
+                      {{#if shipping_address_info}}
+                        <label><input type="checkbox" id="checkbox-same-as-shipping" checked = 'checked'> Same as shipping</input></label>
+                      {{else}}
+                        <label><input type="checkbox" id="checkbox-same-as-shipping"> Same as shipping</input></label>
+                      {{/if}}
+                    </span>
+                    <label for="billing_address1">Address Line 1</label>
+                    <input type="text" name="billing_address1" required id="billing_address1" {{#if shipping_address_info}}value="{{shipping_address.address1}}"{{/if}}>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label for="billing_address2">Address Line 2</label>
+                    <input type="text" name="billing_address2" id="billing_address2" {{#if shipping_address_info}}value="{{shipping_address.address2}}"{{/if}}>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-5 columns">
+                    <label for="billing_city">City</label>
+                    <input type="text" name="billing_city" id="billing_city" required {{#if shipping_address_info}}value="{{shipping_address.city}}"{{/if}}>
+                  </div>
+                  <div class="large-3 columns">
+                    <label for="billing_state">State</label>
+                    <input type="text" maxlength="2" name="billing_state" id="billing_state" required {{#if shipping_address_info}}value="{{shipping_address.state}}"{{/if}}>
+                  </div>
+                  <div class="large-4 columns">
+                    <label for="billing_zip_code">Zip</label>
+                    <input class="hosted-field" type="text" name="billing_zip_code" id="billing_zip_code" maxlength="5" minlength="5" required {{#if shipping_address_info}}value="{{shipping_address.zip_code}}"{{/if}} >
+                  </div>
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <h3 class="subhead-5">Card Details</h3>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label for="billing_cc_name">Name on Card</label>
+                    <input type="text" name="billing_cc_name" id="billing_cc_name" {{#if name}}value="{{name}}"{{/if}} required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <label for="billing_cc_number">Card Number</label>
+                    <div class="cc-number">
+                      <div class="icon unknown"></div>
+                      <div class="hosted-field" type="text" name="billing_cc_number" id="billing_cc_number" maxlength="22" autocompletetype="cc-number" required />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-6 columns">
+                    <label for="billing_cc_exp">Expiration Date</label>
+                    <div class="hosted-field" type="text" name="billing_cc_exp" id="billing_cc_exp" required placeholder="MM / YYYY" />
+                  </div>
+                  <div class="large-6 columns">
+                    <label for="billing_cc_cvc">Security Code</label>
+                    <div class="hosted-field" type="text" name="billing_cc_cvc" id="billing_cc_cvc" autocomplete="off" pattern="\d*" required />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns centered message">
+                <p class="secure-message">Please note, your card will not be charged until you finalize order at checkout.</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns">
+                <button action="submit" class="button expand" id="button-add-payment-profile">Continue</a>
+                {{#if allow_cancellation}}
+                  <button action="submit" class="button secondary expand" id="button-cancel-payment-profile">Cancel</a>
+                {{/if}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns large-centered">
+                <p class="secure-message"><img class="padlock-icon" src="/assets/padlock_icon.png"/>Your information is secure and encrypted.</p>
+              </div>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

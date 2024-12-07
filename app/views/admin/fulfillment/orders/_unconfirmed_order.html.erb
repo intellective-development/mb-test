@@ -1,0 +1,21 @@
+<% order.shipments.each do |shipment| %>
+  <% if shipment.confirmed_at.nil? then %>
+    <li>
+      <a href="<%= edit_admin_fulfillment_order_path(order.number) %>">
+        <div>
+          <h5 class="header small"><%= shipment.supplier.name %></h5>
+          <% if order.gift? %>
+            <span class="gift label label--merchandise-colored">Gift Order</span>
+          <% end %>
+          <% if order.engraving? %>
+            <span class="engraving label label--merchandise-colored">Engraving</span>
+          <% end %>
+          <% if !order.gift? && !order.engraving? %>
+            <span class="active label label--merchandise-colored">Regular Order</span>
+          <% end %>
+          <h6><%= order.user_name %> - <%= time_ago_in_words(order.try(:completed_at)) unless order.try(:completed_at).nil? %></h6>
+        </div>
+      </a>
+    </li>
+  <%end%>
+<%end%>

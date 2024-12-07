@@ -1,0 +1,18 @@
+<tr>
+  <td><%= blacklisted_device.device_udid %> (<%= blacklisted_device.platform %>)</td>
+  <td>
+    <%
+      associated_order = Order.finished.find_by(device_udid: blacklisted_device.device_udid)
+    
+      if associated_order 
+    %>
+      <%= link_to "#{associated_order.number}", edit_admin_fulfillment_order_path(associated_order.number) %>
+    <% else %>
+      None (Manually Added)
+    <% end %>
+  </td>
+  <td>
+  <%= link_to "Delete", admin_config_device_blacklist_path(blacklisted_device), data: { confirm: 'Are you sure?.'}, method: :delete %>
+  </td>
+</tr>
+

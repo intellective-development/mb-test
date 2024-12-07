@@ -1,0 +1,73 @@
+<% content_for :title, 'Coupons' %>
+<div class="admin_title_header clearfix">
+  <h3>Coupons</h3>
+</div>
+<% content_for :sidemenu do %>
+  <div style="text-align:center">
+    <%= link_to "New Coupon", new_admin_generic_coupon_path, :class => 'button' %>
+    <%= link_to "Delete Coupons", code_delete_admin_generic_coupons_path, :class => 'button alert' %>
+  </div>
+  <div class="admin_filters panel">
+    <%= form_tag admin_generic_coupons_path, method: :get do %>
+      <label>Storefront</label>
+      <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items, params[:storefront_id]), prompt: "Select storefront" %>
+
+      <label>Search</label>
+      <%= text_field_tag :search, params[:search] %>
+
+      <div class="row collapse">
+        <div class="small-1 column"><%= check_box_tag :include_expired, true, params['include_expired'] %></div>
+        <div class="small-11 columns"><%= label_tag 'Include Expired', nil, class: "active-label" %></div>
+      </div>
+      <div class="row collapse">
+        <div class="small-1 column"><%= check_box_tag :hide_generated, true, params['hide_generated'] %></div>
+        <div class="small-11 columns"><%= label_tag 'Hide Generated Codes', nil, class: "active-label" %></div>
+      </div>
+
+      <div style='text-align:center'>
+        <%= submit_tag "Search", name: nil, class: "button" %>
+      </div>
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+    <% end %>
+  </div>
+<% end %>
+
+<style>
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+</style>
+<p>Expired coupons are marked in red. Future coupons are marked in grey.</p>
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>Storefront</th>
+    <th class='column1_header'>Code</th>
+    <th>Description</th>
+    <th>Redemptions</th>
+    <th>Starts at</th>
+    <th>Expires at</th>
+    <th></th>
+  </tr>
+  </thead>
+  <% @coupons.each do |coupon| %>
+    <tr class='<%= cycle("odd", "")%> <%= coupon.expired? ? 'row-expired' : coupon.pending? ? 'row-pending' : '' %>'>
+      <td><%= coupon.storefront.name %></td>
+      <td>
+        <%= link_to coupon.code, admin_generic_coupon_path(coupon), :style => "#{(coupon.expires_at && coupon.expires_at <= Time.zone.now) ? 'color:#F65566' : ''}" %>
+        <br>
+        <small><%= coupon.gift_card? ? 'GiftCard' : coupon.type %></small>
+      </td>
+      <td class="description"><%= coupon.description %></td>
+      <td><%= coupon.all_finished_orders.size %></td>
+      <td><%= coupon.display_start_time %></td>
+      <td><%= coupon.display_expires_time %></td>
+      <td><%= link_to "Edit", edit_admin_generic_coupon_path(coupon) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @coupons %>

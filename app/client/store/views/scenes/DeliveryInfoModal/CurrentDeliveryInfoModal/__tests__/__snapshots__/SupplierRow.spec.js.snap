@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierRow renders 1`] = `
+<div
+  class="currdel__sr__container"
+>
+  <div
+    class="currdel__sr__header"
+  >
+    <div
+      class="currdel__sr__supplier"
+    >
+      <h4
+        class="elMBText elMBText_ResetSpacing currdel__supplier-name"
+      >
+        Manhattan Wine
+      </h4>
+      <div
+        class="el-touchable el-touchable--disabled"
+        role="button"
+        tabindex="-1"
+      >
+        <h5
+          class="elMBText elMBText_ResetSpacing currdel__supplier-location"
+        >
+           123 Jump Street, New York, New York
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div
+    class="currdel__dm-container"
+  >
+    <img
+      alt="on_demand"
+      class="cmDeliveryMethodIcon currdel__dm-icon"
+      height="30"
+      src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+      width="30"
+    />
+    <div>
+      <h4
+        class="elMBText elMBText_ResetSpacing currdel__dm-name"
+      >
+        Local Delivery
+      </h4>
+      <h5
+        class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation--closed"
+          >
+            Closed
+          </span>
+           - 
+        </span>
+        Next available: 1 hour or less
+      </h5>
+    </div>
+  </div>
+  <div
+    class="currdel__dm-container"
+  >
+    <img
+      alt="on_demand"
+      class="cmDeliveryMethodIcon currdel__dm-icon"
+      height="30"
+      src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+      width="30"
+    />
+    <div>
+      <h4
+        class="elMBText elMBText_ResetSpacing currdel__dm-name"
+      >
+        Local Delivery
+      </h4>
+      <h5
+        class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation--closed"
+          >
+            Closed
+          </span>
+           - 
+        </span>
+        Next available: 1 hour or less
+      </h5>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SupplierRow renders a supplier that has a pickup delivery method 1`] = `
+<div
+  class="currdel__sr__container"
+>
+  <div
+    class="currdel__sr__header"
+  >
+    <div
+      class="currdel__sr__supplier"
+    >
+      <h4
+        class="elMBText elMBText_ResetSpacing currdel__supplier-name"
+      >
+        Manhattan Wine
+      </h4>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <h5
+          class="elMBText elMBText_ResetSpacing currdel__supplier-location"
+        >
+           123 Jump Street, New York, New York
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            ・1.1 mi
+          </span>
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div
+    class="currdel__dm-container"
+  >
+    <img
+      alt="pickup"
+      class="cmDeliveryMethodIcon currdel__dm-icon"
+      height="30"
+      src="/assets/components/compounds/delivery_method_icon/pickup.svg"
+      width="30"
+    />
+    <div>
+      <h4
+        class="elMBText elMBText_ResetSpacing currdel__dm-name"
+      >
+        In-Store Pickup
+      </h4>
+      <h5
+        class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation--closed"
+          >
+            Closed
+          </span>
+           - 
+        </span>
+        Next available: 1 hour or less
+      </h5>
+    </div>
+  </div>
+  <div
+    class="currdel__dm-container"
+  >
+    <img
+      alt="shipped"
+      class="cmDeliveryMethodIcon currdel__dm-icon"
+      height="30"
+      src="/assets/components/compounds/delivery_method_icon/shipped.svg"
+      width="30"
+    />
+    <div>
+      <h4
+        class="elMBText elMBText_ResetSpacing currdel__dm-name"
+      >
+        Shipping
+      </h4>
+      <h5
+        class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing currdel__dm-delivery-expectation--closed"
+          >
+            Closed
+          </span>
+           - 
+        </span>
+        Next available: 1 hour or less
+      </h5>
+    </div>
+  </div>
+</div>
+`;

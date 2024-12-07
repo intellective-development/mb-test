@@ -1,0 +1,22 @@
+<% content_for :title, "New Grouping" %>
+<div class="row">
+  <div class="large-10 column">
+    <h2>New Product Size Grouping</h2>
+  </div>
+</div>
+<div class="row">
+  <dl class="tabs" data-tab>
+    <dd class="active" style="display:none;"><a href="#panel1">General Info</a></dd>
+    <dd style="display:none;"><a href="#panel2">Suppliers &amp; Prices</a></dd>
+  </dl>
+  <div class="tabs-content">
+    <div class="content active" id="panel1">
+      <%= form_for @product_grouping,  url: admin_merchandise_product_size_groupings_path(@product_grouping) do |form| %>
+        <%= render partial: 'form', locals: { form: form, new_grouping: 'true' } %>
+        <div class=" generic_submit_button">
+          <%= submit_tag "Create", class: "button", id:"create_product_button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

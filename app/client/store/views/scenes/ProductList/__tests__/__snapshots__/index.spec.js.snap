@@ -1,0 +1,820 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductListScene external renders a list of content when it has a product_list with products 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="el-mblayouts-sg _pad_sides product-list-container"
+  >
+    <div
+      class="product-list-filters-container"
+    >
+      <div
+        class="list"
+      >
+        <ul
+          class="grid-product__container grid-product__container--browse"
+          id="products"
+        >
+          <li
+            class="grid-product grid-product--browse"
+          >
+            <a
+              class="grid-product__contents"
+              href="/store/product/bud"
+            >
+              <img
+                alt="Bud"
+                class="grid-product__image"
+                src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+              />
+              <div
+                class="grid-product__property grid-product__property--tag"
+              />
+              <h4
+                class="grid-product__property grid-product__property--name grid-product__property--main"
+              >
+                Bud
+              </h4>
+              <h5
+                class="grid-product__property grid-product__property--type hidden"
+              >
+                beer-domestic-lager
+              </h5>
+            </a>
+            <div
+              class="actions"
+            >
+              <div>
+                <a
+                  class="button small expand"
+                  data-category="product placement"
+                  href="/store/product/bud"
+                >
+                  See Details
+                </a>
+              </div>
+            </div>
+          </li>
+          <li
+            class="grid-product grid-product--browse"
+          >
+            <a
+              class="grid-product__contents"
+              href="/store/product/bud"
+            >
+              <img
+                alt="Bud"
+                class="grid-product__image"
+                src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+              />
+              <div
+                class="grid-product__property grid-product__property--tag"
+              />
+              <h4
+                class="grid-product__property grid-product__property--name grid-product__property--main"
+              >
+                Bud
+              </h4>
+              <h5
+                class="grid-product__property grid-product__property--type hidden"
+              >
+                beer-domestic-lager
+              </h5>
+            </a>
+            <div
+              class="actions"
+            >
+              <div>
+                <a
+                  class="button small expand"
+                  data-category="product placement"
+                  href="/store/product/bud"
+                >
+                  See Details
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div>
+          <div
+            class="product-list-load-more center"
+          >
+            <div
+              class="el-touchable control"
+              id="list-more"
+              role="button"
+              tabindex="-1"
+            >
+              Show More
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene external renders a loader with a header when the list is first being fetched 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="full-page-loader"
+  />
+</div>
+`;
+
+exports[`ProductListScene external renders an empty state if the product list has loaded and has no products 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="el-mblayouts-sg _pad_sides product-list-container"
+  >
+    <div
+      class="product-list-filters-container"
+    >
+      <div
+        class="list"
+      >
+        <ul
+          class="grid-product__container grid-product__container--browse"
+          id="products"
+        >
+          <div
+            class="not-found"
+          >
+            <h3
+              class="center subhead-2"
+            />
+            <p
+              class="center p1 not-found__message"
+            >
+              No products are available with the selected filters.
+            </p>
+            <p
+              class="center"
+            >
+              <a
+                class="button"
+                href="/store/"
+              >
+                CONTINUE SHOPPING
+              </a>
+            </p>
+          </div>
+        </ul>
+        <div>
+          <div
+            class="product-list-load-more center"
+          >
+            <div
+              class="el-touchable control"
+              id="list-more"
+              role="button"
+              tabindex="-1"
+            >
+              Show More
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene internal renders a list of content when it has a product_list with products 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="facet-bar"
+  >
+    <div
+      class="breadcrumbs"
+    >
+      <ol>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            home
+          </a>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Liquor
+          </span>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div
+    class="el-mblayouts-sg _pad_sides product-list-container"
+  >
+    <div
+      class="product-list-filters-container"
+    >
+      <div
+        class="list"
+      >
+        <ul
+          class="grid-product__container grid-product__container--browse"
+          id="products"
+        >
+          <li
+            class="grid-product grid-product--browse"
+          >
+            <a
+              class="grid-product__contents"
+              href="/store/product/bud/budweiser-light-6-pack-12oz-bottles"
+            >
+              <img
+                alt="Bud"
+                class="grid-product__image"
+                src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+              />
+              <div
+                class="grid-product__property grid-product__property--tag"
+              />
+              <h4
+                class="grid-product__property grid-product__property--name grid-product__property--main"
+              >
+                Bud
+              </h4>
+              <h5
+                class="grid-product__property grid-product__property--volume"
+              >
+                <span
+                  class="grid-product__property--volume__value"
+                >
+                  6 pack, 12oz bottles
+                </span>
+              </h5>
+              <h4
+                class="grid-product__property grid-product__property--price"
+              >
+                $10.99 
+              </h4>
+              <div
+                class="grid-product__property__hover-wrapper"
+              >
+                <div
+                  class="grid-product__property__hover-wrapper--inactive"
+                >
+                  <h4
+                    class="grid-product__property grid-product__property--link grid-product__property--link--hidden"
+                  >
+                    1 sizes available »
+                  </h4>
+                </div>
+              </div>
+            </a>
+            <div
+              class="actions"
+            >
+              <div>
+                <span
+                  class="grid-product__button-label"
+                >
+                  Shipping only
+                </span>
+                <div
+                  class="el-touchable button small expand add-to-cart actions__add-to-cart"
+                  role="button"
+                  tabindex="-1"
+                >
+                  Add to Cart
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            class="grid-product grid-product--browse"
+          >
+            <a
+              class="grid-product__contents"
+              href="/store/product/bud/budweiser-light-6-pack-12oz-bottles"
+            >
+              <img
+                alt="Bud"
+                class="grid-product__image"
+                src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+              />
+              <div
+                class="grid-product__property grid-product__property--tag"
+              />
+              <h4
+                class="grid-product__property grid-product__property--name grid-product__property--main"
+              >
+                Bud
+              </h4>
+              <h5
+                class="grid-product__property grid-product__property--volume"
+              >
+                <span
+                  class="grid-product__property--volume__value"
+                >
+                  6 pack, 12oz bottles
+                </span>
+              </h5>
+              <h4
+                class="grid-product__property grid-product__property--price"
+              >
+                $10.99 
+              </h4>
+              <div
+                class="grid-product__property__hover-wrapper"
+              >
+                <div
+                  class="grid-product__property__hover-wrapper--inactive"
+                >
+                  <h4
+                    class="grid-product__property grid-product__property--link grid-product__property--link--hidden"
+                  >
+                    1 sizes available »
+                  </h4>
+                </div>
+              </div>
+            </a>
+            <div
+              class="actions"
+            >
+              <div>
+                <span
+                  class="grid-product__button-label"
+                >
+                  Shipping only
+                </span>
+                <div
+                  class="el-touchable button small expand add-to-cart actions__add-to-cart"
+                  role="button"
+                  tabindex="-1"
+                >
+                  Add to Cart
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div>
+          <div
+            class="product-list-load-more center"
+          >
+            <div
+              class="el-touchable control"
+              id="list-more"
+              role="button"
+              tabindex="-1"
+            >
+              Show More
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene internal renders a loader with a header when the list is first being fetched 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="facet-bar"
+  >
+    <div
+      class="breadcrumbs"
+    >
+      <ol>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            home
+          </a>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Liquor
+          </span>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div
+    class="el-mblayouts-sg _pad_sides product-list-container"
+  >
+    <div
+      class="product-list-filters-container"
+    >
+      <div
+        class="list"
+      >
+        <ul
+          class="grid-product__container grid-product__container--browse"
+          id="products"
+        />
+        <div
+          class="full-page-loader"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene internal renders an empty state if the search switcher and product list have loaded and have no products 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="facet-bar"
+  >
+    <div
+      class="breadcrumbs"
+    >
+      <ol>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            home
+          </a>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Liquor
+          </span>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div
+    class="el-mblayouts-sg _pad_sides product-list-container"
+  >
+    <div
+      class="product-list-filters-container"
+    >
+      <div
+        class="list"
+      >
+        <ul
+          class="grid-product__container grid-product__container--browse"
+          id="products"
+        >
+          <div
+            class="not-found"
+          >
+            <h3
+              class="center subhead-2"
+            />
+            <p
+              class="center p1 not-found__message"
+            >
+              No products are available with the selected filters.
+            </p>
+            <p
+              class="center"
+            >
+              <a
+                class="button"
+                href="/store/"
+              >
+                CONTINUE SHOPPING
+              </a>
+            </p>
+          </div>
+        </ul>
+        <div>
+          <div
+            class="product-list-load-more center"
+          >
+            <div
+              class="el-touchable control"
+              id="list-more"
+              role="button"
+              tabindex="-1"
+            >
+              Show More
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene internal renders the search switcher if it has items and the product_list is empty 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="facet-bar"
+  >
+    <div
+      class="breadcrumbs"
+    >
+      <ol>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            home
+          </a>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Liquor
+          </span>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div
+    class="el-mblayouts-sg _pad_sides"
+  >
+    <div
+      class="search-switch-wrapper small-12 medium-9 columns dark-panel"
+    >
+      <h6
+        class="heading-metadata"
+      >
+        Top results from 
+        <strong>
+          Manhattan Wine
+        </strong>
+      </h6>
+      <ul
+        class="grid-product__container grid-product__container--switch"
+      >
+        <li
+          class="grid-product grid-product--browse grid-product--switch grid-product--switch--product"
+        >
+          <a
+            class="grid-product__contents"
+            data-category="product placement"
+            href="/store/product/1"
+          >
+            <img
+              alt="Budweiser Light"
+              class="grid-product__image"
+              src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+            />
+            <div
+              class="grid-product__property-container"
+            >
+              <div
+                class="grid-product__property grid-product__property--tag"
+              />
+              <h4
+                class="grid-product__property grid-product__property--name grid-product__property--main"
+              >
+                Budweiser Light
+              </h4>
+              <h5
+                class="grid-product__property grid-product__property--type hidden"
+              >
+                beer-domestic-lager
+              </h5>
+              <h5
+                class="grid-product__property grid-product__property--volume"
+              >
+                <span
+                  class="grid-product__property--volume__value"
+                >
+                  6 pack, 12oz bottles
+                </span>
+              </h5>
+              <h4
+                class="grid-product__property grid-product__property--price"
+              >
+                 
+              </h4>
+            </div>
+          </a>
+        </li>
+        <li
+          class="grid-product grid-product--browse grid-product--switch grid-product--switch--product"
+        >
+          <a
+            class="grid-product__contents"
+            data-category="product placement"
+            href="/store/product/2"
+          >
+            <img
+              alt="Budweiser Light"
+              class="grid-product__image"
+              src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+            />
+            <div
+              class="grid-product__property-container"
+            >
+              <div
+                class="grid-product__property grid-product__property--tag"
+              />
+              <h4
+                class="grid-product__property grid-product__property--name grid-product__property--main"
+              >
+                Budweiser Light
+              </h4>
+              <h5
+                class="grid-product__property grid-product__property--type hidden"
+              >
+                beer-domestic-lager
+              </h5>
+              <h5
+                class="grid-product__property grid-product__property--volume"
+              >
+                <span
+                  class="grid-product__property--volume__value"
+                >
+                  6 pack, 12oz bottles
+                </span>
+              </h5>
+              <h4
+                class="grid-product__property grid-product__property--price"
+              >
+                 
+              </h4>
+            </div>
+          </a>
+        </li>
+        <li
+          class="grid-product grid-product--switch grid-product--switch--supplier"
+        >
+          <div
+            class="el-touchable grid-product__contents"
+            role="button"
+            tabindex="-1"
+          >
+            <h5
+              class="title grid-product__property--store-name"
+            >
+              Manhattan Wine
+            </h5>
+            <p
+              class="body--small grid-product__property--delivery-estimate"
+            >
+              Next available delivery: 1 hour or less
+            </p>
+            <hr />
+            <p
+              class="body--small grid-product__property--switch"
+            >
+              Switch to Manhattan Wine to view more results
+            </p>
+            <span
+              class="button expand small add-to-cart"
+            >
+              Switch Stores
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene internal renders the search switcher loader if the product_list is empty and the search_switch is loading 1`] = `
+<div
+  class="store-browse__content"
+>
+  <div
+    class="facet-bar"
+  >
+    <div
+      class="breadcrumbs"
+    >
+      <ol>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            home
+          </a>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+             › 
+          </span>
+        </li>
+        <li>
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Liquor
+          </span>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div
+    class="not-found"
+  >
+    <h3
+      class="center subhead-2"
+    >
+      SEARCHING OTHER STORES
+    </h3>
+  </div>
+</div>
+`;
+
+exports[`ProductListScene renders a full page loader when it does not have a product_list 1`] = `
+<div
+  class="full-page-loader"
+/>
+`;
+
+exports[`ProductListScene renders a full page loader when it has not checked for suppliers 1`] = `
+<div
+  class="full-page-loader"
+/>
+`;

@@ -1,0 +1,49 @@
+<% content_for :web_authentication, true %>
+<% content_for :address_entry, true %>
+<% content_for :js_page, 'generated/store_bundle' %>
+<% content_for :title, @page_title %>
+<% content_for :meta_description, @meta_description %>
+
+<div id="root" class="mount-point">
+  <div id="store-loader" class="full-page-loader <%= 'hidden' if @show_content_while_loading.present? %>" ></div>
+</div>
+<div id="store-browse" class="hidden"></div>
+<div id="store-generic-content-layout"></div>
+<div id="cart-share-detail" class="row store-detail-view"></div>
+<div id="cart-detail" class="row store-detail-view"></div>
+<div id="checkout-detail" class="row store-detail-view"></div>
+<% unless current_user %>
+  <div id="modal-email-capture" class="reveal-modal small dark"></div>
+<% end %>
+<div id="modal-change-address" class="reveal-modal medium"></div>
+<div id="modal-supplier-map"></div>
+<div id="modal-supplier" class="reveal-modal small light"></div>
+<div id="modal-alert-box" class="reveal-modal small"></div>
+<% content_for :head do %>
+<script>
+  window.Entry = window.Entry || {};
+  var Store = Store || { },
+    Data = {
+      cart_id: <%= session_cart.try(:id) %>,
+      deep_link: <%= @product_grouping.present? %>,
+      referral_reward: 10,
+      shoprunner: <%= Feature[:shoprunner].enabled?(current_user) %>,
+      user: <%= raw(current_user_json(current_user)) %>
+    },
+    Constants = {
+      screen_fade_in_speed: 300
+    },
+    SupplierIds =  <%= @supplier_ids %>;
+  Store.boot = true;
+</script>
+<!-- pass ENV to js -->
+<script>
+  window.fbAppId = <%= ENV['FB_APP_ID']; %>
+</script>
+<% end %>
+
+<% content_for :inpage_js do %>
+  <% if Feature[:shoprunner].enabled?(current_user) %>
+    <%= render partial: 'shared/shoprunner' %>
+  <% end %>
+<% end %>

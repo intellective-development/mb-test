@@ -1,0 +1,65 @@
+<%= error_messages_for 'business' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <label>Name</label>
+      <%= form.text_field :name %>
+    </div>
+    <div class="large-6 column">
+      <label>Service Fee</label>
+      <%= form.number_field :service_fee, step: 0.01 %>
+      <label>Price Rounding</label>
+      <%= form.select :price_rounding, [[".00, .49 or .99", "half_nine"], ["Whole Prices", "whole"], ["None", "none"]], include_blank: true %>
+      <label>Video Gift Fee</label>
+      <%= form.number_field :video_gift_fee, step: 0.01 %>
+      <label>Fee Supplier Permalink</label>
+      <%= form.text_field :fee_supplier_permalink %>
+      <label>Product Supplier Permalink</label>
+      <%= form.text_field :product_supplier_permalink %>
+      <label>Avalara Company Code</label>
+      <%= form.text_field :avalara_company_code %>
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>BevMax Integration Config</legend>
+    <div class="row">
+      <div class="large-4 column">
+        <%= form.label :bevmax_partner_name, 'Partner Name' %>
+        <%= form.text_field :bevmax_partner_name %>
+      </div>
+      <div class="large-4 column">
+        <%= form.label :bevmax_account_id, 'Account ID' %>
+        <%= form.text_field :bevmax_account_id %>
+      </div>
+      <div class="large-4 column">
+        <%= form.label :bevmax_channel_id, 'Channel ID' %>
+        <%= form.text_field :bevmax_channel_id %>
+      </div>
+    </div>
+  </fieldset>
+
+  <% if current_user.credentials_admin? %>
+  <fieldset>
+    <legend>Braintree Credentials</legend>
+    <p>Braintree credentials to be used by the business.</p>
+    <div class="row">
+      <div class="large-6 column">
+        <label>braintree_cse_key</label>
+        <%= form.text_field :braintree_cse_key %>
+        <label>braintree_merchant_id</label>
+        <%= form.text_field :braintree_merchant_id %>
+        <label>braintree_private_key</label>
+        <%= form.text_field :braintree_private_key %>
+      </div>
+
+      <div class="large-6 column">
+        <label>braintree_public_key</label>
+        <%= form.text_field :braintree_public_key %>
+        <label>braintree_tokenization_key</label>
+        <%= form.text_field :braintree_tokenization_key %>
+      </div>
+    </div>
+  </fieldset>
+  <% end %>
+</fieldset>

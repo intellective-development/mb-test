@@ -1,0 +1,168 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, "Editing #{@product.name}" %>
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+<% end %>
+<style>
+    .tabs.tabs--folder {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    .tabs.tabs--folder dd {
+        display: flex;
+    }
+    .tabs.tabs--folder .tabs--folder__buffer {
+        flex: 1;
+    }
+</style>
+<div class='admin_title_header'>
+  <div class="small-7 columns">
+    <div class="row">
+      <h3><%= @product.name %> - <%= (@product.item_volume.present? ? @product.item_volume : 'No Volume')%></h3>
+    </div>
+    <div class="row">
+      <h6>
+        <% if @product.product_size_grouping %>
+          grouped under
+          <a class="" href="<%= edit_admin_merchandise_product_size_grouping_path(@product.product_size_grouping)%>">
+            <div class="parent-grouping-stub">
+              <%= image_tag(@product.product_size_grouping.view.image_url(:mini)) unless @product.product_size_grouping.view.image_url.nil? %>
+              <%= @product.product_size_grouping.name %>
+                <a class="parent-grouping-stub__ungroup-link" href="<%= regroup_admin_merchandise_product_path(@product)%>" title="ungroup">
+                  <span data-tooltip aria-haspopup="true" class="has-tip" title="Ungroup and Create New Grouping">×
+                  </span>
+                </a>
+            </div>
+          </a>
+        <% else %>
+          (No Parent Grouping)
+        <% end %>
+      </h6>
+    </div>
+  </div>
+  <div class="small-5 columns">
+    <ul class="button-group">
+      <li><%= link_to "Show", admin_merchandise_product_path(@product), class: 'button' %></li>
+      <li>
+        <%= link_to "Merge", admin_merchandise_merge_index_path(source_id: @product.id), class: 'button primary' %>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <dl class="tabs tabs--folder" data-tab>
+    <dd class="<%= [nil, 'general'].include?(params[:active_tab]) ? 'active' : '' %>"><a href="#" onclick="openTab('general')">General Info</a></dd>
+    <dd class="<%= params[:active_tab] == 'variants' ? 'active' : '' %>"><a href="#" onclick="openTab('variants')">Suppliers &amp; Prices</a></dd>
+    <dd class="<%= params[:active_tab] == 'pre-sales' ? 'active' : '' %>"><a href="#" onclick="openTab('pre-sales')"><%= @pre_sale.id.present? ? 'Active Presale' : 'New Presale' %></a></dd>
+    <dd class="tabs--folder__buffer"></dd>
+  </dl>
+  <div class="tabs-content tabs--folder__content">
+    <div class="content <%= [nil, 'general'].include?(params[:active_tab]) ? 'active' : '' %>" id="panel1">
+      <%= form_for @product,  url: admin_merchandise_product_path(@product) do |form| %>
+        <%= render partial: 'form', locals: { form: form } %>
+        <fieldset>
+          <legend>Deep Link</legend>
+          <p>This can be used to link directly to this product from an external website or email.</p>
+          <input class="large-12" value="https://<%= ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"] %>/store/product/<%=  @product.permalink_with_grouping %>" disabled>
+        </fieldset>
+        <div class=" generic_submit_button">
+          <%= submit_tag "Update", class: "button", id:"create_product_button" %>
+          <% if !@product.active? %>
+            <%= submit_tag "Update and Activate", class: "button", id:"create_product_button" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="content <%= params[:active_tab] == 'variants' ? 'active' : '' %>" id="panel2">
+      <div id='variants-container' >
+        <%= render 'variant_forms', product: @product %>
+      </div>
+    </div>
+    <div class="content <%= params[:active_tab] == 'pre-sales' ? 'active' : '' %>" id="panel3">
+      <div id='pre-sales-container' >
+        <% if @pre_sale.id.nil? %>
+          <%= form_for @pre_sale, url: create_pre_sale_admin_merchandise_product_path(@product) do |form| %>
+            <%= render partial: 'admin/pre_sales/form', locals: { form: form, product_id: @product.id } %>
+            <%= submit_tag "Create", :class  => "button" %>
+          <% end %>
+        <% else %>
+          <%= render partial: 'admin/pre_sales/show', locals: { pre_sale: @pre_sale } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function(){
+  $('#newVariant').bind('opened', function() {
+    $(document).foundation();
+    error_element = $(".validation-errors");
+    error_element.hide(); //should already be hidden by the styles
+    $("form#new_variant").bind("ajax:beforeSend", function(){
+      error_element.hide();
+    });
+    $("form#new_variant").bind("ajax:success", function(evt, data, status, xhr){
+      //$('#newVariant').foundation('reveal', 'close'); won't work
+      error_element.show();
+      error_element.text("Success! Variant has been added");
+      $("form#new_variant").trigger("reset");
+    });
+
+    $("form#new_variant").bind("ajax:error", function(xhr, ajaxOptions, thrownError){
+      error_element.show();
+      error_list_element = error_element;
+      error_JSON = ajaxOptions.error().responseJSON;
+      errors = "";
+      for (var i= 0; i < error_JSON.length; i++) {
+        errors += "<li><p>" + error_JSON[i] + "</p></li>";
+      }
+      error_list_element.html(errors);
+    });
+  });
+  var component_config_block = component_config_block || [];
+
+  component_config_block.push(
+    {
+      selector: "<%= "add-additional-upc-#{@product.id}" %>",
+      component: 'AdditionalUpcHandler',
+      options: {
+        product_id: <%= @product.id %>,
+        isAdd: true
+      }
+    }
+  );
+  var additional_upc_string = "<%= @product.additional_upcs.join(',') %>";
+  var additional_upc = additional_upc_string.split(',');
+  for (var i = 0; i < additional_upc.length; i++) {
+    component_config_block.push(
+      {
+        selector: "remove-additional-upc-" + additional_upc[i],
+        component: 'AdditionalUpcHandler',
+        options: {
+          product_id: <%= @product.id %>,
+          isAdd: false,
+          upc: additional_upc[i]
+        }
+      }
+    );
+  }
+  function ready(fn) {
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+  ready(function(){
+    window.initComponents(component_config_block);
+  });
+});
+
+function openTab(tab) {
+    let params = new URLSearchParams(window.location.search);
+    console.log(params.set('active_tab', tab));
+    window.location.search = params.toString();
+}
+</script>

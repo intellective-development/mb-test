@@ -1,0 +1,37 @@
+<% content_for :title, "#{@brand.name} - Brands" %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+<h3>Brand - <em><%= @brand.name %></em></h3>
+<p><%= @brand.description %></p>
+<% if @brand.parent? %>
+  <h4>Sub-Brands</h4>
+  <ul>
+    <% @brand.sub_brands.each do |sub_brand| %>
+    <li><%= link_to sub_brand.name, admin_merchandise_brand_path(sub_brand) %></li>
+    <% end %>
+  </ul>
+<% elsif @brand.sub_brand? %>
+  <p>This brand is a sub-brand of <%= link_to @brand.parent.name, admin_merchandise_brand_path(@brand.parent) %>.
+<% end %>
+<% if @brand.mobile_image.present? %>
+  <h4>Mobile image</h4>
+  <%= image_tag @brand.mobile_image.url %>
+<% end %>
+<% if @brand.web_image.present? %>
+  <h4>Web image</h4>
+  <%= image_tag @brand.web_image.url %>
+<% end %>
+<h4>Tags</h4>
+<p><%= @brand.tag_list %></p>
+<p>Distributed by:
+  <ul>
+    <% @brand.distributors.each do |distributor| %>
+    <li>- <%= distributor.name %></li>
+    <% end %>
+  </ul>
+</p>
+<p>
+  <%= link_to "Edit", edit_admin_merchandise_brand_path(@brand), :class => 'button' %>
+  <%= link_to "Delete", admin_merchandise_brand_path(@brand), :data => {:confirm => 'Are you sure?'}, :method => :delete, :class => 'button' %>
+  <%= link_to "New Brand", new_admin_merchandise_brand_path, :class => 'button' %>
+  <%= link_to "View All", admin_merchandise_brands_path, :class => 'button' %>
+</p>

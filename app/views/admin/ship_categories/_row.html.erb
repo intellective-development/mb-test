@@ -1,0 +1,16 @@
+<tr>
+  <td>
+    <%=ship_category.name %>
+  </td>
+  <td>
+    <%=ship_category.pim_name %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_ship_category_path(ship_category), class: 'button tiny' %>
+    <% if ship_category.created_less_than_an_hour_ago? %>
+      <%= form_for ship_category, url: admin_ship_category_path(ship_category), method: :delete do |form| %>
+        <%= submit_tag 'Delete', :class  => "button tiny alert" %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

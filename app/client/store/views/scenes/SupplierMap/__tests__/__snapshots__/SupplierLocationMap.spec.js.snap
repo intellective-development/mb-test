@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierLocationMap renders 1`] = `
+<div>
+  <div
+    class="sm__header__container"
+  >
+    <h4
+      class="elMBText elMBText_ResetSpacing sm__header__name"
+    >
+      Manhattan Wine
+    </h4>
+    <h5
+      class="elMBText elMBText_ResetSpacing sm__header__location"
+    >
+       123 Jump Street, New York, New York
+    </h5>
+  </div>
+  <div />
+</div>
+`;

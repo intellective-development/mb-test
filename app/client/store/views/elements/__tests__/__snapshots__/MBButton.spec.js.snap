@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBButton renders buttons that expand 1`] = `
+<button
+  className="elMBButton elMBButton__Default elMBButton__Medium elMBButton__Expand"
+/>
+`;
+
+exports[`MBButton renders hollow buttons 1`] = `
+<button
+  className="elMBButton elMBButton__Hollow elMBButton__Medium"
+/>
+`;
+
+exports[`MBButton renders large buttons 1`] = `
+<button
+  className="elMBButton elMBButton__Default"
+/>
+`;
+
+exports[`MBButton renders small buttons 1`] = `
+<button
+  className="elMBButton elMBButton__Default elMBButton__Small"
+/>
+`;
+
+exports[`MBButton renders with many props 1`] = `
+<button
+  className="elMBButton elMBButton__Hollow elMBButton__Small elMBButton__Expand"
+/>
+`;

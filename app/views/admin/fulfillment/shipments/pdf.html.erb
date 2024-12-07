@@ -1,0 +1,396 @@
+<% content_for :hide_header, true %>
+<!-- Margins removed to avoid browser header and footer -->
+<style type="text/css">
+  @page {
+    size:  auto;
+    margin-top: 0mm;
+    margin-bottom: 0mm;
+  }
+</style>
+<%
+    shipment    ||= @shipment
+    order       ||= @order
+    badges      ||= @badges
+    order_items ||= @order_items
+    storefront    ||= @storefront
+    video_gift_message ||= @video_gift_message
+    order_tracking_qr_base64 ||= @order_tracking_qr_base64
+    is_guest ||= "#{order.user.first_name} #{order.user.last_name}" == 'Guest Account'
+%>
+<!-- Use 630 width to test formatting in browser.  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= stylesheet_link_tag "admin/print", media: 'all' %>
+</head>
+<body class="shipment-pdf">
+  <div class="contain-all">
+    <div class="row" style="padding-top: 5mm">
+      <div class="small-6 columns">
+        <h1><%= I18n.t("supplier.invoice.order_type.#{shipment.shipping_type}")%> Order # <%= number_with_delimiter(order.number, delimiter: ' ') %></h1>
+        <div class="row">
+          <div class="small-4 columns">
+            <h2>Order Placed</h2>
+            <p>
+              <%= (order.completed_at)&.in_time_zone(shipment.supplier.timezone)&.strftime('%I:%M %p') %>
+              <br />
+              <%= (order.completed_at)&.in_time_zone(shipment.supplier.timezone)&.strftime('%a, %D') %>
+            </p>
+          </div>
+          <div class="small-4 columns">
+            <% unless is_guest %>
+              <h2>By Customer</h2>
+              <p>
+                <%= order.user.name.titleize %>
+                <br />
+                <%= number_to_phone(order.ship_address&.phone || order.pickup_detail&.phone, area_code: true) %>
+              </p>
+            <% end %>
+          </div>
+          <div class="small-4 columns">
+            <h2>Storefront</h2>
+            <p>
+              <%= storefront.name %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="small-6 columns">
+        <div class="row">
+          <div class="small-4">
+            <% if storefront.mobile_logo_file.present? %>
+              <%= image_tag storefront.mobile_logo_file.url, style: 'height: 40px' %>
+            <% end %>
+          </div>
+          <div class="small-8">
+            <table class="badges">
+              <tr>
+                <% badges.each do |badge| %>
+                  <td class="badge__icon <%= badge[:type] %>">
+                  </td>
+                <% end %>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="section-divider" />
+    <% if order.gift_detail %>
+      <div class="row">
+        <div class="small-12 columns">
+            <div class="container">
+              <h4>This is a gift order. Please wrap bottles and attach a gift tag with the gift note:</h4>
+              <p class="gift-message">
+                <%= order.gift_detail.message %>
+              </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="small-9 columns delivery-info">
+        <h3><%= I18n.t("supplier.invoice.address_header.#{shipment.shipping_type}") %></h3>
+        <p class="address-callout">
+          <%= shipment.long_recipient_name %><br />
+          <% unless shipment.pickup? || shipment.digital? %>
+            <% order.ship_address.address_lines_array.each.with_index do |line, index| %>
+              <%= line %><% unless index == order.ship_address.address_lines_array.length - 1 %>,<% end %>
+            <% end %>
+            <br />
+            <%= order.ship_address&.city_state_zip %>
+            <br />
+          <% end %>
+          <%= number_to_phone(shipment.recipient_phone, area_code: true) %>
+        </p>
+        <% if order.delivery_notes.present? %>
+        <h3>Instructions</h3>
+        <p><%= order.delivery_notes %></p>
+        <% end %>
+      </div>
+      <div class="small-3 columns">
+          <div class="container delivery-container center">
+            <h3><%= I18n.t("supplier.invoice.delivery_header.#{shipment.scheduled_for ? 'scheduled' : 'unscheduled'}.#{shipment.shipping_type}") %></h3>
+            <p>
+              <div class="shipping_method__icon <%= shipment.shipping_type %>"></div>
+            </p>
+            <% unless shipment.shipped? %>
+              <p>
+                <span class="emphasis"><%= ApplicationController.helpers.format_delivery_time(shipment) %></span>
+                <br />
+                <%= ApplicationController.helpers.format_delivery_date(shipment) %>
+              </p>
+            <% end %>
+          </div>
+      </div>
+    </div>
+    <div class="row order-details">
+      <div class="small-12 columns">
+        <table class="small-12 table-order">
+          <thead>
+            <tr>
+              <th class="center">Qty</th>
+              <th>Product</th>
+              <% unless order.gift_detail %>
+                <th>Unit Price</th>
+                <th>Total</th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% order_items.each do |variant, items| %>
+              <tr>
+                <td class="center">
+                  <%= items.sum(&:quantity) %>
+                </td>
+                <td>
+                  <%= variant.product_trait_name %> &mdash; <%= variant.item_volume %> <small>&mdash; <%= variant.sku %></small>
+                </td>
+                <% unless order.gift_detail %>
+                  <td>
+                    <%= number_to_currency(items.first.price) %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(items.sum{|t| t.total }) %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+            <% if shipment.engraving_quantity > 0 %>
+              <%= render partial: '/admin/fulfillment/shipments/engraving_message', locals: { shipment: shipment }, cache: false %>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2"></td>
+              <% unless order.gift_detail %>
+                <td>Subtotal</td>
+                <td><%= number_to_currency(shipment.shipment_sub_total_with_engraving) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <% unless order.gift_detail %>
+                <td>Discounts</td>
+                <td><%= number_to_currency(shipment.shipment_discounts_total) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td colspan="2" class="content-bottom">
+                <h2>Payment</h2>
+              </td>
+              <% unless order.gift_detail %>
+                <td>Delivery</td>
+                <td><%= number_to_currency(shipment.shipment_shipping_charges) %></td>
+              <% end %>
+            </tr>
+            <% unless shipment.bag_fee.zero? %>
+              <tr>
+                <td colspan="2"></td>
+                <% unless order.gift_detail %>
+                  <td>Bag Fee</td>
+                  <td><%= number_to_currency(shipment.bag_fee) %></td>
+                <% end %>
+              </tr>
+            <% end %>
+            <% unless shipment.bottle_deposit_fees.zero? %>
+              <tr>
+                <td colspan="2"></td>
+                <% unless order.gift_detail %>
+                  <td>Bottle Deposit Fee</td>
+                  <td><%= number_to_currency(shipment.bottle_deposit_fees) %></td>
+                <% end %>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan="2" class="content-top">
+                <p><%= order.payment_profile.try(:cc_type)%>  **** **** **** <%= order.payment_profile.try(:last_digits) %></p>
+              </td>
+              <% unless order.gift_detail %>
+                <td>Tax</td>
+                <td><%= number_to_currency(shipment.shipment_sales_tax) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td colspan="2" class="content-bottom">
+                <h2>Seller</h2>
+              </td>
+              <% unless order.gift_detail %>
+                <td>Tip</td>
+                <td>
+                  <% if !shipment.supplier.get_setting("email_tip") %>
+                    SEE WEB
+                  <% else %>
+                    <%= number_to_currency(shipment.shipment_tip_amount) %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+            <tr>
+              <td colspan="2" class="content-top">
+                <%- if shipment.digital? && shipment.supplier.address.nil? %>
+                  <p class="seller"><%= shipment.supplier.name %></p>
+                <%- else %>
+                  <p class="seller"><%= shipment.supplier.name %>, <%= shipment.supplier.address.address_lines_array.join(', ') %>, <%= shipment.supplier.address.city_state_zip %></p>
+                <% end %>
+              </td>
+              <% unless order.gift_detail %>
+                <td>TOTAL</td>
+                <td><%= number_to_currency(shipment.total) %></td>
+              <% end %>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <hr class="section-divider" />
+    <div class="row">
+      <div class="small-12 columns">
+        <p class="advisory">Recipient's ID must have a birth date before <%= (21.years.ago).strftime('%D') %></p>
+      </div>
+    </div>
+    <div class="row signature">
+      <div class="small-6 columns">
+        <p class="top-border">
+          Recipient Name
+        </p>
+      </div>
+      <div class="small-6 columns">
+        <p class="top-border">
+          Recipient Signature
+        </p>
+      </div>
+    </div>
+    <div class="row footer">
+      <div class="small-6 columns">
+        <p>
+          <span class="advisory thin">Need Help? Call <%= storefront.name || "Minibar" %>!</span><br />
+          <span class="address-callout"><%= storefront.support_phone_number || I18n.t('support_phone') %></span>
+        </p>
+      </div>
+      <div class="small-6 columns">
+        <p class="right thin">
+          <% if order.gift_detail %>
+            Gift receipt will follow
+          <% else %>
+            <% if Feature[:digital_tracking_page].enabled? %>
+              <span class="advisory thin">Scan Your Packing Slip Here:</span><br />
+              <img src="data:image/png;base64,<%= order_tracking_qr_base64 %>" class="packing-slip-qr" alt="Order Tracking QR" />
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+    <% if order.gift_detail %>
+      <div style="page-break-before: always;"></div>
+      <div class="row">
+        <div class="small-6 columns">
+          <h1>Order # <%= number_with_delimiter(order.number, delimiter: ' ') %></h1>
+          <div class="row">
+            <div class="small-6 columns">
+              <h2>Order Placed</h2>
+              <p>
+                <% if order.completed_at %>
+                  <%= order.completed_at.in_time_zone(shipment.supplier.timezone).strftime('%I:%M %p') %>
+                  <br />
+                  <%= order.completed_at.in_time_zone(shipment.supplier.timezone).strftime('%a, %D') %>
+                <% else %>
+                  Order not completed yet.
+                <% end %>
+              </p>
+            </div>
+            <div class="small-6 columns">
+              <% unless is_guest %>
+                <h2>By Customer</h2>
+                <p>
+                  <%= order.user.name.titleize %>
+                  <br />
+                  <%= number_to_phone(order.ship_address&.phone || order.pickup_detail&.phone, area_code: true) %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="small-6 columns right">
+          <div class="row">
+            <div class="small-12">
+              <% if storefront.mobile_logo_file.present? %>
+                <%= image_tag storefront.mobile_logo_file.url, style: 'height: 40px' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="section-divider" />
+      <div class="row">
+        <div class="small-12 columns center gift-detail">
+          <h6 class="gift-detail__heading">Dear <%= order.gift_detail.recipient_name&.titleize %></h6>
+          <% if Feature[:digital_tracking_page].enabled? %>
+            <div class="gift-detail__qr"><img src="data:image/png;base64,<%= order_tracking_qr_base64 %>" class="packing-slip-qr-gift" alt="Order Tracking QR" /></div>
+          <% end %>
+          <h6 class="gift-detail__heading">You have been given the gift of <%= storefront.name || "Minibar" %><%= " by #{order.user.name.titleize}" unless is_guest %>!</h6>
+          <p class="gift-detail__message">
+            <%= order.gift_detail.message %>
+          </p>
+          <% if video_gift_message&.qr_code_url&.present? && !Feature[:digital_tracking_page].enabled? %>
+            <%= image_tag video_gift_message.qr_code_url %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row order-details">
+        <div class="small-12 columns">
+          <table class="small-12 table-order">
+            <thead>
+              <tr>
+                <th class="center">Qty</th>
+                <th>Product</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% order_items.each do |variant, items| %>
+                <tr>
+                  <td class="center">
+                    <%= items.sum(&:quantity) %>
+                  </td>
+                  <td>
+                    <%= variant.product_trait_name %> &mdash; <%= variant.item_volume %> <small>&mdash; <%= variant.sku %></small>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <br />
+          <h2>Seller</h2>
+          <p><%= shipment.supplier.name %>, <%= shipment.supplier.address.address_lines_array.join(', ') %>, <%= shipment.supplier.address.city_state_zip %></p>
+        </div>
+      </div>
+      <% if storefront.default_storefront? %>
+        <div class="row">
+          <div class="small-12 columns">
+            <div class="container minibar-promo">
+              <p class="minibar-promo__text">Liquor, beer and wine delivered fast!</p>
+              <p class="minibar-promo__text">Get $10 off your first order with code GIFTED</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="row footer">
+        <div class="small-6 columns">
+          <p>
+            <span class="advisory thin">Need Help? Call <%= storefront.name || "Minibar" %>!</span><br />
+            <span class="address-callout"><%= storefront.support_phone_number || I18n.t('support_phone') %></span>
+          </p>
+        </div>
+        <div class="small-6 columns">
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="pagebreak"></div>
+</body>
+</html>

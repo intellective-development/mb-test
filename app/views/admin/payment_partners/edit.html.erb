@@ -1,0 +1,10 @@
+<% content_for :title, 'Update Payment Partners' %>
+
+<h3> Payment Partners </h3>
+
+<%= form_for @payment_partner, url: admin_payment_partner_path(@payment_partner), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", class: :button %>
+  <%= link_to 'Back to Payment Partners', admin_payment_partners_path, class: 'button' %>
+<% end %>

@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Cart Item' %>
+<h3>Update Cart Item</h3>
+
+<%= form_for @cart_item, url: admin_cart_cart_item_path(@cart, @cart_item), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", class: :button %>
+<% end %>

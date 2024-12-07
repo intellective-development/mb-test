@@ -1,0 +1,116 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  border-top: 16px solid $brand-black;
+  color: $brand-dark-grey;
+  padding: 2.5em 32px;
+
+  @media screen and (max-width: $product-grid-small-breakpoint) {
+    .text-right { text-align: left !important; }
+
+    .inline-list {
+      margin-left: 0;
+      li:first-child { margin-left: 0; }
+    }
+  }
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: $brand-black;
+    }
+  }
+  h6 {
+    margin-bottom: 12px;
+  }
+  .footer__list-item {
+    font-size: 13px;
+    line-height: 24px;
+  }
+  /* This clearfix class is to force all components into the same height so foundation
+     can reposition them nicely on smaller screens */
+  .clearfix {
+    min-height: 200px;
+  }
+  .contact__icon {
+    margin-left: 0 !important;
+    margin-right: 10px;
+    @media screen  and (max-width: $product-grid-small-breakpoint) {
+      margin-right: 1px;
+    }
+  }
+  .icon--social__list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-width: 100%;
+    .icon--social__list--list_item {
+      height: 40px;
+      width: 40px;
+      margin-left: 0 !important;
+      margin-right: 12px;
+      &:last-of-type {
+        margin-left: 0;
+      }
+
+      .social-icon {
+        position: absolute;
+        opacity: initial;
+        &:hover {
+          opacity: 0;
+        }
+      }
+      .social-icon-hover {
+        position: absolute;
+        opacity: 0;
+        &:hover {
+          opacity: initial;
+        }
+      }
+    }
+  }
+
+  .footer-app-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    > * {
+      margin-right: 12px;
+      &:last-of-type {
+        margin-left: 0;
+      }
+    }
+  }
+
+
+  .inline-list {
+    margin-left: 0;
+    li:first-child { margin-left: 0; }
+  }
+  .inline-list > li{
+    margin-left: 0.75em;
+    margin-bottom: 12px;
+  }
+
+  .subfooter {
+    border-top: 1px solid $brand-light-grey;
+    padding: em-calc(11) 0;
+
+    .legal-thin {
+      font-size: 11px;
+      margin-bottom: 5px;
+      color: $brand-black;
+    }
+
+    .tos {
+      text-align: right;
+      @media screen and (max-width: $product-grid-medium-breakpoint) {
+        text-align: left;
+      }
+    }
+  }
+}
+
+

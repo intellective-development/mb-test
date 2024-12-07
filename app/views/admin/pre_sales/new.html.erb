@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Pre Sale' %>
+<h3>New Pre Sale</h3>
+
+<%= form_for @pre_sale, url: admin_pre_sales_path do |form| %>
+  <%= render partial: 'form', locals: { form: form, product_id: nil } %>
+  <%= submit_tag "Create", :class  => "button" %>
+  <%= link_to "back to list", admin_pre_sales_path, :class  => "button secondary" %>
+<% end %>

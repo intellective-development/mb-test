@@ -1,0 +1,31 @@
+@import "~client/store/views/style/variables";
+
+.cmAddressExplanation_Container {
+  @include font-size(12);
+
+  margin-top: -1px;
+  margin-bottom: $standard-gutter * 0.625;
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: $small-max-width) {
+    display: none;
+  }
+}
+
+.cmAddressExplanation_Text {
+  margin-right: 8px;
+}
+
+.cmAddressExplanation_TooltipPrompt {
+  color: $brand-white;
+  border-radius: 24px;
+  background-color: $brand-medium-grey;
+  padding: 7px 12px 5px;
+  display: block; // allows the margin to work in the media query
+
+  @media screen and (max-width: $small-max-width) {
+    margin-top: 6px;
+  }
+}

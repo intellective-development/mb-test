@@ -1,0 +1,70 @@
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>Type</th>
+    <th>Shipping Method</th>
+    <th>Variant ID</th>
+    <th>Price</th>
+    <th>Product Variant</th>
+    <th>Is Presale</th>
+    <th>Presale</th>
+    <th>Customer Placement</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= product.type %>
+      </td>
+      <td>
+        <%= product.shipping_method %>
+      </td>
+      <td>
+        <%= product.variant_id %>
+      </td>
+      <td>
+        <%= product.price %>
+      </td>
+      <td>
+        <%= product.product_variant %>
+      </td>
+      <td>
+        <%= product.is_presale %>
+      </td>
+      <td>
+        <%= product.presale %>
+      </td>
+      <td>
+        <%= product.customer_placement %>
+      </td>
+    </tr>
+  <tbody>
+    <table>
+      <details id=<%= "supplier_summary_#{product.variant_id}" %>>
+        <summary>Supplier</summary>
+        <thead id=<%= "supplier_thead_#{product.variant_id}" %> style='display: none'>
+          <tr class='odd'>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Delivery Minimum</th>
+            <th>Delivery Threshold</th>
+            <th>Delivery Fee</th>
+            <th>Delivery Expectation</th>
+            <th>Delivery Available</th>
+            <th>Next Delivery</th>
+          </tr>
+        </thead>
+        <tbody id=<%= "supplier_tbody_#{product.variant_id}" %> style='display: none'>
+          <%= render partial: 'admin/rsa/suppliers/row', locals: { supplier: product.supplier } %>
+        </tbody>
+      </details>
+    </table>
+</table>
+
+<script>
+  $('[id*=supplier_summary_]').click(function() {
+      var variant_id = this.id.split("_").at(-1);
+      $(`#supplier_thead_${variant_id}`).toggle();
+      $(`#supplier_tbody_${variant_id}`).toggle();
+  });
+</script>

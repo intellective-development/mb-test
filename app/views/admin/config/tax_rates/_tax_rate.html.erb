@@ -1,0 +1,12 @@
+<tr class='<%= cycle("odd", "")%>'>
+  <td><%= tax_rate.percentage %></td>
+  <td><%= tax_rate.zipcode %> <%= tax_rate.state.try(:abbreviation) %> </td>
+  <td><%= tax_rate.tax_category.try(:name) %></td>
+  <td><%= tax_rate.start_date %></td>
+  <td><%= tax_rate.end_date %></td>
+  <td><%= tax_rate.default.to_s %></td>
+  <td><%= tax_rate.active.to_s %></td>
+  <td><%= link_to 'Show', admin_config_tax_rate_path(tax_rate) %></td>
+  <td><%= link_to 'Expire', admin_config_tax_rate_expire_path(tax_rate), :method => :post %></td>
+  <td><%= link_to 'Destroy', admin_config_tax_rate_path(tax_rate), :confirm => 'Are you sure?', :method => :delete %></td>
+</tr>

@@ -1,0 +1,18 @@
+<div class="row order">
+  <div class="large-12 column">
+    <div class="panel">
+      <h4>Order Error</h4>
+      <p>This order has not been finalized due to a processing error. It has not been sent to the supplier(s).</p>
+      <% if order.shipments.pluck(:state).include?('canceled') %>
+        <p>It looks like someone has already cancelled at least one shipment in the order. Suggest we cancel the entire order.</p>
+      <% end %>
+      <% if order.shipments.pluck(:state).include?('pending') %>
+        <p>At least one of the order shipments is pending. That means that a supplier may not have seen it. For older orders, this may indicate it may not have been delivered.
+      <% end %>
+      <ul class="large-block-grid-3">
+        <li><%= link_to "Process Order", process_complete_admin_fulfillment_order_path(order), confirm: 'Are you sure?', method: :post, class: 'button small expand' %></li>
+        <li><%= link_to "Cancel Order", cancel_complete_admin_fulfillment_order_path(order), confirm: 'Are you sure?', method: :post, class: 'button small expand' %></li>
+      </ul>
+    </div>
+  </div>
+</div>

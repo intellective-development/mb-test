@@ -1,0 +1,54 @@
+<% content_for :small_header, false %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you were sent a gift from Minibar Delivery' %>
+<table class="container sub top-border"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-vertical">
+                          Someone special took a shot at sending you the perfect gift: a bottle of 100% pure agave Hornitos&reg; Tequila and some warm holiday wishes.
+                          <br>
+                          <br>
+                          Click the link below to check out your personalized video. Happy Holidays! <br>
+                          <br>
+                          <center>
+                            <table class="button radius">
+                              <tr>
+                                <td class="bottom-padding-medium">
+                                  <table>
+                                    <tr>
+                                      <td>
+                                        <a href="<%= @target_url %>">
+                                          View your video
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </center>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->
+

@@ -1,0 +1,50 @@
+@import "~client/store/views/style/variables";
+
+.cmMNavDrawer_Container {
+  background-color: $brand-white;
+}
+
+.cmMNavDrawer_Content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cmMNavDrawer_CloseLink {
+  flex: none;
+  padding: 9px 12px;
+}
+
+.cmMNavDrawer_DeliveryLink {
+  flex: none;
+  padding: 20px 6px 20px 4px; // icon (leftmost element) already has padding on it
+  background-color: $brand-pale-blue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cmMNavDrawer_ItemLinkContainer {
+  flex: auto;
+  padding-top: 8px;
+  margin: 0;
+}
+
+.cmMNavDrawer_ItemLink {
+  @include font-size(24);
+  font-weight: $medium-font-weight;
+  padding: 14px 16px;
+  display: inline-block;
+}
+
+.cmMNavDrawer_UserName {
+  @include font-size(14);
+  color: $brand-dark-grey;
+}
+
+.cmMNavDrawer_AppStoreLink {
+  align-self: stretch;
+  flex: none;
+  padding: 0 $standard-gutter $standard-gutter;
+  justify-content: space-around;
+}

@@ -1,0 +1,220 @@
+<h3>
+  Bulk Order <%= @bulk_order.id %>
+  <%= link_to "Invoice", invoice_admin_fulfillment_bulk_order_path(@bulk_order), class: "button small" %>
+  <%= link_to "Edit", edit_admin_fulfillment_bulk_order_path(@bulk_order), class: "button small" if @bulk_order.active? %>
+  <%= link_to "Finalize Order", finalize_admin_fulfillment_bulk_order_path(@bulk_order), method: :post, class: "button small" if @bulk_order.active? %>
+  <%= link_to "Recreate Orders", refresh_admin_fulfillment_bulk_order_path(@bulk_order), method: :post, class: "button small alert" if @bulk_order.active? %>
+</h3>
+
+<fieldset>
+  <legend>Order Details</legend>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Name</label>
+      <%= @bulk_order.humanized_name %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Order State</label>
+      <%= @bulk_order.status %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Invoice Storefront (Order by most expensive first)</label>
+      <%= @bulk_order.storefront_quote&.name %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Delivery Method</label>
+      <%= I18n.t("admin.shipping_method.#{@bulk_order.delivery_method}") %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Storefront</label>
+      <%= @bulk_order.storefront.name %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Suppliers</label>
+      <% @bulk_order.supplier_ids.each do |supplier_id| %>
+        <%= Supplier.find(supplier_id).name %><br/>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Order Engraving</legend>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Engraving?</label>
+      <%= @bulk_order.graphic_engraving %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Logo</label>
+      <%= image_tag @bulk_order.logo.url %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Line 1</label>
+      <%= @bulk_order.line1 %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Line 2</label>
+      <%= @bulk_order.line2 %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Line 3</label>
+      <%= @bulk_order.line3 %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Line 4</label>
+      <%= @bulk_order.line4 %>
+    </div>
+  </div>
+</fieldset>
+
+
+<fieldset>
+  <legend>Billing Information</legend>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>First Name</label>
+      <%= @bulk_order.billing_first_name %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Last Name</label>
+      <%= @bulk_order.billing_last_name %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>E-mail</label>
+      <%= @bulk_order.billing_email %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Company</label>
+      <%= @bulk_order.billing_company %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Address</label>
+      <%= @bulk_order.billing_address %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Address Info</label>
+      <%= @bulk_order.billing_address_info %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-4 columns">
+      <label>City</label>
+      <%= @bulk_order.billing_city %>
+    </div>
+
+    <div class="six large-4 columns">
+      <label>State</label>
+      <%= @bulk_order.billing_state %>
+    </div>
+
+    <div class="six large-4 columns">
+      <label>Zip Code</label>
+      <%= @bulk_order.billing_zip %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Phone</label>
+      <%= @bulk_order.billing_phone %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <div class="row">
+    <%= form_tag apply_gift_card_admin_fulfillment_bulk_order_url(@bulk_order), :method => 'post' do %>
+      <div class="six large-6 columns">
+        <label>Gift Card</label>
+        <%= text_field_tag :coupon_code, @bulk_order.coupon&.code || '-' %>
+        <%= submit_tag "Add Gift Card", name: nil, class: "button small" %>
+      </div>
+    <% end %>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Bulk Order Data</legend>
+  <%= button_tag "Toggle Order Data", type: 'button', onclick: "hideBlock('orderData')", class: "button small" %>
+
+  <div class="six large-12 columns" id="orderData" style="display: none">
+    <label>Order Data</label>
+    <%= @bulk_order.csv %>
+  </div>
+</fieldset>
+
+<div>
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th class='column1_header'>Order #</th>
+      <th>Customer</th>
+      <th>Supplier</th>
+      <th>Order Items</th>
+      <th>Order Items Total</th>
+      <th>Order Discounts</th>
+      <th>Total Charge</th>
+      <th>Coupon Applied</th>
+      <th>Order Errors</th>
+      <th>Order Status</th>
+    </tr>
+    </thead>
+    <% if @bulk_order.in_progress? %>
+      <tr>
+        <td colspan="12">
+          <div data-alert class='alert-box warning' style='margin-bottom: 0'>
+            Order creation is in progress. Your orders will show up once all orders have been created.
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    <%= render partial: 'bulk_order_order_row', collection: @bulk_order.bulk_order_orders, as: :bulk_order %>
+  </table>
+</div>
+
+<% content_for :bottom do %>
+  <script>
+      function hideBlock(divId) {
+          const x = document.getElementById(divId);
+          if (x.style.display === "none") {
+              x.style.display = "block";
+          } else {
+              x.style.display = "none";
+          }
+      }
+  </script>
+<% end %>

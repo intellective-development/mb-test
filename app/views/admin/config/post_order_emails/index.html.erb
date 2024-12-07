@@ -1,0 +1,24 @@
+<h3>Post-Order Emails</h3>
+<p>These are sent a few minutes after an order has been placed if it contains a product with a matching tag. This could be part of a promotion or contain additional instructions for a specific item.</p>
+<p>Template files need to exist in <code>app/views/post_order_emails</code> else the send will fail.</p>
+<p><%= link_to 'Create New Post-Order Email', new_admin_config_post_order_email_path %></p>
+<table>
+  <thead>
+    <tr>
+      <th>Active?</th>
+      <th>Tag Name</th>
+      <th>Template Slug</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @emails.each do |email| %>
+    <tr>
+      <td><%= email.active? ? 'Active' : 'Inactive' %></td>
+      <td><%= email.tag_name %></td>
+      <td><%= email.template_slug %></td>
+      <td><%= link_to 'Edit', edit_admin_config_post_order_email_path(email) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

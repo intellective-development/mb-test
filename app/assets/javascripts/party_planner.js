@@ -1,0 +1,11 @@
+//=require minibar
+//=require vendor/underscore
+//=require vendor/underscore.string
+//=require vendor/json2
+//=require vendor/backbone
+//=require vendor/backbone.fetch-cache
+//=require vendor/jquery.nouislider
+//=require vendor/Backbone.modelbinder.min
+//=require vendor/jquery.matchHeight-min
+//=require_tree ./templates/modules/party_planner
+//=require party_planner/party_planner

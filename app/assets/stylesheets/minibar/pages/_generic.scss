@@ -1,0 +1,70 @@
+.title-bar {
+  background: #222;
+  color: #fff;
+  margin-bottom: 50px;
+  margin-top: 0px;
+  .heading-title {
+    margin-top: 5rem;
+    margin-bottom: 5.75rem;
+  }
+}
+
+.modal-bg {
+  background: #f9f9f9;
+  #main-header {
+    background: #fff;
+  }
+}
+
+.push-down {
+  margin-top: 48px;
+}
+
+.nav-column {
+  &.fixed {
+
+  }
+  h3 {
+    margin-bottom: 0;
+  }
+  a {
+    color: $brand-medium-grey;
+  }
+  li.active {
+    a {
+      color: $brand-red;
+    }
+  }
+}
+
+.icon {
+  display: inline-block;
+
+}
+
+.icon-envelope {
+  background: transparent url(image_path('ui/icon-contact-email.svg')) no-repeat 7% 48%;
+  padding-left: 60px;
+  background-size: 27px;
+}
+
+.icon-phone {
+  background: transparent url(image_path('ui/icon-contact-telephone.svg')) no-repeat 9% 48%;
+  padding-left: 60px;
+  background-size: 31px;
+}
+
+
+p, li, dd {
+  font-weight: 300;
+}
+
+hr {
+  margin: 36px 0;
+}
+
+.generic {
+  .footer {
+    margin-top: 100px;
+  }
+}

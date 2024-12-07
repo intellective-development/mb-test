@@ -1,0 +1,174 @@
+<div class="row">
+  <div class="large-6 column">
+    <div>
+      <label>Name</label>
+      <%= form.text_field :name %>
+    </div>
+    <div>
+      <label>Business</label>
+      <%= form.select :business_id, Business.pluck(:name, :id), include_blank: true %>
+    </div>
+    <div style="margin-bottom: 15px">
+      <label>Hostname</label>
+      <%= form.text_field :hostname, style: "margin-bottom: 0" %>
+      <small>Multiple values must be separated by commas</small><br>
+      <small><%= link_to "CNAME Setup", admin_storefront_cname_records_path(@storefront) %></small>
+    </div>
+    <div>
+      <label>ECP Provider</label>
+      <%= form.select :ecp_provider, human_enum_options(Storefront.ecp_providers), include_blank: true %>
+    </div>
+    <div>
+      <label>Home URL</label>
+      <small>URL to link the logos, “Go back to #{storefront.name}”</small>
+      <%= form.text_field :home_url %>
+    </div>
+    <div>
+      <label>OAuth Application</label>
+      <%= form.select :oauth_application_id, Doorkeeper::Application.order(:name).pluck(:name, :id), include_blank: true %>
+    </div>
+    <div>
+      <label>Google Tag ID</label>
+      <small>Google Tag Manager ID to be used when loading the GTM tag</small>
+      <%= form.text_field :google_tag_id %>
+    </div>
+    <div>
+      <label>Segment Tag ID</label>
+      <small>API Key to be used when loading the Segment Analytics JS tag</small>
+      <%= form.text_field :segment_tag_id %>
+    </div>
+    <div>
+      <label>Segment Write Key</label>
+      <%= form.text_field :segment_write_key %>
+    </div>
+    <div>
+      <label>Iterable API Key</label>
+      <%= form.text_field :iterable_api_key %>
+    </div>
+    <div>
+      <label>RSA counts</label>
+      <%= form.number_field :n_rsa_count %>
+    </div>
+    <div>
+      <label>RSA Price Type</label>
+      <%= form.select :rsa_price_type, human_enum_options(Storefront.rsa_price_types), include_blank: true %>
+    </div>
+    <div>
+      <label>Apple Merchant Name</label>
+      <%= form.text_field :apple_merchant_name %>
+    </div>
+    <div>
+      <label>Apple Merchant ID</label>
+      <%= form.text_area :apple_merchant_id %>
+    </div>
+    <div>
+      <label>Tracking Page Hostname</label>
+      <%= form.text_field :tracking_page_hostname %>
+    </div>
+    <div>
+      <label>Legal Text</label>
+      <%= form.text_area :legal_text %>
+    </div>
+    <div>
+      <label>SMS Legal Text</label>
+      <%= form.text_area :sms_legal_text %>
+    </div>
+    <div>
+      <label>GA ID</label>
+      <%= form.text_field :ga_id %>
+    </div>
+  </div>
+  <div class="large-6 column">
+    <div>
+      <label>Supplier Fee Mode</label>
+      <small>When set to 'First' customer will only be charged for the first delivery supplier’s delivery fee.
+        It will be ignored in case of Dynamic Shipping is enabled</small>
+      <%= form.select :supplier_fee_mode, human_enum_options(Storefront.supplier_fee_modes) %>
+    </div>
+    <div>
+      <label>Engraving Fee</label>
+      <%= form.number_field :engraving_fee, min: 0, max: 200, step: 0.01, value: form.object.engraving_fee || 50 %>
+    </div>
+    <fieldset>
+      <div class="row">
+        <div class="column <%= Feature[:enable_rb_can_cover_shipping_fee].enabled? ? "large-6" : "" %>">
+          <label>Single Shipping Fee</label>
+          <%= form.number_field :single_shipping_fee, min: 0, max: 99.99, step: 0.01 %>
+        </div>
+        <% if Feature[:enable_rb_can_cover_shipping_fee].enabled? %>
+          <div class="large-6 column">
+            <%= form.check_box :shipping_fee_covered_by_rb %>
+            <%= form.label 'Covered by ReserveBar?', for: :storefront_shipping_fee_covered_by_rb %>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+    <div>
+      <label>Support Email</label>
+      <%= form.text_field :support_email %>
+    </div>
+    <div>
+      <label>Support Phone Number</label>
+      <%= form.number_field :support_phone_number %>
+    </div>
+    <div>
+      <label>Email Capture Mode</label>
+      <small>Allows the configuration of when the email capture container will be displayed</small>
+      <%= form.select :email_capture_mode, human_enum_options(Storefront.email_capture_modes) %>
+    </div>
+    <div>
+      <label>Email Capture Title</label>
+      <%= form.text_field :email_capture_title %>
+    </div>
+    <div>
+      <label>Email Capture Subtitle</label>
+      <%= form.text_field :email_capture_subtitle %>
+    </div>
+    <div>
+      <label>Shipping Method Description</label>
+      <%= form.text_field :shipped_method_desc %>
+    </div>
+
+    <div>
+      <label>On Demand Method Description</label>
+      <%= form.text_field :on_demand_method_desc %>
+    </div>
+
+    <div>
+      <label>Merchandise Fulfillment Description</label>
+      <%= form.text_field :merchandise_fulfillment_desc %>
+    </div>
+    <div>
+      <label>Back Order Method Description</label>
+      <%= form.text_field :back_order_method_desc %>
+    </div>
+    <div>
+      <label>3JMS Brand</label>
+      <%= form.text_field :threejms_brand %>
+    </div>
+    <div>
+      <label>Button Color</label>
+      <%= form.color_field :button_color %>
+    </div>
+    <div>
+      <label>Footer Copy</label>
+      <%= form.text_area :footer_copy %>
+    </div>
+    <div>
+      <label>Age Verify Prompt Copy</label>
+      <%= form.text_field :age_verify_copy %>
+    </div>
+    <div>
+      <label>Success Screen</label>
+      <%= form.select :success_content_mobile_screen_id, Content::MobileScreen.order(:name).pluck(:name, :id) %>
+    </div>
+    <div>
+      <label>Parent Storefront</label>
+      <%= form.select :parent_storefront_id, Storefront.inheritable.where.not(id: form.object.id).order(:name).pluck(:name, :id), include_blank: true %>
+    </div>
+    <div>
+      <label>Custom Checkout CSS</label>
+      <%= form.text_area :custom_checkout_css %>
+    </div>
+  </div>
+</div>

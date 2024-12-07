@@ -1,0 +1,22 @@
+.el-radio__circle-outer{
+  display: flex;
+  flex: none;
+  border-radius: 1000px;
+  border: 1px solid $brand-black;
+  padding: 2px;
+  height: 16px;
+  width: 16px;
+}
+
+.el-radio__circle-outer--active{
+  border-color: $brand-red;
+}
+
+.el-radio__circle-inner{
+  flex: auto;
+  border-radius: 1000px;
+}
+
+.el-radio__circle-inner--active{
+  background-color: $brand-red;
+}

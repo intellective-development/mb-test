@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryInfo renders 1`] = `
+<div
+  class="csl__delivery__container"
+>
+  <div
+    class="csl__delivery__name-container"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing csl__delivery__name"
+    >
+      Local Delivery
+      <span
+        class="elMBText elMBText_ResetSpacing csl__delivery__closed"
+      >
+         Closed
+      </span>
+    </span>
+  </div>
+  <span
+    class="elMBText elMBText_ResetSpacing csl__delivery__next-delivery"
+  >
+    Next available: 1 hour or less
+  </span>
+</div>
+`;
+
+exports[`DeliveryInfo renders ShopRunner content 1`] = `
+<div
+  class="csl__delivery__container"
+>
+  <div
+    class="csl__delivery__name-container"
+  >
+    <span
+      class="elMBText elMBText_ResetSpacing csl__delivery__name"
+    >
+      Local Delivery
+      <span
+        class="elMBText elMBText_ResetSpacing csl__delivery__closed"
+      >
+         Closed
+      </span>
+    </span>
+  </div>
+  <span
+    class="elMBText elMBText_ResetSpacing csl__delivery__next-delivery"
+  >
+    Next available: 1 hour or less
+  </span>
+</div>
+`;

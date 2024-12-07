@@ -1,0 +1,81 @@
+<div class="row">
+  <div class='large-12 column panel'>
+    <h4>Payment History</h4>
+    <% if order.charges.empty? && order.order_charges.empty? %>
+      <p>There are no payments for this order.</p>
+    <% else %>
+      <ul>
+        <% order.shipments.each do |shipment| %>
+          <h5><%= shipment&.supplier&.name %></h5>
+          <div class="small-12 columns">
+            <%= render partial: 'admin/fulfillment/orders/edit/charge', collection: shipment.supplier_charges %>
+            <div>
+              <% if shipment.customer_refunds.empty? %>
+                <p>There are no refunds for this shipment.</p>
+              <% else %>
+                <ul>
+                  <div class="small-12 columns">
+                    <%= render partial: 'admin/fulfillment/orders/edit/refund', collection: shipment.customer_refunds %>
+                  </div>
+                </ul>
+              <% end %>
+            </div>
+          </div>
+          <% if shipment.engraving_chargeable.present? %>
+            <hr>
+            <h5><%= shipment.engraving_chargeable.description %></h5>
+            <div class="small-12 columns">
+              <%= render partial: 'admin/fulfillment/orders/edit/charge', collection: [shipment.engraving_chargeable.charge] if shipment.engraving_chargeable.charge.present? %>
+            </div>
+          <% end %>
+        <% end %>
+        <hr>
+        <% order.taxes_and_fees_chargeables.each do |chargeable| %>
+          <h5><%= chargeable.description %> (<%= chargeable.supplier.braintree_merchant_account_id %>)</h5>
+          <div class="small-12 columns">
+            <%= render partial: 'admin/fulfillment/orders/edit/charge', collection: [chargeable.charge] if chargeable.charge.present? %>
+            <div>
+              <% if chargeable.customer_refunds.empty? %>
+                <p>There are no refunds for charge.</p>
+              <% else %>
+                <ul>
+                  <div class="small-12 columns">
+                    <%= render partial: 'admin/fulfillment/orders/edit/refund', collection: chargeable.customer_refunds %>
+                  </div>
+                </ul>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <hr>
+        <% if order.membership_plan_id.present? && order.membership.present? %>
+          <h5>Membership Charge</h5>
+          <div class="small-12 columns">
+            <% if order.membership.transactions.present? %>
+              <% order.membership.transactions.each do |transaction| %>
+                <li>
+                  <div>
+                    <h5>
+                      <i><%= transaction.created_at.to_formatted_s(:long) %></i>
+                    </h5>
+                  </div>
+                  <div>
+                    <strong>Details:</strong>
+                    <p>
+                      <strong>status:</strong> <%= transaction.status %><br/>
+                      <strong>amount:</strong> <%= number_to_currency(transaction.amount) %><br/>
+                      <strong>type:</strong> <%= transaction.transaction_type %><br/>
+                      <strong>id:</strong> <%= transaction.transaction_id %>
+                    </p>
+                  </div>
+                </li>
+              <% end %>
+            <% else %>
+              <li> There are no transaction for this membership</li>
+            <% end %>
+          </div>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

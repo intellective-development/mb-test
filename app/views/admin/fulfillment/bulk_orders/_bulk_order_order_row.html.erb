@@ -1,0 +1,32 @@
+<tr class='<%= cycle("odd", "") %>'>
+  <td>
+    <%= image_tag "ui/icon-out_of_hours.svg", align: 'right', width: 16 if bulk_order.order.shipments.any?(&:out_of_hours) %>
+    <%= image_tag "ui/icon-fraud.svg", align: 'right', width: 16 if bulk_order.order.fraud? %>
+    <%=  link_to bulk_order.order.number, edit_admin_fulfillment_order_path(bulk_order.order.number) %>
+  </td>
+  <td>
+    <%= link_to bulk_order.order.user_name, admin_customer_path(bulk_order.order.user_id) %>
+    <% if bulk_order.order.vip? %>
+      <span class="label round vip">VIP</span>
+    <% end %>
+    <%= image_tag "ui/icon-gift.svg", align: 'right', width: 16 if bulk_order.order.gift? %>
+  </td>
+  <td><%= bulk_order&.order&.suppliers&.map(&:name).join('<br/>') %></td>
+  <td>
+    <% bulk_order.order.order_items.each do |order_item| %>
+      <%= order_item.variant.product.name %>
+    <% end %>
+  </td>
+  <td><%= bulk_order.order.amounts[:total_before_discounts] %></td>
+  <td><%= bulk_order.order.amounts[:discounts_total] %></td>
+  <td><%= bulk_order.order.amounts[:current_charge_total] %></td>
+  <td><%= bulk_order.order.coupons.pluck(:code).join(', ') %></td>
+  <td>
+    <ul style='list-style: disc'>
+      <% bulk_order.order_errors.split(',').each do |error| %>
+        <li><%= error %></li>
+      <%- end %>
+    </ul>
+  </td>
+  <td><%= bulk_order.order.state %></td>
+</tr>

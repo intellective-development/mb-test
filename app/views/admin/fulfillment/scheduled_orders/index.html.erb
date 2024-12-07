@@ -1,0 +1,11 @@
+<% content_for :title, 'Scheduled Orders' %>
+<div class="row">
+  <div class="large-12 column">
+    <h2>Scheduled Orders</h2>
+    <table>
+      <% grouped_shipments = @grouped_shipments.map { |s| ShipmentPresenter.new(s, self) }.compact %>
+      <%= render partial: 'scheduled_order_row', collection: grouped_shipments, as: 'shipment', cache: false %>
+    </table>
+    <%= paginate @grouped_shipments %>
+  </div>
+</div>

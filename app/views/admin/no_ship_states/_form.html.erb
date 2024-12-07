@@ -1,0 +1,26 @@
+<% states = ::State.by_abbreviation %>
+
+<%= error_messages_for 'no_ship_states' %>
+<fieldset>
+  <div class="row">
+    <% ShipCategory.all.each do |ship_category| %>
+      <div class="large-12 column">
+        <fieldset>
+          <legend><%=ship_category.name %></legend>
+          <div class="large-12 column">
+            <% states.each do |state| %>
+              <div class="small-2 columns">
+                <%= form.check_box "states_by_category[#{ship_category.id}]",
+                                  { multiple: true, checked: @no_ship_state_by_categories[ship_category.id]&.states&.include?(state.abbreviation) },
+                                  state.abbreviation,
+                                  nil %>
+                <label class="row collapse" style="font-weight: normal"><%= state.abbreviation %></label>
+              </div>
+            <% end %>
+            <div class="small-2 columns"></div>
+          </div>
+        </fieldset>
+      </div>
+    <% end %>
+  </div>
+</div>

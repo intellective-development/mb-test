@@ -1,0 +1,300 @@
+<style>
+  .strip .top-bar-section .dropdown {
+    top: 45px;
+  }
+</style>
+<div class="strip">
+  <div class="row">
+    <div class="large-2 small-2 column column-avatar">
+      <div class="frame">
+        <img src="<%= gravatar_url(order.user_email) %>">
+        <span class="tag tag-name" data-tooltip aria-haspopup="true" class="has-tip" title="<%= order.user_email %>">
+          <%= order.user_name %>
+          <% if order.user.corporate? %>
+            <br>
+            <small>(<%= order.user.company_name %>)</small>
+          <% end %>
+        </span>
+        <% if order.vip? %>
+          <span class="tag tag-vip">VIP</span>
+        <% end %>
+        <% if order.user.corporate? %>
+          <span class="tag tag-corporate">CORPORATE</span>
+        <% end %>
+        <span class="tag tag-profile"><%= link_to "View Profile", admin_customer_path(order.user) %></span>
+        <hr style="margin: 0; padding: 0;" />
+        <span class="tag tag-profile">View in Sift</span>
+        <span class="tag tag-profile"><%= link_to "Payment Abuse", "https://console.siftscience.com/users/#{order.user.referral_code}/?abuse_type=payment_abuse" %></span>
+        <span class="tag tag-profile"><%= link_to "Promo Abuse", "https://console.siftscience.com/users/#{order.user.referral_code}/?abuse_type=promotion_abuse" %></span>
+        <span class="tag tag-profile"><%= link_to "Account Takeover", "https://console.siftscience.com/users/#{order.user.referral_code}/?abuse_type=account_takeover" %></span>
+      </div>
+      <div class="order-label__container">
+        <% if order.platform == 'subscription' %>
+          <span class="order-label label secondary">Subscription</span>
+        <% end %>
+        <% if order.sift_decision %>
+          <span class="order-label label <%= I18n.t("admin.sift_decision_classes.#{order.sift_decision.decision_id}") %>"><%= I18n.t("admin.sift_subjects.#{order.sift_decision.subject_type}") %> <%= I18n.t("admin.sift_decisions.#{order.sift_decision.decision_id}") %></span>
+        <% else %>
+          <span class="order-label label" style="background-color: rgb(255, 128, 0);"><%= I18n.t("admin.sift_subjects.Order") %> <%= I18n.t("admin.sift_decisions.no_decision") %></span>
+        <% end %>
+        <% if order.user.sift_decision %>
+          <span class="order-label label <%= I18n.t("admin.sift_decision_classes.#{order.user.sift_decision.decision_id}") %>"><%= I18n.t("admin.sift_subjects.#{order.user.sift_decision.subject_type}") %> <%= I18n.t("admin.sift_decisions.#{order.user.sift_decision.decision_id}") %></span>
+        <% end %>
+        <% if order.coupon && @promo_abuse_decision_id %>
+          <span class="order-label label <%= I18n.t("admin.sift_decision_classes.#{@promo_abuse_decision_id}") %>"><%= I18n.t("admin.sift_subjects.Promo") %> <%= I18n.t("admin.sift_decisions.#{@promo_abuse_decision_id}") %></span>
+        <% end %>
+      </div>
+    </div>
+    <div class="large-10 small-10 column">
+      <div class="row">
+        <div class="large-12 column panel">
+          <h2>
+            Order #<%= order.number.upcase %> &mdash; <%= display_time(order.completed_at, order.order_suppliers.first) %>
+            <span class="label radius success right" data-tooltip aria-haspopup="true" title="<%= status_tooltip(order) %>"><%= order.state.upcase %></span>
+          </h2>
+          <section class="top-bar-section">
+          <ul class="button-group">
+            <% if order.scheduled? %>
+              <li><%= link_to "Confirm", confirm_order_admin_fulfillment_order_path(order), { id: 'confirm_order_button', class: 'button small' } %></li>
+              <li class="divider"></li>
+              <li class="has-dropdown not-click">
+                <%= render partial: 'admin/fulfillment/orders/edit/reschedule_buttons', object: order %>
+              </li>
+              <li class="has-dropdown not-click">
+                <%= link_to "Cancel", cancel_dialogue_admin_fulfillment_order_path(order), { class: "button small alert button-cancellation" } %>
+                <ul class="dropdown">
+                  <%for shipment in order.shipments %>
+                    <% if !shipment.canceled? %>
+                      <li><%=link_to "#{shipment.supplier_name} Cancel Shipment", cancel_dialogue_admin_fulfillment_order_path(order, shipment_id: shipment.id), class: 'button-cancellation' %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+            <% elsif order.confirmed? %>
+              <li class="has-dropdown not-click">
+                <%= render partial: 'admin/fulfillment/orders/edit/reschedule_buttons', object: order %>
+              </li>
+              <li class="has-dropdown not-click">
+                <a id="button-deliver" class="button small" href="#" data-reveal-id="modal-deliver">Deliver</a>
+                <ul class="dropdown">
+                  <%for shipment in order.shipments %>
+                    <% if !shipment.canceled? && !shipment.delivered? %>
+                      <li><%=link_to shipment.supplier_name, deliver_admin_fulfillment_shipment_path(shipment), class: "button-deliver-shipment-#{shipment.id}" %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+              <li class="has-dropdown not-click">
+                <%= link_to "Cancel", cancel_dialogue_admin_fulfillment_order_path(order), { class: "button small alert button-cancellation" } %>
+                <ul class="dropdown">
+                  <%for shipment in order.shipments %>
+                    <% if !shipment.canceled? %>
+                      <li><%=link_to "#{shipment.supplier_name} Cancel Shipment", cancel_dialogue_admin_fulfillment_order_path(order, shipment_id: shipment.id), class: 'button-cancellation' %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+            <% elsif order.delivered? %>
+              <li class="has-dropdown not-click">
+                <%= link_to "Cancel", cancel_dialogue_admin_fulfillment_order_path(order), { class: "button small alert button-cancellation" } %>
+                <ul class="dropdown">
+                  <% for shipment in order.shipments %>
+                    <% if !shipment.canceled? %>
+                      <li><%=link_to "#{shipment.supplier_name} Cancel Shipment", cancel_dialogue_admin_fulfillment_order_path(order, shipment_id: shipment.id), class: 'button-cancellation' %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+            <% elsif order.canceled? %>
+            <% elsif order.in_progress? %>
+              <li><%= link_to "Confirm", confirm_order_admin_fulfillment_order_path(order), { id: 'confirm_order_button', class: 'button small' } %></li>
+              <li class="has-dropdown not-click">
+                <%= render partial: 'admin/fulfillment/orders/edit/reschedule_buttons', object: order %>
+              </li>
+              <li><%= link_to "Push", push_dialogue_admin_fulfillment_order_path(order), {class: "button small button-push" } %></li>
+              <li class="has-dropdown not-click">
+                <%= link_to "Cancel", cancel_dialogue_admin_fulfillment_order_path(order), { class: "button small alert button-cancellation" } %>
+                <ul class="dropdown">
+                  <%for shipment in order.shipments %>
+                    <% if !shipment.canceled? %>
+                      <li><%=link_to "#{shipment.supplier_name} Cancel Shipment", cancel_dialogue_admin_fulfillment_order_path(order, shipment_id: shipment.id), class: 'button-cancellation' %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+            <% else %>
+              <li><%= link_to "Confirm", confirm_order_admin_fulfillment_order_path(order), { id: 'confirm_order_button', class: 'button small' } %></li>
+              <li class="has-dropdown not-click">
+                <%= render partial: 'admin/fulfillment/orders/edit/reschedule_buttons', object: order %>
+              </li>
+              <li class="has-dropdown not-click">
+                <a id="button-deliver" class="button small" href="#" data-reveal-id="modal-deliver">Deliver</a>
+                <ul class="dropdown">
+                  <%for shipment in order.shipments %>
+                    <% if !shipment.canceled? && !shipment.delivered? %>
+                      <li><%=link_to shipment.supplier_name, deliver_admin_fulfillment_shipment_path(shipment), class: "button-deliver-shipment-#{shipment.id}" %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+              <li class="has-dropdown not-click">
+                <%= link_to "Cancel", cancel_dialogue_admin_fulfillment_order_path(order), { class: "button small alert button-cancellation" } %>
+                <ul class="dropdown">
+                  <%for shipment in order.shipments %>
+                    <% if !shipment.canceled? %>
+                      <li><%=link_to "#{shipment.supplier_name} Cancel Shipment", cancel_dialogue_admin_fulfillment_order_path(order, shipment_id: shipment.id), class: 'button-cancellation' %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+            <li><a id="button-send_message" href="#" data-reveal-id="modal-message" class="small button secondary">Send Message</a></li>
+            <li><a id="button-send_text" href="#" data-reveal-id="modal-text" class="small button secondary">Send Text</a></li>
+            <% if order.user.allows_push_notifications? %>
+              <li><a id="button-send_notification" href="#" data-reveal-id="modal-notification" class="small button secondary">Send Push</a></li>
+            <% end %>
+            <li><%= link_to "Invoice", invoice_admin_fulfillment_order_path, class: 'small button secondary' %></li>
+            <li><%= link_to "Receipt", pdf_admin_fulfillment_order_path, class: 'small button secondary', target: "blank" %></li>
+            <li><a id="button-apply-gift-card" class="small button secondary" href="#" data-reveal-id="modal-apply-gift-card">Apply Gift Card</a></li>
+          </ul>
+          </section>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 column panel">
+          <div class="row">
+            <div class="medium-4 column">
+              <h5>Suppliers</h5>
+              <table>
+                <% order.order_suppliers.each do |supplier| %>
+                  <tr>
+                    <th>
+                      <%= link_to supplier.name, edit_admin_inventory_supplier_path(supplier) %>
+                    </th>
+                    <%- if !order.digital? && supplier.address.present? %>
+                      <td>
+                        <strong><%= number_to_phone(supplier.address.phone, area_code: true, delimiter: ' ') %></strong>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </table>
+              <h5>Storefront</h5>
+              <%= image_tag order.storefront.mobile_logo_file&.url, style: 'max-width: 200px', alt: order.storefront.name %>
+              <% if order.shoprunner_token %>
+                <span class="label radius secondary" data-tooltip aria-haspopup="true" title="This order was placed by a ShopRunner user.">ShopRunner</span>
+              <% end %>
+              <% if order.button_referrer_token %>
+                <span class="label radius secondary" data-tooltip aria-haspopup="true" title="This order was placed via. a Button affiliate partner. (e.g. Ibotta, Ebates, Shopkick).">Button</span>
+              <% end %>
+              <% if order.membership_id.present? %>
+                <div class="row">
+                  <div class="small-12 column">
+                    <br/>
+                    <strong><%= order.membership.name %></strong> <%= I18n.t("admin.membership.member") %>
+                  </div>
+                </div>
+              <% end %>
+              <% if order.bulk_order? %>
+                <div class="row">
+                  <div class="small-12 column">
+                    <br/>
+                    <strong>Concierge Order</strong>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="medium-4 column">
+              <h5>Payment Abuse Check: <%= fraud_status(order) %></h5>
+              <% if order.fraud_score %>
+                <p>
+                  <a data-tooltip aria-haspopup="true" class="has-tip" title="<%= fraud_score_tooltip(order.fraud_score.results) %>">Result Breakdown</a>
+                </p>
+              <% end %>
+              <h5>Promo Abuse Check: <%= @promo_abuse_check_status %></h5>
+              <p>
+                <a data-tooltip aria-haspopup="true" class="has-tip" title="<%= fraud_score_tooltip(@promo_abuse_results) %>">Result Breakdown</a>
+              </p>
+              <% if order.fraud_score %>
+                <p>
+                  Customer has placed a total of <%= pluralize(order.fraud_score.today_order_count, 'orders') %> today.
+                </p>
+              <% end %>
+              <% if order.fraud? %>
+                <p><a id="button-fraud" href="#" data-reveal-id="modal-fraud">Flagged as Fraud</a></p>
+              <% else %>
+                <p><a id="button-fraud" href="#" data-reveal-id="modal-fraud">Report Fraud</a>
+              <% end %>
+              <% if order.disputes.any? %>
+                <ul>
+                  <% order.disputes.each do |dispute|  %>
+                    <li>
+                      <span data-tooltip
+                            aria-haspopup="true"
+                            title="External id: <%= dispute.external_id %>"
+                            class="label radius <%= chargeback_label_color(dispute) %>"><%= dispute.kind.titleize %> - <%= (dispute.status || 'open').titleize %></span>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+            <div class="medium-4 column">
+              <h5>Misc Details</h5>
+              <table>
+                <tr>
+                  <th>IP Address</th>
+                  <td>
+                    <%= order.ip_address %>
+                    <%= " (#{order.ip_geolocation})" if order.ip_geolocation %>
+                  </td>
+                </tr>
+                <% if order.device_udid %>
+                  <tr>
+                    <th>Device UDID</th>
+                    <td>
+                      <%= link_to order.device_udid, admin_config_device_blacklists_path(search: order.device_udid) %>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <th>API Client</th>
+                  <td><%= order.client %></td>
+                </tr>
+                <tr>
+                  <th>Customer Email</th>
+                  <td><%= order.user_email %></td>
+                </tr>
+                <tr>
+                  <th>Order Contact Email</th>
+                  <td><%= order.email %></td>
+                </tr>
+                <tr>
+                  <th>Braintree Email</th>
+                  <td><%= order.user.dummy_email %></td>
+                </tr>
+                <% if order.finalized_at %>
+                  <tr>
+                    <th>Finalized at</th>
+                    <td><%= order.finalized_at.strftime('%A, %e %b %Y %r') %></td>
+                  </tr>
+                <% end %>
+                <% if order.birthdate %>
+                  <tr>
+                    <th>Birthdate</th>
+                    <td><%= order.birthdate.to_time.strftime("%b %e %Y") %></td>
+                  </tr>
+                <% end %>
+                <% if order.loyalty_transaction %>
+                  <tr>
+                    <th>Loyalty Points</th>
+                    <td><%= "#{order.loyalty_transaction.points} (#{order.loyalty_transaction.current_state})" %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

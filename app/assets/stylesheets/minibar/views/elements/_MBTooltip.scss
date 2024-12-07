@@ -1,0 +1,99 @@
+$tooltip-triangle-size: 10px;
+$tooltip-margin: 14px;
+
+.el-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.el-tooltip:hover {
+  .el-tooltip__text {
+    visibility: visible;
+    display: block;
+  }
+}
+
+.el-tooltip__text {
+  @include font-size(13);
+  box-shadow: 0 2px 4px 0 transparentize(#000, 0.5);
+  visibility: hidden;
+  display: none;
+  background-color: $brand-white;
+  text-align: left;
+  padding: 20px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  white-space: pre-line;
+  min-width: 278px;
+  line-height: 1.4;
+}
+
+.el-tooltip__text--top {
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-bottom: $tooltip-margin;
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -$tooltip-triangle-size;
+    border-width: $tooltip-triangle-size;
+    border-style: solid;
+    border-color: $brand-white transparent transparent transparent;
+  }
+}
+
+.el-tooltip__text--right {
+  top: 50%;
+  left: 100%;
+  transform: translate(0, -50%);
+  margin-left: $tooltip-margin;
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -$tooltip-triangle-size;
+    border-width: $tooltip-triangle-size;
+    border-style: solid;
+    border-color: transparent $brand-white transparent transparent;
+  }
+}
+
+.el-tooltip__text--bottom {
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: $tooltip-margin;
+  &::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -$tooltip-triangle-size;
+    border-width: $tooltip-triangle-size;
+    border-style: solid;
+    border-color: transparent transparent $brand-white transparent;
+  }
+}
+
+.el-tooltip__text--left {
+  top: 50%;
+  right: 100%;
+  transform: translate(0, -50%);
+  margin-right: $tooltip-margin;
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -$tooltip-triangle-size;
+    border-width: $tooltip-triangle-size;
+    border-style: solid;
+    border-color: transparent transparent transparent $brand-white;
+  }
+}

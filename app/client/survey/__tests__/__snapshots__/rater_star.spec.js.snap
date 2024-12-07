@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<span
+  class="rating"
+  role="button"
+  tabindex="0"
+>
+  ★
+</span>
+`;

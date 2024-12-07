@@ -1,0 +1,13 @@
+<% content_for :nav, true %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class='nine large-9 columns'>
+  <h3> Edit Credit Card </h3>
+
+  <%= form_for(@credit_card, :url => account_credit_card_path(@credit_card)) do |f| %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+  <% end %>
+
+  <%= link_to 'Show', account_credit_card_path( @credit_card ), :class => 'button' %> |
+  <%= link_to 'View All', account_credit_cards_path, :class => 'button' %>
+</div>

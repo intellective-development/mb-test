@@ -1,0 +1,172 @@
+<div class='variant-tab'>
+  <div class="row variant-tab-form">
+    <div class="large-1 column">
+      <strong>Select All</strong>&nbsp;<input type="checkbox" id="select-all-checkbox" onclick="selectAll()"/>
+    </div>
+    <div class="large-5 column no-padding">
+      <input class="variant-tab-form__input" id="supplier_name_search" value="<%= params[:supplier_name] %>" placeholder="Supplier..." onkeypress="keypress(event)"/>
+    </div>
+    <div class="large-4 column no-padding">
+      <input class="variant-tab-form__input" id="variant_name_search" value="<%= params[:variant_name] %>" placeholder="Variant Name contains..." onkeypress="keypress(event)"/>
+    </div>
+    <div class="large-2 column no-padding">
+      <input class="variant-tab-form__input" id="sku_search" value="<%= params[:sku] %>" placeholder="SKU..." onkeypress="keypress(event)"/>
+    </div>
+  </div>
+  <div class="row variant-tab-form">
+    <div class="large-1 column">
+      <p></p>
+    </div>
+    <div class="large-3 column no-padding">
+      <input class="variant-tab-form__input" id="variant_name_exclude_search" value="<%= params[:variant_name_exclude] %>" placeholder="Variant name does not contains..." onkeypress="keypress(event)"/>
+    </div>
+    <div class="large-4 column no-padding">
+      <input class="variant-tab-form__input" id="upc_search" value="<%= params[:original_upc] %>" placeholder="Original UPC..." onkeypress="keypress(event)"/>
+    </div>
+    <div class="large-1 column no-padding">
+      <input class="variant-tab-form__input" id="price_min_search" value="<%= params[:price_min] %>" placeholder="price min" onkeypress="keypress(event)"/>
+    </div>
+    <div class="large-1 column no-padding">
+      <input class="variant-tab-form__input" id="price_max_search" value="<%= params[:price_max] %>" placeholder="price max" onkeypress="keypress(event)"/>
+    </div>
+    <div class="large-2 column no-padding">
+      <% business_id = params[:business_id] ? params[:business_id] : Business::MINIBAR_ID %>
+      <select id="business_search" onchange="search()" class="variant-tab-form__input">
+        <%= options_from_collection_for_select(Business.all, 'id', 'name', business_id) %>
+      </select>
+    </div>
+  </div>
+  <div class="variants-table">
+    <div class="variants-table__cell header supplier">Suppliers</div>
+    <div class="variants-table__cell thin-header"><div>Inactive?</div></div>
+    <div class="variants-table__cell thin-header"><div>Protected?</div></div>
+    <div class="variants-table__cell thin-header"><div>CaseEligible?</div></div>
+    <div class="variants-table__cell thin-header"><div>TwoForOne?</div></div>
+    <div class="variants-table__cell thin-header"><div>TaxExempt?</div></div>
+    <div class="variants-table__cell thin-header"><div>Frozen?</div></div>
+    <div class="variants-table__cell header text">Price</div>
+    <div class="variants-table__cell header text">Sale Price</div>
+    <div class="variants-table__cell header text">Original Price</div>
+    <div class="variants-table__cell header text">SKU</div>
+    <div class="variants-table__cell header text">Quantity</div>
+    <div class="variants-table__cell header text">Original UPC</div>
+    <div class="variants-table__cell header text">Price for second bottle</div>
+  </div>
+  <%= form_for @product, url: update_variants_admin_merchandise_product_path(@product), method: :put do |ff| %>
+  <%- if @product.variants.count == 0 %>
+    <p>You have no active supplier </p>
+  <%- end %>
+    <%= ff.fields_for :variants, @variants do |ffv| %>
+      <% business = Business.find(business_id) %>
+      <%= render 'admin/merchandise/multi/variants/line_form', ff: ffv, variant: ffv.object, business: business %>
+    <% end %>
+    <%= ff.hidden_field :previous_selected, value: @selected %>
+    <%= ff.hidden_field :variant_name, value: params['variant_name'] %>
+    <%= ff.hidden_field :supplier_name, value: params['supplier_name'] %>
+    <%= ff.hidden_field :sku, value: params['sku'] %>
+    <%= ff.hidden_field :variant_name_exclude, value: params['variant_name_exclude'] %>
+    <%= ff.hidden_field :original_upc, value: params['original_upc'] %>
+    <%= ff.hidden_field :price_min, value: params['price_min'] %>
+    <%= ff.hidden_field :price_max, value: params['price_max'] %>
+    <%= ff.submit "Save Changes", class: "button" %>
+    <%= ff.submit "Split Selected", class: "button" %>
+    <%= ff.submit "Split All Pages", class: "button" %>
+    <%= ff.submit "Move Selected to Other Product", class: "button" %>
+
+    <%= paginate @variants, param_name: 'variants_page' %>
+    <p></p>
+    <a href="#" data-reveal-id="newVariant" class="button">New Variant</a>
+  <% end %>
+  <p>
+    <small>⚡ &mdash; The supplier has an active inventory integration.</small>
+    <br>
+    <small><strong>Protected</strong> &mdash; This variant will not be zeroed out if not present in an inventory update. If present, price and quantity will be updated.</small>
+    <br>
+    <small><strong>Inactive</strong> &mdash; This variant will not be visible to customers or suppleirs.</small>
+    <br>
+    <small><strong>Case Eligible</strong> &mdash; This variant will be applicable for any volume discounts setup by the supplier.</small>
+    <br>
+    <small><strong>Sale Price</strong> &mdash; The sale price will override the variant price. To remove, set to zero.</small>
+    <br>
+    <small><strong>SKU</strong> &mdash; A unique identifier for the variant. This should match the primary key in the supplier's POS.</small>
+    <br>
+    <small><strong>Quantity</strong> &mdash; Enter a postive or negative number to add/subtract inventory. Items with less than 3 in stock may not be displayed on the site.</small>
+  </p>
+</div>
+
+<div id="newVariant" class="reveal-modal" data-reveal>
+  <h2> Create new variant for <%=@product.name%> </h2>
+  <ul class="validation-errors"></ul>
+  <%= form_for Variant.new, remote:true, url: add_variant_admin_merchandise_product_path(@product) do |ff| %>
+    <%= ff.select :supplier_id, options_for_select(Supplier.order(name: :asc).map{|t| [ t.name, t.id ]}) %>
+    <%= ff.text_field :price, { placeholder: 'Price' } %>
+    <%= ff.text_field :sale_price, { placeholder: 'Sale Price' } %>
+    <%= ff.text_field :sku, { placeholder: 'SKU' } %>
+    <%= ff.submit "Create", class: "button", id:"create_product_button" %>
+  <% end %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<script>
+  function keypress(event) {
+    if (event.key === "Enter")
+      search();
+    return false;
+  }
+  function search() {
+    const supplier_name  = $('#supplier_name_search').val();
+    const variant_name  = $('#variant_name_search').val();
+    const sku  = $('#sku_search').val();
+    const upc  = $('#upc_search').val();
+    const price_min  = $('#price_min_search').val();
+    const price_max  = $('#price_max_search').val();
+    const name_does_not_contains  = $('#variant_name_exclude_search').val();
+    const business = $('#business_search').val();
+    window.location.href= "./edit"
+      + "?supplier_name=" + encodeURIComponent(supplier_name)
+      + "&variant_name=" + encodeURIComponent(variant_name)
+      + "&sku=" + encodeURIComponent(sku)
+      + "&original_upc=" + encodeURIComponent(upc)
+      + "&price_min=" + encodeURIComponent(price_min)
+      + "&price_max=" + encodeURIComponent(price_max)
+      + "&price_max=" + encodeURIComponent(price_max)
+      + "&variant_name_exclude=" + encodeURIComponent(name_does_not_contains)
+      + "&business_id=" + encodeURIComponent(business)
+      + "&active_tab=variants"
+    ;
+  }
+  function selectAll() {
+    const checked = document.getElementById("select-all-checkbox").checked;
+    for (let element of document.getElementsByName("selected[]")) {
+      element.checked = checked;
+    }
+  }
+
+  $('.pagination span a').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var urlParts = e.originalEvent.srcElement.href.split('?')
+    var linkParams = new URLSearchParams(urlParts[1])
+    linkParams.delete('selected')
+    var link = urlParts[0] + '?' + linkParams.toString();
+    var selected = $(".select-variant:checkbox:checked").map(function(){
+      return $(this).val();
+    }).get();
+    var urlParams = new URLSearchParams(window.location.search);
+    var selectedUrl = urlParams.get('selected');
+    link += '&selected=' + selected.concat(selectedUrl)
+    window.location.href = link
+  })
+</script>
+
+<style>
+  .variant-tab-form .variant-tab-form__input {
+    width: 100%;
+  }
+  .variant-tab-form .no-padding {
+    padding: 0;
+  }
+  .variant-tab-form .no-padding-left {
+    padding-left: 0;
+  }
+</style>

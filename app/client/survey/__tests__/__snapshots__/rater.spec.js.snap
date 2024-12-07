@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  class="small-6 small-offset-3 columns rating-group"
+>
+  <span
+    class="rating"
+    role="button"
+    tabindex="0"
+  >
+    ★
+  </span>
+  <span
+    class="rating"
+    role="button"
+    tabindex="0"
+  >
+    ★
+  </span>
+  <span
+    class="rating"
+    role="button"
+    tabindex="0"
+  >
+    ★
+  </span>
+  <span
+    class="rating"
+    role="button"
+    tabindex="0"
+  >
+    ★
+  </span>
+  <span
+    class="rating"
+    role="button"
+    tabindex="0"
+  >
+    ★
+  </span>
+</div>
+`;

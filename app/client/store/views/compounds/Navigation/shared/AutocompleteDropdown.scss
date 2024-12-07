@@ -1,0 +1,108 @@
+@import "~client/store/views/style/variables";
+
+.cmAutocompleteDropdown{
+  @include visibility-transition-invisible;
+  transform: translateZ(0); // iOS performance hack
+  z-index: 10;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  border-top: solid 1px $brand-light-grey;
+  padding-top: $standard-spacing;
+  padding-left: 2 * $standard-spacing;
+  padding-right: 2 * $standard-spacing;
+  padding-bottom: 2 * $standard-spacing;
+  background-color: $brand-white;
+  box-shadow:
+  0px
+  $standard-spacing
+  $standard-spacing
+  -0.5 * $standard-spacing
+  transparentize($brand-black, 0.5);
+}
+
+.cmAutocompleteDropdown--show{
+  transition: visibility 200ms 500ms ease-in-out, opacity 200ms 500ms ease-in-out;
+  @include visibility-transition-visible;
+}
+
+.cmAutocompleteDropdown__CategoryName {
+  @include font-size(14);
+  display: block;
+  border-bottom: solid 1px $brand-medium-grey;
+  margin-bottom: 0.5 * $standard-spacing;
+  margin-top: 1.5 * $standard-spacing;
+  padding-bottom: $standard-spacing;
+  color: $brand-medium-grey;
+}
+
+.cmAutocompleteDropdown__SeeAllLink{
+  @include font-size(12);
+  font-weight: $heavy-font-weight;
+  display: block;
+  padding-left:     2 * $standard-spacing;
+  padding-top:    1.5 * $standard-spacing;
+  padding-bottom: 1.5 * $standard-spacing;
+  line-height: 1.4;
+}
+
+.cmAutocompleteDropdown__Result {
+  @include font-size(16);
+  display: block;
+  padding-left:   1.5 * $standard-spacing;
+  padding-top:    1.5 * $standard-spacing;
+  padding-bottom: 1.5 * $standard-spacing;
+  text-transform: capitalize;
+  line-height: 1.4;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cmAutocompleteDropdown__Result:hover,
+.cmAutocompleteDropdown__Result--Selected {
+  cursor: pointer;
+  background-color: $brand-pale-blue;
+}
+
+.cmAutocompleteDropdown__MatchedText {
+  font-weight: $heavy-font-weight;
+}
+
+.cmAutocompleteDropdown__LoaderContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: $standard-spacing 0;
+}
+
+@media only screen and (min-width: $medium-min-width){
+  .cmAutocompleteDropdown--show{
+    transition: visibility 300ms ease-in-out, opacity 300ms ease-in-out;
+  }
+
+  .cmAutocompleteDropdown{
+    transition: visibility 300ms ease-in-out, opacity 300ms ease-in-out;
+    z-index: initial;
+    border-radius: $standard-spacing;
+    box-shadow:
+      0px
+      0.25 * $standard-spacing
+      $standard-spacing
+      -0.5 * $standard-spacing
+      transparentize($brand-black, 0.5);
+  }
+
+  .cmAutocompleteDropdown__CategoryName {
+    @include font-size(13);
+    padding-bottom: 0.5 * $standard-spacing;
+  }
+
+  .cmAutocompleteDropdown__Result {
+    @include font-size(14);
+    padding-left: 2 * $standard-spacing;
+    padding-top: $standard-spacing;
+    padding-bottom: $standard-spacing;
+  }
+}

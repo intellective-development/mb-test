@@ -1,0 +1,26 @@
+<% cache(["product", product.id, product.updated_at]) do %>
+  <li>
+    <small>
+      <span class="catalog-results__product_size">
+        <%= product.admin_item_volume %>
+        <% if product.master? %>
+          <span title="master"><%= I18n.t("admin.product_emoji.master") %></span>
+        <% end %>
+      </span>
+      <span class="catalog-results__product_variants">
+        <%= pluralize(product.variants.self_active.size, 'Variants') %>
+      </span>
+      <span class="catalog-results__price_range">
+        <%= format_price_range product %>
+      </span>
+      <span class="<%= product.state %> label label--merchandise-colored">
+        <%= product.state %>
+      </span>
+      <span class="<%= product.has_stock? ? 'in-stock' : 'out-of-stock'%> label label--merchandise-colored">
+        <%= product.has_stock? ? 'in-stock' : 'out-of-stock' %>
+      </span>
+
+      <%= link_to 'Edit', edit_admin_merchandise_product_path(product) %> | <%= link_to "Merge", admin_merchandise_merge_index_path(source_id: product.id) %> | <%= link_to (product.inactive? ? 'Activate' : 'Deactivate'), toggle_active_admin_catalogv2_path(product), method: :put %>
+    </small>
+  </li>
+<% end %>

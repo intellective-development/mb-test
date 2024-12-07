@@ -1,0 +1,16 @@
+<tr>
+  <td>
+    <table class="row">
+      <tr>
+        <td class="small-12 large-12 columns">
+          <h5 class="avenir-heading-medium uppercase center" style="padding-top: 0">Order Details</h5>
+          <p class="avenir-body-small no-bottom center">
+            <span class="avenir-heading-medium">Number:</span> <%= String(@order.number).upcase %> <br/>
+            <span class="avenir-heading-medium">Date:</span> <%= @order.completed_at.in_time_zone(@order.shipments.first&.supplier&.timezone).strftime('%m/%d/%Y %l:%M%p %Z') if @order.completed_at.present? %> <br/>
+            <span class="avenir-heading-medium">Send Date:</span> <%= @order.order_items&.first&.item_options&.send_date %>
+          </p>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>

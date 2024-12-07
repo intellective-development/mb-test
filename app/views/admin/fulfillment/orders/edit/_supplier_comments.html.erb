@@ -1,0 +1,12 @@
+<div class="row">
+  <div class='large-12 column panel'>
+    <h4>Supplier Comments</h4>
+    <% order.shipments.each do |shipment| %>
+      <div class="small-9 columns"><h5><%=shipment.supplier.name%></h5></div>
+      <div class="small-3 columns">
+        <%= link_to "New Comment", new_admin_fulfillment_comment_path(shipment_id: shipment), class: 'small button' %>
+      </div>
+      <%= render partial: '/admin/fulfillment/orders/show_comment', collection: shipment.comments.includes(:author).order("created_at DESC"), as: 'comment' %>
+    <% end %>
+  </div>
+</div>

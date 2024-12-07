@@ -1,0 +1,22 @@
+<% content_for :title, 'Pre sales' %>
+<div class="admin_title_header">
+  <h3>Pre sales - Orders - <%= @pre_sale.product.name %></h3>
+</div>
+<table>
+  <thead>
+    <tr class='odd'>
+      <th>Created at</th>
+      <th>Number</th>
+      <th>Quantities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order_item| %>
+      <tr>
+        <td><%= order_item.order.created_at %></td>
+        <td class="uppercase"><%= link_to order_item.order.number, edit_admin_fulfillment_order_path(order_item.order) %></td>
+        <td><%= order_item.quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

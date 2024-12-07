@@ -1,0 +1,6 @@
+<h3>Edit Gift Card Theme</h3>
+
+<%= simple_form_for(@theme, :url => admin_merchandise_gift_card_theme_path(@theme)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= f.submit "Save Theme", class: "button" %>
+<% end %>

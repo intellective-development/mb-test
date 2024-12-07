@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    <%= digital_packing_slip_placement.tag.to_s.humanize %>
+  </td>
+  <td>
+    <%= digital_packing_slip_placement.title %>
+  </td>
+  <td>
+    <%= digital_packing_slip_placement.description %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_storefront_digital_packing_slip_placement_path(@storefront, digital_packing_slip_placement), class: 'button tiny' %>
+    <%= link_to "Delete", admin_storefront_digital_packing_slip_placement_path(@storefront, digital_packing_slip_placement), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

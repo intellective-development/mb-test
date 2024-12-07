@@ -1,0 +1,15 @@
+<% content_for :title, 'Supplier Invoices' %>
+<div class="row">
+  <h1><%= @business.name %> Invoice for <%= @invoice.recipient_name %></h1>
+  <p>
+    <strong>Email:</strong> <%= @invoice.description %><br />
+    <strong>Period:</strong> <%= @invoice.period_name %><br />
+    <strong>Total Due:</strong> <%= number_to_currency(@invoice.total_amount) %><br />
+    <strong>Status:</strong> <%= @invoice.status %><br />
+  </p>
+  <%= render partial: '/admin/suppliers/invoices/buttons', locals: {invoice: @invoice} %>
+  <%= render partial: '/admin/suppliers/invoices/line_items', locals: {invoice: @invoice, line_items: @line_items } %>
+  <% if @invoice.status == 'built' && !@potential_adjustments.empty? %>
+      <%= render partial: '/admin/suppliers/invoices/order_adjustments', locals: {invoice: @invoice, potential_adjustments: @potential_adjustments } %>
+  <% end %>
+</div>

@@ -1,0 +1,9 @@
+<fieldset>
+  <%= f.check_box :default %>
+  <%= f.label :default, title: 'This will become the default tax rate if no more specifc one exists.' %>
+
+  <%= f.check_box :active %>
+  <%= f.label :active %>
+
+  <%= f.submit "Update", :class => "button", :style => 'margin: 0;'  %>
+</fieldset>

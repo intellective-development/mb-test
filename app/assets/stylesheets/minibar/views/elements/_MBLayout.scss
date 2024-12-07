@@ -1,0 +1,46 @@
+.el-mblayouts-bi__container{
+  display: flex;
+
+
+  & > :first-child {
+    flex: auto;
+  }
+
+  & > :last-child {
+    flex: none;
+    margin-left: 16px;
+  }
+}
+
+.el-mblayouts-bg__container{
+  display: flex;
+
+  &> .elMBButton { // FIXME: shouldn't be referencing other namespace like this
+    margin-left: $standard-gutter/2;
+    margin-right: $standard-gutter/2;
+
+    &:first-child{ margin-left: 0; }
+    &:last-child{ margin-right: 0; }
+  }
+}
+
+.el-mblayouts-sg {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 100%;
+
+  // we use dynamic size units, falling back to hardcoded px for older browsers
+  max-width: $max-grid-size;
+
+  &._pad_sides {
+    padding-left: $standard-gutter * 2;
+    padding-right: $standard-gutter * 2;
+
+    @media only screen and (max-width: $medium-max-width) {
+      padding-left: $standard-gutter;
+      padding-right: $standard-gutter;
+    }
+  }
+}

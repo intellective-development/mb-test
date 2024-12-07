@@ -1,0 +1,156 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, 'Integrations' %>
+<div class="columns" style="position:absolute; left:0;">
+  <div class="row">
+    <div class="two large-2 columns">
+      <div>Zipcode</div>
+      <div><input id="zipcode_search" value="<%= params[:zipcode] %>" placeholder="Search..." onkeypress="keypress(event)"/></div>
+    </div>
+    <div class="two large-2 columns">
+      <div>Shipping Types <span onclick="search()"/>🔍</span></div>
+      <div>
+        <select id="shipping_types_search" multiple style="height: 100px;" placeholder="Select Shipping type">
+          <% [{value: ShippingMethod.shipping_types[:on_demand], key: 'On Demand'}, {value: ShippingMethod.shipping_types[:shipped], key: 'Shipping'}].each do |shipping_type| %>
+          <option value="<%= shipping_type[:value] %>" <%= "selected" if params[:shipping_types]&.include?(shipping_type[:value]) %> ><%= shipping_type[:key] %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class="two large-2 columns">
+      <div>States</div>
+      <div>
+        <select id="states_search" placeholder="Select a state">
+        <option value=""></option>
+          <% @states.each do |state| %>
+          <option value="<%= state.abbreviation %>" <%= "selected" if params[:state] == state.abbreviation %> ><%= state.abbreviation %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class="two large-2 columns">
+      <div>Cities</div>
+      <div><input id="city_search" value="<%= params[:city] %>" placeholder="Search..." onkeypress="keypress(event)"/></div>
+    </div>
+    <div class="two large-2 columns">
+      <div>Suppliers <span onclick="search()"/>🔍</span></div>
+      <div class="supplier-selector-component" id="supplier-selector-component"></div>
+    </div>
+    <div class="two large-2 columns">
+      <button class="button" onclick="search()">Search</button>
+      <%= link_to "Export", admin_delivery_coverages_path(request.parameters.merge(format: 'csv')), class: 'button' %>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr style="vertical-align: text-top;">
+        <th>
+          Zipcode
+        </th>
+        <th>
+          Shipping Types
+        </th>
+        <th>
+          States
+        </th>
+        <th>
+          Cities
+        </th>
+        <th>
+          Suppliers
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @zipcodes.each do |zipcode| %>
+      <tr>
+        <td>
+          <%= zipcode.zipcode %>
+        </td>
+        <td>
+          <%= zipcode.shipping_type&.humanize %>
+        </td>
+        <td>
+          <%= zipcode.states.join(' - ') %>
+        </td>
+        <td>
+          <%= zipcode.cities.join(' - ') %>
+        </td>
+        <td>
+          <strong><%= zipcode.contained_names.join(' - ') %></strong>
+          <% if zipcode.shipping_type != 'shipped' %>
+            <small><%= zipcode.overlapped_names&.join(' - ') %></small>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to_prev_page @zipcodes, '<< Previous Page' %> | <%= link_to_next_page @zipcodes, 'Next Page >>' %>
+</div>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'supplier_id',
+          label: '',
+          placeholder: 'Choose Supplier',
+          initialValues: [<%= params["supplier_id"] %>]
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>
+
+<script>
+  $(function(){
+    $("#shipping_types_search").zmultiselect({
+      live: false,
+      filter: true,
+      placeholder: "Select Shipping type"
+    });
+  });
+
+  function keypress(event) {
+    if (event.key === "Enter")
+      search();
+    return false;
+  }
+  function search() {
+    const supplier_id  = $("input[name='supplier_id']").val();
+    const zipcode        = $('#zipcode_search').val();
+    const shipping_types = $('#shipping_types_search').val();
+    const state          = $('#states_search').val();
+    const city           = $('#city_search').val();
+    const supplier_active_only = $('#supplier_active_only').is(":checked");
+    var shipping_type_params = ''
+    if (shipping_types && shipping_types.length > 0) {
+      for (var i = 0; i < shipping_types.length; i++) {
+        shipping_type_params += "&" + encodeURIComponent("shipping_types[]") + "=" + encodeURIComponent(shipping_types[i])
+      }
+    }
+
+    window.location.href= "<%= admin_delivery_coverages_path %>"
+      + "?supplier_id=" + encodeURIComponent(supplier_id || '')
+      + "&zipcode=" + encodeURIComponent(zipcode || '')
+      + shipping_type_params
+      + "&state=" + encodeURIComponent(state || '')
+      + "&city=" + encodeURIComponent(city || '')
+      + "&supplier_active_only=" + encodeURIComponent(supplier_active_only)
+    ;
+  }
+</script>

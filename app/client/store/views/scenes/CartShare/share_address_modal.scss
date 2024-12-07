@@ -1,0 +1,15 @@
+@import "~client/store/views/style/variables";
+
+.cmShareAddressModal_Heading {
+  font-size: 18px;
+  font-weight: $heavy-font-weight;
+  margin: 0 auto 8px;
+  text-align: center;
+}
+
+.cmShareAddressModal_Subheading {
+  color: $brand-dark-grey;
+  font-size: 16px;
+  margin-bottom: 40px;
+  text-align: center;
+}

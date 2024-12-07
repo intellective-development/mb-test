@@ -1,0 +1,187 @@
+<div class="row">
+  <div class="large-12 column">
+    <div>
+      <%= form.check_box :enable_authenticated_checkout %>
+      <%= form.label 'Enable Authenticated Checkout?', for: :storefront_enable_authenticated_checkout %>
+      <p><small>If disabled, all checkouts under this storefront will be a guest checkout.</small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_auto_refill %>
+      <%= form.label 'Enable Auto Refill?', for: :storefront_enable_auto_refill %>
+      <p><small>whether to enable “Auto-Refill” feature during checkout</small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_substitution %>
+      <%= form.label 'Enable Substitution?', for: :storefront_enable_substitution %>
+      <p><small>whether to enable “Are Substitutions Ok?” feature during checkout</small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_footer %>
+      <%= form.label 'Enable Footer?', for: :storefront_enable_footer %>
+      <p><small>whether to show the mega footer during checkout</small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_in_stock_check %>
+      <%= form.label 'Use in Stock Check?', for: :storefront_enable_in_stock_check %>
+      <p><small>whether to enforce inventory quantity > <%= Inventory::OUT_OF_STOCK_QTY %></small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_live_chat %>
+      <%= form.label 'Enable Live Chat?', for: :storefront_enable_live_chat %>
+      <p><small>whether to enable a live chat feature during checkout</small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_side_referral %>
+      <%= form.label 'Enable Side Referral?', for: :storefront_enable_side_referral %>
+      <p>
+        <small>
+          whether to enable a sticky side referral feature i.e. Get $10 off on MiniBarDelivery.com’s current checkout
+        </small>
+      </p>
+    </div>
+    <div>
+      <%= form.check_box :enable_supplier_order_mins %>
+      <%= form.label 'Enable Supplier Order Mins?', for: :storefront_enable_supplier_order_mins %>
+      <p><small>whether to enforce retailer order minimums</small></p>
+    </div>
+    <div>
+      <div>
+        <%= form.check_box :enable_sms_opt_in %>
+        <%= form.label 'Enable SMS Opt-In?', for: :storefront_enable_sms_opt_in %>
+      </div>
+      <div>
+        <%= form.check_box :default_sms_opt_in %>
+        <%= form.label 'SMS Opt-In checked as default?' %>
+      </div>
+      <p><small>whether to enable SMS opt-in feature during checkout</small></p>
+    </div>
+    <div>
+      <div>
+        <%= form.check_box :enable_email_opt_in %>
+        <%= form.label 'Enable Email Opt-In?', for: :storefront_enable_email_opt_in %>
+      </div>
+      <div>
+        <%= form.check_box :default_email_opt_in %>
+        <%= form.label 'Email Opt-In checked as default?' %>
+      </div>
+      <p><small>whether to enable email opt-in feature during checkout</small></p>
+    </div>
+    <div>
+      <%= form.check_box :enable_back_order_placement %>
+      <%= form.label 'Enable Back Ordered Shipments?', for: :storefront_enable_back_order_placement %>
+      <p><small>whether to enable back order shipments feature</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_zone_proximity_selection %>
+      <%= form.label 'Enable Zone Proximity Selection?', for: :enable_zone_proximity_selection %>
+      <p><small>whether to enable RSA to use shipping zone proximity as an additional layer of selectivity</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_engravings %>
+      <%= form.label 'Enable Engravings?', for: :storefront_enable_engravings %>
+      <p><small>whether to enable engravings</small></p>
+    </div>
+
+    <%= render 'price_range_selection', form: form %>
+
+    <div>
+      <%= form.check_box :enable_pre_sale_placement %>
+      <%= form.label 'Enable Pre-Sale Shipments?', for: :storefront_enable_pre_sale_placement %>
+      <p><small>whether to enable pre sale shipments feature</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_sift_fraud %>
+      <%= form.label 'Enable Sift Fraud Detection?', for: :storefront_enable_sift_fraud %>
+      <p><small>Enable Sift Fraud Detection before marking an order as "paid"?</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_multiple_coupons %>
+      <%= form.label 'Enable stackable coupons?', for: :storefront_enable_multiple_coupons %>
+      <p><small>Enable stackable coupons for this store?</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_birthdate_collection %>
+      <%= form.label 'Require Birthdate Entry During Checkout?', for: :enable_birthdate_collection %>
+      <p><small>Whether to enable birthdate collection during checkout</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_legal_age_collection %>
+      <%= form.label 'Require Over Age 21 Validation Entry During Checkout?', for: :enable_legal_age_collection %>
+      <p><small>Whether to enable legal age collection during checkout</small></p>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_video_gift_message %>
+      <%= form.label 'Enable Video Gift Message?', for: :enable_video_gift_message %>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_dynamic_shipping %>
+      <%= form.label 'Enable Dynamic Shipping?', for: :enable_dynamic_shipping %>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_mikmak_feed %>
+      <%= form.label 'Enable MikMak Feed?', for: :enable_mikmak_feed %>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_graphic_engraving %>
+      <%= form.label 'Enable Graphic Engraving?', for: :enable_graphic_engraving %>
+    </div>
+
+    <div>
+      <%= form.check_box :inherits_tracking_page %>
+      <%= form.label 'Inherit tracking page from parent storefront?', for: :inherits_tracking_page %>
+    </div>
+
+    <div>
+      <%= form.check_box :enable_checkout_v3 %>
+      <%= form.label :enable_checkout_v3 %>
+    </div>
+
+    <div>
+      <%= form.check_box :omit_comms %>
+      <%= form.label 'Omit communications?', for: :omit_comms %>
+    </div>
+
+    <div>
+      <%= form.check_box :is_liquid %>
+      <%= form.label 'Is Liquid?', for: :is_liquid %>
+    </div>
+
+    <% if !Feature[:disable_oos_availability_check].enabled? %>
+      <div>
+        <%= form.check_box :enable_oos_availability_check %>
+        <%= form.label 'Enable OOS availability check?', for: :enable_oos_availability_check %>
+        <p><small>Whether to enable OOS availability check</small></p>
+      </div>
+
+      <div class="row">
+        <div class="large-12 column">
+          <label>OOS amount willing to cover</label>
+          <%= form.number_field :oos_amount_willing_to_cover %>
+        </div>
+      </div>
+    <% end %>
+
+    </br>
+    <label>Fulfillment Types</label>
+    </br>
+    <% Storefront::FULFILLMENT_TYPES.each do |type| %>
+      <div class="row">
+        <div class="column small-8">
+          <%= form.check_box :fulfillment_types, { multiple: true }, type, nil %>
+          <%= form.label type.humanize, for: "storefront_fulfillment_types_#{type}" %>
+          <p><small>Allow <%= type.humanize %> fulfillment method?</small></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

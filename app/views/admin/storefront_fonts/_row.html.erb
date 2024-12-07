@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <%= storefront_font.name %>
+  </td>
+  <td>
+    <%= storefront_font.font_type %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_storefront_storefront_font_path(@storefront, storefront_font), class: 'button tiny' %>
+    <%= link_to "Delete", admin_storefront_storefront_font_path(@storefront, storefront_font), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

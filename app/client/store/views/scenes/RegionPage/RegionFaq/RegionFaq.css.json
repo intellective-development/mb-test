@@ -1,0 +1,23 @@
+{
+  "answer": {
+    "fontSize": 16
+  },
+  "question": {
+    "fontSize": 16,
+    "fontWeight": 700,
+    "marginBottom": 5,
+    "marginTop": 20
+  },
+  "section": {
+    "margin": "40px auto",
+    "maxWidth": "40em",
+    "padding": "0 20px 20px"
+  },
+  "title": {
+    "fontSize": 26,
+    "fontWeight": 700,
+    "marginBottom": 40,
+    "marginTop": 90,
+    "textAlign": "center"
+  }
+}

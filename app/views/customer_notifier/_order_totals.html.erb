@@ -1,0 +1,36 @@
+<tr><!-- TOTALS BEGIN -->
+  <td>
+    <table class="top-border row">
+      <tr>
+        <td class="small-6 small-offset-6 large-4 large-offset-6 columns module">
+          <table>
+            <tr>
+              <td>
+                <p class="avenir-body-small no-bottom">
+                  <% order_cost.each_key do |cost_title| %>
+                    <%= "#{cost_title}:" %> <br/>
+                  <% end %>
+                </p>
+              </td>
+
+              <td>
+                <p class="avenir-body-small no-bottom">
+                  <% order_cost.values.each do |cost_value| %>
+                    <%= !cost_value.is_a?(String) ? number_to_currency(cost_value) : cost_value %> <br/>
+                  <% end %>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <% if order_cost.key?('Service Fee*') && order_cost['Service Fee*'] > 0 %>
+        <tr>
+          <td colspan=2 style="text-align: center;">
+          <small>*Service fee and tax will appear as a separate charge on your payment method.</small>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </td>
+</tr><!-- TOTALS END -->

@@ -1,0 +1,87 @@
+<tr><!-- ORDER DETAILS BEGIN -->
+  <td>
+    <table class="top-border row">
+      <tr>
+        <td class="module">
+          <table class="row">
+            <tr>
+              <th class="small-12 large-1 columns"></th>
+              <th class="small-12 large-4 columns">
+                <% if @order.delivery_notes || @order.gift_detail %>
+                <table class="section no-bottom">
+                <% else %>
+                <table class="section-bottom-less">
+                <% end %>
+                  <tr>
+                    <td>
+                      <h5 class="avenir-heading-medium uppercase">Order Details</h5>
+                      <p class="avenir-body-small no-bottom">
+                        <span class="avenir-heading-medium">Number:</span> <%= String(@order.number).upcase %> <br/>
+                        <span class="avenir-heading-medium">Date:</span> <%= @order.completed_at.in_time_zone(@order.shipments.first&.supplier&.timezone).strftime('%m/%d/%Y %l:%M%p') if @order.completed_at.present? %>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </th>
+              <th class="small-12 large-2 columns"></th>
+              <th class="small-12 large-4 columns">
+                <% if @order.delivery_notes.present? ||  @order.gift_detail&.message %>
+                <table class="section no-bottom">
+                <% else %>
+                <table class="section-bottom-less">
+                <% end %>
+                  <tr>
+                    <td>
+                      <% unless @order.shipments.all?(&:pickup?) || @order.shipments.all?(&:digital?) %>
+                        <h5 class="avenir-heading-medium uppercase">Deliver To</h5>
+                        <p class="avenir-body-small no-bottom"> <%= @order.delivery_name %> <br/>
+                        <% if @order.ship_address %>
+                          <% @order.ship_address.address_lines_array.each do |line| %>
+                            <%= line %> <br/>
+                          <% end %>
+                        <% elsif @order.shipments.all?(&:digital?) %>
+                          Digital delivery <br/>
+                        <% else %>
+                          In-Store Pickup <br/>
+                        <% end %>
+                        <%= @order.ship_address&.city_state_zip %>
+                        </p>
+                        <% phone = @order&.gift_detail&.recipient_phone&.split(//)&.last(10)&.join || @order&.ship_address&.phone %>
+                        <p class="avenir-body-small no-bottom"> <%= number_to_phone(phone, area_code: true) %> <br/>
+                      <% end %>
+                    </td>
+                  </tr>
+                </table>
+              </th>
+              <th class="small-12 large-1 columns"></th>
+            </tr>
+            <% if @shipment && !@shipment.tracking_number_url && @shipment.tracking_detail&.show_carrier_info? %>
+              <tr>
+                <th class="small-12 large-1 columns"></th>
+                <th class="small-12 large-4 columns">
+                  <table class="section no-bottom">
+                    <tr>
+                      <td>
+                        <h5 class="avenir-heading-medium uppercase">Tracking Details</h5>
+                        <p class="avenir-body-small no-bottom">
+                          <% if @shipment.tracking_detail&.carrier_tracking_url %>
+                            <span class="avenir-heading-medium">Carrier:</span> <a href="<%= @shipment.tracking_detail&.carrier_tracking_url %>"><%= @shipment.tracking_detail&.carrier %> </a> <br/>
+                          <% else %>
+                            <span class="avenir-heading-medium">Carrier:</span> <%= @shipment.tracking_detail&.carrier %> <br/>
+                          <% end %>
+                          <span class="avenir-heading-medium">Tracking #:</span> <%= @shipment.tracking_detail&.reference %>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </th>
+                <th class="small-12 large-2 columns"></th>
+                <th class="small-12 large-4 columns"></th>
+              </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr><!-- ORDER DETAILS END -->

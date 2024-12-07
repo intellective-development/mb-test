@@ -1,0 +1,25 @@
+<% if product_grouping %>
+  <h5 id="<%= product_grouping.id %>">
+    <%= link_to product_grouping.name, admin_merchandise_product_size_grouping_path(product_grouping)%>
+  </h5>
+  <h6><%= product_grouping.state %> &mdash; <%= product_grouping.hierarchy_category&.name %> &ndash; <%= product_grouping.product_type&.name %></h6>
+  <p><%= product_grouping.description %></p>
+  <ul>
+    <%= render partial: 'property', collection: product_grouping.product_properties, as: :property %>
+  </ul>
+  <% if product_grouping.images.empty? %>
+    <p>No Product Image</p>
+  <% else %>
+    <p>
+      <a href="<%= product_grouping.image_urls(:product).first %>" target="_blank">
+        <img src="<%= product_grouping.image_urls(:small).first %>" width="100">
+      </a>
+      <caption><%= product_grouping.images.first.image_width %> x <%= product_grouping.images.first.image_height %></caption>
+    </p>
+  <% end %>
+  <hr>
+  <h6><%= pluralize(product_grouping.products.where.not(state: 'merged').size, 'product') %></h6>
+  <ul>
+    <%= render partial: "product", collection: product_grouping.products.active %>
+  </ul>
+<% end %>

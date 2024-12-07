@@ -1,0 +1,10 @@
+<tr>
+  <td><%= notification_method.select :notification_type, Supplier::NotificationMethod.notification_types.map { |k, v| [k.humanize, k] } %></td>
+  <td><%= notification_method.text_field :value %></td>
+  <td><%= notification_method.text_field :label, placeholder: 'e.g. back office' %></td>
+  <td><%= notification_method.check_box :active %></td>
+  <td>
+    <%= notification_method.check_box :_destroy, id: nested_dom_id(f.object, notification_method.object, :destroy) %>
+    <%= notification_method.label :_destroy, 'Delete', for: nested_dom_id(f.object, notification_method.object, :destroy) %>
+  </td>
+</tr>

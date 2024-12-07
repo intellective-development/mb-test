@@ -1,0 +1,30 @@
+<%= error_messages_for 'business_supplier' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <label>Supplier</label>
+      <%= supplier.name %>
+    </div>
+    <div class="large-6 column">
+      <label>Business</label>
+      <%= form.hidden_field :supplier_id, { value: supplier.id } %>
+      <%= form.select :business_id, Business.all.order(:name).map{ |b| [ b.name, b.id ] }, include_blank: true %>
+    </div>
+    <div class="large-6 column">
+      <label>Amount Markup</label>
+      <%= form.number_field :amount_markup, step: 0.01 %>
+    </div>
+    <div class="large-6 column">
+      <label>Percent Markup</label>
+      <%= form.number_field :percent_markup, step: 0.01 %>
+    </div>
+    <div class="large-6 column">
+      <label>Score (>= 750 is preferred)</label>
+      <%= form.number_field :score %>
+    </div>
+    <div class="large-6 column">
+      <label>Status</label>
+      <%= form.text_field :status, value: @business_supplier.status, disabled: true %>
+    </div>
+  </div>
+</div>

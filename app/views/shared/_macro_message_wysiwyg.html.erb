@@ -1,0 +1,31 @@
+<%= tinymce_assets %>
+<script type="text/javascript">
+	var tinyMCEOptions = {
+    selector: 'textarea.macro-tinymce',
+		content_style: "body { text-align: left; color: black; }",
+		menubar: false,
+		statusbar: true,
+		plugins: ['link', 'code'],
+		contextmenu: false,
+    automatic_uploads: true,
+		toolbar: "undo redo | fontselect fontsizeselect | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | blockquote removeformat | link | forecolor | image | code | link",
+		font_formats: 
+			'Arial=Arial, sans-serif; \
+			Avenir=Avenir, Avenir-Local, Helvetica Neue, Helvetica, Arial, sans-serif; \
+			Avenir Custom=Avenir-Custom, Avenir-Local, Helvetica Neue, Helvetica, Arial, sans-serif; \
+			Helvetica=Helvetica, Arial, sans-serif; \
+			Helvetica Neue=Helvetica Neue, Helvetica, Arial, sans-serif; \
+			Verdana=Verdana, Arial, sans-serif;',
+		fontsize_formats: '8pt 9pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 28pt 32pt 36pt',
+		setup : function(ed) {
+			ed.on('init', function (ed) {
+				ed.target.editorCommands.execCommand("FontName", false, "Avenir");
+				ed.target.editorCommands.execCommand("FontSize", false, "10pt");
+			});
+    }
+  }
+
+	<%- unless wait_for_click %>
+    tinyMCE.init(tinyMCEOptions);
+	<% end %>
+</script>

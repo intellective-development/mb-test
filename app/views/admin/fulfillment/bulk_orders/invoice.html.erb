@@ -1,0 +1,144 @@
+<% content_for :hide_header, true %>
+<style type="text/css">
+    .order-details {
+        background-color: #ffffff;
+    }
+
+    .order-detail-row {
+        width: 100%;
+    }
+
+    .order-detail-row .order-detail-container {
+        display: inline-block;
+        vertical-align: text-top;
+        width: 30%;
+    }
+
+    .table-order {
+        border-width: 0px;
+    }
+
+    .header-row {
+        background-color: #ffffff;
+    }
+
+    .header-row h3, h4 {
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
+
+    .header-row h3 {
+        font-size: 27px;
+    }
+
+    .logo-top {
+        margin: 10px 0px;
+    }
+
+    @media print {
+        div:not(.reveal-modal) {
+            display: block;
+        }
+
+        #print-button {
+            display: none;
+        }
+    }
+</style>
+<h4><a href="javascript:window.print()" id="print-button"> Print! </a></h4>
+<div class="row">
+  <div class="small-12 columns text-center">
+    <% if @bulk_order.storefront.mobile_logo_file.present? %>
+      <%= image_tag @bulk_order.storefront.mobile_logo_file.url, style: 'width: 120px' %>
+    <% end %>
+  </div>
+  <div class="small-12 columns text-center">
+    <h2>Order #<%= @bulk_order.id %> </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+    <p class="info">
+      <strong>ID will be checked on delivery - minimum date of birth: <%= (21.years.ago).strftime('%B %e, %Y') %>
+        .</strong></p>
+  </div>
+  <div class="small-12 columns">
+    <div id="section-contact">
+      <p>Is there a problem with this order? Contact our customer service team at
+        <strong>help@minibardelivery.com</strong>, or call <strong>855 487 0740</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns panel order-details">
+    <div class="order-detail-row">
+      <h3 class="heading-panel">Order Summary</h3>
+      <table class="large-12 small-12 ">
+        <tr>
+          <td>Number of orders in bulk</td>
+          <td><%= @bulk_order.orders.size %></td>
+        </tr>
+        <tr>
+          <td>Taxed Total</td>
+          <td><%= @bulk_order.bulk_order_taxed_total %></td>
+        </tr>
+      </table>
+      <br>
+    </div>
+
+
+    <div class="row">
+      <div class="large-12 column">
+        <table class="large-12 small-12 table-order">
+          <tr>
+            <th>Item</th>
+          </tr>
+          <% @bulk_order.order_items_summary.each do |variant_id, item_details| %>
+            <tbody>
+            <tr>
+              <td>
+                <%= item_details[:name] %>
+              </td>
+              <th>Quantity</th>
+              <td>
+                <%= item_details[:quantity] %>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Subtotal</th>
+              <td><%= item_details[:amounts][:subtotal] %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Delivery</th>
+              <td><%= item_details[:amounts][:delivery] %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Taxes</th>
+              <td><%= item_details[:amounts][:taxes] %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Service Fees</th>
+              <td><%= item_details[:amounts][:service_fee] %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Tip Amounts</th>
+              <td><%= item_details[:amounts][:tip_amount] %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <th>Total</th>
+              <td><%= item_details[:amounts][:total] %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+    <path d="M-192 0H-7v99h-185zM0-36h100v30H0z"/>
+    <text transform="translate(66 -19.5)" font-family="'Helvetica'" font-size="2.4">
+        http://thenounproject.com
+    </text>
+    <text transform="translate(7.166 -24.5)" font-family="'Helvetica-Bold'" font-size="6.158">
+        The Noun Project
+    </text>
+    <text transform="translate(8.286 -19.7)" font-family="'Helvetica-Bold'" font-size="4">
+        Icon Template
+    </text>
+    <text transform="translate(-178.5 10.5)" font-family="'Helvetica-Bold'" font-size="6.158">
+        Reminders
+    </text>
+    <path stroke="#FFF" stroke-miterlimit="10" d="M8-14.5h10m-197 31h17"/>
+    <path d="M-170.802 31.318h8.72v8.642h-8.72z"/>
+    <path d="M-164.455 42.312h4.747V37.61h-4.747v4.702zm5.19.437h-5.63v-5.58h5.63v5.58zm-6.956 1.31h8.273v-8.2h-8.28v8.2zm8.72.44h-9.168v-9.08h9.163v9.08z"/>
+    <path d="M-166.15 44.133l-.142-.142 8.28-8.2.14.14z"/>
+    <path fill="none" d="M-179 58h35v32.5h-35z"/>
+    <text transform="translate(-179 60.157)" font-family="'Helvetica-Bold'" font-size="3">
+        Strokes
+    </text>
+    <text transform="translate(-179 65.157)" font-family="'Helvetica'" font-size="2.4">
+        Try to keep strokes at 4px
+    </text>
+    <text transform="translate(-179 70.157)" font-family="'Helvetica'" font-size="2.4">
+        Minimum stroke weight is 2px
+    </text>
+    <text transform="translate(-179 74.657)" font-family="'Helvetica'" font-size="2.4">
+        For thicker strokes use even
+    </text>
+    <text transform="translate(-179 77.657)" font-family="'Helvetica'" font-size="2.4">
+        numbers: 6px, 8px etc.
+    </text>
+    <text transform="translate(-179 82.157)" font-family="'Helvetica-Bold'" font-size="2.4">
+        Remember to expand strokes
+    </text>
+    <text transform="translate(-179 85.157)" font-family="'Helvetica-Bold'" font-size="2.4">
+        before saving as an SVG
+    </text>
+    <path fill="none" d="M-136.5 58h35v32.5h-35z"/>
+    <text transform="translate(-136.5 60.157)" font-family="'Helvetica-Bold'" font-size="3">
+        Size
+    </text>
+    <text transform="translate(-136.5 65.157)" font-family="'Helvetica'" font-size="2.4">
+        Cannot be wider or taller than
+    </text>
+    <text transform="translate(-136.5 68.657)" font-family="'Helvetica'" font-size="2.4">
+        100px (artboard size)
+    </text>
+    <text transform="translate(-136.5 73.657)" font-family="'Helvetica'" font-size="2.4">
+        Scale your icon to fill as much of
+    </text>
+    <text transform="translate(-136.5 76.657)" font-family="'Helvetica'" font-size="2.4">
+        the artboard as possible
+    </text>
+    <path fill="none" d="M-94 58h35v32.5h-35z"/>
+    <text transform="translate(-94 60.157)" font-family="'Helvetica-Bold'" font-size="3">
+        Ungroup
+    </text>
+    <text transform="translate(-94 65.157)" font-family="'Helvetica'" font-size="2.4">
+        If your design has more than one
+    </text>
+    <text transform="translate(-94 68.157)" font-family="'Helvetica'" font-size="2.4">
+        shape, make sure to ungroup
+    </text>
+    <path fill="none" d="M-50 58h35v32.5h-35z"/>
+    <text transform="translate(-50 60.157)" font-family="'Helvetica-Bold'" font-size="3">
+        Save as
+    </text>
+    <text transform="translate(-50 65.157)" font-family="'Helvetica'" font-size="2.4">
+        Save as .SVG and make sure
+    </text>
+    <text transform="translate(-50 68.157)" font-family="'Helvetica'" font-size="2.4">
+        “Use Artboards” is checked
+    </text>
+    <text transform="matrix(1.0074 0 0 1 -125.542 30.594)" font-family="'Helvetica'" font-size="2.573">
+        100px
+    </text>
+    <text transform="matrix(1.0074 0 0 1 -41 39)" font-family="'Helvetica-Bold'" font-size="5.146">
+        .SVG
+    </text>
+    <path d="M-126.514 34.815h10.26V45h-10.26zm.037-3.05h.522v2.338h-.522zm9.665 0h.523v2.338h-.52z"/>
+    <path d="M-127 32.337h11.233v.572H-127zm43.195 1.507H-73.5V44h-10.305zm6.995-5.137h3.31v3.26h-3.31z"/>
+    <path stroke="#FFF" stroke-miterlimit="10" d="M-178.5 22.5h30v30h-30zm42 0h30v30h-30zm43 0h30v30h-30zm44 0h30v30h-30z"/>
+    <path d="M59.402 18.94c-.064 0-.14 0-.222.002l.26-.254c2.013-2.013 3.717-4.114 4.797-5.916.522-.87 2.112-3.52.65-4.98-.273-.275-.77-.602-1.565-.602-2.42 0-6.54 3.258-9.33 6.05-.046.045-.1.098-.154.155l.002-.36c0-1.93-.186-11.56-3.854-11.56-3.667 0-3.853 9.628-3.853 11.558v.22c-.095-.1-.183-.187-.253-.257-2.79-2.79-6.91-6.05-9.33-6.05-.8 0-1.293.327-1.567.602-1.46 1.462.128 4.11.65 4.98 1.08 1.802 2.786 3.903 4.798 5.916L41 19a42.43 42.43 0 0 0-2.143-.06c-1.93 0-11.558.187-11.558 3.854s9.624 3.853 11.554 3.853c1.493 0 7.587-.112 10.274-1.86 2.685 1.75 8.78 1.86 10.272 1.86 1.93 0 11.558-.186 11.558-3.853s-9.626-3.853-11.556-3.853zM16.085 67.485h28.42v30.237h-28.42zm0-38.595h28.42v29.005h-28.42zm39.382 38.595H83.89v30.237H55.466zm0-38.595H83.89v29.005H55.466z"/>
+</svg>

@@ -1,0 +1,53 @@
+<h2>Subscriptions</h2>
+
+<%= form_tag admin_fulfillment_subscriptions_path, :method => 'get', :id => "tax_rates_filter" do %>
+  <div class="row collapse">
+    <div class="small-4 columns end">
+      <%= text_field_tag :search_term, params[:search_term], placeholder: 'Search by customer name or email' %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :search_term => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>State</th>
+      <th>Customer</th>
+      <th>#</th>
+      <th>Start Date</th>
+      <th>Last Order Date</th>
+      <th>Next Order Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @subscriptions.each do |subscription| %>
+    <tr>
+      <td class="indicator <%= subscription.active? ? 'active' : 'inactive' %>">&#x2b24;</td>
+      <td><%= subscription.id %></td>
+      <td><%= subscription.state %></td>
+      <td><%= link_to subscription.user.name, admin_customer_path(subscription.user_id)  %></td>
+      <td><%= subscription.order_count %></td>
+      <td><%= link_to subscription.base_order.completed_at, edit_admin_fulfillment_order_path(subscription.base_order_id) %></td>
+      <td><%= link_to subscription.last_order.completed_at, edit_admin_fulfillment_order_path(subscription.last_order_id) %></td>
+      <td>
+        <%= link_to subscription.next_order_date, '#', {
+          class: "next-date",
+          data: { path: schedule_next_admin_fulfillment_subscription_path(subscription)}
+        } %>
+      </td>
+      <td><%= link_to subscription.active? ? 'Deactivate' : 'Activate', toggle_state_admin_fulfillment_subscription_path(subscription), data: { confirm: 'This will toggle the subscription state and may trigger email notifications to the customer.'}, method: :post %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @subscriptions %>
+<%= render partial: 'admin/fulfillment/subscriptions/modal_schedule' %>
+<%= render 'admin/fulfillment/subscriptions/dt_picker' %>
+<%= render 'admin/fulfillment/subscriptions/modal_js' %>

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="large-6 column">
+    <%= form.fields_for :webhook_attributes do |webhooks_form| %>
+      <div>
+        <%= webhooks_form.label 'Enabled?' %>
+        <%= webhooks_form.check_box :enabled, { checked: @storefront.webhook&.enabled } %>
+      </div>
+
+      <div>
+        <%= webhooks_form.label 'URL' %>
+        <%= webhooks_form.text_field :url, value: @storefront.webhook&.url, id: "webhookUrl" %>
+      </div>
+
+      <%= link_to "Test Webhook", '#testWebhook', id: "test-webhook-link" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row vertical-spacing">
+  <div class="large-12 column vertical-spacing" id="webhooks-test-response-content">
+  </div>
+</div>
+
+<script>
+    function testWebhook() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "<%= test_webhook_admin_storefront_path %>"
+        }).done(function (data) {
+            $('#webhooks-test-response-content').empty()
+            $('#webhooks-test-response-content').append('<br><h5>Webhook Logs:</h5><pre id="wehbook-test-response"></pre>')
+
+            $('#wehbook-test-response').empty()
+            $('#wehbook-test-response').append(JSON.stringify(data))
+        });
+    }
+
+    $("#test-webhook-link").on("click", testWebhook);
+</script>

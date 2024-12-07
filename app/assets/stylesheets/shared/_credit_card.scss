@@ -1,0 +1,64 @@
+.creditcards li {
+  padding-left: 50px;
+  position: relative;
+  height: 40px;
+  line-height: 30px;
+  .icon-card {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+}
+
+.billing-details .icon-card{
+  position: absolute;
+  left: -1px;
+  top: 2px;
+}
+
+.card-history.icon-card{
+  margin-left: 0.5em;
+}
+
+.icon-card {
+  display: inline-block;
+  width: 28px;
+  height: 20px;
+  background: transparent url(image_path('ui/icons-creditcards.png')) no-repeat;
+  background-position-y: 0px;
+  vertical-align: -20%;
+}
+
+.visa {
+  background-position-y: -84px;
+}
+
+.mastercard {
+  background-position-y: -63px;
+}
+
+.american-express,
+.amex {
+  background-position-y: -21px;
+}
+
+.discover {
+  background-position-y: -42px;
+}
+
+.cc-number {
+  position: relative;
+  .icon { // TODO BC: consolidate with icon-card class above
+    background: transparent url(image_path('ui/icons-creditcards.png')) no-repeat 0 0;
+    height: 19px;
+    left: 11px;
+    position: absolute;
+    top: 8px;
+    transform-style: preserve-3d;
+    transition: all 0.2s linear;
+    width: 28px;
+  }
+  input {
+    padding-left: 50px;
+  }
+}

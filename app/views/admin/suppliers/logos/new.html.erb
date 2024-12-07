@@ -1,0 +1,5 @@
+<% content_for :title, 'New Logo' %>
+<h2>New Logo</h2>
+<%= form_for(@logo, url: admin_suppliers_logos_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+<% end %>

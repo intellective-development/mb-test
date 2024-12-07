@@ -1,0 +1,65 @@
+
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+
+<h2>New '<%= @product_size_grouping.name %>' Product</h2>
+
+
+<dl class="tabs" data-tab>
+  <% if @product.id.present? %>
+    <dd class="active"><a href="#panel1">General Info</a></dd>
+    <dd><a href="#panel2">Suppliers & Prices</a></dd>
+  <% end %>
+</dl>
+<div class="tabs-content">
+  <div class="content active" id="panel1">
+    <%= form_for @product, :url  => admin_merchandise_products_path(grouping: @product_size_grouping),
+                            :html => {:class => ''}  do |form| %>
+      <%= render :partial => 'form', :locals => {:form => form } %>
+
+      <div class=" generic_submit_button">
+        <%= submit_tag "Create", class: "button", id:"create_product_button" %>
+        <% if !@product.active? %>
+          <%#= submit_tag "Create and Activate", class: "button", id:"create_product_button" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% if @product.id.present? %>
+    <div class="content" id="panel2">
+      <div id='variants-container' >
+        <%= render 'variant_forms', product: @product %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$(function(){
+  $('#newVariant').bind('opened', function() {
+    error_element = $(".validation-errors");
+    error_element.hide(); //should already be hidden by the styles
+    $("form#new_variant").bind("ajax:beforeSend", function(){
+      error_element.hide();
+    });
+    $("form#new_variant").bind("ajax:success", function(evt, data, status, xhr){
+      //$('#newVariant').foundation('reveal', 'close'); won't work
+      error_element.show();
+      error_element.text("Success! Variant has been added");
+      $("form#new_variant")[0].reset();
+    });
+
+    $("form#new_variant").bind("ajax:error", function(xhr, ajaxOptions, thrownError){
+      error_element.show();
+      error_list_element = error_element;
+      error_JSON = ajaxOptions.error().responseJSON;
+      errors = "";
+      for (var i= 0; i < error_JSON.length; i++) {
+        errors += "<li><p>" + error_JSON[i] + "</p></li>";
+      }
+      error_list_element.html(errors);
+    });
+  });
+  $(document).foundation();
+});
+</script>

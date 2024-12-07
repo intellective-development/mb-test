@@ -1,0 +1,21 @@
+<div class="small-11 columns">
+  <p>
+    <span style="white-space: pre-line">
+      <%= comment.note.html_safe %>
+    </span>
+    <br>
+    <% if comment.file_url.present? %>
+      <span style="white-space: pre-line">
+        <%= link_to "Open attachment", comment.file_url, target: '_blank' %>
+      </span>
+      <br>
+    <% end %>
+    <small><strong>Posted by <%= comment.author.try(:email) %> &mdash; Date: <%= I18n.localize(comment.created_at, format: :us_time) %></strong></small>
+  </p>
+</div>
+<% if comment.updateble? %>
+  <div class="small-1 columns">
+    <%= link_to 'Edit', edit_admin_fulfillment_comment_path(comment), class: 'small button' %>
+  </div>
+<% end %>
+<hr>

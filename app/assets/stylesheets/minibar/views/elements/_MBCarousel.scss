@@ -1,0 +1,47 @@
+.el-carousel {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 2 * $standard-gutter;
+  overflow: hidden;
+  text-align: center;
+}
+
+.el-carousel__missing{
+  padding-top: 3 * $standard-gutter;
+  font-family: $font-family-tiempos;
+  font-weight: $heavy-font-weight;
+  text-align: center;
+  @media screen and (max-width: $product-grid-medium-breakpoint) {
+    padding: $standard-gutter 0;
+  }
+}
+
+.el-carousel__image{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  max-width: $large-screen; //want it to go as wide as the wide breakpoint, then have whitespace on the sides
+  object-fit: contain;
+}
+
+$text-hero-height: 68px;
+.el-carousel--text {
+  @include flex-center;
+  background-color: $brand-black;
+  min-height: $text-hero-height;
+  padding: 14px 10px; // min padding
+}
+.el-carousel--text-content {
+  color: $brand-white;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 5px;
+  padding-top: 2px;
+  font-weight: 300px;
+}
+
+.cm-col-layout__col .el-carousel {
+  max-height: 240px;
+}

@@ -1,0 +1,14 @@
+<div class="row push-down">
+  <div class="large-5 medium-5 large-centered column">
+    <div class="checkout-frame oauth-page__grant-module" id="checkout-login-form">
+      <h3 class="modal-header">An Error Has Occured</h3>
+      <div class="checkout-panel">
+          <div class="row form-row">
+            <div class="large-12 column">
+              <p><%= @pre_auth.error_response.body[:error_description] %></p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

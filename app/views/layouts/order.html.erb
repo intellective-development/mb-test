@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <%= stylesheet_link_tag 'application' %>
+  <%= render :partial => 'shared/analytics' %>
+
+  <title><%= yield(:title).present? ? "#{yield(:title)} - Minibar" : "Minibar - Wine and Liquor delivered to your door in under an hour" %></title>
+
+  <meta name="description" content="<%= yield(:meta_description).present? ? yield(:meta_description) : I18n.t(:meta_description) %>" />
+  <meta name="keywords" content="<%= I18n.t(:meta_keywords) %>" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>" />
+  <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{image_path('logo-256x256.png')}" %>" />
+  <meta property="og:site_name" content="Minibar" />
+  <link rel="apple-touch-icon" href="<%= image_path('touch-icon.png') %>" />
+  <link rel="apple-touch-icon" sizes="76x76" href="<%= image_path('touch-icon-76x76.png') %>" />
+  <link rel="apple-touch-icon" sizes="120x120" href="<%= image_path('touch-icon-120x120.png') %>" />
+  <link rel="apple-touch-icon" sizes="152x152" href="<%= image_path('touch-icon-152x152.png') %>" />
+
+  <%= favicon_link_tag 'favicon.ico' %>
+
+  <%= yield(:head) %>
+</head>
+<body>
+  <div id="layout">
+    <%= yield %>
+  </div>
+</body>
+</html>

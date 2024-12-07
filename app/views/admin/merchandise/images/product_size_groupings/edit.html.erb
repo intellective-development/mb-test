@@ -1,0 +1,11 @@
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<h3>Add Product Grouping Images</h3>
+
+<%= form_for @product_grouping, :url  => admin_merchandise_images_product_size_grouping_path(@product_grouping), :multipart => true do |form| %>
+  <%= render :partial => '/admin/merchandise/images/product_size_groupings/form', :locals => {:form => form} %>
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>
+
+<%= link_to 'View Images', admin_merchandise_images_product_size_grouping_path(@product_grouping), :class  => "button"%>
+<%= link_to 'Product Details', admin_merchandise_product_size_grouping_path(@product_grouping), :class  => "button" %>

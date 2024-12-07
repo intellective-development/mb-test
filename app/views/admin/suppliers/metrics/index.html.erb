@@ -1,0 +1,49 @@
+<% content_for :title, 'Supplier Metrics' %>
+<% content_for :head do %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<% end %>
+<br>
+<div class="row">
+  <div class="large-6 column">
+    <h4>Score Breakdown (Last 60 Days)</h4>
+    <%= column_chart admin_suppliers_metric_survey_scores_path(0) %>
+  </div>
+  <div class="large-3 column">
+    <h4>Total Responses</h4>
+    <p><%= OrderSurvey.complete.count %></p>
+
+    <h4>Top 5</h4>
+    <ol>
+      <%= render partial: 'supplier_summary', collection: @top_suppliers, as: 'supplier', cache: false %>
+    </ol>
+  </div>
+  <div class="large-3 column">
+    <h4>Response Rate</h4>
+    <p><%= number_to_percentage(OrderSurvey.response_rate, precision: 1) %></p>
+
+    <h4>Bottom 5</h4>
+    <ol>
+      <%= render partial: 'supplier_summary', collection: @bottom_suppliers, as: 'supplier', cache: false %>
+    </ol>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="large-12 column">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Score</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'survey_summary', collection: @order_surveys, as: 'survey', cache: false %>
+      </tbody>
+    </table>
+    <%= paginate @order_surveys %>
+  </div>
+</div>

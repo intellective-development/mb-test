@@ -1,0 +1,70 @@
+<% content_for :auth_tokens, true %>
+<div class="row">
+  <div class="large-6 columns">
+    <%= f.input :name, label: 'Gift card name', placeholder: 'Congratulations Gift Card' %>
+    <small>Visible name, like Classic Gift Card. <%= 'Please note that changing the name will change all products permalinks.' %></small>
+  </div>
+
+  <div class="large-6 columns">
+    <%= f.input :display_name, label: 'Gift card display name', placeholder: 'CONGRATS' %>
+    <small>Display name below the thumb image, like CLASSIC.</small>
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns">
+    <label>* Storefront</label>
+    <%= f.select :storefront_id, options_for_select(storefronts_dropdown_items), include_blank: 'Select storefront' %>
+    <small>Storefront for this gift cards theme.</small>
+  </div>
+  <div class="large-6 columns">
+    <div id="sellable-select-component"></div>
+  </div>
+</div>
+
+<%- unless @theme.new_record? %>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.simple_fields_for :product_size_grouping do |pg_f| %>
+        <% current_image = @product_grouping.images.first || @product_grouping.images.new %>
+        <%= pg_f.fields_for :images, current_image do |image_form|%>
+          <%= render 'admin/merchandise/images/shared/image_form', image_form: image_form, title: 'Theme Image', show_remove_link: 'false', description: 'Main gift card image which will be visible in emails and when user clicks the thumb image' %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="large-6 columns">
+      <% thumb_image = @theme.images.first || @theme.images.new %>
+      <%= f.fields_for :images, thumb_image do |theme_img_form| %>
+        <%= render 'admin/merchandise/images/shared/image_form', image_form: theme_img_form, title: 'Thumb Image', show_remove_link: 'false', description: 'Small rectangle image that the user clicks to select each theme' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'sellable-select-component',
+        component: 'SellableSelect',
+        options: {
+          initialType: <%= wrap_string (escape_javascript @theme.sellable_type) %>,
+          sellableTypes: [['All', 'All'], ['Brand', 'Brand']],
+          initialSellables: <%= raw @theme.sellable_ids %>,
+          name: 'gift_card_theme'
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

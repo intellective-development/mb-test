@@ -1,0 +1,10 @@
+<% if shipment.order.payment_profile.nil? %>
+  <!-- I've tried using the disabled attr on link_to, although the click event was still triggered -->
+  <a class="small button disabled" title="No payment profile present to adjust the order" disabled="disabled">Substitute</a>
+<% elsif shipment.order.payment_profile.payment_type == PaymentProfile::AFFIRM %>
+  <a class="small button disabled" title="<%= I18n.t("admin.affirm.can_not_be_adjusted") %>" disabled="disabled">Substitute</a>
+<% else %>
+  <%= link_to "Substitute",
+              new_admin_fulfillment_order_substitution_path(order_id: order.id, order_item_id: items.find(variant_id: variant.id).first.id),
+              class: 'small button' %>
+<% end %>

@@ -1,0 +1,109 @@
+<% content_for :auth_tokens, true %>
+<%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<%= error_messages_for 'product_routing' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <label>Storefront</label>
+      <%= form.select :storefront_id, options_for_select(storefronts_dropdown_items), include_blank: 'Select storefront' %>
+    </div>
+    <div class="large-6 column">
+      <div id="product-selector-component"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 column">
+      <div id="supplier-selector-component"></div>
+    </div>
+    <div class="large-6 column">
+      <label>Comments</label>
+      <%= form.text_area :comments %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 column">
+      <label>Orders Limit</label>
+      <%= form.number_field :order_qty_limit %>
+      <label>States Applicable</label>
+      <% State.by_abbreviation.each do |state| %>
+        <div class="small-2 columns">
+          <%= form.check_box :states_applicable,
+                            { multiple: true, checked: @product_routing.states_applicable&.include?(state.abbreviation) },
+                            state.abbreviation,
+                            nil %>
+          <label class="row collapse" style="font-weight: normal"><%= state.abbreviation %></label>
+        </div>
+        <div class="small-2 columns"></div>
+      <% end %>
+    </div>
+    <div class="large-6 column">
+      <label>Current Order Quantity</label>
+      <label><%= @product_routing.current_order_qty%></label>
+      <fieldset>
+        <div class="large-6 column">
+          <%= form.check_box :engravable %>
+          <label> &mdash; Engravable</label>
+        </div>
+        <div class="large-6 column">
+          <%= form.check_box :active, { checked: true } %>
+          <label> &mdash; Active</label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 column">
+      <label>Starts at</label>
+      <%= form.text_field :starts_at, class: 'ui-datepicker', placeholder: 'dd/mm/yyyy', disabled: false %>
+    </div>
+    <div class="large-6 column">
+      <label>Ends at</label>
+      <%= form.text_field :ends_at, class: 'ui-datepicker', placeholder: 'dd/mm/yyyy', disabled: false %>
+    </div>
+  </div>
+</div>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'datePickerInitialize' %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'product_routing[supplier_id]',
+          placeholder: 'Choose Supplier',
+          initialValues: [<%= @product_routing.supplier_id %>]
+        }
+      },
+      {
+        selector: 'product-selector-component',
+        component: 'ProductSelect',
+        options: {
+          placeholder: 'Choose Product',
+          name: 'product_routing[product_id]',
+          initialValues: [{
+            <% unless @product_routing&.product&.id.nil? %>
+            value: <%= @product_routing.product.id %>,
+            label: '<%= @product_routing.product.display_name_with_id %>'
+            <% end %>
+          }]
+        }
+      }
+    ];
+
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

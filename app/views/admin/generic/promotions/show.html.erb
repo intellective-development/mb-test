@@ -1,0 +1,83 @@
+<h1> Promotion </h1>
+<div class="row">
+  <div class="large-6 column">
+    <p>
+      <strong>Type</strong>
+      <%= @promotion.type %>
+    </p>
+    <p>
+      <strong>Internal Name:</strong>
+      <%= @promotion.internal_name %>
+    </p>
+    <p>
+      <strong>Display Name:</strong>
+      <%= @promotion.display_name %>
+    </p>
+    <p>
+      <strong>Starts at:</strong>
+      <%= @promotion.display_start_time %>
+    </p>
+    <p>
+      <strong>Ends at:</strong>
+      <%= @promotion.display_expires_time %>
+    </p>
+    <fieldset>
+      <legend>Eligibility Criteria</legend>
+      <p>
+        <strong>Priority:</strong>
+        <%= @promotion.priority %>
+       </p>
+       <p>
+         <strong>Text Content:</strong>
+         <%= @promotion.text_content %>
+       </p>
+      <% if ['PromotioniOSPLPModule', 'PromotionWebPLPModule'].include?(@promotion.type)  %>
+        <p>
+          <strong>Tags</strong>
+          <%= @promotion.match_tag %>
+        </p>
+        <p>
+          <strong>Search</strong>
+          <%= @promotion.match_search %>
+        </p>
+        <p>
+          <strong>Product Type(s)</strong>
+          <%= @promotion.match_product_type %>
+        </p>
+        <p>
+          <strong>Page Type(s)</strong>
+          <%= @promotion.match_page_type %>
+        </p>
+      <% end %>
+      <p> <strong> Suppliers: </strong>
+        <ul>
+          <%- @promotion.promotion_items.each do |ci| %>
+             <li> <%= promotable_name(ci.item) %> </li>
+          <%- end %>
+        </ul>
+      </p>
+    </fieldset>
+  </div>
+  <div class="large-6 column">
+    <% if @promotion.image.present? %>
+      <p><strong>Image:</strong></p>
+      <img src="<%= @promotion.image(:original) rescue nil %>" width="100%">
+    <% end %>
+    <% if @promotion.secondary_image.present? %>
+      <br><br>
+      <p><strong>Secondary Image:</strong></p>
+      <img src="<%= @promotion.secondary_image(:original) rescue nil %>" width="100%">
+    <% end %>
+    <% if @promotion.text_content.present? %>
+      <br><br>
+      <p>
+        <strong>Text Content:</strong><br/>
+        <%= @promotion.text_content %>
+      </p>
+    <% end %>
+  </div>
+</div>
+<p>
+  <%= link_to "Edit", edit_admin_generic_promotion_path(@promotion), :class => 'button' %> |
+  <%= link_to "View All", admin_generic_promotions_path, :class => 'button' %>
+</p>

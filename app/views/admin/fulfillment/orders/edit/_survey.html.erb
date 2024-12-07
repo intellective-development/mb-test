@@ -1,0 +1,14 @@
+<div class="row order">
+  <div class="large-12 column panel">
+    <h4>Order Survey</h4>
+    <div class="row">
+      <div class="small-4 column">
+        Rated <%= Integer(@order.order_survey.score) %> out of 5 stars<br/>
+        Reasons: <%= @order.order_survey.reason_names %>
+      </div>
+      <div class="small-6 column">
+        <em>&ldquo;<%= @order.order_survey.comment %>&rdquo;</em>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeliveryMethodIcon renders an icon for on_demand 1`] = `
+<img
+  alt="on_demand"
+  class="cmDeliveryMethodIcon"
+  src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+/>
+`;
+
+exports[`DeliveryMethodIcon renders an icon for pickup 1`] = `
+<img
+  alt="pickup"
+  class="cmDeliveryMethodIcon"
+  src="/assets/components/compounds/delivery_method_icon/pickup.svg"
+/>
+`;
+
+exports[`DeliveryMethodIcon renders an icon for shipped 1`] = `
+<img
+  alt="shipped"
+  class="cmDeliveryMethodIcon"
+  src="/assets/components/compounds/delivery_method_icon/shipped.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for on_demand 1`] = `
+<img
+  alt="on_demand"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for on_demand, on_demand 1`] = `
+<img
+  alt="on_demand"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for on_demand, pickup 1`] = `
+<img
+  alt="on_demand__pickup"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/on_demand__pickup.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for on_demand, shipped 1`] = `
+<img
+  alt="on_demand__shipped"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/on_demand__shipped.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for on_demand, shipped, on_demand 1`] = `
+<img
+  alt="on_demand__shipped"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/on_demand__shipped.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for pickup 1`] = `
+<img
+  alt="pickup"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/pickup.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for pickup, shipped 1`] = `
+<img
+  alt="pickup__shipped"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/pickup__shipped.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for shipped 1`] = `
+<img
+  alt="shipped"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/shipped.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for shipped, pickup 1`] = `
+<img
+  alt="pickup__shipped"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/pickup__shipped.svg"
+/>
+`;
+
+exports[`MultiDeliveryMethodIcon renders an icon for shipped, pickup 2`] = `
+<img
+  alt="pickup__shipped"
+  class="cmDeliveryMethodIcon_Multi"
+  src="/assets/components/compounds/delivery_method_icon/pickup__shipped.svg"
+/>
+`;

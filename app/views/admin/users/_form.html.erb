@@ -1,0 +1,139 @@
+<%= form.fields_for :account, form.object.account || RegisteredAccount.new(user: form.object) do |account_fields| %>
+<fieldset>
+  <legend>New Customer</legend>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>First Name</label>
+      <%= account_fields.text_field :first_name %>
+
+      <label>Email Address</label>
+      <%= account_fields.text_field :email, autocomplete: 'off' %>
+
+      <label>State</label>
+      <%= account_fields.select :state, @states %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Last Name</label>
+      <%= account_fields.text_field :last_name %>
+
+      <label>Birthday</label>
+      <%= form.text_field :form_birth_date, class: "six columns ui-yearpicker" %>
+
+      <label>VIP?</label>
+      <%= form.check_box :vip %>
+      <br>
+      <label>
+        Tax Exempt?
+        <small>This should only be set if the customer has provided documentation to indicate their charity/non-profit status.</small>
+      </label>
+      <%= form.check_box :tax_exempt %>
+      <br>
+      <label>Tax exemption type</label>
+      <%= form.select :tax_exemption_code, @tax_exemption_codes, selected: @user.tax_exemption_code %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Corporate</legend>
+  <p>Corporate flag must be set for company to save/persist.</p>
+  <div class="row">
+    <div class="two large-2 columns">
+      <label>Corporate?</label>
+      <%= form.check_box :corporate %>
+    </div>
+
+    <div class="ten large-10 columns">
+      <label>Company Name</label>
+      <%= form.text_field :company_name %>
+    </div>
+  </div>
+</fieldset>
+
+<% if current_user.super_admin? %>
+  <fieldset id="admin-password" class='span-12'>
+    <legend>Password</legend>
+    <p>Leave blank if you don't want to change the password.</p>
+    <ul>
+      <li>
+        <%= account_fields.label :password %>
+        <%= account_fields.password_field :password %>
+      </li>
+      <li>
+        <%= account_fields.label :password_confirmation %>
+        <%= account_fields.password_field :password_confirmation %>
+      </li>
+    </ul>
+  </fieldset>
+
+  <% if @user.supplier? %>
+    <fieldset id="supplier">
+      <legend>Supplier</legend>
+      <%= collection_select(:supplier, :supplier_id, Supplier.order(name: :asc), :id, :name, {selected:@supplier_id, include_blank: "No Supplier"}) %>
+    </fieldset>
+  <% end %>
+
+  <% if @user.brand_content_manager? %>
+    <fieldset id="supplier">
+      <legend>Brand</legend>
+       <div id="brand-select-component"></div>
+    </fieldset>
+
+    <%= content_for :bottom do -%>
+      <%= javascript_include_tag 'generated/admin_bundle' %>
+      <script>
+        var component_config_block = [
+          {
+            selector: 'brand-select-component',
+            component: 'BrandSelect',
+            options: {
+              name: 'brand_id',
+              initialValues: [{
+                value: <%= initial_brand(@user)&.id || 0 %>,
+                label: '<%= initial_brand(@user)&.name %>'
+              }]
+            }
+          }
+        ];
+        function ready(fn) {
+          if (document.readyState != 'loading'){
+            fn();
+          } else {
+            document.addEventListener('DOMContentLoaded', fn);
+          }
+        }
+        ready(function(){
+          window.initComponents(component_config_block);
+        });
+      </script>
+    <%- end %>
+  <% end %>
+<% end %>
+
+<fieldset>
+  <% if @current_user.credentials_admin? || @current_user.admin? || @current_user.super_admin? || @current_user.customer_service? %>
+    <legend>User Roles</legend>
+    <% if @current_user.credentials_admin? %>
+      <p>Give this member powers to administer (add/edit/remove anything including users) or curate (add/edit/remove research pages and tags).</p>
+      <%= hidden_field_tag "user[roles][]", "" %>
+      <% for role in @user.class.valid_roles.reject{ |role| role == :credentials_admin } %>
+        <div class="property_form left span-9 last">
+          <%= check_box_tag "user[roles][]", role, @user.roles.include?(role), id: [role, 'checkbox'].join('-') %>
+          <%= label_tag [role, 'checkbox'].join('-'), role.to_s.humanize %>
+        </div>
+      <% end %>
+    <% else %>
+      <% for role in [:driver, :supplier] %>
+        <div class="property_form left span-9 last">
+          <%= check_box_tag "user[roles][]", role, @user.roles.include?(role), id: [role, 'checkbox'].join('-') %>
+          <%= label_tag [role, 'checkbox'].join('-'), role.to_s.humanize %>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= @user.roles.map { |role| role.to_s.humanize }.join(', ') %>
+  <% end %>
+</fieldset>
+<% end %>

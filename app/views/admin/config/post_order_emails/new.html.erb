@@ -1,0 +1,5 @@
+<h3>Create New Post-Order Email</h3>
+<%= form_for(@email, url: admin_config_post_order_emails_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit "Create", class: "button" %>
+<% end %>

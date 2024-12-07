@@ -1,0 +1,74 @@
+@import "~client/store/views/style/variables";
+@import "./_variables";
+
+.cmDNav_FullScreenWrapper {
+  background-color: $brand-white;
+  position: relative; // The CategoryDropdown relies on this to position properly
+  z-index: 10;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+
+  @media only screen and (max-width: $small-max-width) {
+    display: none;
+  }
+}
+
+.cmDNav_ContainerBrowse,
+.cmDNav_ContainerCheckout {
+  display: flex;
+  padding: 0 $standard-gutter * 2; // padding-right matches StandardGrid
+  height: 110px;
+
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding: 0 $standard-gutter; // padding-right matches StandardGrid
+  }
+}
+.cmDNav_ContainerBrowse {
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding-right: 0; // suppress right padding, allows the rule to meet the edge of the screen
+  }
+}
+
+.cmDNav_Content {
+  flex: auto;
+}
+
+.cmDNav_NavLogo_Container {
+  display: flex;
+  align-items: center;
+  flex: none;
+  margin-right: $logo-padding;
+}
+
+.cmDNav_NavLogo {
+  width: $logo-width;
+}
+
+
+.cmDNav_TopBar {
+  display: flex;
+  height: $top-bar-height;
+}
+
+.cmDNav_TopBar_Left {
+  display: flex;
+  flex: auto;
+}
+
+.cmDNav_TopBar_Right {
+  display: flex;
+  flex: none;
+}
+
+.cmDNav_ReorderContainer {
+  align-items: center;
+  margin-top: 11px;
+  padding-left: $standard-gutter * 2;
+
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding-left: $standard-gutter;
+  }
+}
+
+.cmDNav_ReorderButton {
+  text-transform: none;
+}

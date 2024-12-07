@@ -1,0 +1,224 @@
+<% content_for :auth_tokens, true %>
+
+<fieldset>
+  <legend>Order Details</legend>
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Name</label>
+      <%= bulk_order_form.text_field :name, required: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Invoice Storefront (Order by most expensive first)</label>
+      <%= bulk_order_form.select :storefront_quote_id, options_for_select(storefronts_dropdown_items, selected: @bulk_order.storefront_quote_id), include_blank: 'Select storefront' %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Delivery Method</label>
+      <%= bulk_order_form.select :delivery_method, options_for_select(BulkOrder::delivery_methods.keys { |s| [I18n.t("admin.shipping_method.#{s}"), s] }, selected: bulk_order_form.object.delivery_method), { label: :shipping_type } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Storefront</label>
+      <%= bulk_order_form.select :storefront_id, options_for_select(storefronts_dropdown_items, selected: @bulk_order.storefront_id), include_blank: 'Select storefront' %>
+    </div>
+    <div class="six large-6 columns">
+      <label>Suppliers (Leave blank for retailer automatic selection) <span onclick="search()"/></label>
+      <div class="supplier-selector-component" id="supplier-selector-component"></div>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Order Engraving</legend>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Engraving?</label>
+      <%= bulk_order_form.check_box :graphic_engraving, id: 'enable-engraving' %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Logo</label>
+      <%= bulk_order_form.file_field :logo, disabled: !@bulk_order.graphic_engraving?,
+        accept: 'image/jpg,image/jpeg,image/gif,image/png,image/x-eps,application/postscript', class: 'engraving' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Line 1</label>
+      <%= bulk_order_form.text_field :line1, disabled: !@bulk_order.graphic_engraving?, class: 'engraving' %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Line 2</label>
+      <%= bulk_order_form.text_field :line2, disabled: !@bulk_order.graphic_engraving?, class: 'engraving' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Line 3</label>
+      <%= bulk_order_form.text_field :line3, disabled: !@bulk_order.graphic_engraving?, class: 'engraving' %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Line 4</label>
+      <%= bulk_order_form.text_field :line4, disabled: !@bulk_order.graphic_engraving?, class: 'engraving' %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Billing Information</legend>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>First Name</label>
+      <%= bulk_order_form.text_field :billing_first_name %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Last Name</label>
+      <%= bulk_order_form.text_field :billing_last_name %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>E-mail</label>
+      <%= bulk_order_form.text_field :billing_email %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Company</label>
+      <%= bulk_order_form.text_field :billing_company %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Address</label>
+      <%= bulk_order_form.text_field :billing_address %>
+    </div>
+
+    <div class="six large-6 columns">
+      <label>Address Info</label>
+      <%= bulk_order_form.text_field :billing_address_info %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-4 columns">
+      <label>City</label>
+      <%= bulk_order_form.text_field :billing_city %>
+    </div>
+
+    <div class="six large-4 columns">
+      <label>State</label>
+      <%= bulk_order_form.text_field :billing_state %>
+    </div>
+
+    <div class="six large-4 columns">
+      <label>Zip Code</label>
+      <%= bulk_order_form.text_field :billing_zip %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-6 columns">
+      <label>Phone</label>
+      <%= bulk_order_form.text_field :billing_phone %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Bulk Order Data</legend>
+
+  <div class="row">
+    <div class="six large-12 columns">
+      <p>
+        User the following format for the bulk order data (no spaces between commas):
+        <code>
+          product_id,first_name,last_name,email,company,address,address_info,city,state,zip,phone,
+          gift_message,gift_from,quantity,engraving_1,engraving_2,engraving_3,engraving_4
+        </code>
+      </p>
+      <%= file_field_tag :csv_file %>
+      <br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="six large-12 columns">
+      <label>Order Data</label>
+      <%= bulk_order_form.text_area :csv %>
+    </div>
+  </div>
+
+  <div class="six large-12 columns">
+  </div>
+</fieldset>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'bulk_order[supplier_ids][]',
+          label: '',
+          placeholder: 'Choose Supplier',
+          initialValues: <%= @bulk_order.supplier_ids %>,
+          multi: true
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>
+
+<% content_for :bottom do %>
+  <script>
+    $(function () {
+      const $checkbox = $('#enable-engraving'), $select = $('#type_select')
+
+      $checkbox.change(function (e) {
+        $(":input.engraving").each(function() {
+          $(this).prop('disabled', !$checkbox.is(':checked'))
+        })
+      })
+
+      const $output = $('#bulk_order_csv')
+      if (window.FileList && window.File && window.FileReader) {
+        $('#csv_file').change(function (event) {
+          $output.val('')
+
+          const $file = event.target.files[0]
+          const $reader = new FileReader()
+
+          $reader.addEventListener('load', event => {
+            $output.val(event.target.result)
+          })
+          $reader.readAsText($file)
+        })
+      }
+    })
+  </script>
+<% end %>

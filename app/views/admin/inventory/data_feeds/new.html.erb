@@ -1,0 +1,7 @@
+<% content_for :title, 'Create Data Feed' %>
+<h3>New Inventory Data Feed</h3>
+
+<%= form_for @feed, :url  => admin_inventory_data_feeds_path do |form| %>
+  <%= render :partial => '/admin/inventory/data_feeds/form', :locals => {:form => form} %>
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>

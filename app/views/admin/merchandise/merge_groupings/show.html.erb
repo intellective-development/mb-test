@@ -1,0 +1,5 @@
+<% if @product_grouping.nil? %>
+  <p>Product Grouping Not Found, did you already merge it? If so then this list is probably cached.</p>
+<% else %>
+  <%= render :partial => '/admin/merchandise/merge_groupings/product_grouping', :locals => {product_grouping: @product_grouping}%>
+<% end %>

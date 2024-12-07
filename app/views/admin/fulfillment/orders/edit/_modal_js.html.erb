@@ -1,0 +1,101 @@
+<% content_for :bottom do -%>
+  <script>
+    $(document).ready(function(){
+      $('.button-adjustment').click(function(e){
+        var $button = $(e.target);
+        $('#modal-adjustment').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+        return false;
+      });
+
+      $('.button-giftcard-management').click(function(e){
+        var $button = $(e.target);
+        $('#modal-adjustment').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+        return false;
+      });
+
+      <%- @order.shipment_ids.each do |shipment_id| %>
+        $('.button-schedule-shipment-<%= shipment_id %>').click(function(e){
+          var $button = $(e.target);
+          $('#modal-schedule-shipment-<%= shipment_id %>').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+          return false;
+        });
+        $('.button-deliver-shipment-<%= shipment_id %>').click(function(e){
+          var $button = $(e.target);
+          $('#modal-deliver-shipment-<%= shipment_id %>').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+          return false;
+        });
+      <% end %>
+
+      $('.button-cancellation').click(function(e){
+        var $button = $(e.target);
+        $('#modal-adjustment').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+        return false;
+      });
+
+      $('.button-push').click(function(e){
+        var $button = $(e.target);
+        $('#modal-adjustment').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+        return false;
+      });
+
+      $('.button-substitution-supplier-switching').click(function(e){
+        var $button = $(e.target);
+        $('#modal-adjustment').foundation('reveal', 'open', {url: $button.attr('href'), close_on_background_click:true });
+        return false;
+      });
+
+      $('#button-send_message').click(function(e){
+        var $button = $(e.target);
+        $('#modal-message').foundation('reveal', 'open', {close_on_background_click:true});
+        if (tinyMCE.editors.length === 0) {
+          tinyMCE.init(tinyMCEOptions);
+        }
+        return false;
+      });
+
+      $('#button-send_text').click(function(e){
+        var $button = $(e.target);
+        $('#modal-text').foundation('reveal', 'open', {close_on_background_click:true});
+        return false;
+      });
+
+      $('#button-send_notification').click(function(e){
+        var $button = $(e.target);
+        $('#modal-notification').foundation('reveal', 'open', {close_on_background_click:true});
+        return false;
+      });
+
+      $('body').on('click', '.reveal-modal-bg', closeModal);
+      $('.close-reveal-modal').click(closeModal);
+
+      // show/hide the options to charge or credit, depending on financial (ie, change affects customer)
+      $('body').on('change', '#order_adjustment_financial input[type=radio]', function(){
+        $('#order_adjustment_no_credit').toggle();
+        $('#order_adjustment_credit').toggle();
+      });
+
+      // adjust the description string shown when not charging customer
+      $('body').on('change', '#order_adjustment_reason_id', function(){
+        var selected = $(this).children('option:selected')
+        var no_credit_selector = noCreditSelector(selected.data('owed-to-minibar'), selected.data('owed-to-supplier'));
+        $('#order_adjustment_no_credit .credit-recipient').hide();
+        $('#order_adjustment_no_credit ' + no_credit_selector).show();
+      });
+
+      var noCreditSelector = function(owed_to_minibar, owed_to_supplier){
+        if (owed_to_minibar){
+          return '.to-minibar';
+        } else if (owed_to_supplier){
+          return '.to-supplier';
+        } else {
+          return '.to-neither';
+        }
+      }
+    });
+
+    function closeModal(){
+      tinyMCE.editors.forEach(e => e.remove());
+      $('[data-reveal]').foundation('reveal','close');
+    }
+  </script>
+<% end %>

@@ -1,0 +1,19 @@
+<script type="text/javascript">
+  var _sift = window._sift = window._sift || [];
+  _sift.push(['_setAccount', '<%= ENV['SIFT_SCIENCE_JS_KEY'] %>']);
+  _sift.push(['_setUserId', '<%= current_user ? current_user.referral_code : '' %>']);
+  _sift.push(['_trackPageview']);
+
+ (function() {
+   function ls() {
+     var e = document.createElement('script');
+     e.src = 'https://cdn.siftscience.com/s.js';
+     document.body.appendChild(e);
+   }
+   if (window.attachEvent) {
+     window.attachEvent('onload', ls);
+   } else {
+     window.addEventListener('load', ls, false);
+   }
+ })();
+</script>

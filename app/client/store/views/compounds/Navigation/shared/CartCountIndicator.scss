@@ -1,0 +1,34 @@
+@import "~client/store/views/style/variables";
+
+$cart-count-animation-duration: 1s;
+$cart-count-indicator-size: 20px;
+@keyframes indicator-grow {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.cmNavCartCount {
+  @include font-size(12);
+  @include pixel-antialiased;
+
+  background-color: $brand-red;
+  color: $brand-white;
+  font-weight: $heavy-font-weight;
+
+  // sizing
+  height: $cart-count-indicator-size;
+  min-width: $cart-count-indicator-size;
+  border-radius: $cart-count-indicator-size;
+  padding: 1px 3px 0;
+
+  // center the text
+  line-height: $cart-count-indicator-size;
+  text-align: center;
+
+  // animate it
+  animation: indicator-grow $cart-count-animation-duration;
+}
+.cmNavCartCount__Hidden {
+  display: none;
+}

@@ -1,0 +1,65 @@
+<% content_for :title, 'Product Size Groupings' %>
+<%#= render partial: '/admin/merchandise/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <%= render 'search' %>
+<% end %>
+
+<div class='admin_title_header'>
+  <h3>Product Size Groupings (<%= @groupings_size['relation'] == 'gte' ? 'More than ' : '' %><%= number_with_delimiter @groupings_size['value'] %> found)</h3>
+</div>
+
+<div class="admin_products">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th></th>
+      <th></th>
+      <th>Product Type</th>
+      <th></th>
+    </tr>
+    </thead>
+    <% @groupings.each do |grouping| %>
+      <%
+        # FIXME: Band aid for a bug where in certain cases, both Product and ProductSizeGroupings
+        #        are returned for certain queries (e.g. "Grey Goose")
+        next unless grouping.is_a?(ProductSizeGrouping)
+      %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td>
+        <% if grouping.images? %>
+            <%= link_to image_tag(grouping.images.first.photo.url(:mini)), grouping.image_urls(:grouping).first, :target => "_blank" %>
+        <% end %>
+        </td>
+        <td>
+          <%= link_to grouping.name, edit_admin_merchandise_product_size_grouping_path(grouping) %>
+          <br>
+          <small>
+            <%= grouping.products.count %> products &mdash;
+            <% if grouping.product_content %>
+              <%= link_to 'View Content', edit_admin_merchandise_product_content_path(grouping.product_content) %>
+            <% else %>
+              <%= link_to 'Add Content', new_admin_merchandise_product_content_path(product_size_grouping_id: grouping.id) %>
+            <% end %>
+          </small>
+        </td>
+         <td>
+          <small><%= String(grouping.hierarchy_category&.name).upcase %> &rarr; <%=  String(grouping.product_type&.name).upcase %>
+          </small>
+        </td>
+        <td>
+          <ul class="product-actions">
+            <li>
+              <%= link_to "Merge", admin_merchandise_merge_groupings_path(source_grouping_id: grouping.id), class: "button primary" %>
+            </li>
+            <li>
+              <%= link_to "Show",  admin_merchandise_product_size_grouping_path(grouping), class: "button secondary" %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= paginate @groupings, {:total_pages => [@groupings.total_pages, 600].min} %>
+</div>

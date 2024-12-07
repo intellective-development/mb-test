@@ -1,0 +1,51 @@
+<% content_for :title, 'Distributors' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <div class='admin_filters panel'>
+    <h5>Search Distributors</h5>
+    <%= form_tag admin_merchandise_distributors_path, :method => 'get', :id => "distributors_search" do %>
+      <label>Name</label>
+      <div class="row collapse">
+        <%= text_field_tag :name, params[:name] %>
+        <p><small>To perform a search on a partial name, use wildcard <em>%</em> characters. For example <em>%vodka%</em>.</small></p>
+        <%= submit_tag "Search", :name => nil, :class => 'button alert' %>
+      </div>
+      <div id="order_hidden">
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
+      </div>
+    <% end %>
+    <div class='clearfix'></div>
+  </div>
+<% end %>
+<div class='admin_title_header'>
+  <h3>Distributors</h3>
+  <%= link_to "New Distributor", new_admin_merchandise_distributor_path, :class => 'button' %>
+</div>
+
+<div class="admin_brands">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th></th>
+      <th class='column1_header'>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <% for distributor in @distributors %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td>
+          <%= link_to distributor.name, admin_merchandise_distributor_path(distributor) %><br>
+          <small>
+          ID: <%= distributor.id %> &mdash;&nbsp;
+          Brands: <%= distributor.brands.count %>
+          </small></td>
+        <td><%= link_to "Edit", edit_admin_merchandise_distributor_path(distributor) %></td>
+        <td><%= link_to "Delete", admin_merchandise_distributor_path(distributor), data: {confirm: "Are you sure? This distributor is associated with #{distributor.brands.count} brands, "}, method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @distributors %>
+</div>

@@ -1,0 +1,23 @@
+
+<style>
+    .additional-upc #google-search {
+      color: black;
+      font-size:12px;
+      cursor:pointer;
+      padding:3px;
+    }
+  </style>
+<% if additional_upcs.any? %>
+  <%= form.label :additional_upcs %>
+  <%= form.hidden_field(:additional_upcs) %>
+  <div class="additional-upcs">
+    <% additional_upcs.map do |upc| %>
+      <span class='additional-upc'>
+        <a id="button-additiona-upc-removal" href="#" data-reveal-id="modal-additional-upc-removal-<%= upc %>">×</a>
+        <a id="google-search" target="_blank" title="Search <%= upc %> on google." href="https://www.google.com/search?q=<%=upc%>"><%= upc %></a>
+      </span>
+      <%= render 'admin/merchandise/products/modal_remove_additional_upc', product: product, upc: upc %>
+    <% end %>
+    <span class="additional-upc" id="delete-all-upcs">Delete All</span>
+  </div>
+<% end %>

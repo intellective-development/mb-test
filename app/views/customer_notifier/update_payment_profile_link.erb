@@ -1,0 +1,14 @@
+<table>
+  <% if @storefront.logo_file.present? %>
+    <tr>
+      <td>
+        <%= image_tag @storefront.logo_file.url, style: "max-width: 500px; max-height: 150px" %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>
+      <%= simple_format @message %>
+    </td>
+  </tr>
+</table>

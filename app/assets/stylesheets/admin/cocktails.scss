@@ -1,0 +1,161 @@
+/*** toastr */
+@import 'vendor/react-redux-toastr.min';
+@import 'vendor/react-tabs';
+@import 'minibar/cocktails/index';
+
+/*** move this to shared styles ***/
+ul {
+  list-style: none;
+  margin: 0;
+}
+
+.table{
+  display: table;
+  width: 100%;
+  border: solid 1px #dddddd;
+}
+
+.table {
+  .thead {
+  background: whitesmoke;
+  padding: 5px;
+    .col {
+      padding: 0.5rem 0.625rem 0.625rem;
+      font-weight: bold;
+    }
+  }
+
+  .row{
+    display: table-row;
+    padding: 5px;
+    .col{
+      display: table-cell;
+      padding: 0.5rem 0.625rem 0.625rem;
+    }
+  }
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-item {
+  flex: 1;
+}
+
+/*** Cocktail form ***/
+.instruction {
+  display: flex;
+}
+
+.instruction div.field-group {
+  margin: 0 12px;
+  flex: 1;
+}
+
+.instruction .button-block {
+  margin: 0 12px;
+}
+
+.ingredient {
+  padding: 10px 15px;
+  border: solid 1px black;
+}
+
+.ingredient:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+.ingredient .field-group {
+  margin: 0 10px;
+}
+
+
+
+/*** Brands selector ***/
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input {
+  width: 240px;
+  height: 30px;
+  padding: 10px 20px;
+  font-weight: 300;
+  font-size: 16px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.react-autosuggest__input--focused {
+  outline: none;
+}
+
+.react-autosuggest__input--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__suggestions-container--open {
+  display: block;
+  position: absolute;
+  top: 51px;
+  width: 280px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  font-weight: 300;
+  font-size: 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+  z-index: 2;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+}
+
+/*** preview share buttons ***/
+.icon--social__list {
+    display: block;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .icon--social__list--list_item {
+      height: 40px;
+      width: 40px;
+      margin-left: 12px;
+      &:first-child {
+        margin-left: 1.375rem;
+      }
+      .social-icon {
+        position: absolute;
+        opacity: initial;
+        &:hover {
+          opacity: 0;
+        }
+      }
+      .social-icon-hover {
+        position: absolute;
+        opacity: 0;
+        &:hover {
+          opacity: initial;
+        }
+      }
+    }
+  }

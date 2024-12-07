@@ -1,0 +1,90 @@
+<%
+  @hide_header = yield(:hide_header).present? ? yield(:hide_header) : false
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tag %>
+  <%= favicon_link_tag 'favicon-admin.ico' %>
+
+  <title><%= yield(:title).present? ? "#{yield(:title)} - MiniAdmin" : "MiniAdmin" %></title>
+  <%= stylesheet_link_tag "admin/app", media: "all" %>
+  <%= stylesheet_link_tag "vendor/foundation.multiselect", media: "all" %>
+
+  <% if Feature.flipper[:miniadmin_quantum_metrics].enabled? %>
+    <%= javascript_include_tag "admin/quantum_metrics" %>
+  <% end %>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Settings.google.maps_api_key %>&libraries=places&language=en-AU"></script>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "modernizr.foundation" %>
+  <%= javascript_include_tag "vendor/foundation.multiselect" %>
+  <%= javascript_include_tag "generated/shared_bundle" %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <%= yield :head %>
+  <% if content_for? :meta %>
+    <%= yield :meta %>
+  <% end %>
+
+  <% if yield(:auth_tokens).present?%>
+    <%= render :partial => "shared/admin/auth_tokens" %>
+  <% end %>
+</head>
+<body class="bp">
+  <script type="text/javascript">
+    var ClientId = <%= wrap_string ENV['WEB_STORE_CLIENT_ID'] %>;
+    var ClientSecret = <%= wrap_string ENV['WEB_STORE_CLIENT_SECRET'] %>;
+
+    window.api_server_url = <%= wrap_string(ENV['API_SERVER_URL'] || '') %>;
+    window.recaptcha_v3_site_key = <%= wrap_string(ENV['RECAPTCHA_V3_SITE_KEY'] || '') %>;
+  </script>
+
+  <div class="container">
+    <% unless @hide_header %>
+      <%= render :partial => "shared/admin/header_bar" %>
+    <% end %>
+    <% if flash[:notice] || flash[:alert]  %>
+        <div class="flash_messages">
+          <%= raw "<div data-alert class='alert-box notice'> #{flash[:notice]} <a href='' class='close'>&times;</a>"  if flash[:notice] %>
+          <%= raw "<div data-alert class='alert-box alert'> #{flash[:alert]} <a href='' class='close'>&times;</a>"  if flash[:alert] %>
+        </div>
+      <% end %>
+  </div>
+  <% if content_for?(:strip) %>
+    <%= yield :strip %>
+  <% end %>
+  <div class="container">
+    <div class="row full-row">
+      <% if content_for?(:sidemenu) %>
+        <div class="admin_main_content nine large-9 columns">
+          <%= yield %>
+        </div>
+        <div class="sidebar three large-3 columns" >
+          <%= yield :sidemenu %>
+        </div>
+      <% else %>
+        <div class='admin_main_content'>
+          <%= yield %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= yield :bottom %>
+
+  <script>
+  jQuery(window).ready(
+    function() {
+      jQuery('.flash_notice').delay(6000).slideUp( 'slow');
+      jQuery('.flash_error').delay(6000).slideUp( 'slow');
+      $(document).foundation();
+    }
+  );
+  </script>
+
+  <%= render :partial => 'shared/raven' %>
+</body>
+  <%= yield :below_body %>
+</html>

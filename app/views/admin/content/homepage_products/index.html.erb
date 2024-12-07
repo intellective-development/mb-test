@@ -1,0 +1,43 @@
+<h2>Homepage &mdash; Featured Products</h2>
+<p>The following products are eligible to be featured on the homepage. A random selection will be made approximately every 6 hours.</p>
+<p><%= link_to 'Expire Cache', admin_content_homepage_product_expire_path(1), data: { }, method: :post %></p>
+<hr>
+<h5>Add Product</h5>
+<div class="row">
+  <div class="selection medium-6 column">
+    <%= form_for('homepage_products', url:  admin_content_homepage_product_add_path(1), method: :post) do |f| %>
+      <div class="row collapse">
+        <div class="small-10 columns">
+          <%= f.select :product_id, @eligible_products.collect{ |p| ["#{p.product_name} (#{p.item_volume})", p.product_id] }.sort_by{ |i| i[0] } %>
+        </div>
+        <div class="small-2 columns">
+          <%= f.submit "Add", { class: 'button prefix' } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="medium-6 column">
+    <p><small>Note that only active products top 250 products, with images and belonging to 111 Lex or East Village can be selected. In addition, uncommon volumes have been excluded.</small></p>
+  </div>
+</div>
+<hr>
+<h5>Tagged Products (<%= @products.size %> total)</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to(product.name, admin_merchandise_product_path(product)) %></td>
+        <td><%= link_to 'Remove', admin_content_homepage_product_remove_path(p.id), data: { confirm: 'Are you sure?'}, method: :post %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @products %>
+

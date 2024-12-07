@@ -1,0 +1,11 @@
+<% content_for :head do -%>
+  <link rel="canonical" href="<%= ENV["ASSET_HOST"] %>/store/product/<%= @product_grouping.slug %>">
+<% end -%>
+
+<div class="full-page-loader"></div>
+
+<% content_for :inpage_js do %>
+  <script type="text/javascript">
+    Store.ExternalProductData = <%= raw(@product_grouping_data) %>;
+  </script>
+<% end %>

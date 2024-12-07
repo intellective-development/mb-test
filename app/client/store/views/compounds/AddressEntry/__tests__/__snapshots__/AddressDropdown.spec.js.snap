@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddressDropdown renders 1`] = `
+<div
+  class="cm-ae-dropdown__container open"
+>
+  <ul
+    class="cm-ae-dropdown__list"
+  />
+</div>
+`;

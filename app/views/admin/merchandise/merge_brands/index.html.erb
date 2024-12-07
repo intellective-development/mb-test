@@ -1,0 +1,80 @@
+<% content_for :title, 'Merge Brands' %>
+<% content_for :auth_tokens, true %>
+
+<div class="row">
+  <div class="large-12 columns"><h2>Merge Tool</h2></div>
+  <div class = "large-8 small-12 columns">
+    <p>This tool is used to merge duplicate brands which have been created as part of a data import. It will move any products associated with the second brand to the first, then the second brand will be deleted.</p>
+    <p>Brand attributes such as name or description will not be copied unless specified.</p>
+    <p><strong class="warning">Please don't use this tool unless you know what you are doing!</strong></p>
+    <p><strong> When Searching </strong> If you think your search isn't working, try searching complete words. However, you can use partials when filtering the things already in the dropdowns. </p>
+  </div>
+  <div class = "large-4 small-12 columns panel">
+    <p>
+      <a class="button large expand" id="button_merge">Merge Brands</a>
+    </p>
+    <p id="status"></p>
+    <p>
+      <label><input type="checkbox" id="replace_name"> Use Name </label>
+      <label><input type="checkbox" id="replace_description"> Use Description </label>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-5 columns end">
+    <p>
+      This brand will become the master.<br>
+      This will search <strong>all brands</strong>.
+    </p>
+    <div class='selection'>
+      <select name="products-1" id="product_id_1" class="product-select-1">
+        <option value="">Search brands...</option>
+      </select>
+      <a href="<%= @swap_url %>" class="swap-merge-icon" title="Swap source and destination"></a>
+    </div>
+  </div>
+  <div class="large-5 column">
+    <p>
+      This brand will be destroyed.<br>
+      This will search <strong>all brands</strong>.
+    </p>
+    <select name="products-2" id="product_id_2" class="product-select-2">
+      <option value=""><%= @all ? "Search brands..." : "Select brand..."%></option>
+    </select>
+  </div>
+  <div class="large-2 column"></div>
+</div>
+<div class="row">
+  <div class="large-5 column">
+    <div class="panel product" id="p1">
+      <%= render :partial => '/admin/merchandise/merge_brands/brand', :locals => {brand: @destination_brand}%>
+    </div>
+  </div>
+  <div class="large-5 column">
+    <div class="panel product" id="p2">
+      <%= render :partial => '/admin/merchandise/merge_brands/brand', :locals => {brand: @source_brand}%>
+    </div>
+  </div>
+  <div class="large-2 column"></div>
+</div>
+
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'admin/merge_brands' %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    window.Data = {
+      show_all:             <%= @all %>,
+      merge_url:            '<%= admin_merchandise_merge_brand_path(1) %>',
+      remote_url:           '<%= brand_search_admin_merchandise_merge_brands_path %>'
+    };
+
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+  </script>
+<% end %>

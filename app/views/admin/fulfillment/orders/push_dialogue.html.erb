@@ -1,0 +1,10 @@
+<h2 class="subhead-thin">Push Order #<%= @order.number  %></h2>
+
+<%= form_for(
+    @order,
+    url: push_order_admin_fulfillment_order_path(@order),
+    html: { method: :post }
+  ) do |f| %>
+  <p><strong style='color: red'>Please make sure there's an approved payment before proceeding.</strong></p>
+  <%= f.submit "Push Order", { class: 'button alert expand' } %>
+<% end %>

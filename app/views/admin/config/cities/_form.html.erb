@@ -1,0 +1,30 @@
+<% if @city.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@reason.errors.count, "error") %> prohibited this from being saved:</h2>
+    <ul>
+    <% @city.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <label>Name</label>
+  <%= f.text_field :name, {placeholder: "ex. New York City"} %>
+  <label>Header image</label>
+  <%= f.fields_for :header_image_attributes do |image_fields| %>
+    <%= image_fields.file_field :file %>
+    <% if @city.header_image %>
+      <%= image_tag( @city.header_image.file ) %>
+      <%= image_fields.hidden_field :id, :value => @city.header_image.id %>
+      <%= image_fields.check_box :_destroy %><label>Delete image</label>
+    <% end %>
+
+  <% end %>
+  <label>Region</label>
+  <%= f.select :region_id, Region.all.collect{ |r| [r.name, r.id] } %>
+  <label>Position</label><small>Higher is prioritized</small>
+  <%= f.text_field :position %>
+  <label>Visible</label><small>This will list the page in the footer and other lists</small>
+  <%= f.check_box :visible %>
+</fieldset>

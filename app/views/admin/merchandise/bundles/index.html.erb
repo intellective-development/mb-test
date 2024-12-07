@@ -1,0 +1,51 @@
+<% content_for :title, 'Bundles' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <div class='admin_filters panel'>
+    <h5>Search Bundles</h5>
+    <%= form_tag admin_merchandise_bundles_path, :method => 'get', :id => "bundles_search" do %>
+      <label>Source Name</label>
+      <div class="row collapse">
+        <%= text_field_tag :name, params[:name] %>
+        <p><small>To perform a search on a partial name, use wildcard <em>%</em> characters. For example <em>%vodka%</em>.</small></p>
+      </div>
+      <div style="text-align:center; margin-top: 15px">
+        <%= submit_tag "Search", :name => nil, :class => 'button alert' %>
+      </div>
+      <div id="order_hidden">
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
+      </div>
+    </div>
+    <% end %>
+    <div class='clearfix'></div>
+  </div>
+<% end %>
+<div class='admin_title_header'>
+  <h3>Bundles</h3>
+  <%= link_to "New Bundle", new_admin_merchandise_bundle_path, :class => 'button' %>
+</div>
+
+<div class="admin_bundles">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th class='column1_header'>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <% for bundle in @bundles %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td>
+          <%= link_to bundle.source.name, edit_admin_merchandise_bundle_path(bundle) %><br>
+          <small>
+          </small></td>
+        <td><%= link_to "Edit", edit_admin_merchandise_bundle_path(bundle) %></td>
+        <td><%= link_to "Delete", admin_merchandise_bundle_path(bundle), data: {confirm: "Are you sure?"}, method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @bundles %>
+</div>

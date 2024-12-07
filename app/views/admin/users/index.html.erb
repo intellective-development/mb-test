@@ -1,0 +1,70 @@
+<% content_for :title, 'Customers' %>
+<h3>Customers</h3>
+
+<% content_for :sidemenu do %>
+  <div style="text-align:center">
+    <%= link_to "New Customer", new_admin_customer_path, :class => "button", :id => "new_user_button" %>
+  </div>
+  <div class="admin_filters panel">
+    <%= form_tag admin_customers_path, :method => 'get', :id => "users_search" do %>
+      <label>First Name</label>
+      <%= text_field_tag :first_name, params[:first_name] %>
+
+      <label>Last Name</label>
+      <%= text_field_tag :last_name, params[:last_name] %>
+
+      <label>Email</label>
+      <%= text_field_tag :email, params[:email] %>
+
+      <label>Phone</label>
+      <%= text_field_tag :phone, params[:phone] %>
+
+      <label>Storefront</label>
+      <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items, params[:storefront_id]), prompt: "Select storefront" %>
+
+      <label>Search</label>
+      <%= text_field_tag :search, params[:search] %>
+
+      <% if @current_user.credentials_admin? %>
+        <label>Roles</label>
+        <% for role in User.valid_roles %>
+          <div class="row collapse">
+            <div class="small-1 column"><%= check_box_tag "roles[]", role, params[:roles]&.include?(role.to_s) %></div>
+            <div class="small-11 columns"><%= label_tag role.to_s.humanize %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div style='text-align:center'>
+        <%= submit_tag "Search", name: nil, class: "button" %>
+      </div>
+      <p><small>Use the search field if you are looking for Braintree emails, addresses or referral codes.</small></p>
+    <% end %>
+  </div>
+<% end %>
+<style>
+    .container .row {
+        min-width: 60%
+    }
+</style>
+<div class="admin_users">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th  class='column1_header'>Name</th>
+      <th>Email</th>
+      <th># Orders</th>
+      <th>Status</th>
+      <th>Role</th>
+      <th>Storefront</th>
+      <th>Last sign in</th>
+      <th></th>
+    </tr>
+    </thead>
+    <%= render partial: 'admin/users/user_row', collection: @users, as: 'user' %>
+  </table>
+  <p class="center">
+    <%= paginate @users %>
+  </p>
+</div>
+

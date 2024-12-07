@@ -1,0 +1,109 @@
+@import "~client/store/views/style/variables";
+@import "./_variables";
+
+$browse-bar-height: 54px;
+.cmDBrowseBar {
+  border-top: 1px solid $brand-light-grey;
+  height: $browse-bar-height;
+  display: flex;
+  align-items: center;
+}
+
+.cmDBrowseBar_CategoryList {
+  display: flex;
+  flex-grow: 1;
+  margin: 0; // TODO: should this be on an element like MBList?
+}
+
+.cmDBrowseBar_CategoryLink {
+  @include font-size(13);
+  display: inline-block;
+  height: $browse-bar-height;
+
+  text-transform: uppercase;
+  font-weight: $heavy-font-weight;
+  letter-spacing: 2px;
+  color: $brand-black;
+  line-height: $browse-bar-height; // center vertically
+  padding: 0 28px;
+  padding-top: 2px;
+  border-bottom: 4px solid transparent;
+
+  transition: border-color 150ms ease-in-out;
+
+  &:hover,
+  &.cmDBrowseBar_CategoryLink__Selected, {
+    border-bottom-color: $brand-red;
+  }
+
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding: 0 15px;
+  }
+}
+
+.cmDBrowseBar_CategoryLink__Disabled{
+  color: $brand-medium-grey;
+}
+
+// Search Box
+
+$search-icon-spacing: 50px;
+
+.cmDBrowseBar_Search_Spacer {
+  flex: 1;
+}
+
+.cmDBrowseBar_Search_Container {
+  position: relative;
+  max-width: 372px;
+  flex: auto;
+  display: flex;
+  justify-content: flex-end;
+
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding-right: $standard-gutter;
+  }
+}
+
+.cmDBrowseBar_Search_Wrapper {
+  position: relative;
+  flex: auto;
+  max-width: 372px;
+}
+
+.cmDBrowseBar_Search_Icon {
+  position: absolute;
+  top: 3px;
+  left: 13px;
+
+  // ensures it won't block hover/focus events for the input it is sitting on top of
+  pointer-events: none;
+}
+
+input.cmDBrowseBar_Search_Input {
+  @include font-size(13);
+  -webkit-appearance: none;
+  background: $brand-lighter-grey;
+  border-radius: 4px;
+  border: 1px solid $brand-lighter-grey; // match the border color to the background for non-focused
+  color: $brand-black;
+  height: 32px;
+  outline: none;
+  width: 100%;
+  padding: 0; // ensure input is usable in firefox (by overriding foundation)
+  padding-left: $search-icon-spacing;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+
+  &:hover{
+    border-color: $brand-light-grey;
+  }
+  &:focus {
+    border-color: $brand-medium-grey;
+  }
+  &::placeholder {
+    text-transform: initial;
+    color: $brand-medium-grey;
+  }
+}

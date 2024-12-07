@@ -1,0 +1,28 @@
+A new <%= scheduled ? 'scheduled ' : '' %><%= gift ? 'gift ' : '' %>order (<a href="<%= url %>"><%= number %></a>) has been placed with <strong><%= suppliers %></strong> (<%= zip_code %>) for <strong>$<%= amount %></strong>.
+<% if closed %>
+  <br>
+  <strong>The supplier is currently closed. They will re-open at <%= opening_time %>.</strong>
+<% end %>
+<table>
+  <tr>
+    <td><em>Customer: </td>
+    <td align="left">
+      <a href="<%= customer_url %>"><%= customer_name %></a> &mdash; <%= customer_phone %> <% if vip %> &mdash; MINIBAR VIP<% end %></td>
+  </tr>
+  <% if corporate %>
+    <tr>
+      <td><em>Company:</em></td>
+      <td align="left"><em><%= company_name %></em></td>
+    </tr>
+  <% end %>
+  <% unless delivery_notes.nil? %>
+  <tr>
+    <td><em>Delivery Notes: </em></td>
+    <td align="left"><em><%= delivery_notes %></em></td>
+  </tr>
+  <% end %>
+</table>
+<% if flag %>
+  <br>
+  <strong><u>This order has been flagged as possible fraud. Score <%= fraud_score %> out of 100.</u></strong>
+<% end %>

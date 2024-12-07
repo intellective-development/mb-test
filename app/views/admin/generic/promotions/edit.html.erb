@@ -1,0 +1,8 @@
+<h1> Edit Promotion </h1>
+
+<%= simple_form_for(@promotion, :as => :promotion, :url => admin_generic_promotion_path(@promotion)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to 'Show', admin_generic_promotion_path( @promotion ), :class => 'button' %> |
+<%= link_to 'View All', admin_generic_promotions_path, :class => 'button' %>

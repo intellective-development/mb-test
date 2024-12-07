@@ -1,0 +1,48 @@
+<%= render partial: 'shared/top_banner_message' %>
+
+<h2>Banner messages</h2>
+
+<% if @message.confirmation_email_bottom_banner? %>
+  <p>Note: For confirmation email bottom banners, you can click on the banner image and then click the image icon to change the banner or the link icon to change link.</p>
+  <p>The editor will add image size by default (width, height), you can edit HTML (< >) and remove it so the image is not distorted.</p>
+<% end %>
+
+<%= form_for :message, url: admin_config_top_banner_message_path, method: :put, local: true do |form| %>
+  <p class="top-banner-message-form">
+    <%= form.text_area :text, class: 'tinymce' %>
+  </p>
+
+  <p>
+    <label>Disabled
+      <%= form.check_box :disabled %>
+    </label>
+  </p>
+
+  <% if @message.configures_permalinks_filters? %>
+    <p class="top-banner-message-form">
+      <label>Product grouping permalinks and/or brand permalinks, separated by comma</label>
+      <%= form.text_field :permalinks_filters %>
+    </p>
+  <% end %>
+
+  <!--  popup -->
+  <% if @message.id == 2 %>
+    <p>
+      <label>Color - E.g. <span style="color: #a4191b">#a4191b</span>
+        <%= form.text_field :color, maxlength: 7 %>
+      </label>
+    </p>
+
+    <p>
+      <label>Url - E.g. <b>/store/product/coors-light</b>
+        <%= form.text_field :url, maxlength: 255 %>
+      </label>
+    </p>
+  <% end %>
+
+  <p>
+    <%= submit_tag 'Save' %>
+  </p>
+<% end %>
+
+<%= render 'shared/wysiwyg' %>

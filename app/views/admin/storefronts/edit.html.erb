@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Storefront' %>
+<h3>Update Storefront</h3>
+
+<%= form_for @storefront, url: admin_storefront_path(@storefront), method: :put do |form| %>
+  <%= render 'form', form: form %>
+
+  <%= submit_tag 'Update', class: 'button' %>
+<% end %>

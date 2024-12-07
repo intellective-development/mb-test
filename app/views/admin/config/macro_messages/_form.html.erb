@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="large-12 columns">
+    <small>Identifier name that tells you what this macro is about.</small>
+    <%= f.input :name, label: 'Name', placeholder: 'Product is OOS, Order canceled, etc' %>
+  </div>
+
+  <div class="large-12 columns">
+    <small>Key to integrate this macro message with backend functions.</small>
+    <%= f.input :key, label: 'Backend Key' %>
+  </div>
+
+  <div class="large-12 columns">
+    <%= f.input :text, label: 'Message', input_html: { class: 'macro-tinymce' } %>
+  </div>
+</div>
+
+<%= render 'shared/macro_message_wysiwyg', { wait_for_click: false } %>

@@ -1,0 +1,29 @@
+<% content_for :head do %>
+  <script type="text/javascript" src="/assets/tinymce.js"></script>
+  <script src="https://cdn.tiny.cloud/1/no-api-key" referrerpolicy="origin"></script>
+<% end %>
+
+<% if @comment.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+    <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="field">
+  <%= f.label :note %><br />
+  <%= f.text_area :note, class: 'tinymce', rows: 20, cols: 80 %>
+  <%= tinymce plugins: 'autolink', menubar: false %>
+</div>
+<div class="field">
+  <%= f.label :file %><br />
+  <%= f.file_field :file %>
+</div>
+<div class="actions">
+  <%= f.submit class: "button small"%>
+</div>

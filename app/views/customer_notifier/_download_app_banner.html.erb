@@ -1,0 +1,40 @@
+<style>
+  .download-title h3, h6 {
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  .download-wrapper {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .download-qrcode {
+    max-width: 130px;
+    border: 8px solid black;
+    border-radius: 8px;
+  }
+</style>
+<table class="center">
+  <tbody>
+    <tr>
+     <th class="small-12 large-12 columns first last">
+      <table>
+        <tr>
+          <td class="download-title text-center">
+            <h3>Download our app</h3>
+            <h6>Re-order in just a few taps</h6>
+          </td>
+        </tr>
+        <tr class="center">
+          <td class="download-wrapper">
+            <center data-parsed="">
+              <img class="download-qrcode" src="<%= asset_url('email/banners/mobile_app_qrcode.png') %>">
+            </center>
+          </td>
+        </tr>
+        <%= render partial: 'app_stores_buttons' %>
+      </table>
+     </th>
+    </tr>
+  </tbody>
+</table>

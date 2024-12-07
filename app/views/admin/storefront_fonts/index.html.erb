@@ -1,0 +1,37 @@
+<% content_for :title, 'Storefront Fonts' %>
+<div class="admin_title_header">
+  <h3>Storefront Fonts for <%= @storefront.name %></h3>
+  <%= link_to "New Storefront Font", new_admin_storefront_storefront_font_path, class: "button" %>
+</div>
+
+<%= form_tag admin_storefront_storefront_fonts_path, method: 'get', id: "storefront_fonts_filter" do %>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      <div class="row collapse">
+        <div class="small-6 columns">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="small-4 columns">
+      <%= text_field_tag "name" , params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'><%= sortable "name", "Name" %></th>
+    <th class='column1_header'><%= sortable "font_type", "Font Type" %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @storefront_fonts, as: 'storefront_font', cache: true %>
+  </tbody>
+</table>
+<%= paginate @storefront_fonts %>

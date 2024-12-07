@@ -1,0 +1,133 @@
+<%= error_messages_for 'product' %>
+<% new_grouping ||= false %>
+<% content_for :auth_tokens, true %>
+
+<div class='six large-6 columns'>
+  <% if form&.object&.last_product_trait&.title.present? %>
+    <%= form.label :name %>
+    <%= form.text_field :name, { disabled: true } %>
+    <strong>Product Trait Title:</strong> <%= form.object.last_product_trait.title %>
+    <br>
+    <br>
+  <% else %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  <% end %>
+
+  <% if form&.object&.last_product_trait&.traits&.dig("Product_Description").present? %>
+    <%= form.label :description %>
+    <%= form.text_area :description, { disabled: true } %>
+    <strong>Product Trait Description:</strong>
+    <% form.object.product_trait_description.each do |desc| %>
+      <%= desc.html_safe %>
+    <% end %>
+    <br>
+    <br>
+  <% else %>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  <% end %>
+
+  <div class="row">
+    <div class='large-12 columns'>
+      <%= form.check_box :default_search_hidden %>
+      <%= form.label :label_default_search_hidden,
+                     'Hide from MiniBarDelivery.com site?',
+                     for: :product_size_grouping_default_search_hidden %>
+    </div>
+    <div class="large-12 columns">
+      <div id="product-type-select-component" class="product-type-select"></div>
+    </div>
+    <div class="large-12 columns">
+      <div id="brand-select-component" class="brand-select"></div>
+    </div>
+    <div class='large-12 columns'>
+      <%= form.check_box :business_remitted %>
+      <%= form.label :label_business_remitted,
+                     'Business Remitted?',
+                     for: :product_size_grouping_business_remitted %>
+      <div class="p-bottom">&nbsp;</div>
+    </div>
+    <% if current_user.super_admin? %>
+      <div class='large-12 columns'>
+        <%= form.check_box :master %>
+        <%= form.label :label_master, 'Master' %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div id="product_properties" class='product-properties__wrapper'>
+
+      <% @all_properties.each do |property| %>
+        <div id='property_<%= property.id %>' class="property_form small-4 columns">
+          <%= form.fields_for :product_properties,
+                              property.product_properties.find_or_initialize_by(product_id: @product_grouping.id, product_type: 'ProductSizeGrouping' ) do |product_property_form|%>
+            <label>
+              <%= property.identifing_name.titlecase %>:&nbsp;
+              <%= product_property_form.check_box :_destroy, { id: "property-delete-#{property.id}", class: "product-property__delete"} %>
+              <span class="trash-icon"></span>
+            </label>
+            <%= product_property_form.hidden_field  :property_id %>
+            <%= product_property_form.text_field    :description, {id: "property-input-#{property.id}"} %><br/>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class='six large-6 columns'>
+<!-- For marking product groupings in store and for promotions.  -->
+<!-- Currently <code>staff_pick</code>, <code>category_feature</code> and <code>flash_deal</code> will show a banner in the stores.<br>Tags should be separated by commas. -->
+  <label>Tags <small>(separate by comma e.g. <code>staff_pick, category_feature, flash_deal</code>)</small></label>
+  <%= form.text_field :tag_list %>
+
+  <label>Keywords <small>(grouping will be returned when keyword is searched)</small></label>
+  <%= form.text_area :set_keywords %>
+
+  <label>Product size grouping ID</label>
+  <%= form.text_field :id, disabled: true %>
+
+  <%= render "admin/merchandise/images/product_size_groupings/form#{new_grouping ? '_new' : ''}", :form => form %>
+</div>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+     {
+        selector: 'product-type-select-component',
+        component: 'ProductTypeSelect',
+        options: {
+          initialValues: [{
+            value: <%= raw @product_grouping&.product_type_id || 0 %>,
+            label: <%= wrap_string (escape_javascript raw (@product_grouping&.product_type&.ancestors&.sort_by(&:level)&.map(&:name) + [@product_grouping&.product_type&.name]).join(' | ')) rescue false %>
+          }],
+          name: 'product_size_grouping[product_type_id]',
+          clearable: false,
+          backspaceRemoves: false
+        }
+      },
+      {
+        selector: 'brand-select-component',
+        component: 'BrandSelect',
+        options: {
+          initialValues: [{
+            value: <%= @product_grouping&.brand&.id || 1 %>,
+            label: <%= wrap_string (escape_javascript @product_grouping&.brand&.parent&.name ? "#{@product_grouping&.brand&.parent&.name} > #{@product_grouping&.brand&.name}" : @product_grouping&.brand&.name || Brand.first.name) %>
+          }],
+          name: 'product_size_grouping[brand_id]'
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

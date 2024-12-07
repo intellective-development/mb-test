@@ -1,0 +1,6 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, 'New Content Layout' %>
+<h2>New Content Layout</h2>
+<%= form_for(@mobile_screen, url: admin_content_mobile_screens_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+<% end %>

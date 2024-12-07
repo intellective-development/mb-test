@@ -1,0 +1,44 @@
+<tr valign="top" data-address="<%= address.id %>">
+    <td>
+      <strong><%= address.name %> <%= address.business? ? "(#{address.company})" : '' %></strong><br>
+      <%= address.address_lines_array.join(', ') %><br>
+      <%= address.city_state_zip %><br>
+      <%= number_to_phone(address.phone, area_code: true, delimiter: ' ') %><br>
+      <a href="#" data-reveal-id="modal-address-<%= address.id %>">edit</a>
+    </td>
+    <td><small><%= raw address.supplier.map(&:name).join('<br>') %></small></td>
+    <div id="modal-address-<%= address.id %>" class="reveal-modal small row" data-reveal>
+      <a class="close-reveal-modal">&#215;</a>
+          <%= form_for address, url: admin_user_datas_user_address_path(user_id: address.addressable_id, id: address.id), method: :put  do |f| %>
+            <div class="large-12 column">
+              <label for="name">Name</label>
+              <%= f.text_field :name %>
+            </div>
+            <div class="large-12 column">
+              <label for="address1">Address Line 1</label>
+              <%= f.text_field :address1 %>
+              <label for="address2">Address Line 2</label>
+              <%= f.text_field :address2 %>
+            </div>
+            <div class="large-5 column">
+              <label for="city">City</label>
+              <%= f.text_field :city %>
+            </div>
+            <div class="large-3 column">
+              <label for="state_name">State</label>
+              <%= f.text_field :state_name %>
+            </div>
+            <div class="large-4 column">
+              <label for="zip_code">Zip</label>
+              <%= f.text_field :zip_code %>
+            </div>
+            <div class="large-12 column">
+              <label for="zip_code">Phone</label>
+              <%= f.text_field :phone %>
+            </div>
+            <div class="large-12 column">
+              <%= f.submit 'Save', class: 'button expand', id: 'save-address' %>
+            </div>
+          <% end %>
+    </div>
+</tr>

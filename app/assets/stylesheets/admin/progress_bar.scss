@@ -1,0 +1,16 @@
+.progress-bar {
+  display: flex;
+  position: relative;
+  border: 1px solid #000000;
+  min-width: 50px;
+  width: 50%;
+  height: 40px;
+  background: #ffffff;
+
+  > .progress-content {
+    display: flex;
+    height: 100%;
+    max-width: 100%;
+    background: #0f6ab4;
+  }
+}

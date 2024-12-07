@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Fulfillment Service' %>
+<h3>New Fulfillment Service</h3>
+
+<%= form_for @fulfillment_service, url: admin_fulfillment_services_path do |form| %>
+  <%= render partial: 'form', locals: {form: form } %>
+
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>

@@ -1,0 +1,43 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you enrolled in auto-refill with Minibar Delivery' %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @subscription.user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Thanks for activating Minibar auto-refill!
+                          <br><br>
+                          Your delivery includes the items below and will be sent out every <%= @subscription.interval / 7 %> week(s). If you’d like to update your subscription or pause it at any time you can do so from your <%= link_to 'account page', account_subscriptions_url, class: 'text-link' %> or by reaching out to us at <a class="text-link" href="mailto:help@minibardelivery.com">help@minibardelivery.com.</a> You can also call our concierge line at <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>.
+                          <br><br>
+                          We look forward to serving you regularly and if there’s anything we can do to help, please reach out!
+                        </p><br/>
+                        <p class="indent dark small">
+                        Cheers, <br/>
+                        Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

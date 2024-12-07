@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemCell renders 1`] = `
+<li>
+  <div>
+    <a
+      href="/store/product/budweiser-light-1/budweiser-light-6-pack-12oz-bottles"
+    >
+      <div>
+        <img
+          alt="Budweiser Light - 6 pack, 12oz bottles"
+          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+        />
+      </div>
+      <div
+        class="cmCartDropdown_Item_PrimaryContent cmCartDropdown_Item_Details"
+        href="/store/product/budweiser-light-1/budweiser-light-6-pack-12oz-bottles"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          Budweiser Light
+        </span>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          6 pack, 12oz bottles 
+        </span>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          $5.00
+        </span>
+      </div>
+    </a>
+    <div
+      class="cmCartDropdown_Item_SecondaryContent cmCartDropdown_Item_Price"
+    >
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+        $5.00
+      </span>
+    </div>
+    <div
+      class="cmCartDropdown_Item_SecondaryContent"
+    >
+      <div
+        role="button"
+        tabindex="0"
+      >
+        ×
+      </div>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`ItemCell renders with quantity > 1 1`] = `
+<li>
+  <div>
+    <a
+      href="/store/product/budweiser-light-1/budweiser-light-6-pack-12oz-bottles"
+    >
+      <div>
+        <img
+          alt="Budweiser Light - 6 pack, 12oz bottles"
+          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+        />
+      </div>
+      <div
+        class="cmCartDropdown_Item_PrimaryContent cmCartDropdown_Item_Details"
+        href="/store/product/budweiser-light-1/budweiser-light-6-pack-12oz-bottles"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          Budweiser Light
+        </span>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          6 pack, 12oz bottles (x10)
+        </span>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          $5.00
+        </span>
+      </div>
+    </a>
+    <div
+      class="cmCartDropdown_Item_SecondaryContent cmCartDropdown_Item_Price"
+    >
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+        $50.00
+      </span>
+    </div>
+    <div
+      class="cmCartDropdown_Item_SecondaryContent"
+    >
+      <div
+        role="button"
+        tabindex="0"
+      >
+        ×
+      </div>
+    </div>
+  </div>
+</li>
+`;

@@ -1,0 +1,176 @@
+.SupplierPage_Body {
+  font-family: $font-family-avenir;
+
+  // Overrides
+
+  .cmAddressExplanation_Container {
+    margin-top: 0 !important;
+  }
+
+  #address-entry {
+    width: 750px;
+    @media only screen and (max-width: $medium-min-width) {
+      width: initial;
+    }
+  }
+}
+
+.SupplierPage_Header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url(image_path('suppliers/hero.jpg'));
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  min-height: 500px;
+  padding: 16px;
+  @media only screen and (max-width: $product-grid-small-breakpoint) {
+    background-image: url(image_path('suppliers/hero_mobile.jpg'));
+  }
+}
+
+.SupplierPage_StoreName {
+  @include font-size(53);
+  font-family: $font-family-tiempos;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.SupplierPage_StoreAddress {
+  @include font-size(18);
+}
+
+.SupplierPage_ShippingMethods {
+  @include font-size(14);
+  font-weight: $heavy-font-weight;
+  color: $brand-dark-grey;
+  margin: 2em 0;
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: $medium-min-width) {
+    @include font-size(12);
+  }
+}
+
+.SupplierPage_ShippingMethod {
+  margin: 0 10px;
+}
+
+.SupplierPage_ShippingMethod__open {
+  color: $brand-green;
+}
+
+.SupplierPage_ShippingMethod__closed {
+  color: $brand-red;
+}
+
+.SupplierPage_StoreEntry{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SupplierPage_BottomTag {
+  background-color: rgba($color: $brand-white, $alpha: 0.75);
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 1em;
+  margin-top: auto;
+}
+
+.SupplierPage_MinibarLogo {
+  height: 45px;
+  width: 45px;
+  margin-right: 1em;
+}
+
+.SupplierPage_PoweredBy {
+  @include font-size(12);
+  color: $brand-dark-grey;
+  line-height: 20px;
+}
+
+.SupplierPage_Minibar {
+  @include font-size(13);
+  font-weight: $heavy-font-weight;
+}
+
+.SupplierPage_Info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 32px;
+  @media only screen and (max-width: $medium-min-width) {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px;
+    height: 600px;
+  }
+}
+
+.SupplierPage_Hours {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-right: 16px;
+  @media only screen and (max-width: $medium-min-width) {
+    margin-right: 0;
+  }
+}
+
+.SupplierPage_InfoTitle {
+  width: 100%;
+  @media only screen and (max-width: $product-grid-small-breakpoint) {
+    width: 100%;
+  }
+}
+
+.SupplierPage_InfoContent{
+  width: 100%;
+  @media only screen and (max-width: $product-grid-small-breakpoint) {
+    width: 100%;
+  }
+}
+
+.SupplierPage_StoreHours {
+  width: 100%;
+  height: 225px;
+  margin: 0;
+  border-spacing: 0;
+  @media only screen and (max-width: $product-grid-small-breakpoint) {
+    width: inherit;
+  }
+}
+
+.SupplierPage_Day {
+  text-align: left;
+}
+
+.SupplierPage_Times {
+  text-align: right;
+}
+
+.SupplierPage_Location {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-left: 16px;
+  @media only screen and (max-width: $medium-min-width) {
+    margin-left: 0;
+  }
+}
+
+.SupplierPage_Map {
+  width: 100%;
+  height: 225px;
+  background-size: cover;
+  background-position: center;
+}

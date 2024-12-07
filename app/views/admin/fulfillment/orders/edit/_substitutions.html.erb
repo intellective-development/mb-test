@@ -1,0 +1,122 @@
+<h5>Substitutions</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Items</th>
+      <th>Qty</th>
+      <th>Price total</th>
+      <% if @order.bottle_deposits > 0 %>
+        <th>Bottle Deposit Fee</th>
+      <% end %>
+      <th>Tax</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% shipment.substitutions.includes(:remaining_item, original: [:variant], substitute: [:variant]).joins(:original, :substitute).each do | substitution | %>
+      <% o = substitution.original %>
+      <% s = substitution.substitute %>
+      <% r = substitution.remaining_item %>
+      <% cost_diff = s.total - o.total + (r && r.total || 0) %>
+      <% tax_diff = s.tax_charge - o.tax_charge + (r && r.tax_charge || 0) %>
+      <% bottle_fee_diff = s.bottle_deposits - o.bottle_deposits + (r && r.bottle_deposits || 0) %>
+      <% total_diff = cost_diff + tax_diff %>
+      <tr>
+        <td>
+        <s><%= o.variant.product_size_grouping&.name %> &mdash; <%= o.variant.item_volume %></s>
+        <br>
+        <s><small>SKU: <%= o.variant.sku %> &mdash; Taxed at <%= number_to_percentage o.try(:effective_tax_percentage) %> &mdash; <%= link_to "Show Product",  admin_merchandise_product_path(o.variant.product_id), target: '_blank' %></small></s>
+        </td>
+        <td><s><%= o.quantity %></s></td>
+        <td><s><%= number_to_currency(o.total) %></s></td>
+        <% if @order.bottle_deposits > 0 %>
+          <td><s><%= number_to_currency(o.bottle_deposits) %></s></td>
+        <% end %>
+        <td><s><%= number_to_currency(o.tax_charge) %></s></td>
+        <td><s><%= number_to_currency(o.total+o.tax_charge_with_bottle_deposits) %></s></td>
+        <td rowspan="4" style="text-align: center;border-bottom: solid 1px black;">
+          <%= substitution.status.humanize %><br />
+          <% if substitution.pending? %>
+            <%= form_tag("/admin/fulfillment/orders/#{@order.id}/substitutions/#{substitution.id}/accept", method: "post") do %>
+              <% if total_diff > 0 %>
+                <br />
+                <b>Difference Paid by: </b>
+                <div>
+                  <input type="radio" name="onus" value="off" checked /> Customer
+                </div>
+                <div>
+                  <input type="radio" name="onus" value="on" /> Minibar
+                </div>
+              <% else %>
+                Difference Refunded to Customer
+              <% end %>
+              <%= submit_tag("Approve", class: "button small") %>
+            <% end %>
+            <%= form_tag("/admin/fulfillment/orders/#{@order.id}/substitutions/#{substitution.id}/reject", method: "post") do %>
+              <%= submit_tag("Reject", class: "button small", style: "background: red") %>
+            <% end %>
+          <% end %>
+        </td>
+
+        <td rowspan="4" style="text-align: center;border-bottom: solid 1px black;">
+          <% if !Feature[:disable_oos_availability_check].enabled? &&
+            substitution.approved? &&
+            OrderAdjustment.find_by(substitution_id: substitution.id)&.reason.out_of_stock? &&
+            substitution.original.quantity > substitution.substitute.quantity &&
+            @order.storefront.enable_oos_availability_check
+          %>
+            <%= link_to 'Check other retailers for the reduced amount', switch_supplier_for_oos_product_dialogue_admin_fulfillment_order_shipment_substitution_url(@order, substitution.shipment, substitution), { class: "button small alert button-substitution-supplier-switching" } %>
+          <% end %>
+        </td>
+      </tr>
+      <% if r %>
+        <tr>
+          <td>
+          <%= r.variant.product_size_grouping&.name %> &mdash; <%= r.variant.item_volume %>
+          <br>
+          <small>SKU: <%= r.variant.sku %> &mdash; Taxed at <%= number_to_percentage r.try(:effective_tax_percentage) %> &mdash; <%= link_to "Show Product",  admin_merchandise_product_path(r.variant.product_id), target: '_blank' %>
+          </small>
+          </td>
+          <td><%= r.quantity %></td>
+          <td><%= number_to_currency(r.total) %></td>
+          <% if @order.bottle_deposits > 0 %>
+            <td><%= number_to_currency(r.bottle_deposits) %></td>
+          <% end %>
+          <td><%= number_to_currency(r.tax_charge) %></td>
+          <td><%= number_to_currency(r.total+r.tax_charge_with_bottle_deposits) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td>
+        <%= s.variant.product_size_grouping&.name %> &mdash; <%= s.variant.item_volume %>
+        <br>
+        <small>SKU: <%= s.variant.sku %> &mdash; Taxed at <%= number_to_percentage s.try(:effective_tax_percentage) %> &mdash; <%= link_to "Show Product",  admin_merchandise_product_path(s.variant.product_id), target: '_blank' %>
+        </small>
+        </td>
+        <td><%= s.quantity %></td>
+        <td><%= number_to_currency(s.total) %></td>
+        <% if @order.bottle_deposits > 0 %>
+          <td><%= number_to_currency(s.bottle_deposits) %></td>
+          <% end %>
+        <td><%= number_to_currency(s.tax_charge) %></td>
+        <td><%= number_to_currency(s.total+s.tax_charge_with_bottle_deposits) %></td>
+      </tr>
+      <tr>
+        <td><b>Difference</b></td>
+        <td></td>
+        <td><b><%= number_to_currency(cost_diff) %></b></td>
+        <% if @order.bottle_deposits > 0 %>
+          <td><b><%= number_to_currency(bottle_fee_diff) %></b></td>
+        <% end %>
+        <td><b><%= number_to_currency(tax_diff) %></b></td>
+        <td><b><%= number_to_currency(total_diff) %></b></td>
+      </tr>
+      <tr>
+        <td colspan="6" style="border-bottom: solid 1px black;padding: 0;"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

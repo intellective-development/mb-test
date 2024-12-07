@@ -1,0 +1,90 @@
+<fieldset>
+  <legend>Settings</legend>
+  <%= form.error_messages %>
+    <div class="row">
+      <div class="large-6 columns"><%= form.input :name %></div>
+      <div class="large-6 columns">
+        <label for="shipping_type">Type</label>
+        <%= form.select :shipping_type, options_for_select(ShippingMethod.shipping_types.keys.collect { |s| [I18n.t("admin.shipping_method.#{s}"), s] }, selected: form.object.shipping_type), {label: :shipping_type} %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-4 columns"><%= form.input :active, as: :boolean %></div>
+    </div>
+
+    <div class="row">
+      <div class="large-4 columns"><%= form.input :allows_scheduling, as: :boolean %></div>
+      <div class="large-4 columns"><%= form.input :requires_scheduling, as: :boolean %></div>
+      <div class="large-4 columns"><%= form.input :same_day_delivery, as: :boolean %></div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <%= form.input :allows_tipping, as: :boolean, label: 'Allow Tipping.' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-4 columns"><%= form.input :scheduled_interval_size, as: :integer %></div>
+      <div class="large-4 columns pull-4"><%= form.input :cut_off, as: :string, input_html: { class: 'ui-timepicker' } %></div>
+    </div>
+
+    <div class="row">
+      <div class="large-4 columns">
+        <label>Delivery Minimum</label>
+        <%= form.number_field :delivery_minimum, in: 0.0..150.0, step: 0.5%>
+      </div>
+
+      <div class="large-4 columns">
+        <label>Free Delivery Threshold</label>
+        <%= form.number_field :delivery_threshold, in: 0.0..150.0, step: 0.5 %>
+      </div>
+
+      <div class="large-2 columns">
+        <label>Delivery Fee</label>
+        <%= form.number_field :delivery_fee, in: 0.0..150.0, step: 0.5 %>
+      </div>
+
+      <div class="large-2 columns">
+        <label>Flat Delivery Fee</label>
+        <%= form.input :shipping_flat_fee, as: :boolean, label: '' %>
+      </div>
+
+      <div class="large-10 columns">
+        <p>
+          To ensure that delivery is <strong>always free</strong>, set Delivery Fee to 0 and the Free Delivery Threshold equal to the Delivery Min.
+          </br>
+          To ensure that delivery is <strong>never free</strong>, set the Free Delivery Threshold to empty (and give the others values. Non-zero for Fee.)
+        </p>
+      </div>
+
+      <% if shipping_method.delivery_expectation_exception? %>
+        <div class="large-12 columns">
+          <p style="color: red;">*Delivery expectation exception (<%= shipping_method.delivery_expectation_exception&.delivery_expectation %>) until <%= shipping_method.delivery_expectation_exception&.end_date&.strftime("%m/%d/%Y %l:%M %p") %> </p>
+        </div>
+      <% end %>
+      <div class="large-4 columns">
+        <label>Max Delivery Expectation</label>
+        <%= form.number_field :maximum_delivery_expectation, in: 0..360, step: 1 %>
+      </div>
+
+      <div class="large-8 columns">
+        <label>Delivery Expectation</label>
+        <%= form.select :delivery_expectation, options_for_select(ShippingMethod.possible_delivery_expectations, selected: form.object.delivery_expectation) %>
+      </div>
+
+      <div class="large-12 columns">
+
+      </div>
+
+      <div class="large-12 columns">
+        <%= form.input :supplier_id, as: :hidden, value: form.object.supplier_id %>
+        <%= form.button :submit, {class: "button"} %>
+        <% if form.object.persisted? %>
+          <%= link_to 'Delete Shipping Method', admin_inventory_shipping_method_path(form.object), method: :delete, class: 'button alert', data: {confirm: "Are you sure you want to delete shipping method #{form.object.name}"}%>
+          <a id="button-send-promotion-addresses-<%= form.object.id %>" class="button secondary" href="#" data-reveal-id="modal-send-promotion-addresses-<%= form.object.id %>">Send promotion to covered addresses</a>
+        <% end %>
+      </div>
+    </div>
+</fieldset>

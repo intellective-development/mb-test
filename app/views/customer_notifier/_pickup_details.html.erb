@@ -1,0 +1,63 @@
+<% if shipment.pickup? %>
+  <tr>
+    <td>
+      <table class="top-border row">
+        <tr>
+          <td class="module">
+            <table class="row">
+              <tr>
+                <th class="small-12 large-1 columns"></th>
+                <th class="small-12 large-4 columns">
+                  <p class="avenir-heading-medium uppercase heading-secondary">
+                    Pickup From:
+                  </p>
+                  <p class="avenir-body-small no-bottom">
+                    <b><%= shipment.supplier.display_name %></b>
+                    <br/>
+                    <% shipment.supplier.address.address_lines_array.each do |line| %>
+                      <%= line %> <br/>
+                    <% end %>
+                    <%= shipment.supplier.address.city_state_zip %><br/>
+                    <%= number_to_phone(shipment.supplier.address.phone, area_code: true) %>
+                  </p>
+                </th>
+                <th class="small-12 large-2 columns"></th>
+                <th class="small-12 large-4 columns">
+                  <p class="avenir-heading-medium uppercase heading-secondary right">
+                    <%= shipment.scheduled_for ? 'Scheduled for:' : 'Available in:' %>
+                  </p>
+                  <p class="avenir-body-small right">
+                    <% if shipment.scheduled_for %>
+                      <%= "#{format_time_range(shipment.scheduled_for, shipment.shipping_method.scheduled_interval_size, shipment.supplier.timezone)} #{shipment.scheduled_for.strftime('%A, %b %e')}." %>
+                    <% else %>
+                      0-<%= shipment.shipping_method.maximum_delivery_expectation %> minutes
+                    <% end %>
+                    <br />
+                    <a href="<%= OrderStatusActionService.navigation_url(shipment.supplier) %>" class="button">Directions</a>
+                  </p>
+                </th>
+                <th class="small-12 large-1 columns"></th>
+              </tr>
+            </table>
+            <table class="row">
+              <tr>
+                <th class="small-12 large-1 columns"></th>
+                <th class="small-12 large-10 columns">
+                  <p>
+                    <img src="<%= generate_static_map_url(shipment.supplier.address, 800, 150) %>">
+                    <br />
+                  </p>
+                  <p class="avenir-body-small center">
+                    Please bring your ID and credit card used for payment.<br/>
+                    Must be 21+ to pick-up.
+                  </p>
+                </th>
+                <th class="small-12 large-1 columns"></th>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+<% end %>

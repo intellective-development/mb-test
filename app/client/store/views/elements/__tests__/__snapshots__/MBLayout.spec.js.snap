@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBLayout.ButtonGroup renders 1`] = `
+<div
+  class="el-mblayouts-bg__container"
+>
+  <button
+    class="elMBButton elMBButton__Default elMBButton__Small"
+  >
+    Confirm
+  </button>
+  <button
+    class="elMBButton elMBButton__Default elMBButton__Small"
+  >
+    Deny
+  </button>
+</div>
+`;
+
+exports[`MBLayout.ButtonInput renders 1`] = `
+<div
+  class="el-mblayouts-bi__container"
+>
+  <input
+    class="elMBInput"
+  />
+  <button
+    class="elMBButton elMBButton__Default elMBButton__Small"
+  >
+    Go
+  </button>
+</div>
+`;

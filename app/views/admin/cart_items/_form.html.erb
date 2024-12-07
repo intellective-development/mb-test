@@ -1,0 +1,115 @@
+<%= error_messages_for 'cart_item' %>
+<%= form.hidden_field :cart_id, value: @cart.id %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Quantity</label>
+        <%= form.number_field :quantity, required: true %>
+      </div>
+      <div>
+        <label>Product Bundle</label>
+        <%= form.collection_select :product_bundle_id, ProductBundle.order(:title), :id, :title, include_blank: true %>
+      </div>
+    </div>
+    <div class="large-6 column">
+      <div>
+        <label>Variant ID</label>
+        <%= form.number_field :variant_id, required: true %>
+      </div>
+      <div>
+        <label>Customer Placement</label>
+        <%= form.select :customer_placement, options_for_select(Shipment.customer_placements.map { |k, _v| [k, k] }) %>
+      </div>
+      <div>
+        <label>Type</label>
+        <%= select_tag :type, options_for_select([['Gift', 1], ['Engraving', 2]], @cart_item.item_options&.type), { include_blank: true } %>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<h3>Item Options</h3>
+
+<fieldset class="span-12">
+  <%= form.fields_for @cart_item.item_options || ItemOptions.new do |field| %>
+    <div id='engraving_options' style='display: none' >
+      <div class="large-6 column">
+        <div>
+          <label>Line 1</label>
+          <%= field.text_field :line1, maxlength: 16 %>
+        </div>
+        <div>
+          <label>Line 2</label>
+          <%= field.text_field :line2, maxlength: 16 %>
+        </div>
+      </div>
+      <div class="large-6 column">
+        <div>
+          <label>Line 3</label>
+          <%= field.text_field :line3, maxlength: 16 %>
+        </div>
+        <div>
+          <label>Line 4</label>
+          <%= field.text_field :line4, maxlength: 16 %>
+        </div>
+      </div>
+    </div>
+    <div id='gift_options' style='display: none' >
+      <div class="large-6 column">
+        <div>
+          <label>Sender</label>
+          <%= field.text_field :sender %>
+        </div>
+        <div>
+          <label>Message</label>
+          <%= field.text_field :message %>
+        </div>
+        <div>
+          <label>Recipients</label>
+          <% 3.times do |i| %>
+            <%= field.text_field :recipients, multiple: true, value: field.object.recipients[i] %>
+          <% end %>
+        </div>
+      </div>
+      <div class="large-6 column">
+        <div>
+          <label>Send Date</label>
+          <%= field.date_field :send_date, as: :date, value: field.object.try(:strftime,"%m/%d/%Y") %>
+        </div>
+        <div>
+          <label>Price</label>
+          <%= field.text_field :price %>
+        </div>
+        <div>
+          <label>Gift Card Image ID</label>
+          <%= field.number_field :gift_card_image_id %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</fieldset>
+
+<script>
+  if ("<%= @cart_item.item_options.class %>" === "EngravingOptions") {
+    $('#type').val(2);
+  } else if ("<%= @cart_item.item_options.class %>" === "GiftCardOptions") {
+    $('#type').val(1);
+  }
+
+  $(function(){
+    $("#type").on('change', function() {
+      var selected = $("#type").find(":selected").text();
+      if(selected == 'Gift') {
+        $('#engraving_options').hide();
+        $('#gift_options').show();
+      } else if(selected == 'Engraving') {
+        $('#engraving_options').show();
+        $('#gift_options').hide();
+      } else {
+        $('#engraving_options').hide();
+        $('#gift_options').hide();
+      }
+    }).trigger('change')
+  });
+</script>

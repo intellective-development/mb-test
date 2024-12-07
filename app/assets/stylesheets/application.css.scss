@@ -1,0 +1,47 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "minibar/variables";
+@import "vendor/foundation/variables";
+//@import "minibar/sticky_footer";
+
+// Foundation Components
+@import
+  "vendor/foundation/components/global",
+  "vendor/foundation/components/grid",
+  "vendor/foundation/components/grid-5",
+  "vendor/foundation/components/visibility",
+  "vendor/foundation/components/block-grid",
+  "vendor/foundation/components/type",
+  "vendor/foundation/components/buttons",
+  "vendor/foundation/components/forms",
+ //"vendor/foundation/components/button-groups",
+ //"vendor/foundation/components/dropdown-buttons",
+ // "vendor/foundation/components/split-buttons",
+ // "vendor/foundation/components/section",
+  "vendor/foundation/components/top-bar",
+ // "vendor/foundation/components/orbit",
+  "vendor/foundation/components/reveal",
+ // "vendor/foundation/components/alert-boxes",
+ // "vendor/foundation/components/breadcrumbs",
+ // "vendor/foundation/components/custom-forms",
+  // "vendor/foundation/components/keystrokes",
+  "vendor/foundation/components/labels",
+  "vendor/foundation/components/inline-lists",
+ // "vendor/foundation/components/pagination",
+  "vendor/foundation/components/panels",
+ // "vendor/foundation/components/progress-bars",
+ // "vendor/foundation/components/side-nav",
+ // "vendor/foundation/components/sub-nav",
+ // "vendor/foundation/components/switch",
+ // "vendor/foundation/components/magellan",
+  "vendor/foundation/components/tables",
+  //"vendor/foundation/components/thumbs",
+  //"vendor/foundation/components/tooltips",
+  "vendor/foundation/components/dropdown",
+  "webfonts";
+
+// MiniBar Components
+@import "minibar/base";
+@import "generated_manifest";

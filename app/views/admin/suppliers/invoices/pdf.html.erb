@@ -1,0 +1,12 @@
+<% content_for :title, 'Invoice' %>
+<% content_for :hide_header, true %>
+<% content_for :meta do %>
+  <%= stylesheet_link_tag "print", media: "print" %>
+  <meta name="pdfkit-orientation" content="Landscape"/>
+<% end %>
+<div class='row'>
+  <%= render partial: '/admin/suppliers/invoices/pdf_header', locals: {invoice: @invoice, storefront: @storefront} %>
+</div>
+<div class='row'>
+  <%= render partial: '/admin/suppliers/invoices/line_items', locals: {invoice: @invoice, line_items: @line_items } %>
+</div>

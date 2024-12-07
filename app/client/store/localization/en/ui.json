@@ -1,0 +1,255 @@
+{
+  "body": {
+    "age_terms": {
+      "age": "✓ I'm 21+ years of age and agree to the",
+      "terms": "terms of service."
+    },
+    "landing_hero": {
+      "tagline": "Straight to Your Door.",
+      "address_explanation_short": "We need an address to show product availability",
+      "address_explanation_long_prompt": "Why?",
+      "address_explanation_long": "We partner with local stores to fulfill orders. We need to know the destination so we can determine which stores serve that location and which products are available there."
+    },
+    "delivery_info": {
+      "delivery_fee": "{{delivery_fee}} fee",
+      "delivery_minimum": "{{delivery_minimum}} minimum",
+      "delivery_method_closed": "Closed",
+      "switch_store_cart_warning": "Please note that changing stores may clear some items from your cart"
+    },
+    "cart": {
+      "shop_runner_delivery_suffix": "Delivery",
+      "shop_runner_delivery_fee": "Free",
+      "delivery_fee": "{{delivery_fee}} fee",
+      "under_delivery_free_threshold": "Free {{delivery_type}} for orders over {{free_delivery_threshold}}",
+      "delivery_minimum_amount": "{{delivery_minimum}} Minimum",
+      "birthdate_required": "Due to legal requirements, we need to collect date of birth to verify you are over the legal age to purchase these items"
+    },
+    "checkout_shipment": {
+      "items": {
+        "zero": "",
+        "one": "{{count}} Item",
+        "other": "{{count}} Items"
+      },
+      "pickup_location_prompt": "Pickup Location:",
+      "scheduling_prompt": "Time:",
+      "SchedulingIncomplete": "Specify a {{delivery_method_type}} time:",
+      "SchedulingMissing": "Schedule {{delivery_method_type}}:"
+    },
+    "checkout_complete": {
+      "next_steps_base": "You’ll receive an email confirmation shortly.",
+      "next_steps_shipped": "We’ll send another email with your tracking number when your order ships.",
+      "next_steps_pickup": "We’ll send another email when your order is ready for pickup.",
+      "next_steps_shipped_and_pickup": "We’ll send additional emails when your order ships and when it’s ready for pickup."
+    },
+    "product_list": {
+      "confirm_swap_header": "Are you sure you want to switch stores?",
+      "confirm_swap_shipped_header": "Are you sure you want to switch to a shipping store?",
+      "confirm_swap_and_change_base": "Please confirm you’d like to switch from {{former_supplier_name}} ({{former_delivery_type}}) to {{next_supplier_name}} ({{next_delivery_type}}).",
+      "confirm_swap_and_change_cart_warning": "Items currently in your cart may be removed.",
+      "two_for_one_deal": "Buy 1, Get 1 for {{two_for_one}}"
+    },
+    "navigation": {
+      "category_dropdown": {
+        "wine": "Sorry, no wine products are available for your address",
+        "beer": "Sorry, no beer products are available for your address",
+        "liquor": "Sorry, no liquor products are available for your address",
+        "mixers": "Sorry, no mixers are available for your address"
+      }
+    }
+  },
+  "reorder":{
+    "past_delivery_info": {
+      "on_demand": "Delivered to {{address}}",
+      "pickup": "In-Store pickup",
+      "shipped": "Shipped to {{address}}"
+    },
+    "show_more": {
+      "zero": "",
+      "one": "Show {{count}} more item",
+      "other": "Show {{count}} more items"
+    },
+    "subtotal": {
+      "one": "Subtotal ({{count}} item)",
+      "other": "Subtotal ({{count}} items)"
+    }
+  },
+  "nav": {
+    "cart_dropdown": {
+      "item_count": {
+        "zero": "",
+        "one": "{{count}} more item",
+        "other": "{{count}} more items"
+      },
+      "item_quantity": {
+        "zero": "",
+        "one": "",
+        "other": "(x{{count}})"
+      }
+    },
+    "autocomplete_dropdown": {
+      "default": "",
+      "category": "Categories",
+      "brand": "Brands",
+      "product": "Products",
+      "search": "Products from other local stores",
+      "see_all": "See More"
+    },
+    "delivery_info": {
+      "on_demand": "Delivery to",
+      "on_demand__pickup": "Delivery and in-store pickup",
+      "on_demand__shipped": "Delivery and shipping",
+      "on_demand__pickup__shipped": "Delivery, pickup, and shipping",
+      "pickup": "In-Store pickup near",
+      "pickup__shipped": "In-store pickup and shipping",
+      "shipped": "Shipping to"
+    },
+    "help": {
+      "header": "Help",
+      "faqs": {
+        "title": "Frequently Asked Questions",
+        "link": "Visit our FAQ ▸",
+        "info": "(opens in a new tab)"
+      },
+      "customer_care": {
+        "title": "Customer Care Hours",
+        "hours": "{{startsAt}} - {{endsAt} (Eastern) ",
+        "info": "{{info}}"
+      },
+      "contact": {
+        "headline": "CONTACT US",
+        "text": {
+          "title": "Text Message",
+          "data": "917-633-6332"
+        },
+        "email": {
+          "title": "Email",
+          "data": "help@minibardelivery.com"
+        },
+        "phone": {
+          "title": "Phone",
+          "data": "855-487-0740"
+        }
+      }
+    },
+    "user_info": {
+      "prompt_logged_in": "Hi, {{first_name}}",
+      "prompt_logged_out": "Account"
+    }
+  },
+  "app_install_section": {
+    "headline": "Drinks on tap.",
+    "copy": " Download our free mobile app for an even better shopping experience. Get wine, liquor, beer and more delivered with just a few taps.",
+    "image_alt_text": "Download the Minibar Delivery App",
+    "ios_download_alt_text": "Download from the iOS App Store",
+    "google_download_alt_text": "Download from the Google Play Store"
+  },
+  "shipping_warning_modal": {
+    "header": "This product is only available via shipping",
+    "body_vineyard_select": "Vineyard Select wines are shipped directly from the producer,\nso they can't be delivered same day.",
+    "body_default": "Products sold by {{supplier_name}} will be shipped. Same-day delivery is not available.",
+    "shipping_time_estimate": "Shipments typically arrive in 3 to 5 business days",
+    "cancel": "Never mind",
+    "confirm": "Ok, add to cart"
+  },
+  "split_warning_modal": {
+    "header": "Split Delivery",
+    "body_default": "Keep in mind that adding items from different stores will result in separate deliveries.",
+    "cancel": "Don't add the item to cart",
+    "confirm": "Got it - add item to cart"
+  },
+  "supplier_change_modal": {
+    "shipping_time_estimate": "Shipments typically arrive in 3 to 5 business days",
+    "cancel": "Never mind",
+    "confirm": "Switch Stores"
+  },
+  "email_capture_modal": {
+    "initial_content": {
+      "h1": "$5 Off",
+      "h5": "Can we buy you a drink?",
+      "line_1": "Your first order",
+      "line_2": "when you join our email list",
+      "loading": "loading",
+      "join": "join",
+      "no_thanks": "No Thanks"
+    },
+    "new_user_content": {
+      "h1": "Thank You!",
+      "h5": "You've been added to our email list",
+      "line_1": "Use the following promo code",
+      "line_2_1": "for",
+      "offer": " $5 off ",
+      "line_2_2": "your first order:",
+      "copy": "copy",
+      "copied": "copied"
+    },
+    "existing_user_content": {
+      "h1": "Hello, again!",
+      "h5_line_1": "Looks like you're already",
+      "h5_line_2": " a Minibar Delivery user",
+      "continue_shopping": "Continue Shopping"
+    }
+  },
+  "email_capture_section": {
+    "offer": {
+      "headline": "$5 off your first order",
+      "copy": "Join our email list to get exclusive deals, giveaways, cocktail recipes and more."
+    },
+    "form": {
+      "email": "Email address"
+    },
+    "new_user": {
+      "beginning": "Success! Use the code ",
+      "code": "WELCOME ",
+      "end": "at checkout and get $5 off your order!"
+    },
+    "existing_user": {
+      "message": "Looks like you're already signed up. Welcome back!"
+    }
+  },
+  "error": {
+    "address_entry": {
+      "default": "An unexpected error has occured.",
+      "no_address": "Please enter a delivery address to shop.",
+      "no_street": "Please enter a street address.",
+      "not_found": "We could not find your address, try removing apt/suite numbers & select one of the suggested addresses.",
+      "non_suggested_address": "Please choose an address."
+    }
+  },
+  "content_modules": {
+    "product_scroller": {
+      "action_name": "View All"
+    }
+  },
+  "sort":{
+    "popular_desc": "Best Selling",
+    "popular_asc": "Underappreciated",
+    "price_desc": "$: High to Low",
+    "price_asc": "$: Low to High",
+    "name_desc": "Name: Z-A",
+    "name_asc": "Name: A-Z"
+  },
+  "product_list": {
+    "unavailable": {
+      "category": {
+        "wine": "Wine is currently unavailable at this address.",
+        "beer": "Beer is currently unavailable at this address.",
+        "liquor": "Liquor is currently unavailable at this address.",
+        "mixers": "Mixers are currently unavailable at this address."
+      },
+      "default_header": "PRODUCTS NOT FOUND",
+      "default_body": "Your current store does not carry or is out of stock of the requested items."
+    },
+    "breadcrumbs": {
+      "recommended": "Recommended Items",
+      "reorder": "Previous Purchases",
+      "default": "Available Items"
+    }
+  },
+  "product_detail": {
+    "additional_sizes": "Additional sizes may be available",
+    "address_entry_prompt": "For pricing and availability, enter your address"
+  },
+  "brand_description": {
+    "brand_name": "{{name}} Delivery"
+  }
+}

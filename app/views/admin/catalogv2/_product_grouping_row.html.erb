@@ -1,0 +1,30 @@
+<% cache(["product_grouping_list", product_grouping.updated_at, product_grouping.products.map(&:id), product_grouping.products.maximum(:updated_at)]) do %>
+  <tr>
+    <td>
+      <%= image_tag(product_grouping.featured_image(:thumb), width: 48, height: 48, class: 'catalog-results__product_image') unless product_grouping.images.empty? %>
+    </td>
+    <td class="catalog-results__grouping_and_children">
+      <span class="catalog-results__product_name_label">
+        <%= product_grouping.name %> <small><%= raw format_brand_name(product_grouping) %></small>
+        <% if product_grouping.master? %>
+          <span title="master"><%= I18n.t("admin.product_emoji.master") %></span>
+        <% end %>
+      </span>
+      <br>
+      <small><%= pluralize(product_grouping.products.not_merged.size, 'Product') %>, <%= pluralize(product_grouping.variants.self_active.size, 'Variants') %></small>
+      <ul>
+        <%= render partial: 'product_row', collection: product_grouping.products.not_merged, as: 'product' %>
+      </ul>
+    </td>
+    <td class="catalog-results__product_type">
+      <%= format_hierarchy(product_grouping, '￫') %><br>
+      <% product_grouping.tag_list.each do  |tag| %>
+        <span class="tag label label--merchandise-colored"><%= tag %></span>
+      <% end %>
+    </td>
+    <td class="catalog-results__actions">
+      <%= link_to 'Edit', edit_admin_merchandise_product_size_grouping_path(product_grouping, tab: 'edit') %> | <%= link_to 'Merge',admin_merchandise_merge_groupings_path(source_grouping_id: product_grouping.id) %><br />
+      <%= pending_products?(product_grouping) ? (link_to 'Activate All', activate_all_admin_catalogv2_path(product_grouping), method: :put) : nil %>
+    </td>
+  </tr>
+<% end %>

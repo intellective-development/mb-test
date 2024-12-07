@@ -1,0 +1,7 @@
+@keyframes text-highlight {
+  50% { color: $brand-red; }
+}
+
+.highlight--text {
+  animation: text-highlight 0.8s 0.3s;
+}

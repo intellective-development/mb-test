@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Digital Packing Slip Placements' %>
+<h3>New Digital Packing Slip Placement</h3>
+
+<%= form_for @digital_packing_slip_placement, url: admin_storefront_digital_packing_slip_placements_path(@storefront) do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>

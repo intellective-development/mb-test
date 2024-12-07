@@ -1,0 +1,55 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you placed an order with Minibar Delivery' %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Dear <%= @order.user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Thanks for placing your keg order with Minibar Delivery! Your order has been routed to our local store partner and will be on its way based on your delivery preference.
+                          <br/>
+                          <br/>
+                          Your keg will be delivered slightly below room temperature. We recommend you purchase one 30-lb bag of ice for a small keg and two 30-lb bags of ice for a regular keg. Once your keg has been on ice for 1-2 hours, it will be at drinking temperature and will not warm during your event.
+                          <br/>
+                          <br/>
+                          If you require a cold keg for immediate use, please let us know as soon as possible!
+                          <br/>
+                          <br/>
+                          Our store partner is available to retrieve your keg Monday through Friday during business hours. Whenever you're ready to schedule a pickup, simply reply to this email and we will coordinate your request and refund your keg deposit (if applicable).
+                          <br />
+                          <br />
+                          Thank you for choosing Minibar Delivery!
+                          <br />
+                          <br />
+                        </p>
+                        <p class="indent dark small">
+                          Cheers, <br/>
+                          Team Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->
+

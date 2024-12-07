@@ -1,0 +1,61 @@
+<div class="small-12 small-centered columns">
+  <div class="drink-heading">
+    <h1 class="party-heading"><input id="drink-count" class="inline-text-field" name="drinks" maxlength="7"/></h1>
+    <div id="drinks-subheaders">
+      <h4 class="party-heading">Drinks</h6>
+      <h6 class="party-heading" id="recommended-drinks">{{drinks.recommended_drinks_string}} Recommended</h3>
+    </div>
+  </div>
+</div>
+
+
+<div class="slider-drinks-container">
+  <div>
+    <div class="slider-container">
+      <div id="category-slider" class='slider all-categories'/>
+    </div>
+  </div>
+
+  <div class="small-4 columns wine-drinks">
+    <div>
+      <h4><span class="bottle-count" name="wine_percent"/>%</h4>
+      Wine - <span name="wine_count_string"/> drinks
+    </div>
+  </div>
+
+  <div class="small-4 columns liquor-drinks">
+    <div>
+      <h4><span class="bottle-count" name="liquor_percent"/>%</h4>
+      Liquor - <span name="liquor_count_string"/> drinks
+    </div>
+  </div>
+
+  <div class="small-4 columns beer-drinks">
+    <div>
+      <h4><span class="bottle-count" name="beer_percent"/>%</h4>
+      Beer - <span name="beer_count_string"/> drinks
+    </div>
+  </div>
+</div>
+
+<div id="suggestions-container">
+  <div class="small-12 columns bottle-breakdown-title">
+    <div>
+      <h6 class="party-heading">Bottle Breakdown</h6>
+    </div>
+  </div>
+
+  <div id="wine-container" data-type="wine">
+    <div class="bottles-container" id="wine-bottle-container"/>
+  </div>
+
+
+  <div id="liquor-container" data-type="liquor">
+    <div class="bottles-container" id="liquor-bottle-container"/>
+  </div>
+
+
+  <div id="beer-container" data-type="beer">
+    <div class="bottles-container" id="beer-bottle-container"/>
+  </div>
+</div>

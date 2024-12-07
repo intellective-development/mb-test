@@ -1,0 +1,23 @@
+<% shipments = order.shipments.map { |s| ShipmentPresenter.new(s, self) }.compact %>
+
+<div class="row">
+  <div class='panel panel--line-spacing'>
+    <h4>Substitutions</h4>
+    <br>
+    <% shipments.each do |shipment| %>
+      <% shipment.order_items.group_by(&:variant).each do |variant, items| %>
+        <div class="row">
+          <div class="small-6 columns">
+            <%=  variant.product_size_grouping&.name %> &mdash; <%=  variant.item_volume %>
+            <br>
+            <small>SKU: <%= variant.sku %></small>
+          </div>
+          <div class="small-6 columns">
+            <p>Replace with: Best option</p>
+          </div>
+        </div>
+        <br>
+      <% end %>
+    <% end %>
+  </div>
+</div>

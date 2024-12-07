@@ -1,0 +1,8 @@
+<% content_for :title, 'Create Business' %>
+<h3>New Business</h3>
+
+<%= form_for @business, url: admin_businesses_path do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Create", :class  => "button" %>
+<% end %>

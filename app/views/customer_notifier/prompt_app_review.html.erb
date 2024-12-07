@@ -1,0 +1,49 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you placed an order with Minibar Delivery' %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark">
+                          Hi <%= @user.first_name %>,<br><br>
+                          I am one of the co-founders of Minibar Delivery. I first want to thank you for placing an order with us and for your feedback.
+                          <br><br>
+                          I would greatly appreciate if you would take a few minutes to rate us in the app store to help other customers find us. You can click the link below or visit Minibar Delivery in the App Store to rate us and write a quick review.
+                          <br><br>
+                          <strong>
+                            <a href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar" target="_blank" >Write a Review.
+                            </a>
+                          </strong>
+                          <br><br>
+                          Thank you in advance and thanks again for using Minibar Delivery!
+                          <br><br>
+                          Cheers,
+                          <br>
+                          Lindsey
+                          <br><br>
+                          P.S. If you have any other feedback, please email us at <a class="text-link" href="mailto:help@minibardelivery.com">help@minibardelivery.com</a>.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

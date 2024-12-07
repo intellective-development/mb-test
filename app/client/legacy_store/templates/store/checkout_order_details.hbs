@@ -1,0 +1,88 @@
+{{#if birthdate_required }}
+<div class="form-row">
+  <label style="cursor:inherit">Enter birthdate <span class="required">*</span></label>
+  <span id="birthdate_required_info" class="info-popup">!</span>
+</div>
+<div class="form-row">
+  <select id="monthOfBirth" class="dropdown capsule">
+    <option selected default>MM</option>
+    {{#each months}}
+      <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+  <select id="dayOfBirth" class="dropdown capsule">
+    <option selected default>DD</option>
+    {{#each days}}
+      <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+  <select id="yearOfBirth" class="dropdown capsule">
+    <option selected default>YYYY</option>
+    {{#each years}}
+      <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+</div>
+{{/if}}
+<p class="center">
+  <a id="button-order-submit" class="button expand button-place-order" {{#if birthdate_required}}disabled{{/if}} {{#if invalid_or_updating}}disabled{{/if}}>{{#if invalid_or_updating}}Processing...{{else}}Place Order{{/if}}</a>
+</p>
+<table class="table-summary">
+  <tr>
+    <th>Subtotal</th>
+    <td>${{sub_total}}</td>
+  </tr>
+  <tr>
+    <th>Tax</th>
+    <td>${{taxed_amount}}</td>
+  </tr>
+  <tr>
+    <th>Delivery</th>
+    <td>
+      {{#if shoprunner}}
+        <div class="_SRD" style="display: inline-block; vertical-align: middle; margin-right: 0.5em;">
+          <div class="srd_iconline" style="margin-top: -2px;">
+            <div class="srd_logo"></div>
+          </div>
+        </div>
+      {{/if}}
+    {{format_price_free shipping_charges}}</td>
+  </tr>
+  {{#if deal_amount}}
+  <tr>
+    <th>
+      Special Offer
+      <ul>
+        {{#each qualified_deals}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </th>
+    <td class="table-summary__discount">– ${{deal_amount}}</td>
+  </tr>
+  {{/if}}
+  {{#if coupon_amount}}
+  <tr>
+    <th>Promo Code</th>
+    <td class="table-summary__discount">– ${{coupon_amount}}</td>
+  </tr>
+  {{/if}}
+  {{#if allow_tip }}
+  <tr>
+    <th>Tip</th>
+    <td class="table-summary__tip">
+      {{#if invalid_or_updating}}
+        ${{tip}}
+      {{else}}
+        <a class="secondary" id="edit-tip">Edit</a> <input type="text" class="inline" value="${{tip}}" id="tip">
+      {{/if}}
+    </td>
+  </tr>
+  {{/if}}
+  <tfoot>
+    <tr>
+      <th>TOTAL</th>
+      <td>${{total}}</td>
+    </tr>
+  </tfoot>
+</table>

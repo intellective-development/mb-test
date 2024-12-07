@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<OrderSurveyFormFields
+  submitForm={[Function]}
+  survey={
+    Object {
+      "comment": null,
+      "created_at": "2017-03-02 14:46:07",
+      "id": 35,
+      "order_id": 38,
+      "score": null,
+      "state": "pending",
+      "token": "-s2b0re4Vq12_umlmdkh0WiMEessPztm7oiOyruvWzc",
+      "updated_at": "2017-03-02 14:46:07",
+      "user_id": 1,
+    }
+  }
+/>
+`;

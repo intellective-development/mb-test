@@ -1,0 +1,80 @@
+// LAYOUT HELPERS
+@mixin flex-grid($columns:1, $gutter:0) {
+  @include flex-grid-gutter($gutter);
+  display: flex;
+  flex-wrap: wrap;
+  >* { //allows the row to flow correctly
+    flex: 0 1 100%/$columns;
+
+    // fallback to good old width and float
+    // broken heights but usable
+    width: 100%/$columns;
+    float: left;
+  }
+}
+
+@mixin flex-grid-gutter($gutter: 0) {
+  >* {
+    padding-left: $gutter/2;
+    padding-right: $gutter/2;
+  }
+
+  // default the edges of the first/last children to be flush with the container
+  margin-left: $gutter/-2;
+  margin-right: $gutter/-2;
+}
+
+@mixin flex-grid__fullsize-child {
+  // allows contents to fill height
+  display: flex;
+  flex-direction: column; // above
+  >* {
+    flex: 1 1 auto;
+  }
+}
+
+@mixin flex-grid__contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-grid__contents__stretcher($grow-factor: 1) {
+  flex-grow: $grow-factor; //forces everything below it to the bottom
+}
+
+@mixin cap-at-nth($nth: 1) {
+  &:nth-child(n + #{$nth + 1}) {
+    display: none;
+  }
+}
+
+
+@mixin small-full-width($breakpoint: $small-screen - 1px) {
+  @media screen and (max-width: $breakpoint) {
+    @include flex-grid(1);
+  }
+  margin-bottom: 0px;
+}
+
+//PLACEMENT GRID STYLE
+.featured-placement__container {
+  @include flex-grid(2);
+  @include small-full-width;
+}
+
+.featured-placement__container--with-gutter {
+  @include flex-grid(2, 12px);
+  @include small-full-width;
+}
+
+.featured-placement {
+  @include flex-grid__fullsize-child;
+  position: relative;
+}
+
+.featured-placement__contents {
+  @include flex-grid__contents;
+  align-items: flex-start;
+  background-repeat: no-repeat;
+}

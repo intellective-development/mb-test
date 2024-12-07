@@ -1,0 +1,30 @@
+<% unless brand.nil? %>
+  <h5 id="<%= brand.id %>">
+    <%= link_to brand.name, admin_merchandise_brand_path(brand), target: '_blank' %>
+  </h5>
+  <p>
+    <div><small>Brand Name: <%= brand.name %></small></div>
+    <div><%= brand.description %></div>
+  </p>
+  <p>
+    <div><strong>Product Groupings: </strong><small><%= brand.product_size_groupings.size %></small></div>
+    <ul class="inside-unordered">
+      <% brand.product_size_groupings.each do |product_grouping| %>
+      <li>
+          <small><%= link_to product_grouping.name, admin_merchandise_product_size_grouping_path(product_grouping), target: '_blank'%></small>
+      </li>
+      <% end %>
+    </ul>
+  </p>
+  <p>
+    <div><strong>Sub Brands: </strong><small><%= brand.sub_brands.size %></small></div>
+    <ul class="inside-unordered">
+      <% brand.sub_brands.each do |sub_brand| %>
+      <li>
+        <small><%= link_to sub_brand.name, admin_merchandise_brand_path(sub_brand), target: '_blank' %></small>
+      </li>
+      <% end %>
+    </ul>
+  </p>
+
+  <% end %>

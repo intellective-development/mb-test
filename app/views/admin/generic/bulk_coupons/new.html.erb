@@ -1,0 +1,9 @@
+<% content_for :auth_tokens, true %>
+
+<h3>New Bulk Coupons</h3>
+
+<%= simple_form_for(@bulk_coupon, :as => :bulk_coupon, :url => admin_generic_bulk_coupons_path(@bulk_coupon)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to "Back to List", admin_generic_bulk_coupons_path, :class => "button" %>

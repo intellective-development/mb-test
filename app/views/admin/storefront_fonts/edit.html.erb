@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Storefront font' %>
+<h3>Update Storefront font</h3>
+
+<%= form_for @storefront_font, url: admin_storefront_storefront_font_path(@storefront, @storefront_font), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", class: :button %>
+<% end %>

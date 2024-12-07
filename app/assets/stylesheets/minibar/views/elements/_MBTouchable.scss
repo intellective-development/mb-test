@@ -1,0 +1,8 @@
+.el-touchable {
+  cursor: pointer;
+  outline: none; // turn off default system interaction styles
+
+  &.el-touchable--disabled {
+    cursor: inherit;
+  }
+}

@@ -1,0 +1,61 @@
+<%= javascript_include_tag 'admin/merge_logs' %>
+<div class="row">
+  <div class="large-12 columns"><h2>Merge History</h2></div>
+  <div class = "large-8 small-12 columns">
+    <p>This tool is used to find historical merges, Products and Product Groupings are all under the products type and brands are in thier own set of merges.</p>
+    <p><strong>Please don't use this this tool unless you know what you're doing!</strong></p>
+  </div>
+  <div class = "large-4 small-12 columns">
+    <%= form_tag(admin_merchandise_merge_groupings_path, method:"get") do %>
+      <fieldset>
+        <label>Type</label>
+        <select id="merge_logs_type" name='logs_type'>
+          <option>products</option>
+          <option>brands</option>
+        </select>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>User</th>
+      <th>State</th>
+      <th>Type</th>
+      <th>Source</th>
+      <th>Destination </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merges.each do |merge| %>
+    <tr>
+      <td><%= merge.id %></td>
+      <td><%= merge.user&.name || 'Automatic Merge' %></td>
+      <td><small><%= merge.state.capitalize %></small></td>
+      <td><small><%= merge.mergeable_type.underscore.humanize.titleize %></small></td>
+      <td>
+        <strong><%= merge.source&.name %></strong><br>
+        <small><%= merge.source&.item_volume if @type != 'brands' && merge.items_have_volume? %></small>
+        <small><%= merge.source&.products.size.to_s + ' product(s)' if @type != 'brands' &&  merge.items_have_products? %></small>
+        <small><%= merge.source&.product_size_groupings.size.to_s + ' grouping(s)' if @type == 'brands'%></small>
+        <small><%= merge.source&.sub_brands.size.to_s + ' sub brand(s)' if @type == 'brands'%></small>
+      </td>
+      <td>
+        <strong><%= merge&.destination.name %></strong><br>
+        <small><%= merge&.destination.item_volume if @type != 'brands' &&  merge.items_have_volume?  %></small>
+        <small><%= merge&.destination.products.size.to_s + ' product(s)' if @type != 'brands' &&  merge.items_have_products? %></small>
+        <small><%= merge&.destination.product_size_groupings.size.to_s + ' grouping(s)' if @type == 'brands'%></small>
+        <small><%= merge&.destination.sub_brands.size.to_s + ' sub brand(s)' if @type == 'brands'%></small>
+      </td>
+      <td>
+        <%= link_to('Undo', admin_merchandise_merge_log_path(merge, type: @type), method: :put) if merge.can_rollback? %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @merges, {:total_pages => [@merges.total_pages, 600].min} %>

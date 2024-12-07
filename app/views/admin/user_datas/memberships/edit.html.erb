@@ -1,0 +1,7 @@
+<% content_for :title, 'Update Membership' %>
+<h3>Membership</h3>
+
+<%= form_for @membership, url: admin_user_datas_memberships_path do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+  <%#= submit_tag 'Update', class: 'button' %>
+<% end %>

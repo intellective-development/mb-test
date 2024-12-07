@@ -1,0 +1,201 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you placed an order with Minibar Delivery' %>
+<style>
+  span.bold {
+      font-weight: bold;
+  }
+
+  table.container table.row .product {
+      width: 33%;
+      white-space: normal;
+  }
+
+  table.container table.row .product-title {
+      cursor: pointer;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px 6px;
+      white-space: normal;
+  }
+
+  table.container table.row .product-title a {
+      color: #222 !important;
+      text-decoration: none;
+      margin: 10px 0;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 1.4em;
+      text-align: center;
+  }
+
+  table.container table.row.delayed {
+      width: 400px;
+      margin: 0 auto 20px !important;
+  }
+
+  table.container table.row.delayed tbody {
+      width: 100%;
+      display: table;
+  }
+
+  table.container table.row.delayed.wide {
+      width: 100% !important;
+  }
+
+  table.container table.row th.large-10 p {
+      color: #3b3b3b;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      line-height: 2.4em;
+      text-transform: uppercase;
+      margin: 0 auto;
+      padding: 0;
+      font-family: Avenir,'Helvetica Neue',Arial,sans-serif !important;;
+  }
+
+  table.container table.row th.large-10 {
+      width: 400px;
+      border: solid 1px #bfbfbf;
+      border-left: none;
+      border-right: none;
+      margin: 0 auto;
+      padding: 0;
+  }
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Order",
+  "merchant": {
+    "@type": "Organization",
+    "name": "MinibarDelivery.com"
+  },
+  "orderNumber": "<%= @order.number %>",
+  "priceCurrency": "USD",
+  "price": "<%= @order.taxed_total.to_s %>",
+  "acceptedOffer": [
+    <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "<%= variant.product_name %>",
+        "image": "<%= variant.product.featured_image(:thumb) %>",
+        "sku": "<%= variant.sku %>"
+      },
+      "price": "<%= variant.price.to_s %>",
+      "priceCurrency": "USD",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "<%= order_items.sum(&:quantity) %>"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": "<%= variant.supplier.display_name %>"
+      }
+    }
+    <% end %>
+  ],
+  "url": "https://minibardelivery.com/",
+  "orderStatus": "http://schema.org/OrderInTransit",
+  "orderDate": "<%= @order.completed_at.iso8601 %>",
+  "isGift": "<%= @order.gift? %>",
+  "customer": {
+    "@type": "Person",
+    "name": "<%= @order.user_name %>"
+  }
+}
+</script>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom center">
+                          Hi <%= @user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical center">
+                          <% if @order.shipments.count > 1 %>
+                            We wanted to let you know that due to delays in your area, we may be running up to 45 minutes late for delivery on part or all of your order.
+                          <% else %>
+                            We wanted to let you know that due to delays in your area, we may be running up to 45 minutes late for delivery.
+                          <% end %>
+                          <br>
+                          <span class="bold"># <%= @order.number %></span>
+                          <br>
+                          <br>
+                          If you'd like to reschedule your order or need further assistance, please reply to this message! You can also call us at <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>. We’re sorry for any inconvenience.
+                        </p><br/>
+                        <p class="indent dark small center">
+                        Cheers, <br/>
+                        Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+              <tr>
+                <td>
+                  <table class="row delayed">
+                    <tbody>
+                    <tr>
+                      <th class="large-10">
+                        <p class="avenir-heading-medium text-center">delayed products</p>
+                      </th>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <table class="row delayed wide">
+                    <tbody>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <% @late_products.each_slice(3).each do |chunk| %>
+                      <tr>
+                        <% chunk.each do |product| %>
+                          <th class="product">
+                            <a target="_blank" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/store/product/#{product.permalink}" %>">
+                              <%
+                                image_url = product.image_urls(:product).first
+                                image_url = asset_url(image_url) if image_url.start_with?("/")
+                              %>
+                              <img alt="<%= product.name %>" src="<%= image_url %>" />
+                            </a>
+                            <p class="avenir-body-small text-center product-title">
+                              <a target="_blank" href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/store/product/#{product.permalink}" %>">
+                                <br />
+                                <%= product.name %> ▸
+                              </a>
+                            </p>
+                          </th>
+                        <% end %>
+
+                      </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

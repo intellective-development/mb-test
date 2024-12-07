@@ -1,0 +1,21 @@
+<tr className="row" key="#{cocktail.id}" class='odd <%= cocktail.active? ? '' : 'row-expired' %>'>
+  <td><%= cocktail.name %></td>
+  <td><%= cocktail.brand&.name %></td>
+  <td>
+    <ul>
+      <% cocktail.tools.each do |tool| %>
+        <li><%= tool.name %></li>
+      <% end %>
+    </ul>
+  </td>
+  <td>
+    <ul>
+      <% cocktail.ingredients.each do |ingredient| %>
+        <li><%= ingredient.name %></li>
+      <% end %>
+    </ul>
+  </td>
+  <td>
+    <%= link_to "Edit", "/admin/cocktails/edit/#{cocktail.permalink}", { class: 'button tiny'} %>
+  </td>
+</tr>

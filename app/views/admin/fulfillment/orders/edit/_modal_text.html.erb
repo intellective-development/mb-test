@@ -1,0 +1,25 @@
+<div id="modal-text" class="reveal-modal" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <%= form_for('text', url: send_text_admin_fulfillment_order_path(order), method: :post) do |f| %>
+    <table class="table-message">
+      <tr>
+        <th>Name</th>
+        <td><%= order.user_name %>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td><%= f.select :phone, options_for_select([["Shipping Address Phone - #{order.ship_address_phone || order.pickup_detail_phone}", order.ship_address_phone || order.pickup_detail_phone]]) %></td>
+      </tr>
+      <tr>
+        <th>Text</th>
+        <td><%= f.text_area :text, { style: 'height:15em;' } %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <%= f.submit 'Send Text' %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>

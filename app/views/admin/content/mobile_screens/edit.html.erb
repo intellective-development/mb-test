@@ -1,0 +1,72 @@
+<% content_for :auth_tokens, true %>
+<% content_for :title, "Editing #{@mobile_screen.name}" %>
+<h2><%= @mobile_screen.name %></h2>
+<%= simple_form_for @mobile_screen, url: admin_content_mobile_screen_path do |f| %>
+  <div class="row">
+    <div class="column medium-10">
+      <%= f.input :name, label: 'Screen Name' %>
+      <%= f.input :description, label: 'Description' %>
+    </div>
+    <div class="column medium-2">
+      <label>
+        Active? <br> <%= f.check_box :active, label: 'Active?' %>
+      </label>
+      <label>
+        Platform
+        <%= f.select :platform, Content::MobileScreen.platforms.map { |k, v| [k.humanize, k] } %>
+      </label>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="medium-12">
+      <table>
+        <thead>
+          <tr>
+            <th><attr title="What should this module be called when referenced internally and in analytics? This should be a unique name.">Internal Name</th>
+            <th>Type</th>
+            <th><attr title="Where should this module be positioned on the page? (0 = Highest)">Priority</attr></th>
+            <th><abbr title="Should this module be displayed for logged in users?">Logged In</abbr></th>
+            <th><abbr title="Should this module be displayed for logged out users?">Logged Out</abbr></th>
+            <th>Section ID</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @mobile_screen.modules.priority_order.each do |i| %>
+            <%= f.simple_fields_for :modules, i do |content_module| %>
+              <%= render partial: '/admin/content/mobile_screens/module_row', locals: { content_module: content_module, f: f } %>
+            <% end %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <%= f.simple_fields_for :modules, @mobile_screen.modules.new do |content_module| %>
+            <%= render partial: '/admin/content/mobile_screens/module_row', locals: { content_module: content_module, f: f } %>
+          <% end %>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="column medium-12">
+      <%= f.button :submit %>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

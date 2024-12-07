@@ -1,0 +1,51 @@
+<% if @tax_rate.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@tax_rate.errors.count, "error") %> prohibited this tax_rate from being saved:</h2>
+
+    <ul>
+    <% @tax_rate.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<fieldset>
+  <label>Percentage</label>
+  <%= f.text_field :percentage %>
+
+  <label>Zipcode</label>
+  <%= f.text_field :zipcode %>
+
+  <%= f.label 'State (Leave blank if using zipcode)' %>
+  <%= f.select :state_id, @select_state_id, include_blank: true  %>
+
+  <label>Start Date</label>
+  <div class='date-select'>
+    <%= f.text_field :start_date, { :start_year => Time.current.year, :end_year => Time.current.year + 12, :class => 'ui-datepicker' } %>
+  </div>
+
+  <label>End Date</label>
+  <div class='date-select'>
+    <%= f.text_field :end_date, {:include_blank => true, :start_year => Time.current.year, :end_year => Time.current.year + 12, :class => 'ui-datepicker'} %>
+  </div>
+
+  <label><%= f.label 'Tax Category (Leave blank if alcohol)' %></label>
+  <%= f.select :tax_category_id, @select_tax_category, include_blank: true  %>
+
+  <%= f.check_box :default %>
+  <%= f.label :default, title: 'This will become the default tax rate if no more specifc one exists.' %>
+
+  <%= f.check_box :active %>
+  <%= f.label :active %>
+</fieldset>
+
+<%= f.submit "Create", :class => "button" %>
+
+<% content_for :bottom do -%>
+   <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min', 'datePickerInitialize' %>
+<% end %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<% end %>

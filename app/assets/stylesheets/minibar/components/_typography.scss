@@ -1,0 +1,599 @@
+h3 {
+  line-height: 1.3em;
+}
+
+p, ul {
+  margin-bottom: convert-to-em(40);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-avenir;
+}
+
+p {
+  &.message {
+    background: rgba(0, 0, 0, 0.02);
+    border-left: 2px solid $brand-red;
+    color: #000;
+    font-family: 'Hoefler Text', 'Baskerville old face', Garamond, 'Times New Roman', serif;
+    padding: 6px 12px;
+  }
+  &.comment {
+    background: rgba(0, 0, 0, 0.02);
+    border-left: 2px solid $brand-red;
+    color: #000;
+    font-family: $font-family-helvetica;
+    margin-bottom: 0px;
+    padding: 6px 12px;
+  }
+  &.lead {
+    font-family: $font-family-helvetica;
+    font-weight: 300;
+    font-size: 23px;
+    color: $brand-black;
+    line-height: 31px;
+    margin-bottom: 1em;
+  }
+  &.secondary {
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+}
+
+.dark {
+  h1, h2, h3, h4, h5, h6, p {
+    color: $brand-white;
+  }
+}
+
+.black-text {
+  color: $brand-black;
+}
+
+.red-text {
+  color: $brand-red;
+}
+
+.grey-text {
+  color: $brand-medium-grey;
+}
+
+.light {
+  h1, h2, h3, h4, h5, h6, p {
+    color: $brand-black;
+  }
+}
+
+.link--black {
+  transition: color 200ms ease-out;
+  color: $brand-black;
+  &:hover {
+    color: $brand-dark-grey;
+  }
+  &:active, &:focus {
+    color: $brand-black;
+  }
+}
+
+.grey-link { // TODO: -> link--grey
+  cursor: pointer;
+  color: $brand-medium-grey;
+  &:hover, &:active, &:focus {
+    color: $brand-black;
+  }
+}
+
+.link--small {
+  @extend .grey-link;
+  font-size: 12px;
+}
+
+.body--small {
+  color: $brand-medium-grey;
+  font-size: 12px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+label {
+  .secondary {
+    color: #898989;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    &:hover {
+      color: #666;
+    }
+  }
+}
+
+.page-title { // UNUSED
+  color: $brand-black;
+  font-weight: $heavy-font-weight;
+  font-size: convert-to-em(24);
+  text-transform: uppercase;
+  @media screen and (max-width: $small-max-width) {
+    font-size: convert-to-em(18);
+    font-family: $font-family-avenir;
+  }
+}
+
+.fixed {
+  .page-title {
+    color: $brand-black;
+  }
+}
+
+// Product name from PDP
+.heading-1 {
+  color: $brand-black;
+  font-size: 26px;
+  line-height: 37px;
+  margin-bottom: 0;
+  @media screen and (max-width: $small-max-width) {
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+
+// Static page subhead
+.heading-2 {
+  font-size: 23px;
+  letter-spacing: 3px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+}
+
+// Form Heading
+.heading-3 {
+  color: $brand-red;
+  text-transform: uppercase;
+  font-size: convert-to-em(22);
+  margin-bottom: 0;
+}
+.heading-panel {
+  border: none;
+  color: $brand-black;
+  font-size: 16px;
+  letter-spacing: 3px;
+  line-height: 24px;
+  margin-bottom: 2px !important;
+  text-transform: uppercase;
+  label {
+    color: $brand-black;
+    font-size: 15px;
+    letter-spacing: 3px !important;
+    line-height: 20px;
+    margin-bottom: 0;
+  }
+  input {
+    margin-top: -5px;
+  }
+  em {
+    color: $brand-dark-grey;
+  }
+
+}
+
+.assistive {
+  @extend .body--small;
+}
+
+.banner-heading {
+  font-weight: $heavy-font-weight;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.heading-table { // used on tds
+  border: none;
+  color: $brand-black;
+  font-family: $font-family-avenir;
+  @media screen and (max-width: 767px) {
+    h4, h5, h6 { font-size: 14px; }
+  }
+  h4, h5, h6 {
+    font-size: 15px;
+    letter-spacing: 3px;
+    line-height: 24px;
+    text-transform: uppercase;
+  }
+  p {
+    margin-bottom: 12px;
+  }
+}
+.subhead-table {
+  font-weight: 300;
+  font-size: 15px;
+  color: $brand-medium-grey;
+  line-height: 21px;
+  letter-spacing: 0px;
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
+}
+.main-table {
+  letter-spacing: 0px;
+  font-weight: 300;
+  color: $brand-black;
+  em {
+    font-size: 12px;
+    color: $brand-medium-grey;
+    line-height: 32px;
+    text-transform: capitalize;
+  }
+}
+
+.text-header {
+  font-weight: $heavy-font-weight;
+}
+
+.heading-title {
+  font-size: 31px;
+  color: $brand-white;
+  line-height: 38px;
+  letter-spacing: 9px;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.30);
+  text-transform: uppercase;
+}
+
+.heading-main { // never used
+  color: #fff;
+  font-size: convert-to-em(44);
+  line-height: 1.2em;
+  text-shadow: 0 0 5px rgba(0, 0, 0, .4);
+  text-transform: uppercase;
+  margin-bottom: convert-to-em(0);
+  @media screen and (max-width: 480px){
+    font-size: convert-to-em(30);
+  }
+}
+.heading-thin {
+  font-size: 28px;
+  font-weight: normal;
+  letter-spacing: 6px;
+  line-height: 37px;
+  margin-bottom: 0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.50);
+  text-transform: uppercase;
+}
+.heading-thin-lowercase {
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 37px;
+  margin-bottom: 0;
+  text-transform: initial;
+}
+.heading-thin-small { // 1 use
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 3px;
+  line-height: 20px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+.heading-thin-smaller { // 1 use
+  font-size: 12px;
+  font-weight: $heavy-font-weight;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.heading-thin-bold { // 1 use
+  font-size: 14px;
+  font-weight: $heavy-font-weight;
+  letter-spacing: 3px;
+  line-height: 24px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.heading-thin-large {
+  font-size: 34px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 1.2em;
+  margin-bottom: 20px;
+  // text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.10);
+  @media screen and (max-width: 480px){
+    font-size: convert-to-em(28);
+  }
+}
+
+.heading-metadata {
+  color: $brand-black;
+  font-size: 15px;
+  line-height: 20px;
+  @media screen and (max-width: 767px){
+    text-transform: uppercase;
+  }
+}
+
+.heading-cart {
+  font-size: 13px;
+  font-weight: $heavy-font-weight;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.subhead-thin { // used on non header tags
+  font-family: $font-family-avenir;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 25px;
+  margin-bottom: 24px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.50);
+}
+
+.p1 {
+  color: $brand-black;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 21px;
+}
+
+.branding {
+  font-family: $font-family-avenir;
+}
+
+.legal-thin {
+  font-size: 12px;
+  a { color: inherit; }
+}
+
+.loading-indicator {
+  color: $brand-dark-grey !important;
+  font-weight: 200 !important;
+  font-size: 12px !important;
+}
+
+.p-large { // 2 uses
+  color: $brand-black !important;
+  font-family: $font-family-avenir;
+  font-size: 26px;
+  line-height: 36px;
+  margin-bottom: 1.5em;
+}
+
+.p-medium { // 2 uses
+  color: $brand-black !important;
+  font-family: $font-family-avenir;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 1.5em;
+}
+
+.code-block {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-weight: $heavy-font-weight;
+  font-size: 22px;
+  color: #7b1315;
+  line-height: 30px;
+  padding: 12px 24px 4px 24px;
+  border: 1px solid #e6e6e6;
+  display: inline-block;
+}
+
+.compact {
+  font-size: convert-to-em(30);
+}
+// Price/Volume from PDP
+.subhead-1 {
+  font-size: 18px;
+  color: $brand-black;
+  line-height: 37px;
+}
+// Subheading, Uppercase, Brand Grey, Small Font. Used in footer.
+.subhead-2 {
+  font-weight: $heavy-font-weight;
+  color: $brand-black;
+  text-transform: uppercase;
+  font-size: 13px;
+  line-height: 18px;
+  margin-bottom: 3px;
+  letter-spacing: 2px;
+}
+.subhead-3 {
+  text-transform: uppercase;
+  font-size: 15px;
+  color: $brand-medium-grey;
+  line-height: 27px;
+  letter-spacing: 3px;
+}
+.subhead-4 { // TODO: not used
+  color: $brand-red;
+  font-size: convert-to-em(12);
+  padding-bottom: convert-to-em(3);
+  text-transform: lowercase;
+}
+
+.subhead-5 {
+  font-size: 15px;
+  color: $brand-black;
+  line-height: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero-h3 { // 1 use
+  color: $brand-red;
+  font-size: convert-to-em(40);
+  line-height: 1em;
+  margin-bottom: convert-to-em(6);
+  text-transform: uppercase;
+}
+// Legal style
+.dark{
+  .legal {
+    color: #5d5d5d;
+    font-size: 11px;
+    line-height: 14px;
+    a {
+      color: #5d5d5d;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.legal {
+  font-size: convert-to-em(11);
+}
+.notice {
+  color: $brand-red;
+}
+.red {
+  color: $brand-red;
+}
+.red-highlight {
+  color: $brand-red;
+  text-transform: lowercase;
+}
+.detail {
+  color: #898989;
+  font-size: convert-to-em(13);
+}
+
+.no-bullet {
+  list-style-type: none;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.aside {
+  color: $brand-dark-grey;
+  font-size: convert-to-em(10);
+}
+
+#filters li {
+  color: $brand-medium-grey;
+  font-size: 15px;
+  letter-spacing: 0px;
+  line-height: 32px;
+  a {
+    &:hover {
+      color: #666;
+    }
+  }
+}
+
+.no-spacing {
+  letter-spacing: 0;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
+
+.bottom-border {
+  border-bottom: 1px solid $brand-light-grey;
+  padding-bottom: 12px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media screen and (max-width: 640px) {
+  .small-text-center {
+    text-align: center;
+  }
+}
+
+.secondary-action {
+  font-size: 13px;
+}
+
+.product-list__main-heading {
+  color: $brand-black;
+  font-weight: $heavy-font-weight;
+}
+
+// New button sizing mixin
+
+@mixin responsive-button-text {
+  @media screen and (max-width: $small-screen - 1px) {
+    font-size: 0.75em;
+  }
+}
+
+//Main hero dropshadow
+
+@mixin titledrop($stroke-width, $stroke-color, $dropcolor) {
+  text-shadow: -0.5px 0.5px $dropcolor, //
+              -1px 1px $dropcolor,
+              -1.5px 1.5px $dropcolor,
+              -2px 2px $dropcolor,
+              -2.5px 2.5px $dropcolor,
+              -3px 3px $dropcolor,
+              -3.5px 3.5px $dropcolor,
+              -4px 4px $dropcolor,
+              -4.5px 4.5px $dropcolor,
+              -5px 5px $dropcolor,
+              -5.5px 5.5px $dropcolor,
+              -6px 6px $dropcolor,
+              -6.5px 6.5px $dropcolor,
+              -7px 7px $dropcolor,
+              -7.5px 7.5px $dropcolor,
+              -8px 8px $dropcolor;
+  -webkit-text-stroke-width: $stroke-width;
+  -webkit-text-stroke-color: $stroke-color;
+}
+
+li {
+  list-style: none;
+}
+
+// Homepage Redesign Styles
+// TODO: May want to split this into multiple - the text and the underline.
+
+.heading-row {
+  border-bottom: 1px solid #686868;
+  font-family: $font-family-avenir;
+  font-size: 15px;
+  letter-spacing: 2.7px;
+  line-height: 1.267em;
+  margin: 1.6em 0 .9em;
+  padding-bottom: .4em;
+  text-transform: uppercase;
+  a {
+    font-weight: $heavy-font-weight;
+    letter-spacing: 2px;
+  }
+  &.heading-row--has-subheader {
+    // These styles are likely safe on the base class, but unnecessary and could interact weirdly
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .heading-row__subheader {
+    letter-spacing: normal;
+    text-transform: none;
+  }
+}
+
+.big-chevron {
+  font-size: 20px;
+}
+
+.right-chevron::after{
+  font-family: $font-family-avenir;
+  font-weight: 400;
+  content: "\2009\00BB"; // thinsp double chevron
+  font-size: 1.2em;
+  // padding-left: 0.2em;
+  // vertical-align: sub;
+}

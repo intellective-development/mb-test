@@ -1,0 +1,8 @@
+<div id="modal-apply-gift-card" class="reveal-modal tiny" data-reveal>
+  <%= form_for('', url: apply_gift_card_admin_fulfillment_order_path(order), method: :post) do |f| %>
+    <h3>Apply Gift Card</h3>
+    <p>Refunds will be made if required. Letter case is ignored.</p>
+    <%= f.text_field :code, placeholder: 'code' %>
+    <%= f.submit 'Apply', class: "small button" %>
+  <% end %>
+</div>

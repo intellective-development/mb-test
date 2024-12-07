@@ -1,0 +1,105 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'someone tried to sign in your account at Minibar Delivery' %>
+
+
+<table class="container container-main" align="center"> <!-- INTRO TEXT BEGIN -->
+  <tbody>
+    <tr>
+      <td><%= render partial: 'customer_notifier/header_logo' %></td>
+    </tr>
+    <tr>
+      <td>
+        <table class="row">
+          <tbody>
+            <tr>
+              <th class="small-12 large-offset-2 large-8 columns first">
+                <table>
+                  <tr>
+                    <th>
+                      <br />
+                      <p class="text-left">
+                        Hi <%= @resource.first_name %>,
+                      </p><br />
+                      <p class="text-left" style="word-break: keep-all;">
+                        <strong>We need to verify your identity because of an unusual log in attempt to your Minibar Delivery account.</strong>
+                      </p><br />
+                      <center data-parsed="">
+                        <table align="center">
+                          <tr style="border: 1px solid lightgrey; border-bottom: 0;">
+                            <td style="padding: 16px;">
+                              <strong>Device:</strong><br />
+                              <%= @device %>
+                            </td>
+                          </tr>
+                          <tr style="border: 1px solid lightgrey; border-bottom: 0;">
+                            <td style="padding: 16px;">
+                              <strong>Location:</strong><br />
+                              <%= @location %>
+                            </td>
+                          </tr>
+                          <tr style="border: 1px solid lightgrey;">
+                            <td style="padding: 16px;">
+                              <strong>When:</strong><br />
+                              <%= @time %>
+                            </td>
+                          </tr>
+                        </table>
+                      </center><br />
+                      <p class="text-left">
+                        To help keep your account secure, let us know if it was you.
+                      </p><br />
+                      <center data-parsed="" size="width: 100%;">
+                        <table align="center" class="button radius indent no-vertical expand">
+                          <tr>
+                            <td>
+                              <table>
+                                <tr>
+                                  <td>
+                                    <%= link_to 'CONFIRM ACCESS', confirm_access_url(@token), class: 'no-vertical button-text', style: 'background-color: rgb(123, 19, 21);' %>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </center><br />
+                      <p class="text-left">
+                        If it wasn't you, secure your account by resetting your password now.
+                      </p><br />
+                      <center data-parsed="">
+                        <table align="center" class="button radius indent no-vertical expand">
+                          <tr>
+                            <td>
+                              <table>
+                                <tr>
+                                  <td>
+                                    <%= link_to 'RESET PASSWORD', deny_access_url(@token), class: 'no-vertical button-text' %>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </center><br />
+                      <p class="text-left">
+                        If you have any questions, contact us at <a class="text-link" href="tel:+18554870740"><strong>(855) 487-0740</strong></a> or <a class="text-link" href="mailto:help@minibardelivery.com"><strong>help@minibardelivery.com</strong></a>
+                      </p><br />
+                      <p class="text-left">
+                        Cheers,
+                      </p><br />
+                      <p class="text-left">
+                        The Minibar Delivery Team
+                      </p>
+                    </th>
+                  </tr>
+                </table>
+              </th>
+              <th class="small-12 large-2 last columns"></th>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table><!-- INTRO TEXT END -->

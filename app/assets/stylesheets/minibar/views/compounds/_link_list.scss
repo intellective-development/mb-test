@@ -1,0 +1,35 @@
+.cm-link-list {
+  width: 100%;
+  max-width: $row-width;
+  padding: 0 $mobile-side-margin;
+  margin: 0 auto (3 * $standard-gutter) auto;
+}
+
+.cm-link-list__link-container {
+  padding-top: 0;
+  padding: 0 (0.5 * $standard-gutter) $standard-gutter (0.5 * $standard-gutter);
+}
+
+.cm-link-list__link {
+  @include font-size(13);
+  display: inline-block;
+  width: 100%;
+  padding: $standard-gutter;
+  overflow: hidden;
+  border: solid 1px $brand-black;
+  border-radius: 4px;
+  text-align: center;
+  color: $brand-black;
+  font-weight: $heavy-font-weight;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: $grid-breakpoint) {
+  .cm-link-list {
+    padding: 0;
+  }
+}

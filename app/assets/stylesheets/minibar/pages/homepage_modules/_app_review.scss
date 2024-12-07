@@ -1,0 +1,106 @@
+.module-app{
+  margin-bottom: 44px;
+  display: flex;
+
+  @media screen and (min-width: $small-screen) and (max-width: $medium-screen){
+    align-items: center;
+  }
+  @media screen and (max-width: 767px){
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+.module-featured-in{
+  .heading-row-no-border{
+    font-family: $font-family-avenir;
+    font-size: 15px;
+    letter-spacing: 2.7px;
+    line-height: 19px;
+    text-transform: uppercase;
+  }
+
+  .publication-logos{
+    margin-bottom: 8px;
+  }
+
+  .fast-company{
+    @include publication-logo($publications-fastcompany, inline-block);
+  }
+  .new-york-times{
+    @include publication-logo($publications-newyorktimes, inline-block);
+  }
+  .new-yorker{
+    @include publication-logo($publications-newyorker, inline-block);
+  }
+  .refinery-29{
+    @include publication-logo($publications-refinery29, inline-block);
+  }
+  .bloomberg{
+    @include publication-logo($publications-bloomberg, inline-block);
+  }
+  .wall-street-journal{
+    @include publication-logo($publications-wallstreetjournal, inline-block);
+  }
+  .glamour{
+    @include publication-logo($publications-glamour, inline-block);
+  }
+}
+.downloads-header{
+  margin-top: 74px;
+  @media screen and (max-width: 767px){
+    text-align: center;
+    h3,
+    h4.sub-heading{
+      text-align: center;
+    }
+    .inline-list{
+      display: inline-block;
+    }
+  }
+  h4.sub-heading{
+    font-family: $font-family-avenir;
+    font-size: 15px;
+  }
+  @media screen and (max-width: $medium-screen){
+    margin-top: 0px;
+  }
+
+  .inline-list > li{
+    padding-bottom: 10px;
+    &:last-child{
+      @media screen and (min-width: 871px){
+        margin-left: 10px;
+      }
+      // @media screen and (max-width: 767px){
+      //   margin-left: 10px;
+      // }
+    }
+  }
+}
+
+.user-reviews{
+  margin-top: 170px;
+  p {
+    font-family: $font-family-avenir;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  @media screen and (max-width: $medium-screen){
+    margin-top: 0;
+  }
+  @media screen and (max-width: $small-screen - 1px){
+    display: none;
+  }
+}
+
+.phones-image{
+  background: transparent url(image_path('components/homepage/phonegrouping.jpg')) no-repeat;
+  background-size:     contain;
+  background-position:     center;
+  width: 100%;
+  height: 390px;
+  @media screen and (max-width: $small-screen){
+    margin-bottom: 16px;
+    height: 336px;
+  }
+}

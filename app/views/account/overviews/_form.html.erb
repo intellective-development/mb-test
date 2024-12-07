@@ -1,0 +1,32 @@
+<h3 class="subhead-2">Update Personal Infomation</h3>
+<div class="row">
+  <div class="large-6 column">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="large-6 column">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 column">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+</div>
+<%= f.submit 'Update Personal Information', class: 'button' %>
+
+<h3 class="subhead-2">Change Password</h3>
+<div class="row">
+  <div class="large-6 column">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <div class="large-6 column">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+</div>
+<%= f.submit 'Change Password', class: 'button' %>
+

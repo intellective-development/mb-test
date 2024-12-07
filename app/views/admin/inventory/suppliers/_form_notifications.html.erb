@@ -1,0 +1,163 @@
+<fieldset>
+  <legend>Order Notifications</legend>
+  <p>Leave these fields blank if they are not required. Numbers should be prefixed with a 1.</p>
+  <div class="row">
+    <div class="large-12 column">
+      <table>
+        <thead>
+          <tr>
+            <th>Notification Type</th>
+            <th>Number</th>
+            <th>Label</th>
+            <th>Active</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @supplier.notification_methods.order(:notification_type, :value).each do |i| %>
+            <%= form.simple_fields_for :notification_methods, i do |notification_method| %>
+              <%= render partial: '/admin/inventory/suppliers/notification_method_row', locals: { notification_method: notification_method, f: form } %>
+            <% end %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="5">New Notification Method...</th>
+          </tr>
+          <%= form.simple_fields_for :notification_methods, @supplier.notification_methods.new do |notification_method| %>
+            <%= render partial: '/admin/inventory/suppliers/notification_method_row', locals: { notification_method: notification_method, f: form } %>
+          <% end %>
+        </tfoot>
+      </table>
+      <% if @supplier.shipping_methods.any? { |sm| sm.shipped? } %>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= form.check_box :notify_no_tracking_number %>
+            <label>Automatically notify after 48 hours if no tracking number?</label>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+
+
+<%= form.fields_for :address do |af| %>
+  <%= render 'admin/inventory/suppliers/address', :f => af %>
+<%- end %>
+
+<fieldset id="Employees">
+  <legend>Employees</legend>
+  <table>
+  <% @supplier.employees.each do |employee| %>
+    <% unless employee.user.nil? %>
+        <tr>
+          <td><%= link_to(employee.user.email_address_with_name, admin_customer_path(employee.user.id)) %></td>
+          <td><%= number_to_phone(employee.phone, area_code: true) %></td>
+          <td><%= raw employee.sms ? '<span class="label round">SMS</span>' : '' %></td>
+          <td><%= raw employee.voice ? '<span class="label round">Voice</span>' : '' %></td>
+          <td>
+            <%= check_box_tag "activates_employees[]", employee.id, employee.active? %>
+            <%= "Active?" %>
+          </td>
+          <td>
+            <%= check_box_tag "destroys_employees[]", employee.id %>
+            <%= "Destroy?" %>
+          </td>
+        <tr>
+      </br>
+    <% end %>
+  <% end %>
+  </table>
+</fieldset>
+
+<div class="warn-below"></div>
+
+<fieldset>
+  <legend>Configuration Options</legend>
+  <%= form.text_area :config , value: JSON.pretty_generate(@supplier.config) %>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <%= form.label 'Order Note' %>
+            <%= form.text_area :order_note , placeholder: 'A note here will appear on all orders for this supplier. Shown to consumer.' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form.check_box :birthdate_required %>
+      <label>Birthdate Check Required on Checkout?</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form.check_box :show_substitution_ok %>
+      <label>Show "Substitution OK" option on Checkout?</label>
+    </div>
+  </div>
+
+</fieldset>
+
+<fieldset>
+  <legend>Delivery Service</legend>
+  <div class="row">
+    <div class="large-4 columns">
+      <%= form.select :delivery_service_id, @delivery_services || [], include_blank: true %>
+    </div>
+    <div class="large-4 columns additional-dsp <%= @supplier.delivery_service_id.present? && @supplier.delivery_service.name != 'CartWheel' ? '' : 'hide' %>">
+      <%= check_box_tag :add_secondary_delivery_service, true, @supplier.secondary_delivery_service_id.present? %>
+      <label>Add CartWheel as an additional DSP</label>
+    </div>
+    <div class="large-4 columns">
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form.label 'Customer ID' %>
+      <%= form.text_field :delivery_service_customer, :placeholder => 'Customer ID/Number from delivery service' %>
+    </div>
+    <div class="large-6 columns">
+      <%= form.label 'Client ID' %>
+      <%= form.text_field :delivery_service_client_id, :placeholder => 'Client ID from delivery service' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form.label 'Client Secret' %>
+      <%= form.text_field :delivery_service_client_secret, :placeholder => 'Client Secret from delivery service' %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>OnFleet</legend>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form.label 'Organization ID' %>
+      <%= form.text_field :onfleet_organization, :placeholder => 'Organization id from onfleet (for executor)' %>
+    </div>
+    <div class="large-6 columns">
+      <%= form.label 'Receiving Team' %>
+      <%= form.text_field :trak_id, :placeholder => 'Receiving Team for Onfleet Connected team' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form.label 'Auto Assign Team' %>
+      <%= form.text_field :onfleet_autoassign_team, :placeholder => 'Will assign all orders to this team by default when set' %>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+  <legend>TDLinx Code</legend>
+  <div class="row">
+    <div class="large-12 column">
+      <p>TDLinx is a dynamic catalog of retail and on-premise location information that delivers a consistent view of store-level performance and strategic needs.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <%= form.text_field :tdlinx_code %>
+    </div>
+  </div>
+</fieldset>

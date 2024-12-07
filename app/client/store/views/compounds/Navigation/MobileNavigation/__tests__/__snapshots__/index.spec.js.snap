@@ -1,0 +1,401 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileNavigation renders 1`] = `
+<header>
+  <div>
+    <div
+      class="el-touchable cmMNav_Top_Element cmMNav_Top_Element_Left"
+      role="button"
+      tabindex="-1"
+    >
+      <div
+        class="elMBDynamicIcon"
+      >
+        <svg
+          class=""
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="#222"
+            fill-rule="nonzero"
+          >
+            <path
+              d="M5 17h22v-2H5zM5 24h22v-2H5zM5 10h22V8H5z"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div
+      class="cmMNav_Top_Element cmMNav_Top_Element_Center"
+    >
+      <a
+        alt="home"
+        href="/store/"
+      >
+        <img
+          alt="mobile.minibar_logo"
+          class="el-mbicon--mobile.minibar_logo"
+          src="/assets/components/elements/mb-icon/mobile/minibar_logo.png"
+          srcset="/assets/components/elements/mb-icon/mobile/minibar_logo@2x.png 2x, /assets/components/elements/mb-icon/mobile/minibar_logo@3x.png 3x"
+          width="76"
+        />
+      </a>
+    </div>
+    <a
+      class="cmMNav_Top_Element cmMNav_Top_Element_Right"
+      href="/store/cart"
+    >
+      <div
+        class="elMBDynamicIcon"
+      >
+        <svg
+          class=""
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="#222"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M13.5 24.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM23 23a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3"
+            />
+            <path
+              d="M6.549 6.944L9.664 20h15.864L29.5 9.801l-2.143-.079-3.233 8.334h-12.85L8.16 5H4.051L2.5 6.547l1.455 1.35.955-.953z"
+              fill-rule="nonzero"
+            />
+            <path
+              d="M23.5 14l-.748 2h-9.79l-.462-2h11zm1.511-4l-.748 2H11.985l-.462-2H25.01zm1.5 1.843V12h-.06l.06-.157z"
+            />
+          </g>
+        </svg>
+      </div>
+      <span
+        class="elMBText elMBText_ResetSpacing cmNavCartCount cmNavCartCount__Hidden"
+      >
+        0
+      </span>
+    </a>
+  </div>
+  <div>
+    <nav>
+      <div
+        class="cmMBrowseBar_LeftWrapper"
+      >
+        <div
+          class="el-touchable cmMBrowseBar_Left"
+          role="button"
+          tabindex="-1"
+        >
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            Categories
+          </span>
+          <img
+            alt="down_arrow_red"
+            class="el-mbicon--down_arrow_red cmMBrowseBar_DicloseIcon"
+            src="/assets/components/elements/mb-icon/down_arrow_red.png"
+            srcset="/assets/components/elements/mb-icon/down_arrow_red@2x.png 2x, /assets/components/elements/mb-icon/down_arrow_red@3x.png 3x"
+          />
+        </div>
+        <div
+          class="cmMCategoryDropdown_Wrapper"
+        >
+          <ul
+            class="cmMCategoryDropdown"
+          >
+            <li>
+              <a
+                class="cmMCategoryDropdown_Element"
+                href="/store/category/wine"
+              >
+                <span
+                  class="elMBText elMBText_ResetSpacing"
+                >
+                  wine
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="cmMCategoryDropdown_Element"
+                href="/store/category/liquor"
+              >
+                <span
+                  class="elMBText elMBText_ResetSpacing"
+                >
+                  liquor
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="cmMCategoryDropdown_Element"
+                href="/store/category/beer"
+              >
+                <span
+                  class="elMBText elMBText_ResetSpacing"
+                >
+                  beer
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="cmMCategoryDropdown_Element"
+                href="/store/category/mixers"
+              >
+                <span
+                  class="elMBText elMBText_ResetSpacing"
+                >
+                  mixers
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="cmMCategoryDropdown_Element"
+                href="/store/promos/gift-guide"
+              >
+                <span
+                  class="elMBText elMBText_ResetSpacing"
+                >
+                  gifts
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="cmSearch__ClickOutsideTarget"
+      >
+        <div>
+          <div>
+            <div
+              class="elMBDynamicIcon cmMBrowseBar_SearchIcon"
+            >
+              <svg
+                class=""
+                height="29"
+                viewBox="0 0 32 32"
+                width="29"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#222"
+                  fill-rule="nonzero"
+                >
+                  <path
+                    d="M14.81 24.342c-5.145 0-9.31-4.22-9.31-9.42C5.5 9.72 9.665 5.5 14.81 5.5c5.145 0 9.31 4.22 9.31 9.421 0 5.2-4.165 9.421-9.31 9.421zm0-2c4.035 0 7.31-3.32 7.31-7.42 0-4.102-3.275-7.422-7.31-7.422-4.034 0-7.31 3.32-7.31 7.421 0 4.102 3.276 7.421 7.31 7.421z"
+                  />
+                  <path
+                    d="M20.251 14.921h-2c0-1.936-1.543-3.5-3.44-3.5-.833 0-1.617.3-2.237.84l-1.313-1.509a5.388 5.388 0 0 1 3.55-1.33c3.007 0 5.44 2.464 5.44 5.5zM20.331 21.94l1.424-1.406 4.499 4.56-1.424 1.404z"
+                  />
+                </g>
+              </svg>
+            </div>
+            <input
+              class="elMBInput"
+              placeholder="Search products"
+              value=""
+            />
+          </div>
+          <div
+            class="el-touchable cmMBrowseBar_ClearSearch cmMBrowseBar_ClearSearch__SearchEmpty cmMBrowseBar_ClearSearch__SearchActive"
+            role="button"
+            tabindex="-1"
+          >
+            <img
+              alt="clear"
+              class="el-mbicon--clear"
+              src="/assets/components/elements/mb-icon/clear.png"
+              srcset="/assets/components/elements/mb-icon/clear@2x.png 2x, /assets/components/elements/mb-icon/clear@3x.png 3x"
+            />
+          </div>
+          <div
+            class="el-touchable"
+            role="button"
+            tabindex="-1"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing cmMBrowseBar_CancelSearch"
+            >
+              Cancel
+            </span>
+          </div>
+        </div>
+        <div
+          class="cmAutocompleteDropdown"
+        />
+      </div>
+    </nav>
+  </div>
+  <div>
+    <div
+      class="elMBDrawer_Overlay elMBDrawer_Overlay__Hidden"
+    />
+    <div
+      class="elMBDrawer elMBDrawer__Hidden"
+    >
+      <div>
+        <div
+          class="el-touchable"
+          role="button"
+          tabindex="-1"
+        >
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class=""
+              height="30"
+              viewBox="0 0 32 32"
+              width="30"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.62 16.251L7.656 9.289 9.07 7.875l6.962 6.962 6.963-6.962 1.414 1.414-6.962 6.962 6.962 6.962-1.414 1.414-6.963-6.962-6.962 6.962-1.414-1.414 6.962-6.962z"
+                fill="#222"
+                fill-rule="nonzero"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          class="el-touchable"
+          role="button"
+          tabindex="-1"
+        >
+          <div>
+            <img
+              alt="on_demand"
+              class="cmDeliveryMethodIcon_Multi"
+              height="24"
+              src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+              width="24"
+            />
+            <div>
+              <span
+                class="elMBText elMBText_ResetSpacing"
+              >
+                Delivery to
+              </span>
+              <br />
+              <span
+                class="elMBText elMBText_ResetSpacing"
+              >
+                Add delivery address
+              </span>
+            </div>
+          </div>
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class=""
+              height="28"
+              viewBox="0 0 32 32"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.297 10.922l.781-.625L19.64 16l-4.562 5.703-.78-.625L18.36 16z"
+                fill="#494849"
+                fill-rule="nonzero"
+              />
+            </svg>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <a
+              class="elMBText_A elMBText elMBText_ResetSpacing"
+              href="/store/"
+            >
+              Shop
+            </a>
+          </li>
+          <li>
+            <a
+              class="elMBText_A elMBText elMBText_ResetSpacing"
+              href="/referrals"
+            >
+              Share & Save $10
+            </a>
+          </li>
+          <li>
+            <a
+              class="elMBText_A elMBText elMBText_ResetSpacing"
+              href="/account/orders"
+            >
+              Orders
+            </a>
+          </li>
+          <li>
+            <a
+              class="elMBText_A elMBText elMBText_ResetSpacing"
+              href="/account/overview"
+            >
+              Account
+              <span
+                class="elMBText elMBText_ResetSpacing"
+              >
+                 
+              </span>
+            </a>
+          </li>
+          <li>
+            <div
+              class="el-touchable"
+              role="button"
+              tabindex="-1"
+            >
+              <span
+                class="elMBText elMBText_ResetSpacing"
+              >
+                Help
+              </span>
+            </div>
+          </li>
+        </ul>
+        <div
+          class="elMBAppStoreLink_Container"
+        >
+          <a
+            href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+            id="app-store-link"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Download on the App Store"
+              src="/assets/components/elements/mb-app-store-link/ios-app-store.png"
+              srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x"
+            />
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=minibar.android"
+            id="play-store-link"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Get it on Google Play"
+              src="/assets/components/elements/mb-app-store-link/play-store.png"
+              srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+`;

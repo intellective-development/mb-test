@@ -1,0 +1,224 @@
+// Facets
+#store-browse {
+  margin-bottom: convert-to-em(80);
+  min-height: 360px;
+
+  #facet-selection-container {
+    ul {
+      float: right;
+    }
+  }
+}
+
+// Products
+#products {
+  margin-top: convert-to-em(24);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.delivery-expectation {
+  align-items: center;
+  display: flex;
+  padding: 8px 0;
+  .delivery-expectation__shoprunner-icon {
+    padding: 0 16px;
+  }
+}
+.delivery-expectation__icon {
+  flex: none;
+}
+.delivery-expectation__container {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+
+  .delivery-expectation__name {
+    @include font-size(13);
+    font-weight: $light-font-weight;
+    color: $brand-dark-grey;
+    padding-bottom: 4px;
+  }
+  .delivery-expectation__next-delivery {
+    @include font-size(15);
+    font-weight: $light-font-weight;
+    color: $brand-black;
+    margin-right:20px;
+  }
+  .delivery-expectation__shoprunner-message {
+    @include font-size(15);
+    color: $brand-black;
+    display: inline-block;
+    font-weight: $light-font-weight;
+    margin-top: 12px;
+  }
+
+  .delivery-expectation__closed { color: $brand-error-red; }
+
+  .delivery-expectation__open { color: $brand-green; }
+}
+
+.grid-product__container--browse {
+  @include flex-grid(6);
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media screen and (max-width: $product-grid-extra-large-breakpoint) {
+    @include flex-grid(5);
+  }
+
+  @media screen and (max-width: $product-grid-large-breakpoint) {
+    @include flex-grid(4);
+  }
+
+  @media screen and (max-width: $product-grid-medium-breakpoint) {
+    @include flex-grid(3);
+  }
+
+  @media screen and (max-width: $product-grid-small-breakpoint) {
+    @include flex-grid(2);
+  }
+
+  @media screen and (max-width: $product-grid-extra-small-breakpoint) {
+    @include flex-grid(1);
+  }
+}
+
+.grid-product--browse--promotion {
+  background-position: 50%;
+  &.grid-product--browse--promotion--linkable {
+    cursor: pointer;
+  }
+  img {
+    flex: 0;
+    object-fit: cover;
+  }
+}
+
+.grid-product--browse {
+  .grid-product__property--name {
+    border-top: 1px solid $grid-product-stroke-light;
+    padding-top: 0.2em;
+    min-height: 3em;
+    max-height: 4.0em;
+  }
+
+  .grid-product__property--tag {
+    margin-top: 12px;
+  }
+
+  .grid-product__property--link {
+    margin-top: 5px;
+  }
+
+  .grid-product__property--deal {
+    @include pixel-antialiased;
+    align-self: flex-start;
+    background: $brand-mint;
+    color: $brand-white;
+    display: inline-block;
+    font-family: $font-family-helvetica;
+    font-size: 12px;
+    font-weight: $heavy-font-weight;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 8px 1px;
+    text-transform: uppercase;
+  }
+}
+
+.discounted {
+  .grid-product__property--price{
+    color: $sale-red;
+    font-weight: bold;
+  }
+  .grid-product__property--discount{
+    color: #000;
+    font-weight: normal;
+  }
+}
+
+// Product list related
+
+.store-browse__content {
+  @include visibility-transition-visible;
+  @include visibility-transition-base;
+
+  display: flex;
+  flex-direction: column;
+
+  &.invisible {
+    @include visibility-transition-invisible;
+  }
+}
+
+.full-page-loader {
+  position: relative;
+  min-height: 200px;
+  width: 100%;
+
+  &::after {
+    @include centered-cutout-loader();
+
+    display: block;
+    content: '';
+  }
+}
+
+.not-found {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  width: 100%;
+  margin-top: 36px;
+  .not-found__message {
+    margin: 1.5em 0;
+  }
+}
+
+.product-list-load-more {
+  width: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  a {
+    color: $brand-medium-grey;
+  }
+}
+
+.filter-panel + .list .grid-product__container--browse {
+  @include flex-grid(5);
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media screen and (max-width: $product-grid-extra-large-breakpoint) {
+    @include flex-grid(4);
+  }
+
+  @media screen and (max-width: $product-grid-large-breakpoint) {
+    @include flex-grid(3);
+  }
+
+  @media screen and (max-width: $product-grid-medium-breakpoint) {
+    @include flex-grid(2);
+  }
+
+  @media screen and (max-width: $product-grid-small-breakpoint) {
+    @include flex-grid(2);
+  }
+
+  @media screen and (max-width: $product-grid-extra-small-breakpoint) {
+    @include flex-grid(1);
+  }
+}
+
+.product-list-filters-container {
+  display: flex;
+  align-items: flex-start;
+
+  & .list {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}

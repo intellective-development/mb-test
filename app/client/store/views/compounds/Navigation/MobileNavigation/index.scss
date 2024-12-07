@@ -1,0 +1,58 @@
+@import "~client/store/views/style/variables";
+
+.cmMNav_Container {
+  z-index: 1;
+  position: relative; // needed to make the box-shadow appear
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.67);
+  background-color: $brand-white;
+
+  @media only screen and (min-width: $medium-min-width) {
+    display: none;
+  }
+}
+
+.cmMNav_Top {
+  display: flex;
+
+  height: 49px;
+  border-bottom: $default-border;
+}
+
+.cmMNav_Bottom {
+  height: 34px;
+}
+
+.cmMNav_Top_Element {
+  display: flex;
+  align-items: center;
+}
+
+.cmMNav_Top_Element_Left,
+.cmMNav_Top_Element_Right {
+  flex: none;
+  width: 64px;
+}
+.cmMNav_Top_Element_Left {
+  justify-content: flex-start;
+  padding-left: $standard-gutter / 2;
+  padding-right: $standard-gutter;
+}
+.cmMNav_Top_Element_Right {
+  justify-content: flex-end;
+  padding-left: $standard-gutter;
+  padding-right: $standard-gutter;
+}
+.cmMNav_Top_Element_Center {
+  flex: auto;
+  justify-content: center;
+}
+
+.cmMNav_CartIcon {
+  margin-right: 4px;
+}
+
+.cmMNav_CartCount {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+}

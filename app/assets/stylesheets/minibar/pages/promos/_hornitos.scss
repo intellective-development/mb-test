@@ -1,0 +1,121 @@
+.hornitos {
+  #module-banner {
+    background: #e6e6e6;
+    margin-bottom: 1em;
+    .column {
+      padding: 0;
+    }
+  }
+  #module-products {
+    margin-bottom: 24px;
+  }
+  #module-address_entry {
+    maring-top: 1em;
+    h4 {
+      font-family: $font-family-avenir;
+      font-size: 15px;
+      color: #851214;
+      margin-bottom: 1em;
+      line-height: 21px;
+    }
+    .panel {
+      border-color: #e9e9e9;
+      background-color: #F8F8F8;
+      border-radius: 4px;
+      padding: 12px 24px 0;
+    }
+    .legal-thin {
+      font-size: 10px;
+      color: #222;
+      text-align: left;
+      margin-bottom: 12px;
+    }
+  }
+  #module-explainer {
+    margin-bottom: 2em;
+    h2 {
+      margin-bottom: 2em;
+    }
+    .value-prop {
+      border-color: #979797;
+    }
+  }
+  #module-cocktail_recipes {
+    margin-bottom: 2em;
+    .divider{
+      padding: 0px 10px;
+      hr{
+        margin: 30px 0px;
+      }
+    }
+    h2.recipes-title{
+      margin: 0px 0px 26px 0px;
+    }
+    .cocktail{
+      font-family: $font-family-avenir;
+      padding: 0px 10px;
+      h5.cocktail__name {
+        font-family: $font-family-avenir;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 20px 0px;
+      }
+      .cocktail__image {
+        background: #E5E5E5 0 0 no-repeat;
+        height: 274px;
+        a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+        @media screen and (max-width: 767px){
+          background-position: center;
+          background-size: cover;
+          margin: 0px -10px;
+        }
+      }
+      &.paloma .cocktail__image {
+        background-image: url(image_path('brands/hornitos/Hornitos_Paloma.jpg'));
+      }
+      &.margarita .cocktail__image {
+        background-image: url(image_path('brands/hornitos/Hornitos_Margarita.jpg'));
+      }
+      &.manhattan .cocktail__image {
+        background-image: url(image_path('brands/hornitos/Hornitos_Manhattan.jpg'));
+      }
+      &.old-fashioned .cocktail__image {
+        background-image: url(image_path('brands/hornitos/Hornitos_OldFashioned.jpg'));
+      }
+      .cocktail__ingredients{
+        margin-bottom: 1em;
+        li{
+          list-style: disc inside;
+        }
+      }
+      .cocktail__instructions{
+        line-height: 1.3;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  #module-secondary_value_prop,
+  .module-legal {
+    margin-bottom: 1em;
+    p {
+      font-size: 15px;
+      line-height: 22px;
+      color: #979797;
+      font-family: $font-family-avenir;
+      &.legal{
+        font-size: 0.6875em;
+      }
+    }
+  }
+  #value-prop-footer {
+    margin-top: 2em;
+    h3 {
+      margin: 1.75em;
+    }
+  }
+}

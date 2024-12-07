@@ -1,0 +1,18 @@
+@import "../style/variables";
+
+// TODO: there are a lot of styles on the input element at the moment, we'd like to move them in here
+// For now, I'm just adding in styles we should be using going forward
+input.elMBInput {
+  font-family: $font-family-avenir;
+  border-radius: 4px;
+  height: 36px; // TODO: consider just resetting this to the initial height
+  margin: initial;
+  // height: initial; // This enables either instances or their parents to specify the size of the input
+
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+
+  &:focus {
+    outline: 0;
+  }
+}

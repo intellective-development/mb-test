@@ -1,0 +1,12 @@
+<h2 class="subhead-thin">Check other retailers for the reduced amount for "<%= @substitution.original.variant.name %>"</h2>
+
+<%= form_with url: switch_supplier_for_oos_product_admin_fulfillment_order_shipment_substitution_path(order_id: @order.id, shipment_id: @shipment.id, id: @substitution.id), method: :post do |f| %>
+  <% if !Feature[:disable_oos_availability_check].enabled? && @order.storefront.enable_oos_availability_check && @new_eligible_suppliers_with_variants.any? %>
+    <%= f.select :new_variant_id, options_for_select(@new_eligible_suppliers_with_variants, params[:new_variant_id]), prompt: "Select new supplier" %>
+    <%= f.submit 'Confirm Store', { class: 'button alert' } %>
+  <% else %>
+    <p>Supplier for this item cannot be switched.</p>
+  <% end %>
+
+  <%= link_to "Cancel", edit_admin_fulfillment_order_path(@order.number), class: "btn btn-default" %>
+<% end %>

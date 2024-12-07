@@ -1,0 +1,175 @@
+<% content_for :title, "#{@user.name} - Customers" %>
+<div class="row">
+  <dl class="tabs" data-tab>
+    <dd><a href="#tab-general" class="active">General</a></dd>
+    <% if @user.profile %>
+      <dd><a href="#tab-profile">PZN Profile</a></dd>
+    <% end %>
+  </dl>
+</div>
+<div class="tabs-content">
+  <div class="content active" id="tab-general">
+    <div class="row">
+      <div class="large-12 column">
+        <h2><%= @user.name %> <small><%= link_to 'Edit Customer', edit_admin_customer_path(@user) %></small></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-3 column">
+        <img src="<%= gravatar_url(@user.email) %>" class="avatar" width="200" height="200" />
+      </div>
+      <div class="large-9 column">
+        <ul class='vertical-list'>
+          <li><label>First Name </label> <%= @user.first_name %></li>
+          <li><label>Last Name </label> <%= @user.last_name %></li>
+          <li><label>Email </label> <%= @user.email %></li>
+          <li><label>Braintree Email </label> <%= @user.dummy_email %></li>
+          <li><label>Registered At </label> <%= @user.created_at.to_s(:short) %></li>
+          <li><label>Referral code </label> <%= @user.referral_code %></li>
+          <li><label>Supports Push Notifications</label> <%= @user.one_signal_id.present? ? "Yes" : "No" %></li>
+          <li>
+            <label>Roles</label>
+            <%= Array(@user.roles).map {|role| String(role).humanize }.join(', ') %>
+          </li>
+          <li>
+            <label> Store Employee? </label>
+            <%= @user.supplier.try(:name) %>
+          </li>
+          <li>
+            <label>VIP?</label>
+            <%= @user.vip? ? "Yes" : "No" %>
+          </li>
+          <li>
+          <label>Corporate?</label>
+          <%= @user.corporate? ? "Yes" : "No" %>
+          </li>
+          <li>
+          <label>Company</label>
+          <%= @user.company_name %>
+          </li>
+          <li>
+          <label>Tax Exempt?</label>
+          <%= @user.tax_exempt? ? "Yes" : "No" %>
+          </li>
+          <% if @user.tax_exempt? %>
+            <li>
+              <label>Tax exemption code</label>
+              <%= User.human_enum_name(:tax_exemption_code, @user.tax_exemption_code) %>
+            </li>
+          <% end %>
+          <li><label>Storefront</label> <%= @user&.account&.storefront&.name %></li>
+        </ul>
+      </div>
+    </div>
+
+    <% cache("admin:user:#{@user.id}:orders:#{@user.finished_related_orders.maximum(:updated_at)}") do %>
+      <fieldset>
+        <legend>Orders</legend>
+          <table>
+            <thead>
+            <tr class='odd'>
+              <th class='column1_header'>ID</th>
+              <th>Supplier(s)</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Total Amount </th>
+            </tr>
+            </thead>
+            <tbody>
+              <%= render partial: 'order', collection: @user.finished_related_orders.order(:completed_at), as: 'order', cache: true %>
+            </tbody>
+          </table>
+      </fieldset>
+    <% end %>
+
+    <% unless @user.admin? %>
+      <% cache("admin:user:#{@user.id}:shipping_addresses:#{@user.shipping_addresses.limit(10).maximum(:updated_at)}") do %>
+        <fieldset>
+          <legend> Shipping Addresses </legend>
+          <table>
+            <thead>
+              <tr>
+                  <th>Address</th>
+                  <th>Eligible Suppliers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: 'shipping_address', collection: @user.shipping_addresses.limit(10).includes(:state).order(:created_at), as: 'address', cache: true, :user => @user %>
+            </tbody>
+          </table>
+        </fieldset>
+      <% end %>
+    <% end %>
+
+    <% cache("admin:user:#{@user.id}:payment_profiles:#{@user.payment_profiles.maximum(:updated_at)}") do %>
+      <fieldset>
+        <legend> Payment Profiles </legend>
+        <table>
+          <thead>
+            <tr>
+                <th>Type</th>
+                <th>Card Details</th>
+                <th>Billing Address</th>
+             </tr>
+          </thead>
+          <tbody>
+            <%= render partial: 'payment_profile', collection: @user.payment_profiles.order(:created_at), as: 'payment_profile', cache: true %>
+            </tbody>
+        </table>
+      </fieldset>
+    <% end %>
+
+    <fieldset>
+      <legend>Loyalty Points</legend>
+      <%= raw format_loyalty_points(@user.loyalty_point_balance) %>
+    </fieldset>
+
+    <fieldset>
+      <legend>Account Tools</legend>
+      <div class="row">
+        <div class="ten large-2 columns">
+          <%= link_to("Assume Identity", su_admin_customer_path(@user), class: "button small")%>
+        </div>
+        <div class="ten large-2 columns">
+          <%= link_to("Reset Password", password_reset_admin_customer_path(@user), class: "button small") %>
+        </div>
+        <div class="ten large-2 columns">
+          <%= link_to("Clear out ATO", clear_ato_admin_customer_path(@user), class: "button small") %>
+        </div>
+        <div class="ten large-2 columns">
+          <% if current_user.super_admin? %>
+            <%= link_to("Anonymize", anonymize_admin_customer_path(@user), method: :post, class: "button small") %>
+          <% end %>
+        </div>
+        <div class="ten large-3 columns">
+          <%= link_to("Reset ATO Emails Count (#{SessionVerificationService.ato_emails_count(@user)})", ato_email_count_reset_admin_customer_path(@user), class: "button small") %>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class='large-12 column panel'>
+      <h4>Comments</h4>
+      <%= render partial: 'comment', collection: @user.comments.order(created_at: :desc).limit(5), as: 'comment' %>
+      <%= link_to "See all Comments (#{@user.comments.count})", comments_admin_customer_path(@user) %><br><br>
+      <%= link_to "New Comment", new_admin_customer_service_user_comment_path(@user), class: 'small button' %>
+    </div>
+  </div>
+  <% if @user.profile %>
+    <div class="content" id="tab-profile">
+      <table>
+        <% @user.profile.attributes.each do |k, v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v.inspect %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$('#save-address').click(function(){
+  $('a.close-reveal-modal').trigger('click');
+});
+</script>

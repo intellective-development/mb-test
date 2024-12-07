@@ -1,0 +1,93 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you cancelled your order from Minibar Delivery' %>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Order",
+  "merchant": {
+    "@type": "Organization",
+    "name": "MinibarDelivery.com"
+  },
+  "orderNumber": "<%= @order.number %>",
+  "priceCurrency": "USD",
+  "price": "<%= @order.taxed_total.to_s %>",
+  "acceptedOffer": [
+    <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "<%= variant.name %>",
+        "image": "<%= variant.product_size_grouping.featured_image(:thumb) %>",
+        "sku": "<%= variant.sku %>"
+      },
+      "price": "<%= variant.price.to_s %>",
+      "priceCurrency": "USD",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "<%= order_items.sum(&:quantity) %>"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": "<%= variant.supplier.display_name %>"
+      }
+    }
+    <% end %>
+  ],
+  "url": "https://minibardelivery.com/",
+  "orderStatus": "http://schema.org/OrderCancelled",
+  "orderDate": "<%= @order.completed_at.iso8601 %>",
+  "isGift": "<%= @order.gift? %>",
+  "customer": {
+    "@type": "Person",
+    "name": "<%= @order.user_name %>"
+  }
+}
+</script>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Thanks for placing your order with us - we're sorry things didn't go as planned!
+                          <br>
+                          <br>
+                          This is confirmation that your order, <strong>#<%= @order.number %></strong>, has been cancelled and a full refund for <strong>$<%= @order.taxed_total %></strong> has been issued.
+                          <br>
+                          <br>
+                          Please allow up to 10 business days for the refund to show on your account statement.
+                          <br>
+                          <br>
+                          If you have any questions, please don’t hesitate to reply to this email or call <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>. We hope you keep us in mind for next time.
+                        </p><br/>
+                        <p class="indent dark small">
+                        Cheers, <br/>
+                        Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

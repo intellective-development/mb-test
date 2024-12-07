@@ -1,0 +1,37 @@
+<% if @page.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@reason.errors.count, "error") %> prohibited this from being saved:</h2>
+
+    <ul>
+    <% @page.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <label>URL</label><small>"Red Wine" becomes "/promos/red-wine"</small>
+  <%= f.text_field :name, {placeholder: "ex. Red Wine"} %>
+  <label>Meta Description (Public)</label>
+  <%= f.text_field :description, {placeholder: "ex. $10 off for people who drink red wine."} %>
+  <label>Blurb</label>
+  <%= f.text_field :blurb, {placeholder: "ex. $10 off your first delivery of wine, spirits, and beer."} %>
+  <label>Code</label>
+  <%= f.text_field :promo_code, {placeholder: "ex. MYPAGE10"} %>
+  <label>Direct Link (starting after minibardelivery.com/store/)</label>
+  <%= f.text_field :direct_link, {placeholder: "ex. products/wine"} %>
+  <label>Logo ( Max 544x100, @2x Preferred )</label>
+  <%= f.file_field  :logo %>
+  <label>Background (Min 1200x1800 preferred.)</label>
+  <%= f.file_field  :background_image %>
+</fieldset>
+
+<script>
+$(function(){
+  $("select").zmultiselect({
+    live: false,
+    filter: true,
+    placeholder: "Select..."
+  });
+});
+</script>

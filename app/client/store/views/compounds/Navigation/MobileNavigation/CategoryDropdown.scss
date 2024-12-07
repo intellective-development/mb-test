@@ -1,0 +1,67 @@
+@import "~client/store/views/style/variables";
+
+$dropdown_height: 360px; // hardcoded, used to animate the dropdown
+$dropdown_shadow_height: 4px;
+
+// NOTE: that these classes are very, very similar to their counterparts in DesktopNavigation
+.cmMCategoryDropdown_Wrapper {
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  margin: 0;
+  top: 100%; // stick it below the bottom of the container
+  z-index: 10;
+  border-top: $default-border;
+
+  // this padding allows the dropdown's box shadow to show, despite the above overflow: hidden
+  padding-bottom: $dropdown_shadow_height;
+
+  overflow: hidden;
+  visibility: hidden;
+}
+.cmMCategoryDropdown_Wrapper__DropdownVisible {
+  visibility: visible;
+}
+
+.cmMCategoryDropdown {
+  background: $brand-white;
+  transition: all 200ms ease-in-out;
+  margin-bottom: 0;
+  padding: 12px 0 16px;
+  box-shadow: 0 $dropdown_shadow_height/2  $dropdown_shadow_height 0 rgba(0, 0, 0, 0.33);
+
+  transition: all 250ms ease-in; // animate out
+  transform: translateY(-$dropdown_height);
+  opacity: 0.5;
+}
+.cmMCategoryDropdown__Visible {
+  transition-timing-function: ease-out; // animate in
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.cmMCategoryDropdown_Element {
+  @include font-size(24);
+
+  display: inline-block;
+  padding: 13px 24px;
+  color: $brand-black;
+}
+
+.cmMCategoryDropdown_Element__Disabled {
+  opacity: 0.25;
+}
+
+.cmMCategoryDropdown_ElementIcon {
+  margin-right: 24px;
+}
+
+.cmMCategoryDropdown_ElementName {
+  display: inline-block;
+  padding-top: 4px;
+  text-transform: capitalize;
+}
+
+.cmMCategoryDropdown_UnavailableMessage {
+  @include font-size(13);
+}

@@ -1,0 +1,5 @@
+<% content_for :title, 'Edit Content Placement' %>
+<h2>Editing '<%= @placement.name %>'</h2>
+<%= form_for(@placement, url: admin_content_placement_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+<% end %>

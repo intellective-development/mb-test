@@ -1,0 +1,29 @@
+<% content_for :title, 'Zipcode Waitlist' %>
+<%= link_to "Export", admin_reports_zipcode_wishlists_path(format: 'csv'), class: 'button right' %>
+<h3> Zipcode Waitlist </h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Zipcode</th>
+            <th>Email </th>
+            <th>Date</th>
+            <th>Push Token?</th>
+            <th>Platform</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <%- @zipcode_wishlists.each do |wish| %>
+            <tr class='<%= cycle("odd", "")%>'>
+                <td><%= wish.zipcode %><br><small><%= zipcode_name(wish.zipcode) %></small></td>
+                <td><%= wish.email %> </td>
+                <td><%= wish.created_at.to_s(:long) %> </td>
+                <td><%= wish.apn_token.present? ? 'Yes' : '' %></td>
+                <td><%= wish.platform && wish.platform == 'android' ? 'Android' : 'iOS' %></td>
+            </tr>
+        <%- end %>
+    </tbody>
+</table>
+
+<%= paginate @zipcode_wishlists %>

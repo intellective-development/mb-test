@@ -1,0 +1,36 @@
+{
+  "entry": {
+    "#region-hero .cm-ae-button": {
+      "backgroundColor": "#9c0808"
+    },
+    "maxWidth": "50em",
+    "width": "100%"
+  },
+  "headline": {
+    "color": "#fff",
+    "fontSize": 42,
+    "lineHeight": 1.375,
+    "textAlign": "center",
+    "textShadow": "0 2px 5px rgba(0,0,0,.5)"
+  },
+  "hero": {
+    "alignItems": "center",
+    "backgroundPosition": "center",
+    "backgroundRepeat": "no-repeat",
+    "backgroundSize": "cover",
+    "display": "flex",
+    "flexDirection": "column",
+    "justifyContent": "center",
+    "padding": "60px 15px"
+  },
+  "tagline": {
+    "color": "#fff",
+    "fontSize": 18,
+    "marginBottom": 20,
+    "marginLeft": 20,
+    "marginRight": 20,
+    "marginTop": 20,
+    "textAlign": "center",
+    "textShadow": "0 2px 5px rgba(0,0,0,.5)"
+  }
+}

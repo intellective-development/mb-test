@@ -1,0 +1,6 @@
+<h1>New Marketing Landing Page</h1>
+<%= form_for(@landing_page, url: admin_content_landing_pages_path) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit "Create", class: "button" %>
+<% end %>
+

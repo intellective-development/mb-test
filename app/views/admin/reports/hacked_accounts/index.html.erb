@@ -1,0 +1,44 @@
+<h3> Hacked Accounts </h3>
+
+<%= form_tag admin_reports_hacked_accounts_path, method: :get, class: "panel" do %>
+<div class="row">
+  <div class="large-12 column">
+    <%= label_tag 'Query' %> <%= text_field_tag :query, params[:query] %>
+  </div>
+  <div class="large-12 column">
+    <%= submit_tag "Search", :name => nil, :class => 'button alert' %>
+  </div>
+</div>
+<% end %>
+
+<table>
+    <thead>
+        <tr>
+            <th>Account</th>
+            <th>State</th>
+            <th>Emailed to</th>
+            <th>At</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <%- @emailed_accounts.each do |session| %>
+            <tr class='<%= cycle("odd", "")%>'>
+                <td><%= session.user&.account&.email_address_with_name %></td>
+                <td><%= session.user&.account&.state %></td>
+                <td><%= session.notified_value %></td>
+                <td><%= session.created_at.to_s %></td>
+                <% if session.notification_status == "$sent" %>
+                <td>Pending user confirmation</td>
+                <% elsif session.notification_status == "$safe" %>
+                <td>Cleared</td>
+                <% else %>
+                <td>Compromised</td>
+                <% end %>
+            </tr>
+        <%- end %>
+    </tbody>
+</table>
+
+<%= paginate @emailed_accounts %>

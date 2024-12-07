@@ -1,0 +1,9 @@
+<h2 class="subhead-thin">Remove "<%= @order_item.variant.name %>"</h2>
+
+<%= form_with url: remove_item_admin_fulfillment_order_path(order_id: @order.id, order_item_id: @order_item.id), method: :delete do |f| %>
+  <% if !Feature[:disable_oos_availability_check].enabled? && @order.storefront.enable_oos_availability_check && @new_eligible_suppliers_with_variants.any? %>
+    <%= f.select :new_variant_id, options_for_select(@new_eligible_suppliers_with_variants, params[:new_variant_id]), prompt: "Select new supplier" %>
+  <% end %>
+
+  <%= f.submit "Remove item", { class: 'button alert' } %>
+<% end %>

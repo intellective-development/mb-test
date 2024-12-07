@@ -1,0 +1,46 @@
+@import "~client/store/views/style/variables";
+@import "./_variables";
+
+.cmDeliveryLink {
+  display: flex;
+  align-items: center;
+  padding: 0 $standard-gutter;
+
+  transition: $nav-hover-transition;
+
+  &:hover {
+    @include nav-hover-state;
+
+    .cmDeliveryLink_Change {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding-left: 0;
+  }
+}
+
+.cmDeliveryLink__NoAddress{
+  // to balance the padding out, we add some extra whitespace (12px corresponds to the margin on the delivery icon)
+  padding-right: $standard-gutter + 12px;
+}
+
+.cmDeliveryLink_Change {
+  @include font-size(13);
+  padding-left: 32px;
+  color: $brand-red;
+  font-weight: $heavy-font-weight;
+  visibility: hidden; // it will only show up when its parent is being hovered
+
+  // sync this button appearing/disapearing with the .delivery_link background
+  transition: $nav-hover-transition;
+  transition-property: all;
+  opacity: 0;
+}
+
+.cmDeliveryLink_Change__NoAddress {
+  display: none;
+}
+

@@ -1,0 +1,8 @@
+<h2>New <%= @shipment ? 'Supplier' : 'Internal' %> Comment on Order #<%= @order.number %></h2>
+<h3><%= @shipment.supplier.name if @shipment %></h3>
+
+<%= form_for(@comment, :url => admin_fulfillment_comments_path(@comment, shipment_id: @shipment, order_id: @order)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to 'Back to Order', edit_admin_fulfillment_order_path(@order.number), :class => 'button secondary small' %>

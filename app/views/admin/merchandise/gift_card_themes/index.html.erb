@@ -1,0 +1,52 @@
+<% content_for :title, 'Gift Card Themes' %>
+
+<% content_for :sidemenu do %>
+  <%= link_to "Create New Theme", new_admin_merchandise_gift_card_theme_path, class: "button secondary" %>
+<% end %>
+
+<div class='admin_title_header'>
+  <h3>Gift Card Themes</h3>
+</div>
+
+<div class="admin_products">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th></th>
+      <th>Storefront</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @themes.each do |theme| %>
+        <%- grouping = theme.product_size_grouping %>
+        <tr class='<%= cycle('odd') %>'>
+          <td>
+            <% if grouping.images? %>
+              <%= image_tag(grouping.images.first.photo.url(:mini)) %>
+            <% end %>
+          </td>
+          <td>
+            <%= theme.storefront.name %>
+          </td>
+          <td><%= link_to theme.name, edit_admin_merchandise_gift_card_theme_path(theme) %></td>
+          <td>
+            <small>
+              <%- theme_status = theme.active? ? 'active' : 'inactive' %>
+              <%- toggle_action = theme.active? ? 'deactivate' : 'activate' %>
+              <span class="<%=theme_status%>-state"><%= theme_status %></span>&ndash;
+              <%= link_to "Click to #{toggle_action}", toggle_active_admin_merchandise_gift_card_theme_path(theme), method: :put, data: { confirm: "Are you sure you want to #{toggle_action} this theme?"} %>
+            </small>
+          </td>
+          <td>
+            <ul class="product-actions">
+              <li><%= link_to "Edit",  edit_admin_merchandise_gift_card_theme_path(theme), class: "button secondary" %></li>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

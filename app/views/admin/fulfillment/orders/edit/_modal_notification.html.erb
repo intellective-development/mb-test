@@ -1,0 +1,24 @@
+<div id="modal-notification" class="reveal-modal" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <%= form_for('notification', url: send_notification_admin_fulfillment_order_path(order), method: :post) do |f| %>
+    <table class="table-message">
+      <tr>
+        <td>
+          <p>Push notifications are limited to ~100 characters and may be truncated - messages should be kept short and sweet.</p>
+          <p>Messages are not guaranteed to be delivered, and there is no means of knowing if they are read. For urgent messages call or email.</p>
+        </td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :notification, maxlength: 100 %></td>
+      </tr>
+      <tr>
+        <td>Supplier: <%= f.select :shipment, order.shipments.map{ |s| ["#{s.supplier.name}", s.id] }, prompt:"both" %></td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.submit 'Send Message' %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>

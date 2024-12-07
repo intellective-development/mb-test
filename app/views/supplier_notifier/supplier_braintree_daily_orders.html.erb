@@ -1,0 +1,178 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+
+ <table class="container sub">
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td>
+                  <table class="section no-bottom">
+                    <tr>
+                      <td>
+                        <h5 class="indent title">Daily Summary for <%= @supplier.name %>, <%= @day.in_time_zone(@supplier.timezone).strftime('%m/%d/%Y') %></h5>
+                        <p class="indent dark small">
+                          <strong><%= @order_count %></strong> <%= 'order'.pluralize(@order_count) %>. <strong><%= number_to_currency(@order_total) %></strong> total sales.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <% unless @adjustments.empty? %>
+                  <table class="section no-bottom">
+                    <tr>
+                      <td><h5 class="indent title no-bottom">Adjustments (<%= @adjustments.length %>):</h5></td>
+                    </tr>
+                  </table>
+                  <table class="true-table no-break indent">
+                    <tr>
+                      <th class="no-left">Order #</th>
+                      <th>Adjustment Type</th>
+                      <th>Amount</th>
+                    </tr>
+                    <% adjustment_total = 0 %>
+                    <% @adjustments.each do |a| %>
+                      <%
+                        if a.financial?
+                          adjustment_amount = if a.credit && !a.reason.owed_to_supplier
+                                                a.amount * -1
+                                              else
+                                                a.amount
+                                              end
+                          shipment = a.shipment
+                          adjustment_total += adjustment_amount
+                        end
+                      %>
+                      <tr>
+                        <td class="no-left"><%= a.order.number %></td>
+                        <td>
+                          <%= a.reason_name %>
+                        </td>
+                        <td><%= a.financial? ? number_to_currency(adjustment_amount, negative_format: "(%u%n)") : 'N/A' %></td>
+                      </tr>
+                    <% end %>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th> <%= number_to_currency(adjustment_total, negative_format: "(%u%n)") %> </th>
+                    </tr>
+                  </table>
+                  <table class="section no-top">
+                    <tr>
+                      <td>
+                        <p class="tiny indent">Order adjustments are logged for any customer related issue such as out-of-stock, late delivery, incorrect pricing. Accurate inventory is the #1 way to avoid issues. Is it time to update yours?</p>
+                      </td>
+                    </tr>
+                  </table>
+                  <% end %>
+                  <table class="section no-bottom">
+                    <tr>
+                      <td><h5 class="indent title no-bottom">Orders (<%= @order_count %>):</h5></td>
+                    </tr>
+                  </table>
+                  <table class=" true-table no-break section no-vertical indent">
+                    <tr>
+                      <th class="no-left">Order #</th>
+                      <th>Customer</th>
+                      <th>Status</th>
+                      <th>Discount</th>
+                      <th>Total</th>
+                    </tr>
+                    <% daily_total = 0; daily_discount = 0 %>
+                    <% @orders.each do |o| %>
+                      <%
+                        shipment = o.shipments.where(supplier_id: @supplier.id).first
+                        total = shipment.shipment_total_amount
+                        discount = shipment.shipment_discounts_total
+                        daily_total += total.to_f
+                        daily_discount += discount.to_f
+                        o.confirmed? ? state = "&#x2713;" : state = "&#x2715;"
+                      %>
+                      <tr>
+                        <td class="no-left"><span class="dark"><%= o.number %></span><%= @supplier.closed?(o.completed_at) ? "*" : ""  %></td>
+                        <td><%= o.user.try(:name).titleize %></td>
+                        <td class="center">
+                          <% if o.confirmed? %>
+                            <b class="green">&#x2713;</b>
+                          <% else %>
+                            <b class="red" style="font-weight:heavy;">!</b>
+                          <% end  %>
+                        </td>
+                        <td><%= number_to_currency(discount) %></td>
+                        <td><%= number_to_currency(total) %></td>
+                      </tr>
+                    <% end %>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th> <%= number_to_currency(daily_discount) %> </th>
+                      <th> <%= number_to_currency(daily_total) %> </th>
+                    </tr>
+                  </table>
+
+                  <table class="section no-top">
+                    <tr>
+                      <td>
+                        <p class="tiny indent-major">* - placed while store closed &emsp; &#x2713; - confirmed &emsp; ! - unconfirmed</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <% if daily_discount != 0.0 %>
+                          <p class="tiny indent">Reimbursement for discounts will be reflected in your next invoice. </p>
+                        <% end %>
+                        <% if @orders.any? { |o| !o.confirmed? } %>
+                          <p class="tiny indent">Please be sure to confirm all orders. </p>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </table>
+                  <p class="indent dark small text-center">
+                    For more detailed order and inventory information:
+                  </p>
+                  <center>
+                    <table class="button text-center center">
+                      <tr>
+                        <td>
+                          <a href="https://partners.minibardelivery.com/">Visit Your Dashboard</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </center>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table class="container footer-legal"><!-- FOOTER BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td align="center">
+                  <center>
+                    <p class="text-legal indent-major no-bottom center">For internal use only. Do not distribute.</p>
+                    <p class="text-legal indent-major no-top center">&copy; <%= Time.zone.now.year %> LLJ Inc, All Rights Reserved &mdash;  Made in NYC</p>
+                  </center>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table><!-- FOOTER END -->

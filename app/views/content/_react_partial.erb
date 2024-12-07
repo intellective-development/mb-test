@@ -1,0 +1,17 @@
+<%
+  component ||= nil
+  page_name ||= nil
+  server_render ||= nil
+  client_render = client_render.nil? ? true : client_render # default to true
+  props ||= {}
+  server_props ||= {}
+%>
+
+<div
+  data-react-component-name="<%= component %>"
+  data-react-component-props="<%= react_encode_props(props) %>"
+  <%= 'data-react-client-render' if client_render %>>
+    <% cache("layout:#{page_name}:#{component}:react_html", expires_in: 3.hours) do %>
+      <%= react_component(component, props.merge(server_props), {prerender: false}) %>
+    <% end %>
+</div>

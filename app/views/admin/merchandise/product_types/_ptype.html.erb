@@ -1,0 +1,59 @@
+<fieldset id="admin-product_type-names">
+
+  <div class="six columns">
+    <label>Parent</label>
+    <%= form.select :parent_id,
+                      ProductType.root.map{|i| ["#{'-' * i.level} #{i.name}", i.id] },
+                      { :include_blank => true } %>
+  </div>
+  <div class="six columns">
+    <label>Name</label>
+    <%= form.text_field :name %>
+    <label>Description</label>
+    <%= form.text_area :description %>
+    <label>Keywords (comma separated)</label>
+    <%= form.text_area :keywords %>
+    <label>Tax Code</label>
+    <%= form.text_field :tax_code %>
+  </div>
+  <div class="six columns">
+    <label>Position (Navigation)</label>
+    <%= form.text_field :position %>
+  </div>
+
+  <label>Fallback Product Image
+    <%= form.file_field :product_image %>
+  </label>
+  <% if @product_type.product_image.present? %>
+    <%= image_tag @product_type.product_image.url(:product) %>
+  <% end %>
+
+  <fieldset>
+    <legend>Web Banners</legend>
+    <label>Banner Image
+      <%= form.file_field :banner_image %>
+    </label>
+    <% if @product_type.banner_image.present? %>
+      <%= image_tag @product_type.banner_image.url(:default) %>
+    <% end %>
+    <label>Banner Featured Position
+      <%= form.number_field :banner_featured_position %>
+    </label>
+  </fieldset>
+  <fieldset>
+    <legend>iOS Assets</legend>
+    <%= form.fields_for :ios_menu_image_attributes do |ios_menu_image_form| %>
+      <label>
+        Category Icon
+        <%= ios_menu_image_form.file_field :file %>
+      </label>
+    <% end %>
+  </fieldset>
+
+  <%= render "admin/merchandise/images/category/form", :form => form %>
+
+</fieldset>
+
+<div class=" generic_submit_button">
+  <%= submit_tag button_action, :class => "button", :id => "create_product_type_button" %>
+</div>

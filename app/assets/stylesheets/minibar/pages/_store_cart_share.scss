@@ -1,0 +1,86 @@
+// TODO: move to the _forms.scss?
+$input-inline-button-width: 96px;
+.input-container--inline-button {
+  position: relative;
+
+  input[type="text"]{
+    padding-right: $input-inline-button-width; // don't flow under button
+    &[disabled] { background-color: $brand-white; }
+  }
+
+  // move this to the right side of the shared container,
+  // position absolutely so the input can appear to take up entire space
+  .button__container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: .375em; // same padding as containing input
+    width: $input-inline-button-width;
+
+    align-items: center;
+    display: flex;
+  }
+  .button--input-inline {
+    font-size: 12px;
+    margin: 0;
+    padding: .5em 1em;
+  }
+}
+
+
+$cart-share-element-spacing: 24px;
+@mixin cart-share__cta {
+  width: 200px;
+  max-width: 100%;
+  margin-bottom: 6px;
+}
+
+// TODO: fix this, keeping in mind the changes made to simplify those styles
+/* vertical address change container styles */
+.address-change-container--cart-share {
+
+  .cm-ae-input__container {
+    align-self: stretch;
+    margin-bottom: $cart-share-element-spacing;
+  }
+
+  .cm-ae-input,
+  .cm-ae-button {
+    border-radius: $form-border-radius;
+  }
+
+  .cm-ae-input__row { // override to give us submit address button on new line
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #address-entry .cm-ae-button { //#address-entry to win specificity
+    @include cart-share__cta;
+  }
+}
+
+.address-change-container.address-change-container--cart-share {
+  padding-bottom: 40px;
+  text-align: center;
+
+  .legal-thin { // overwrite address-change-container rule
+    text-align: center;
+  }
+}
+
+input.cart-share__input--display {
+  height: 40px;
+  margin-bottom: $cart-share-element-spacing;
+  text-align: center;
+  background: $brand-white;
+}
+
+.cart-share__cta {
+  @include cart-share__cta;
+}
+
+p.cart-share__cart-change-warning {
+  margin-bottom: $cart-share-element-spacing;
+}

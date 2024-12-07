@@ -1,0 +1,32 @@
+<dl>
+  <h4>
+    <%= link_to pre_sale.name, edit_admin_pre_sale_path(pre_sale) %>
+  </h4>
+  <dt>Product</dt>
+  <dd>
+    <%= "#{pre_sale.product.display_name} (pid: #{pre_sale.product.id})" %>
+  </dd>
+  <dt>Price</dt>
+  <dd>
+    <%= number_with_precision(pre_sale.price, precision: 2) %>
+  </dd>
+  <dt>Starts at</dt>
+  <dd>
+    <%= pre_sale.starts_at.strftime('%d %B %Y') %>
+  </dd>
+  <dt>Global Quantity <small><%= "#{pre_sale.product_order_limit&.current_order_qty}/#{pre_sale.product_order_limit&.global_order_limit}" %></small></dt>
+  <dd>
+    <%= render partial: '/shared/progress_bar', locals: { current_amount: pre_sale.product_order_limit&.current_order_qty, total_amount: pre_sale.product_order_limit&.global_order_limit } %>
+  </dd>
+  <% pre_sale.product_order_limit.supplier_product_order_limits.each do |supplier_product_order_limit| %>
+    <%
+      next if supplier_product_order_limit.order_limit.negative?
+      supplier = supplier_product_order_limit.supplier
+      supplier_limit = supplier_product_order_limit.order_limit.zero? ? pre_sale.product_order_limit&.global_order_limit : supplier_product_order_limit.order_limit
+    %>
+    <dt><%= supplier.name %> <small><%= "#{supplier_product_order_limit.current_order_qty || 0}/#{supplier_limit}" %></small></dt>
+    <dd>
+      <%= render partial: '/shared/progress_bar', locals: { total_amount: supplier_limit, current_amount: supplier_product_order_limit.current_order_qty || 0 } %>
+    </dd>
+  <% end %>
+</dl>

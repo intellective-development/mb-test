@@ -1,0 +1,31 @@
+<% content_for :title, 'Dynamic Shipping' %>
+
+<div class='admin_title_header'>
+  <h3>Dynamic Shipping</h3>
+</div>
+
+<div class="admin_products">
+  <%= simple_form_for(@dynamic_shipping_config, url: admin_config_dynamic_shipping_config_path(@dynamic_shipping_config), method: :put) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :fuel_surcharge, label: "Fuel surcharge (%)" %>
+    </div>
+    <div class="form-inputs">
+      <%= f.input :adult_signature_surcharge, label: "Adult signature surcharge (flat $)" %>
+    </div>
+    <div class="form-inputs">
+      <%= f.input :residential_delivery_surcharge, label: "Residential delivery surcharge (flat $)" %>
+    </div>
+    <div class="form-inputs">
+      <%= f.input :holiday_surcharge, label: "Holiday surcharge (flat $)" %>
+    </div>
+    <div class="form-inputs">
+      <%= f.input :heavy_fee, label: "Heavy Shipment Fee (flat $, apply to 50+lb)" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Update" %>
+    </div>
+  <% end %>
+</div>

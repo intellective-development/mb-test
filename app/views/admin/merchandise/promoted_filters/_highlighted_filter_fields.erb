@@ -1,0 +1,106 @@
+<script>
+  $(document).ready(function(){
+    function showCorrectFields(currentValue) {
+      if(currentValue == "brand"){
+        $("#hierarchy_type_<%= index %>_<%=is_new%>").fadeOut('fast');
+        $("#hierarchy_subtype_<%= index %>_<%=is_new%>").fadeOut('fast');
+        $("#term_<%= index %>_<%=is_new%>").fadeOut('fast');
+        $("#brand_<%= index %>_<%=is_new%>").fadeIn('fast');
+      }
+      else{
+        if(currentValue == "hierarchy_type"){
+          $("#brand_<%= index %>_<%=is_new%>").fadeOut('fast');
+          $("#hierarchy_subtype_<%= index %>_<%=is_new%>").fadeOut('fast');
+          $("#term_<%= index %>_<%=is_new%>").fadeOut('fast');
+          $("#hierarchy_type_<%= index %>_<%=is_new%>").fadeIn('fast');
+        } else {
+          if(currentValue == "hierarchy_subtype"){
+            $("#brand_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#hierarchy_type_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#term_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#hierarchy_subtype_<%= index %>_<%=is_new%>").fadeIn('fast');
+          } else {
+            $("#brand_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#hierarchy_type_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#hierarchy_subtype_<%= index %>_<%=is_new%>").fadeOut('fast');
+            $("#term_<%= index %>_<%=is_new%>").fadeIn('fast');
+          }
+        }
+      }
+    }
+
+    $("input [name='highlighted_filter_<%= index %>[brand]']").change(function(){
+      $("#highlighted_filter_description_<%= index %>_<%=is_new%>").val($("#brand_field_<%= index %>_<%=is_new%> option:selected").text());
+    });
+    $("#hierarchy_type_field_<%= index %>_<%=is_new%>").change(function(){
+      $("#highlighted_filter_description_<%= index %>_<%=is_new%>").val($("#hierarchy_type_field_<%= index %>_<%=is_new%> option:selected").text());
+    });
+    $("#hierarchy_subtype_field_<%= index %>_<%=is_new%>").change(function(){
+      $("#highlighted_filter_description_<%= index %>_<%=is_new%>").val($("#hierarchy_subtype_field_<%= index %>_<%=is_new%> option:selected").text());
+    });
+
+    $("#highlighted_filter_name_<%= index %>_<%=is_new%>").change(function(){
+      showCorrectFields($("#highlighted_filter_name_<%= index %>_<%=is_new%>").val())
+    });
+    showCorrectFields($("#highlighted_filter_name_<%= index %>_<%=is_new%>").val())
+  });
+</script>
+<%= fields_for "highlighted_filter_#{index}" do |hf| %>
+  <div class="row">
+    <div class="three large-3 columns">
+      <%= hf.label :name, 'Filter By' %>
+      <%= hf.select :name, @facet_filters_options.map{|f| [ f[:name], f[:id] ]}, {include_blank: false, selected: highlighted_filter["name"]}, id: "highlighted_filter_name_#{index}_#{is_new}" %>
+    </div>
+    <div id="description_<%=index%>_<%=is_new%>" class="three large-<%=is_new ? 4 : 3%> columns">
+      <%= hf.label :description, 'Label' %>
+      <%= hf.text_field :description, value: highlighted_filter["description"], id: "highlighted_filter_description_#{index}_#{is_new}" %>
+    </div>
+    <div id="brand_<%=index%>_<%=is_new%>" class="three large-4 columns" style="display: none;">
+      <div class="highlighted_filters_brand" id="highlighted-filters-brand-component-<%= index %>-<%=is_new%>"></div>
+    </div>
+    <div id="hierarchy_type_<%=index%>_<%=is_new%>" class="three large-4 columns" style="display: none;">
+      <%= hf.label :hierarchy_type, "Hierarchy Type" %>
+      <%= hf.select :hierarchy_type, @hierarchy_types.map{|f| [ f[:name], f[:permalink] ]}, {include_blank: false, selected: highlighted_filter["term"]}, id: "hierarchy_type_field_#{index}_#{is_new}" %>
+    </div>
+    <div id="hierarchy_subtype_<%=index%>_<%=is_new%>" class="three large-4 columns" style="display: none;">
+      <%= hf.label :hierarchy_subtype, 'Hierarchy Subtype' %>
+      <%= hf.select :hierarchy_subtype, @hierarchy_subtypes.map{|f| [ f[:name], f[:permalink] ]}, {include_blank: false, selected: highlighted_filter["term"]}, id: "hierarchy_subtype_field_#{index}_#{is_new}" %>
+    </div>
+    <div id="term_<%=index%>_<%=is_new%>" class="four large-4 columns">
+      <label>Term <small>(separate by comma e.g. <code>30ml, 60ml</code>)</small></label>
+      <%= hf.text_field :term, value: highlighted_filter["term"], id: "highlighted_filter_term_#{index}_#{is_new}" %>
+    </div>
+    <%- unless is_new %>
+      <div class="four large-2 columns">
+        <%= button_to "Delete Filter", remove_highlighted_filter_admin_merchandise_promoted_filter_path, params: {:index => index, :id => @promoted_filter.id}, :method=>:post, :class => 'button alert' %>
+      </div>
+    <%- end %>
+  </div>
+<% end %>
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var component_config_block = [{
+        selector: 'highlighted-filters-brand-component-<%= index %>-<%=is_new%>',
+        component: 'PromotedFacetFiltersBrand',
+        options: {
+          initialBrandIds: <%= raw highlighted_filter['name'] == 'brand' ? Array(highlighted_filter['term']) : Array([]) %>,
+          name: 'highlighted_filter_<%= index %>[brand]',
+          multi: false
+        }
+      }];
+      function ready(fn) {
+        if (document.readyState != 'loading'){
+          fn();
+        } else {
+          document.addEventListener('DOMContentLoaded', fn);
+        }
+      }
+      ready(function(){
+        window.initComponents(component_config_block);
+      });
+    });
+  </script>
+<% end %>

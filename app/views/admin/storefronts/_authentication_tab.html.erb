@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="large-6 column">
+    <div>
+      <label>Authentication Provider</label>
+      <%= form.select :auth_provider, human_enum_options(Storefront.auth_providers) %>
+    </div>
+    <div>
+      <label>Auth0 Domain</label>
+      <%= form.text_field :auth0_domain %>
+    </div>
+    <div>
+      <label>Auth0 Client ID</label>
+      <%= form.text_field :auth0_client_id %>
+    </div>
+    <div>
+      <label>Auth0 Client Secret</label>
+      <%= form.text_field :auth0_client_secret %>
+    </div>
+    <div>
+      <label>Auth0 Audience</label>
+      <%= form.text_field :auth0_audience %>
+    </div>
+    <div>
+      <label>Auth0 DB Connection</label>
+      <%= form.text_field :auth0_db_connection %>
+    </div>
+    <fieldset>
+      <legend>Web Application/API credentials</legend>
+      <div>
+        <label>Auth0 Client ID</label>
+        <%= form.text_field :auth0_api_client_id %>
+      </div>
+      <div>
+        <label>Auth0 Client Secret</label>
+        <%= form.text_field :auth0_api_client_secret %>
+      </div>
+      <div>
+        <label>Auth0 Domain</label>
+        <%= form.text_field :auth0_api_domain %>
+      </div>
+    </fieldset>
+  </div>
+</div>

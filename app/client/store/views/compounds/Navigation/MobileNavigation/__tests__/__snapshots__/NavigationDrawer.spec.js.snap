@@ -1,0 +1,649 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationDrawer renders 1`] = `
+<div>
+  <div
+    class="elMBDrawer_Overlay"
+  />
+  <div
+    class="elMBDrawer"
+  >
+    <div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="30"
+            viewBox="0 0 32 32"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.62 16.251L7.656 9.289 9.07 7.875l6.962 6.962 6.963-6.962 1.414 1.414-6.962 6.962 6.962 6.962-1.414 1.414-6.963-6.962-6.962 6.962-1.414-1.414 6.962-6.962z"
+              fill="#222"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div>
+          <img
+            alt="on_demand"
+            class="cmDeliveryMethodIcon_Multi"
+            height="24"
+            src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+            width="24"
+          />
+          <div>
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Delivery to
+            </span>
+            <br />
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+               123 Jump Street, Apt. 10
+            </span>
+          </div>
+        </div>
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="28"
+            viewBox="0 0 32 32"
+            width="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.297 10.922l.781-.625L19.64 16l-4.562 5.703-.78-.625L18.36 16z"
+              fill="#494849"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            Shop
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/referrals"
+          >
+            Share & Save $10
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/orders"
+          >
+            Orders
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/overview"
+          >
+            Account
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+               Brian C.
+            </span>
+          </a>
+        </li>
+        <li>
+          <div
+            class="el-touchable"
+            role="button"
+            tabindex="-1"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Help
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="elMBAppStoreLink_Container"
+      >
+        <a
+          href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+          id="app-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Download on the App Store"
+            src="/assets/components/elements/mb-app-store-link/ios-app-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=minibar.android"
+          id="play-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Get it on Google Play"
+            src="/assets/components/elements/mb-app-store-link/play-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NavigationDrawer renders a closed state 1`] = `
+<div>
+  <div
+    class="elMBDrawer_Overlay elMBDrawer_Overlay__Hidden"
+  />
+  <div
+    class="elMBDrawer elMBDrawer__Hidden"
+  >
+    <div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="30"
+            viewBox="0 0 32 32"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.62 16.251L7.656 9.289 9.07 7.875l6.962 6.962 6.963-6.962 1.414 1.414-6.962 6.962 6.962 6.962-1.414 1.414-6.963-6.962-6.962 6.962-1.414-1.414 6.962-6.962z"
+              fill="#222"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div>
+          <img
+            alt="on_demand"
+            class="cmDeliveryMethodIcon_Multi"
+            height="24"
+            src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+            width="24"
+          />
+          <div>
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Delivery to
+            </span>
+            <br />
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Add delivery address
+            </span>
+          </div>
+        </div>
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="28"
+            viewBox="0 0 32 32"
+            width="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.297 10.922l.781-.625L19.64 16l-4.562 5.703-.78-.625L18.36 16z"
+              fill="#494849"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            Shop
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/referrals"
+          >
+            Share & Save $10
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/orders"
+          >
+            Orders
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/overview"
+          >
+            Account
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+               
+            </span>
+          </a>
+        </li>
+        <li>
+          <div
+            class="el-touchable"
+            role="button"
+            tabindex="-1"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Help
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="elMBAppStoreLink_Container"
+      >
+        <a
+          href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+          id="app-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Download on the App Store"
+            src="/assets/components/elements/mb-app-store-link/ios-app-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=minibar.android"
+          id="play-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Get it on Google Play"
+            src="/assets/components/elements/mb-app-store-link/play-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NavigationDrawer renders without address 1`] = `
+<div>
+  <div
+    class="elMBDrawer_Overlay"
+  />
+  <div
+    class="elMBDrawer"
+  >
+    <div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="30"
+            viewBox="0 0 32 32"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.62 16.251L7.656 9.289 9.07 7.875l6.962 6.962 6.963-6.962 1.414 1.414-6.962 6.962 6.962 6.962-1.414 1.414-6.963-6.962-6.962 6.962-1.414-1.414 6.962-6.962z"
+              fill="#222"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div>
+          <img
+            alt="on_demand"
+            class="cmDeliveryMethodIcon_Multi"
+            height="24"
+            src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+            width="24"
+          />
+          <div>
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Delivery to
+            </span>
+            <br />
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Add delivery address
+            </span>
+          </div>
+        </div>
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="28"
+            viewBox="0 0 32 32"
+            width="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.297 10.922l.781-.625L19.64 16l-4.562 5.703-.78-.625L18.36 16z"
+              fill="#494849"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            Shop
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/referrals"
+          >
+            Share & Save $10
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/orders"
+          >
+            Orders
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/overview"
+          >
+            Account
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+               Brian C.
+            </span>
+          </a>
+        </li>
+        <li>
+          <div
+            class="el-touchable"
+            role="button"
+            tabindex="-1"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Help
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="elMBAppStoreLink_Container"
+      >
+        <a
+          href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+          id="app-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Download on the App Store"
+            src="/assets/components/elements/mb-app-store-link/ios-app-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=minibar.android"
+          id="play-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Get it on Google Play"
+            src="/assets/components/elements/mb-app-store-link/play-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NavigationDrawer renders without user 1`] = `
+<div>
+  <div
+    class="elMBDrawer_Overlay"
+  />
+  <div
+    class="elMBDrawer"
+  >
+    <div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="30"
+            viewBox="0 0 32 32"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.62 16.251L7.656 9.289 9.07 7.875l6.962 6.962 6.963-6.962 1.414 1.414-6.962 6.962 6.962 6.962-1.414 1.414-6.963-6.962-6.962 6.962-1.414-1.414 6.962-6.962z"
+              fill="#222"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <div>
+          <img
+            alt="on_demand"
+            class="cmDeliveryMethodIcon_Multi"
+            height="24"
+            src="/assets/components/compounds/delivery_method_icon/on_demand.svg"
+            width="24"
+          />
+          <div>
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Delivery to
+            </span>
+            <br />
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+               123 Jump Street, Apt. 10
+            </span>
+          </div>
+        </div>
+        <div
+          class="elMBDynamicIcon"
+        >
+          <svg
+            class=""
+            height="28"
+            viewBox="0 0 32 32"
+            width="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.297 10.922l.781-.625L19.64 16l-4.562 5.703-.78-.625L18.36 16z"
+              fill="#494849"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/store/"
+          >
+            Shop
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/referrals"
+          >
+            Share & Save $10
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/orders"
+          >
+            Orders
+          </a>
+        </li>
+        <li>
+          <a
+            class="elMBText_A elMBText elMBText_ResetSpacing"
+            href="/account/overview"
+          >
+            Account
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+               
+            </span>
+          </a>
+        </li>
+        <li>
+          <div
+            class="el-touchable"
+            role="button"
+            tabindex="-1"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              Help
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="elMBAppStoreLink_Container"
+      >
+        <a
+          href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+          id="app-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Download on the App Store"
+            src="/assets/components/elements/mb-app-store-link/ios-app-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=minibar.android"
+          id="play-store-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Get it on Google Play"
+            src="/assets/components/elements/mb-app-store-link/play-store.png"
+            srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

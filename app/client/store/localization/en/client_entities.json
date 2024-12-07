@@ -1,0 +1,22 @@
+{
+  "product_grouping": {
+    "tags": {
+      "flash_deal": "Flash Deal",
+      "category_feature": "Featured",
+      "sale": "Sale",
+      "staff_pick": "Staff Pick"
+    }
+  },
+  "order": {
+    "under_minimum": {
+      "no_alt": "Add {{curr_minimum_difference}} to meet the {{curr_delivery_type}} minimum",
+      "above_alt": "Add {{curr_minimum_difference}} to meet the {{curr_delivery_type}} minimum or switch to {{alt_delivery_type}}",
+      "under_alt": "Add {{curr_minimum_difference}} to meet the {{curr_delivery_type}} minimum or {{alt_minimum_difference}} for the {{alt_delivery_type}} minimum"
+    }
+  },
+  "networking": {
+    "session_auth_api": {
+      "default_auth_error": "Something went wrong - check the information you entered and try again."
+    }
+  }
+}

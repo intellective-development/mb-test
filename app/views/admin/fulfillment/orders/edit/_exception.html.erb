@@ -1,0 +1,34 @@
+<%
+  shipments = @order.shipments.select{ |s| s.exception? }
+  shipments.each do |shipment| %>
+<div class="row order">
+  <div class="large-12 column panel">
+    <h4>EXCEPTION &mdash; <%= shipment.supplier_name %> (<%= time_ago_in_words(shipment.last_shipment_transition.created_at) %> ago)</h4>
+    <h5><%= I18n.t("exceptions.#{shipment.last_shipment_transition.metadata['type']}") %> (<%= shipment.last_shipment_transition.metadata['description']%>)</h5>
+    <%= raw format_exception_metadata(shipment.last_shipment_transition.metadata['metadata']) %>
+    <% if shipment.last_shipment_transition.metadata['type'] == 'payment_error' %>
+      <% if shipment.order.can_generate_payment_profile_link? %>
+        <%= form_for('payment_profile_update_link', url: generate_payment_link_admin_fulfillment_order_path(shipment), method: :post) do |f| %>
+          <%= f.submit 'Generate update payment profile link', class: 'button' %>
+        <% end %>
+      <% else %>
+        <h4>Payment Profile Update Link</h4>
+        <table>
+          <tr>
+            <th>URL</th>
+            <td><%= shipment.order.payment_profile_update_link&.url %></td>
+          </tr>
+          <tr>
+            <th>Expire at</th>
+            <td><%= shipment.order.payment_profile_update_link&.expire_at.in_time_zone(shipment.supplier.timezone).strftime('%A, %e %b %Y %r') + " (#{shipment.supplier.timezone})" %></td>
+          </tr>
+        </table>
+      <% end %>
+    <% end %>
+    <%= form_for('message', url: resolve_exception_admin_fulfillment_order_path(shipment), method: :post) do |f| %>
+      <textarea class="expand" placeholder="Enter Resolution Details Here" name="resolution" id="resolution"></textarea>
+      <%= f.submit 'Resolve Exception', class: 'button' %>
+    <% end %>
+  </div>
+</div>
+<% end %>

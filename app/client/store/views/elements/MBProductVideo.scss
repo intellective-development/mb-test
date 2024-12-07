@@ -1,0 +1,15 @@
+@import "../style/variables";
+
+.elMBProductVideo {
+  margin: $standard-gutter 0;
+}
+
+.elMBProductVideo__Poster {
+  background-color: inherit;
+}
+
+.elMBProductVideo__Video {
+  background-color: inherit;
+  color: inherit;
+  margin-bottom: -2px; //fix weird top border issue
+}

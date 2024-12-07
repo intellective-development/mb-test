@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Product Routing' %>
+<h3>Update Product Routing</h3>
+
+<%= form_for @product_routing, url: admin_product_routing_path(@product_routing), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", :class  => "button" %>
+<% end %>

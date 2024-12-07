@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppReviewRequest renders a request when the score prop is 5 1`] = `
+<div>
+  <a
+    href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar"
+  >
+    Review our app and help spread the word.
+  </a>
+</div>
+`;
+
+exports[`AppReviewRequest renders null when the score prop is less than five 1`] = `null`;

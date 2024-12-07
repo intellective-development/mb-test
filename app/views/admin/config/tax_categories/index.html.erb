@@ -1,0 +1,33 @@
+<% content_for :title, 'Tax Categories' %>
+<h3>Tax Categories</h3>
+<div class="row">
+  <div class="column large-9">
+    <p>By default all products are classifed as 'alcohol' and taxed accordingly based on the rate set for the state or the delivery zipcode, whichever is most specific.</p>
+    <p><em>Tax Categories</em> can be used to override the tax rate when paired with a corresponding <em>Tax Rate</em>.</p>
+  </div>
+  <div class="column large-3">
+    <%= link_to 'New Tax Category', new_admin_config_tax_category_path, :class => 'button' %>
+  </div>
+</div>
+
+<div class="admin_shipping_categories">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th class='column1_header'>Name</th>
+      <th>Purpose</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+    </thead>
+
+  <% @tax_categories.each do |tax_category| %>
+    <tr class='<%= cycle("odd", "")%>'>
+      <td><%= tax_category.name %></td>
+      <td><%= tax_category.purpose %></td>
+      <td><%= tax_category.description %></td>
+      <td><%= link_to 'Edit', edit_admin_config_tax_category_path(tax_category) %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>

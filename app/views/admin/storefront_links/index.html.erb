@@ -1,0 +1,36 @@
+<% content_for :title, 'Storefront Links' %>
+<div class="admin_title_header">
+  <h3>Storefront Links for <%= @storefront.name %></h3>
+  <%= link_to "New Storefront Link", new_admin_storefront_storefront_link_path, class: "button" %>
+</div>
+
+<%= form_tag admin_storefront_storefront_links_path, method: 'get', id: "storefront_links_filter" do %>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      <div class="row collapse">
+        <div class="small-6 columns">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="small-4 columns">
+      <%= text_field_tag "name" , params[:name] %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'><%= sortable "name", "Name" %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @storefront_links, as: 'storefront_link', cache: true %>
+  </tbody>
+</table>
+<%= paginate @storefront_links %>

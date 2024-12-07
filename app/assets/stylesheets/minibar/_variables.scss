@@ -1,0 +1,68 @@
+// Brand Colors
+$brand-black: #222;
+$brand-charcoal: #494849;
+$brand-dark-grey: #6f6f6f;
+$brand-medium-grey: #9b9b9b; // formerly $brand-dark-grey-text
+$brand-light-grey: #e6e6e6; //formerly $brand-dark-grey-border
+$brand-lighter-grey: #f8f8f8; //formerly $brand-light-grey
+$brand-white: #fff;
+$brand-white-transparent: rgba(255, 255, 255, 0.85);
+$brand-lighter-grey-transparent: rgba(0, 0, 0, 0.03); // same as $brand-lighter-grey on a white background
+$brand-transparent: transparent;
+
+$brand-error-red: #c70b0e;
+$brand-red-hover: #7c1416;
+$brand-red: #781214;
+$brand-link-red: #890000;
+$brand-gold: #BE9D58;
+$brand-mint: #61bb7c;
+$brand-green: #53AB6D;
+$brand-pale-blue: #F0F3FC;
+
+$sale-red: #890000;
+
+$default-border: 1px solid $brand-light-grey;
+$light-border: 1px solid $brand-lighter-grey;
+$medium-border: 1px solid $brand-medium-grey;
+
+$font-family-tiempos: "TiemposHeadlineWeb-Bold", serif;
+$font-family-avenir: Avenir, "Avenir-Custom", "Avenir-Local", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-helvetica: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$light-font-weight: 300; // only available for helvetica
+$medium-font-weight: 400;
+$heavy-font-weight: 600;
+
+// Homepage Elements
+$hero-heading-color: #fff;
+$hero-panel-text-color: #000;
+$hero-text-color: #fff;
+
+$page-heading-color: #fff;
+$page-text-color: #fff;
+
+$store-background-color: #f2f2f2;
+
+$plp-item-height: 383px;
+$plp-item-height-small: 259px;
+
+$mobile-side-margin: 10px;
+$standard-spacing: 8px; // generic spacing unit
+$standard-gutter: $standard-spacing * 2; // semantic spacing unit for gutters
+
+$form-border-radius: 4px;
+
+$max-grid-size: 1440px;
+$grid-breakpoint: 980px;
+$large-min-width: 1024px;
+$medium-max-width: 1023px;
+$medium-min-width: 768px;
+$small-max-width: 767px;
+$extra-small-max-width: 374px;
+
+$mb-em-base: 16px;
+
+$product-grid-extra-large-breakpoint: 1280px;
+$product-grid-large-breakpoint: 980px;
+$product-grid-medium-breakpoint: $medium-min-width; //768px, ipad size
+$product-grid-small-breakpoint: 550px;
+$product-grid-extra-small-breakpoint: 350px;

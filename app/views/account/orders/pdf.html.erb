@@ -1,0 +1,453 @@
+<% content_for :hide_header, true %>
+<% content_for :js_page, 'pages/account' %>
+
+<%
+    non_substitution_adjustments ||= receipt_non_substitution_adjustments
+
+# Calling non_substitution_adjustments.select above ☝ implicitly converted it to a primitive Array,
+# so non_substitution_adjustments.adjustment_total won't work anymore.
+adjustment_total = non_substitution_adjustments.sum { |adjustment| (adjustment.amount || 0) * (adjustment.credit ? -1 : 1) }
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+
+    </style>
+    <%= stylesheet_link_tag "admin/print", media: 'all' %>
+  </head>
+  <body>
+    <div class="contain-all">
+      <div class="row">
+        <div class="small-2 columns">
+          <center>
+            <div class="logo-top logo"></div>
+          </center>
+        </div>
+        <div class="small-4 columns">
+          <p>
+            Order #: <strong><%= @order.number.upcase %></strong> <br><br>
+            <% if @order.completed_at %>
+              <%= @order.completed_at.in_time_zone(@order.order_suppliers.first.timezone).strftime('%l%P %A, %b %-d, %Y') %>
+            <% else %>
+              Order is not complete yet.
+            <% end %>
+          </p>
+        </div>
+        <div class="small-2 small-offset-4 columns">
+          <div>
+            <p>
+              Questions? <br><strong>Call: <%= @order.storefront.support_phone_number || I18n.t('support_phone') %></strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- ORDER DETAILS  -->
+
+        <div class="small-12 columns panel order-details">
+          <div class="row">
+
+            <!-- Delivery Address -->
+
+            <div class="small-4 columns">
+              <h3 class="heading-panel">Delivery Address</h3>
+              <p>
+                <%= @order.delivery_name %>
+                <br>
+                <% if @order.ship_address %>
+                  <% @order.ship_address.address_lines_array.each do |line| %>
+                    <%= line %><br>
+                  <% end %>
+                <% else %>
+                  In-Store Pickup<br>
+                <% end %>
+                <%= @order.ship_address&.city_state_zip %>
+              </p>
+            </div>
+
+            <!-- Delivery Info -->
+
+            <div class="small-4 columns">
+              <h3 class="heading-panel">Delivery Info</h3>
+              <p>
+                Tel: <%= ActionController::Base.helpers.number_to_phone(@order.ship_address&.phone.to_s.gsub(/\s+/, ''), area_code: true) %><br>
+
+                <% if @order.gift_detail&.recipient_phone %>
+                  Gift Recipient #: <%= String(@order.gift_detail.recipient_phone).phony_formatted(normalize: :US, format: :international) %><br>
+                <% end %>
+                Paid by <%= @order&.payment_profile&.cc_type %>, ending with <%= @order&.payment_profile&.last_digits %></p>
+            </div>
+
+            <!-- Billing Address -->
+
+            <div class="small-4 columns">
+              <h3 class="heading-panel">Billing Address</h3>
+              <% if @order.bill_address %>
+                <p>
+                  <%= @order.bill_address.name_line %><br>
+                  <% @order.bill_address.address_lines_array.each do |line| %>
+                    <%= line %><br>
+                  <% end %>
+                  <%= @order.bill_address.city_state_zip %>
+                </p>
+              <% else %>
+                <p>No Billing Address</p>
+              <%end%>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Original Items List -->
+        <div class="small-12 columns ">
+          <h3 class="heading-panel">Original Order</h3>
+          <table class="small-12 table-order">
+            <tr>
+              <th>Qty</th>
+              <th>Item</th>
+              <th></th>
+              <th>Totals</th>
+            </tr>
+            <tbody>
+              <% @order.shipments.each do |shipment|%>
+                <% shipment.order_items.group_by(&:variant).each do |variant, items| %>
+                  <tr>
+                    <td class="text-center" <% if shipment.canceled? %>style="text-decoration: line-through;"<%end%>><%= items.sum(&:quantity) %></td>
+                    <td>
+                      <span <% if shipment.canceled? %>style="text-decoration: line-through;"<%end%>>
+                        <%=  variant.name %> &mdash; <%=  variant.item_volume %>
+                      </span>
+                      <span>
+                        <% if shipment.canceled? %>
+                          <b>&nbsp;ITEM CANCELLED</b>
+                        <%end%>
+                      </span>
+                    </td>
+                    <td></td>
+                    <td><%= number_to_currency(items.first.total) %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+              <% if @order.engraving? %>
+                <tr>
+                  <td class="text-center"><%= @order.engraving_quantity %></td>
+                  <td>
+                    <span >
+                      Product Engraving &mdash;
+                    </span>
+                    <span>
+                    </span>
+                  </td>
+                  <td></td>
+                  <td><%= number_to_currency(@order.engraving_total) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td class="no-border"> </td>
+                <td class="no-border"></td>
+                <th>Sub-Total</th>
+                <th><%= number_to_currency(@order.amounts.sub_total_with_engraving) %></th>
+              </tr>
+              <tr>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <th>Sales Tax</th>
+                <th><%= number_to_currency(@order.order_items_tax) %></th>
+              </tr>
+              <% if @order.shipping_charges > 0 %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Delivery</th>
+                  <th><%= number_to_currency(@order.shipping_charges.to_f) %> </th>
+                </tr>
+              <% end %>
+              <% if @order.shipping_tax > 0 %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Shipping Tax</th>
+                  <th><%= number_to_currency(@order.shipping_tax.to_f) %> </th>
+                </tr>
+              <% end %>
+              <% unless @order.discounts_total.zero? %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Discounts</th>
+                  <th><%= number_to_currency(@order.discounts_total) %></th>
+                </tr>
+              <% end %>
+              <% unless @order.bag_fee.zero? %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Bag Fee</th>
+                  <th><%= number_to_currency(@order.bag_fee) %></th>
+                </tr>
+              <% end %>
+              <% unless @order.bottle_deposits.zero? %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Bottle Deposit Fee</th>
+                  <th><%= number_to_currency(@order.bottle_deposits) %></th>
+                </tr>
+              <% end %>
+              <% if @order.retail_delivery_fee.positive? %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Retail Delivery Fee</th>
+                  <th><%= number_to_currency(@order.retail_delivery_fee) %></th>
+                </tr>
+              <% end %>
+              <tr>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <th>Tip</th>
+                <th><%= number_to_currency(@order&.tip_amount) %></th>
+              </tr>
+              <% unless @order.service_fee.zero? %>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Service Fee</th>
+                  <th><%= number_to_currency(@order&.service_fee) %></th>
+                </tr>
+              <% end %>
+              <tr>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <th>Total</th>
+                <th><%= number_to_currency(@order&.taxed_total) %></th>
+              </tr>
+            </tfoot>
+          </table>
+          <br>
+        </div>
+
+        <!-- Order Substitutions -->
+        <% if receipt_substitutions.present? %>
+          <div class="small-12 columns">
+            <br> <br> <br>
+            <h3 class="heading-panel">Substitution History</h3>
+            <small>Price difference already on order's total</small>
+            <table class="small-12 table-order">
+              <tr>
+                <td></td>
+                <td>Qty</td>
+                <td>Price</td>
+                <td>Deposit</td>
+                <td>Tax</td>
+                <td>Total</td>
+              </tr>
+
+              <tbody>
+                <% receipt_substitutions.each do |substitution| %>
+                  <% o = substitution.original %>
+                  <% s = substitution.substitute %>
+                  <% r = substitution.remaining_item %>
+                  <% cost_diff = s.total - o.total + (r && r.total || 0) %>
+                  <% tax_diff = s.tax_charge - o.tax_charge + (r && r.tax_charge || 0) %>
+                  <% bottle_fee_diff = s.bottle_deposits - o.bottle_deposits + (r && r.bottle_deposits || 0) %>
+                  <% total_diff = cost_diff + tax_diff %>
+
+                  <tr>
+                    <td>
+                      <s><%= o.variant.product_size_grouping&.name %> &mdash; <%= o.variant.item_volume %></s>
+                      <br>
+                      <s><small>SKU: <%= o.variant.sku %> &mdash; Taxed at <%= number_to_percentage o.try(:effective_tax_percentage) %> &mdash;</small></s>
+                    </td>
+
+                    <td><s><%= o.quantity %></s></td>
+                    <td><s><%= number_to_currency(o.total) %></s></td>
+                    <td>
+                      <% if @order.bottle_deposits > 0 %>
+                        <s><%= number_to_currency(o.bottle_deposits) %></s>
+                      <% end %>
+                    </td>
+                    <td><s><%= number_to_currency(o.tax_charge) %></s></td>
+                    <td><s><%= number_to_currency(o.total+o.tax_charge_with_bottle_deposits) %></s></td>
+                  </tr>
+
+                  <% if r %>
+                    <tr>
+                      <td>
+                        <%= r.variant.product_size_grouping&.name %> &mdash; <%= r.variant.item_volume %>
+                        <br>
+                        <small>SKU: <%= r.variant.sku %> &mdash; Taxed at <%= number_to_percentage r.try(:effective_tax_percentage) %> &mdash;</small>
+                      </td>
+
+                      <td><%= r.quantity %></td>
+                      <td><%= number_to_currency(r.total) %></td>
+                      <td>
+                        <% if @order.bottle_deposits > 0 %>
+                          <%= number_to_currency(r.bottle_deposits) %>
+                        <% end %>
+                      </td>
+                      <td><%= number_to_currency(r.tax_charge) %></td>
+                      <td><%= number_to_currency(r.total+r.tax_charge_with_bottle_deposits) %></td>
+                    </tr>
+                  <% end %>
+
+                  <tr>
+                    <td>
+                      <%= s.variant.product_size_grouping&.name %> &mdash; <%= s.variant.item_volume %>
+                      <br>
+                      <small>SKU: <%= s.variant.sku %> &mdash; Taxed at <%= number_to_percentage s.try(:effective_tax_percentage) %> &mdash;</small>
+                    </td>
+
+                    <td><%= s.quantity %></td>
+                    <td><%= number_to_currency(s.total) %></td>
+                    <td>
+                      <% if @order.bottle_deposits > 0 %>
+                        <%= number_to_currency(s.bottle_deposits) %>
+                      <% end %>
+                    </td>
+                    <td><%= number_to_currency(s.tax_charge) %></td>
+                    <td><%= number_to_currency(s.total+s.tax_charge_with_bottle_deposits) %></td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Difference</b></td>
+                    <td></td>
+                    <td><b><%= number_to_currency(cost_diff) %></b></td>
+                    <td>
+                      <% if @order.bottle_deposits > 0 %>
+                        <b><%= number_to_currency(bottle_fee_diff) %></b>
+                      <% end %>
+                    </td>
+                    <td><b><%= number_to_currency(tax_diff) %></b></td>
+                    <td><b><%= number_to_currency(total_diff) %></b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" style="border-bottom: solid 1px black;padding: 0;"></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+
+        <!-- Order Adjustments -->
+        <% if non_substitution_adjustments.blank? %>
+          <div class="small-12 columns ">
+            <br> <br> <br>
+            <h3 class="heading-panel">Order Adjustments</h3>
+            <table class="small-12 table-order">
+              <tr>
+                <th></th>
+                <th>Reason</th>
+                <th></th>
+                <th>Amount</th>
+              </tr>
+              <tbody>
+                <% non_substitution_adjustments.each do |adjustment| %>
+                  <tr>
+                    <td class="text-center" style="min-width: 28px;"></td>
+                    <td>
+                      <%=  adjustment.reason_customer_facing_name || adjustment.reason.name || "Order Adjustment"%>
+                    </td>
+                    <td></td>
+                    <td><%= number_to_currency(adjustment.credit ? (adjustment.amount * -1.0) : adjustment.amount) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="no-border"></td>
+                  <td class="no-border"></td>
+                  <th>Total</th>
+                  <th><%= number_to_currency(adjustment_total) %></th>
+                </tr>
+              </tfoot>
+            </table>
+            <br>
+          </div>
+
+          <!--Grand Total-->
+
+          <div class="small-3 columns">
+            <table>
+              <tr>
+                <th><h1 class="heading-panel">Final Total</h1></th>
+              </tr>
+              <tr>
+                <td><h1 class="heading-panel"><%= number_to_currency(@order&.taxed_total + adjustment_total) %></h1></td>
+              </tr>
+            </table>
+          </div>
+        <% end %>
+
+        <!--Multiple Supplier Disclaimer-->
+        <div class="small-8 small-offset-1 columns">
+          <br> <br> <br> <br>
+          <% if @order.order_suppliers.count == 1 %>
+            <p>This order is from one retailer in a single delivery<% unless non_substitution_adjustments.blank? %> and has <%= NumbersInWords.in_words(non_substitution_adjustments.count) %> adjustment(s)<% end %>. You will see <%= NumbersInWords.in_words((@order.order_suppliers.count + non_substitution_adjustments.count + @order.order_charges.count + (@order.engraving? && 1 || 0))) %> addition(s) to your credit card statement:</p>
+          <% elsif @order.order_suppliers.count > 1 %>
+            <p>This order is from <%= NumbersInWords.in_words(@order.order_suppliers.count) %> retailers in separate deliveries<% if @order.order_adjustments.where(financial:true)%> and has <%= NumbersInWords.in_words(non_substitution_adjustments.count) %> adjustment(s)<% end %>. You will see <%= NumbersInWords.in_words((@order.order_suppliers.count + non_substitution_adjustments.count)) %> additions to your credit card statement:</p>
+          <% end %>
+          <% @order.shipments.each do |s| %>
+            <div class="row" <% if s.canceled? %>style="text-decoration: line-through;"<%end%>>
+              <div class="small-9 columns">
+                <%= s.supplier.display_name %> <%= s.supplier.supplier_type ? "(#{s.supplier.supplier_type.name})" : '' %>
+              </div>
+              <div class="small-1 columns">
+                <span>&nbsp;:&nbsp;</span>
+              </div>
+              <div class="small-2 columns text-right">
+                <%= number_to_currency(s.shipment_receipt_total) %>
+              </div>
+            </div>
+          <% end %>
+          <% if @order.engraving? %>
+            <div class="row">
+              <div class="small-9 columns">
+                <%= @order.storefront.name %> (Other)
+              </div>
+              <div class="small-1 columns">
+                <span>&nbsp;:&nbsp;</span>
+              </div>
+              <div class="small-2 columns text-right">
+                <%= number_to_currency(@order.engraving_fee_after_discounts) %>
+              </div>
+            </div>
+          <% end %>
+          <% @order.order_charges.each do |c| %>
+            <div class="row">
+              <div class="small-9 columns">
+                <%= @order.storefront.name %> (<%= c.description %>)
+              </div>
+              <div class="small-1 columns">
+                <span>&nbsp;:&nbsp;</span>
+              </div>
+              <div class="small-2 columns text-right">
+                <%= number_to_currency(c.amount) %>
+              </div>
+            </div>
+          <% end %>
+          <% non_substitution_adjustments.each do |a| %>
+            <div class="row">
+              <div class="small-9 columns">
+                <%=  a.reason_customer_facing_name || a.reason.name || "Order Adjustment"%>
+              </div>
+              <div class="small-1 columns">
+                <span>&nbsp;:&nbsp;</span>
+              </div>
+              <div class="small-2 columns text-right">
+                <%= number_to_currency a.credit ? (a.amount * -1.0) : a.amount %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

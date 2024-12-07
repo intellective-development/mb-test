@@ -1,0 +1,19 @@
+<div class="row">
+  <div class='large-12 column panel'>
+    <h4>Order Status History
+      <small>
+        <a onclick="toggle_component('table-order-history')">
+          Show more +
+        </a>
+      </small>
+    </h4>
+    <table id="table-order-history" style="display: none">
+      <% order.order_transitions.order(sort_key: :desc).each do |transition| %>
+        <tr>
+          <td style="width: 0"><nobr><%= localize(transition.created_at, format: :us_time) %></nobr></td>
+          <td><strong><%= transition.to_state.titleize %></strong></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

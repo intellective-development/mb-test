@@ -1,0 +1,63 @@
+{
+  "address": {
+    "fontSize": 13,
+    "lineHeight": 1.5
+  },
+  "beer": {
+    "::before": {
+      "backgroundColor": "#ebb05c"
+    }
+  },
+  "li": {
+    "::before": {
+      "content": "' '",
+      "display": "inline-block",
+      "height": 10,
+      "marginRight": 8,
+      "width": 10
+    },
+    "alignItems": "center",
+    "boxSizing": "border-box",
+    "display": "flex",
+    "flexBasis": "50%",
+    "flexDirection": "row",
+    "fontSize": 12,
+    "paddingTop": 8
+  },
+  "link": {},
+  "liquor": {
+    "::before": {
+      "backgroundColor": "#e18c63"
+    }
+  },
+  "mixers": {
+    "::before": {
+      "backgroundColor": "#68ae59"
+    }
+  },
+  "name": {
+    "fontSize": 15,
+    "fontWeight": 700,
+    "marginBottom": 5
+  },
+  "store": {
+    "boxSizing": "border-box",
+    "flexBasis": "16em",
+    "fontSize": 15,
+    "margin": "20px 10px"
+  },
+  "telephone": {
+    "fontSize": 13,
+    "lineHeight": 1.5
+  },
+  "ul": {
+    "display": "flex",
+    "flexDirection": "row",
+    "flexWrap": "wrap"
+  },
+  "wine": {
+    "::before": {
+      "backgroundColor": "#b51c1c"
+    }
+  }
+}

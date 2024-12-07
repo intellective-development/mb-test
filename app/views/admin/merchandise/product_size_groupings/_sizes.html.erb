@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="product-table__header--left columns small-3">
+    <%= link_to 'Clear Size-Specific Images', remove_child_product_images_admin_merchandise_product_size_grouping_url, method: :put, class: 'sizes-tab__clear-images' %>
+  </div>
+  <div class="product-table__header--right small-3 columns">
+    <%= link_to 'Add New Size', new_admin_merchandise_product_path(grouping: @product_grouping), class: 'sizes-tab__new-size' %>
+  </div>
+</div>
+<% if @product_grouping.products.size == 0 %>
+  <p>There are no products in this grouping.</p>
+<% else %>
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th class="product-table__image">Image</th>
+        <th class="product-table__size">Size</th>
+        <th class="product-table__state">State</th>
+        <th class="product-table__action">Actions</th>
+        <th class="product-table__variant">Variants</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @products.each do |product|  %>
+
+      <tr class="product-table__product">
+        <td valign="top" class="product-table__image">
+          <%= image_tag(product.images.first&.photo&.url(:mini)) unless product.images.empty? %>
+        </td>
+        <td valign="top" class="product-table__size"><%= link_to product.admin_item_volume.presence || "(No Vol)", edit_admin_merchandise_product_path(product) %>
+        </td>
+        <td valign="top" class="product-table__state">
+          <span class="<%= product.state %> label label--merchandise-colored"><%= product.state %></span>
+        </td>
+        <td valign="top" class="product-table__action">
+          <% if product.active? %>
+            <%= link_to 'Activate', '#', class: 'action-button activate disabled', disabled: product.active? %>
+          <% else %>
+            <%= link_to 'Activate', activate_product_admin_merchandise_product_size_grouping_path(@product_grouping, product_id: product.id), method: :put, class: 'action-button activate'%>
+          <% end %>
+          <% if product.inactive? %>
+            <%= link_to 'Deactivate', '#', class: 'action-button deactivate disabled', disabled: product.inactive? %>
+          <% else %>
+            <%= link_to 'Deactivate', deactivate_product_admin_merchandise_product_size_grouping_path(@product_grouping, product_id: product.id), method: :put, class: 'action-button deactivate'%>
+          <% end %>
+          <% if product.flagged? %>
+            <%= link_to 'Flag', '#', class: 'action-button flag disabled', disabled: product.flagged? %>
+          <% else %>
+            <%= link_to 'Flag', flag_product_admin_merchandise_product_size_grouping_path(@product_grouping, product_id: product.id), method: :put, class: 'action-button flag'%>
+          <% end %>
+          <%= link_to 'Merge', admin_merchandise_merge_index_path(source_id: product.id), class: 'action-button merge'%>
+        </td>
+        <td valign="top" class="product-table__variant">
+          <%= pluralize(product.variants.self_active.count, 'Variants') %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @products %>
+<% end %>
+
+<div id="new-variant" class="reveal-modal" data-reveal>
+  <h2>Create New Variant of <%= @product_grouping.name %> - <span id="new-variant__volume"></span></h2>
+  <ul class="validation-errors"></ul>
+  <form accept-charset="UTF-8" action="" class="new_variant" data-remote="true" id="new-variant__form" method="post">
+    <div style="display:none">
+      <input name="utf8" type="hidden" value="✓">
+      <input id="new-variant__id" name="id" value="" type="hidden"/>
+    </div>
+    <div class="small-3 columns">
+      <%= select_tag 'variant[supplier_id]', options_for_select(Supplier.order(name: :asc).map{|t| [ t.name, t.id ]}) %>
+    </div>
+    <div class="small-2 columns">
+      <%= text_field_tag 'variant[sku]', nil, placeholder: 'SKU' %>
+    </div>
+    <div class="small-2 columns">
+      <%= text_field_tag 'variant[price]', nil, placeholder: 'Price' %>
+    </div>
+    <div class="small-2 columns">
+      <%= text_field_tag 'variant[sale_price]', nil, placeholder: 'Sale Price' %>
+    </div>
+    <div class="small-2 columns">
+      <%= text_field_tag 'variant[qty_to_add]', nil, placeholder: 'Stock' %>
+    </div>
+    <div class="small-1 columns">
+      <%= submit_tag "Create", class: "button tiny", id:"create-variant-button" %>
+    </div>
+  </form>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<script>
+    $('.pagination span a').each(function(e) {
+        var page = $(this).attr("href").split("?")[1];
+        page = page.indexOf("tab=sizes") >= 0 ? page : page + "&tab=sizes";
+        var link = window.location.pathname + "?" + page;
+        $(this).attr("href",link);
+    });
+    $( document ).ready(function() {
+        registerChildProductListeners();
+    });
+</script>

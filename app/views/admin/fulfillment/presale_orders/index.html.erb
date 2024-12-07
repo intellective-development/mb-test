@@ -1,0 +1,155 @@
+<% content_for :title, 'Presale Orders' %>
+<% content_for :auth_tokens, true %>
+
+<div class="row">
+  <div class="large-12 column">
+    <h2>Presale Orders</h2>
+    <div class="row">
+      <div class="large-6 column">
+        <%= form_tag admin_fulfillment_presale_orders_path, method: :get, class: "panel" do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <div class="row">
+            <div class="large-12 column">
+              <%= label_tag 'Query' %> <%= text_field_tag :query, params[:query] %>
+            </div>
+            <div class="large-12 column">
+              <%= submit_tag "Search", :name => nil, :class => 'button alert' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="large-6 columns">
+        <%= form_tag admin_fulfillment_presale_orders_path, method: :get, class: "panel" do %>
+          <% if params[:product_id].present? %>
+            <%= hidden_field_tag :product_id, params[:product_id] %>
+          <% end %>
+
+          <% if params[:brand_id].present? %>
+            <%= hidden_field_tag :brand_id, params[:brand_id] %>
+          <% end %>
+
+          <div class="row collapse">
+            <div class="supplier-selector-component" id="supplier-selector-component"></div>
+          </div>
+
+          <br>
+
+          <div class="row collapse">
+            <div class="product-selector-component" id="product-selector-component"></div>
+          </div>
+
+          <br>
+
+          <div class="row collapse">
+            <div class="brand-selector-component" id="brand-selector-component"></div>
+          </div>
+
+          <br>
+
+          <div class="row collapse">
+            <div class="small-6 column">
+              <label>Start date</label>
+              <%= date_field_tag :start_date, params[:start_date] %>
+            </div>
+
+            <div class="small-6 column">
+              <label>End date</label>
+              <%= date_field_tag :end_date, params[:end_date] %>
+            </div>
+          </div>
+
+          <div class="row collapse">
+            <div class="small-2 column right">
+              <%= submit_tag("GO", name: "filter", class:"button postfix") %>
+            </div>
+          </div>
+
+          <%= render partial: 'applied_filters', locals: {
+              filters: {
+                supplier_id: params[:supplier_id],
+                product_id: params[:product_id],
+                brand_id: params[:brand_id],
+                start_date: params[:start_date],
+                end_date: params[:end_date]
+              }
+            }
+          %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render partial: 'shared/admin/shipment_cancelations_stats', locals: {
+        shipments_count: @shipments_count,
+        canceled_shipments_count: @canceled_shipments_count,
+        cancelation_rate: @cancelation_rate
+      }
+    %>
+
+    <table>
+      <thead>
+        <tr class='odd'>
+          <th><%= sortable 'order_number' %></th>
+          <th><%= sortable 'customer_name', 'Customer' %></th>
+          <th><%= sortable 'supplier_name', 'Supplier' %></th>
+          <th><%= sortable 'age_in_days_and_hours', 'Age of Order' %></th>
+          <th><%= sortable 'state', 'State' %></th>
+          <th><%= sortable 'taxed_total', 'Total Amount' %></th>
+        </tr>
+      </thead>
+      <% grouped_shipments = @grouped_shipments.map { |s| ShipmentPresenter.new(s, self) }.compact %>
+      <%= render partial: 'presale_order_row', collection: grouped_shipments, as: 'shipment', cache: false %>
+    </table>
+
+    <%= paginate @grouped_shipments %>
+  </div>
+</div>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'supplier_id',
+          label: '',
+          placeholder: 'Choose Supplier',
+          initialValues: [<%= params["supplier_id"] %>]
+        }
+      },
+      {
+        selector: 'product-selector-component',
+        component: 'ProductSelect',
+        options: {
+          name: 'product_id',
+          label: '',
+          placeholder: 'Choose Product',
+          initialValues: [<%= params["product_id"] %>]
+        }
+      },
+      {
+        selector: 'brand-selector-component',
+        component: 'BrandSelect',
+        options: {
+          name: 'brand_id',
+          label: '',
+          placeholder: 'Choose Brand',
+          initialValues: [<%= params["brand_id"] %>]
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

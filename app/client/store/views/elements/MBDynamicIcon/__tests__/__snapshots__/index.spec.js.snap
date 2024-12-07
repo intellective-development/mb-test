@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBDynamicIcon renders 1`] = `
+<div
+  className="elMBDynamicIcon"
+>
+  <svg
+    className="elMBDynamicIcon__mb_white"
+    height={25}
+    viewBox="0 0 32 32"
+    width={25}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <Email
+      name="email"
+    />
+  </svg>
+</div>
+`;

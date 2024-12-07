@@ -1,0 +1,11 @@
+$branch-banner-height: 76px;
+// make branch banner use the space it's adding at the top of the page
+#branch-banner-iframe {
+  top: $branch-banner-height * -1 !important;
+}
+
+// make google places not position itself way down the page
+body.branch-banner-is-active {
+  .pac-container { margin-top: $branch-banner-height * -1; }
+}
+

@@ -1,0 +1,42 @@
+<% unless product.nil? %>
+  <h5 id="<%= product.id %>">
+    <a href="<%= edit_admin_merchandise_product_path(product)%>" >
+      <%= product.product_size_grouping.name %> - <span class="volume"><%= product.admin_item_volume %></span>
+    </a>
+  </h5>
+  <h6><%= product.state %> &mdash; <%= product.hierarchy_category.name %> &ndash; <%= product.product_type.name %></h6>
+  <p><small>Product Name: <%= product.name %></small></p>
+  <p><%= product.description %></p>
+  <ul>
+    <li>
+      <strong>UPC</strong>
+      <%= product.upc %>
+    </li>
+    <% product.product_properties.each do |pp| %>
+        <li>
+          <strong><%= Property.find(pp.property_id).display_name %></strong>
+          <%= pp.description %>
+        </li>
+    <% end %>
+  </ul>
+  <% if product.images.empty? %>
+    <p>No Product Image</p>
+  <% else %>
+    <p>
+      <a href="<%= product.image_urls(:product).first %>" target="_blank">
+        <img src="<%= product.image_urls(:small).first %>" width="100">
+      </a>
+      <caption><%= product.images.first.image_width %> x <%= product.images.first.image_height %></caption>
+    </p>
+  <% end %>
+  <hr>
+  <h6><%= pluralize(product.variants.self_active.size, 'variant') %> &mdash; $<%= product.display_price_range %></h6>
+  <ul>
+    <% product.variants.self_active.sort_by{|v| v.supplier&.name || ""}.each do |v| %>
+    <li>
+      <%= v.supplier.try(:name) %>
+      <small><%= number_to_currency(v.price) %>, <%= v.sku %></small>
+    </li>
+    <% end %>
+  </ul>
+  <% end %>

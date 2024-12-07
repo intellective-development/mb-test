@@ -1,0 +1,81 @@
+<% if @brand.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@brand.errors.count, "error") %> prohibited this brand from being saved:</h2>
+
+    <ul>
+    <% @brand.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<label>Name</label>
+<%= f.text_field :name %>
+
+<label>Description</label>
+<small>Line breaks will show up when rendered in the mobile app. This does not accept html or markdown.</small>
+<%= f.text_area :description %>
+
+<div class="row collapse">
+  <label>Parent Brand</label>
+  <div class="brand-selector-component" id="brand-selector-component"></div>
+</div>
+
+<div>
+  <%= f.check_box :sponsored %>
+  <label>
+    Sponsored?
+  </label>
+</div>
+
+<label>Mobile Image</label>
+<%= f.file_field :mobile_image %>
+
+<label>Web Image</label>
+<%= f.file_field :web_image %>
+
+<label>Tags (comma separated)</label>
+<%= f.text_field  :tag_list %>
+
+<label>Distributors</label>
+<div id="brand-distributors"></div>
+
+<%= content_for :bottom do -%>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script>
+    var component_config_block = [
+      {
+        selector: 'brand-distributors',
+        component: 'BrandDistributors',
+        options: {
+          all_distributors: <%= raw Distributor.all.map{|d| [d.id, d.name]}.to_json %>,
+          brand_distributors: <%= raw @brand.distributors.map{|d| [d.id, d.name]}.to_json %>
+        }
+      },
+      {
+        selector: 'brand-selector-component',
+        component: 'BrandSelect',
+        options: {
+          name: 'brand[parent_brand_id]',
+          label: '',
+          placeholder: 'Choose Brand',
+          initialValues: [{
+            value: <%= @brand.parent_brand_id || wrap_string(nil) %>,
+            label: <%= wrap_string(@brand.parent_brand_id.present? ? "#{@brand.parent&.name} (id: #{@brand.parent_brand_id})" : nil) %>
+          }]
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<%- end %>

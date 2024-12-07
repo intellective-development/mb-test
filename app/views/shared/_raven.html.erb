@@ -1,0 +1,28 @@
+<%= javascript_include_tag 'raven' if Rails.env.production?  %>
+
+<script>
+  if (typeof(Raven) === "undefined") {
+    var Raven = {
+      captureException: function(){},
+      captureMessage:   function(){},
+      setTagsContext:   function(){},
+      setUser:          function(){},
+      config:           function(){},
+      install:          function(){}
+    };
+  } else {
+    var ravenOptions = {
+      ignoreErrors: [
+        'twttr',
+        'NPObject',
+        'fb_xd_fragment',
+        'branch-latest'
+      ],
+      whitelistUrls: [/.*minibardelivery\.com/],
+      includePaths: [/https?:\/\/.*minibardelivery\.com/]
+    };
+
+    Raven.config('https://55101afcd0db49358b9375af947c2146@app.getsentry.com/49022', ravenOptions).install();
+    Raven.setTagsContext({ environment: "<%= Rails.env %>" });
+  }
+</script>

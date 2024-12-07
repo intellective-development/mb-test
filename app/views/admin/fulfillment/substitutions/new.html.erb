@@ -1,0 +1,176 @@
+<% if flash[:alert].present? %>
+  <p class="notice center red errors"><%= flash[:alert] %></p>
+<% end %>
+
+<h2>New Substitution for order #<%= @order.number %></h2>
+<h3><%=@order_item.variant.product_display_name%> - <%=@order_item.variant.item_volume%></strong></h3>
+<h4><%=number_to_currency(@order_item.price)%> - SKU: <%=@order_item.variant.sku%> - Qty: <%=@order_item.quantity%></strong></h4>
+
+<%= form_tag new_admin_fulfillment_order_substitution_path(order_id: @order.id, order_item_id: @order_item.id), :method => 'get', :id => "products_filter" do %>
+  <%= hidden_field_tag :order_item_id, @order_item.id %>
+  <div class="row collapse">
+    <div class="small-10 columns end">
+      <%= text_field_tag :search_term, params[:search_term], params: {order_item_id: @order_item.id}, placeholder: 'Search by product name' %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :search_term => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to '', remove_item_admin_fulfillment_order_path(id: @order.number, order_id: @order.id, order_item_id: @order_item.id), method: :delete, data: {confirm: "You entered 0 quantity, do you want to remove this item?" }, class: 'hide', id: 'remove-item-link' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>Product Name</th>
+      <th>Type</th>
+      <th>Volume</th>
+      <th>Inventory</th>
+      <th>Price</th>
+      <th>New Qty</th>
+      <th>Orig Qty</th>
+      <th>Difference paid by</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <%= form_tag create_with_variant_admin_fulfillment_order_substitutions_path(order_id: @order), method: :post, id: "substitution-new" do %>
+      <td><%= text_field_tag :sku, '', placeholder: 'SKU' %></td>
+      <td><%= text_field_tag :name, '', placeholder: 'New product name', input_html: { id: "variant-name-new" } %></td>
+      <td><%= @order_item.product.hierarchy_category_name %></td>
+      <td><%= text_field_tag :volume, @order_item.product.item_volume, placeholder: 'New product volume', input_html: { id: "variant-volume-new" } %></td>
+      <td><%= text_field_tag :inventory %></td>
+      <td>
+        <%= text_field_tag :price, '', input_html: { id: "price-new" } %>
+      </td>
+      <td>
+        <%= text_field_tag :quantity, @order_item.quantity, id: "quantity-new" %>
+      </td>
+      <td>
+        <%= text_field_tag :quantity_to_replace, @order_item.quantity, id: "quantity-to-replace-new" %>
+      </td>
+      <td>
+        <%= select_tag :onus, options_for_select(@onus_options, 'off') %>
+      </td>
+      <td>
+        <%= hidden_field_tag :order_item_id, @order_item.id %>
+        <%= submit_tag "Create Substitution", class: "button small", id: "submit-new" %>
+      </td>
+    <% end %>
+  </tr>
+  <% @substitutions.each do |sub| %>
+    <%= form_for(@substitution, url: admin_fulfillment_order_substitutions_path(@substitution, order_id: @order), html: { id: "substitution-#{sub.id}" }) do |f| %>
+      <%= simple_fields_for :subs do |c| %>
+        <tr>
+          <td><%=sub.sku%></td>
+          <td id="display-name-<%= sub.id %>"><%=sub.product_display_name%></td>
+          <td><%=sub.product.hierarchy_category_name%></td>
+          <td id="volume-<%= sub.id %>"><%=sub.item_volume%></td>
+          <td><%=sub.count_on_hand%></td>
+          <td>
+            <%= c.text_field :custom_price, value: sub.price, id: "price-#{sub.id}" %>
+          </td>
+          <td>
+            <%= c.text_field :quantity, value: @order_item.quantity, id: "quantity-#{sub.id}" %>
+          </td>
+          <td>
+            <%= c.text_field :quantity_to_replace, value: @order_item.quantity, id: "quantity-to-replace-#{sub.id}" %>
+          </td>
+          <td>
+            <%= c.select :onus, @onus_options, selected: 'off' %>
+          </td>
+          <td>
+            <%= f.submit value: "Create Substitution", class: "button small", id: "submit-#{sub.id}" %>
+          </td>
+          <%= c.hidden_field :sku, value: sub.sku %>
+          <%= c.hidden_field :order_item_id, value: @order_item.id %>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back to Order', edit_admin_fulfillment_order_path(@order.number), :class => 'button secondary small' %>
+
+<script type="text/javascript">
+  $("form[id^=substitution-]").on('submit', function(evt) {
+    var substitutionId = evt.target.id.split("-")[1];
+    var newQty = parseInt($(`input#quantity-${substitutionId}`).val());
+    var newQtyToReplace = parseInt($(`input#quantity-to-replace-${substitutionId}`).val());
+    var currentQty = <%=@order_item.quantity%>;
+    if (newQty === currentQty) {
+      // all good
+    } else {
+      if (newQty === 0) {
+        evt.preventDefault();
+        redirectToRemoveItem();
+        reEnableSubmit(substitutionId);
+      } else {
+        var currentDesc = currentItemDescription(newQtyToReplace);
+        var newDesc = newItemDescription(substitutionId, newQty, newQtyToReplace);
+        var msg = `You are substituting ${currentDesc} for ${newDesc}. `;
+        msg = msg + chargeMessage(substitutionId, newQty, newQtyToReplace);
+        msg = msg + 'Are you sure you want to make this substitution?';
+        if (confirm(msg)) {
+          // do nothing, allow submit
+        } else {
+          reEnableSubmit(substitutionId);
+          evt.preventDefault();
+        }
+      }
+    }
+  })
+
+  function reEnableSubmit(substitutionId) {
+    setTimeout(function() {
+      $(`input#submit-${substitutionId}`).removeAttr('disabled');
+    }, 100); // this is because the button change happens about 20ms after clicking "cancel"
+  }
+
+  function pluralize(n) {
+    return n === 1 ? 'unit' : 'units';
+  }
+
+  function currentItemDescription(newQtyToReplace) {
+    var unitStr = pluralize(newQtyToReplace);
+    return `${newQtyToReplace} <%=@order_item.variant.item_volume%> ${unitStr} of "<%=@order_item.variant.product_display_name%>"`;
+  }
+
+  function newItemDescription(substitutionId, newQty) {
+    var itemName = "";
+    var itemVolume = "";
+    if (substitutionId == 'new') {
+      itemName = $('#variant-name-new').val();
+      itemVolume = $('#variant-volume-new').val();
+    } else {
+      itemName = $(`#display-name-${substitutionId}`).html();
+      itemVolume = $(`#volume-${substitutionId}`).html();
+    }
+    var unitStr = pluralize(newQty);
+    return `${newQty} ${itemVolume} ${unitStr} of "${itemName}"`;
+  }
+
+  function chargeMessage(substitutionId, newQty, newQtyToReplace) {
+    var currentItemPrice = <%= @order_item.price %>;
+    var currentPrice = currentItemPrice * newQtyToReplace;
+    var newItemPrice = parseFloat($(`#price-${substitutionId}`).val());
+    var newPrice = newItemPrice * newQty;
+    if (newPrice > currentPrice) {
+      var priceDifference = (newPrice - currentPrice).toFixed(2);
+      return `The customer will be charged $${priceDifference}. `;
+    }
+    if (newPrice < currentPrice) {
+      var priceDifference = (currentPrice - newPrice).toFixed(2);
+      return `The customer will be refunded $${priceDifference}. `;
+    }
+    return 'The customer will not be charged or refunded any amount. ';
+  }
+
+  function redirectToRemoveItem() {
+    $('a#remove-item-link').click();
+  }
+</script>

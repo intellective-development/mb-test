@@ -1,0 +1,179 @@
+{
+  "a": {
+    ":focus": {
+      "outlineOffset": 0,
+      "outlineStyle": "none",
+      "outlineWidth": 0
+    },
+    "WebkitTextDecorationsInEffect": "none",
+    "borderColor": "#000",
+    "caretColor": "auto",
+    "color": "inherit",
+    "columnRuleColor": "inherit",
+    "outlineColor": "inherit",
+    "perspectiveOrigin": "0 0",
+    "textDecoration": "none",
+    "textDecorationColor": "inherit",
+    "textDecorationLine": "none",
+    "textEmphasisColor": "inherit",
+    "textFillColor": "inherit",
+    "textStrokeColor": "inherit",
+    "transformOrigin": "0 0"
+  },
+  "button": {
+    ":focus, :hover": {
+      "outlineOffset": 0,
+      "outlineStyle": "none",
+      "outlineWidth": 0
+    },
+    "WebkitAppearance": "none",
+    "alignItems": "inherit",
+    "appearance": "none",
+    "backgroundColor": "inherit",
+    "border": "0 none #000",
+    "boxSizing": "inherit",
+    "caretColor": "auto",
+    "color": "inherit",
+    "columnRuleColor": "inherit",
+    "cursor": "pointer",
+    "fontFamily": "inherit",
+    "fontSize": "inherit",
+    "lineHeight": "inherit",
+    "margin": 0,
+    "minHeight": 0,
+    "outlineColor": "inherit",
+    "padding": 0,
+    "perspectiveOrigin": "0 0",
+    "placeItems": "inherit",
+    "textAlign": "inherit",
+    "textDecorationColor": "inherit",
+    "textEmphasisColor": "inherit",
+    "textFillColor": "inherit",
+    "textStrokeColor": "inherit",
+    "transformOrigin": "0 0"
+  },
+  "fieldset": {
+    "WebkitMarginEnd": 0,
+    "WebkitMarginStart": 0,
+    "WebkitPaddingAfter": 0,
+    "WebkitPaddingBefore": 0,
+    "WebkitPaddingEnd": 0,
+    "WebkitPaddingStart": 0,
+    "border": "0 none transparent",
+    "margin": 0,
+    "minWidth": 0,
+    "padding": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  },
+  "h": {
+    "fontSize": "inherit",
+    "fontWeight": "inherit",
+    "height": "auto",
+    "lineHeight": "inherit",
+    "marginBottom": 0,
+    "marginTop": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0",
+    "width": "auto"
+  },
+  "hr": {
+    "borderBottom": "0 none transparent",
+    "borderLeft": "0 none transparent",
+    "borderRight": "0 none transparent",
+    "borderTop": "0 none transparent",
+    "flexBasis": "100%",
+    "margin": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  },
+  "input": {
+    ":focus": {
+      "columnRuleColor": "#000",
+      "outline": "0 none #000"
+    },
+    "WebkitAppearance": "none",
+    "appearance": "none",
+    "backgroundColor": "inherit",
+    "border": "0 none #000",
+    "fontFamily": "inherit",
+    "fontSize": "inherit",
+    "margin": 0,
+    "padding": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  },
+  "legend": {
+    "WebkitPaddingEnd": 0,
+    "WebkitPaddingStart": 0,
+    "backgroundColor": "transparent",
+    "padding": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  },
+  "li": {
+    "display": "inline-block",
+    "minHeight": "auto",
+    "minWidth": "auto",
+    "perspectiveOrigin": "0 0",
+    "textAlign": "start",
+    "transformOrigin": "0 0"
+  },
+  "p": {
+    "marginBottom": 0,
+    "marginTop": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  },
+  "search": {
+    "WebkitAppearance": "none",
+    "appearance": "none",
+    "backgroundColor": "inherit",
+    "border": "0 none #000",
+    "fontFamily": "inherit",
+    "fontSize": "inherit",
+    "margin": 0,
+    "padding": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  },
+  "select": {
+    ":focus": {
+      "outline": "none"
+    },
+    "MozAppearance": "none",
+    "WebkitAppearance": "none",
+    "alignItems": "inherit",
+    "appearance": "none",
+    "backgroundColor": "transparent",
+    "border": "0 none transparent",
+    "borderRadius": 0,
+    "fontFamily": "inherit",
+    "fontSize": "inherit",
+    "height": "auto",
+    "margin": 0,
+    "perspectiveOrigin": "0 0",
+    "placeItems": "normal normal",
+    "transformOrigin": "0 0",
+    "whiteSpace": "normal",
+    "width": "auto"
+  },
+  "table": {
+    "background": "inherit",
+    "border": "0 none transparent",
+    "marginBottom": 0
+  },
+  "td": {
+    "backgroundColor": "#fff",
+    "fontSize": "inherit",
+    "lineHeight": "inherit",
+    "padding": "initial"
+  },
+  "ul": {
+    "marginBottom": 0,
+    "marginTop": 0,
+    "paddingLeft": 0,
+    "perspectiveOrigin": "0 0",
+    "transformOrigin": "0 0"
+  }
+}

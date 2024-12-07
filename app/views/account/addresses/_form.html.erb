@@ -1,0 +1,43 @@
+<% if @address.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@address.errors.count, "error") %> prohibited this shipping address from being saved:</h2>
+  <ul>
+  <% @address.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="row">
+  <div class="large-12 column">
+    <%= f.label :name, 'Name' %>
+    <%= f.text_field :name, :class => '' %>
+    <%= f.label :address1 %>
+    <%= f.text_field :address1 %>
+    <%= f.label :address2 %>
+    <%= f.text_field :address2 %>
+  </div>
+</div>
+<div class="row">
+  <div class="large-5 column">
+          <%= f.label :city %>
+          <%= f.text_field :city %>
+  </div>
+  <div class="large-2 column">
+    <%= f.label    :state_name, "State" %>
+    <%= f.text_field   :state_name %>
+  </div>
+  <div class="large-4 column">
+    <%= f.label :zip_code %>
+    <%= f.text_field :zip_code %>
+  </div>
+</div>
+<div class="row">
+  <div class="large-4 column">
+    <%= f.submit 'Update Address', :class => 'button expand' %>
+  </div>
+  <div class="large-8 column">
+    <p><%= f.check_box :default %> Make this my default shipping method</p>
+    <%= f.hidden_field :address_purpose, value: 'shipping' %>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="footer" id="footer">
+  <div class="el-mblayouts-sg el-mbgrid el-mbgrid--1 el-mbgrid--4--medium _pad_sides links">
+    <div>
+      <h6 class="subhead-2">Extras</h6>
+      <ul class="no-bullets">
+        <li class="footer__list-item"><a href="/store/cocktails">Cocktail Recipes</a></li>
+        <li class="footer__list-item"><a href="/party-planner">Event Planner</a></li>
+        <li class="footer__list-item"><a href="/book-a-bartender">Book a Bartender</a></li>
+        <li class="footer__list-item"><a href="/gift-cards">Gift Cards</a></li>
+        <li class="footer__list-item"><a href="/give-a-gift">Give a Gift</a></li>
+        <li class="footer__list-item"><a href="/referrals">Refer a Friend</a></li>
+        <li class="footer__list-item"><a href="http://blog.minibardelivery.com" target="_blank" rel="noopener">Blog</a></li>
+        <li class="footer__list-item"><a href="/drink-and-do-good">Drink &amp; Do Good</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6 class="subhead-2">Contact</h6>
+      <ul class="no-bullets">
+        <li class="footer__list-item"><a rel="noopener noreferrer" target="_blank" href="https://minibar.freshdesk.com/support/home">Help &amp; Support</a></li>
+        <li class="footer__list-item"><a href="tel:+18554870740"><%= image_tag("ui/phone.svg", class: 'contact__icon') %> (855) 487-0740</a></li>
+        <li class="footer__list-item"><a href="mailto:help@minibardelivery.com"><%= image_tag("ui/email.svg", class: 'contact__icon') %> help@minibardelivery.com</a></li>
+        <li class="footer__list-item"><a href="sms:+19176336332"><%= image_tag("ui/txt.svg", class: 'contact__icon') %> (917) 633-6332</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6 class="subhead-2">About</h6>
+      <ul class="no-bullets">
+        <li class="footer__list-item"><a href="/partners">Store Partnerships</a></li>
+        <li class="footer__list-item"><a href="/brand-partners">Brand Partnerships</a></li>
+        <li class="footer__list-item"><a href="/corporate">Corporate Accounts</a></li>
+        <li class="footer__list-item"><a href="/careers">Careers</a></li>
+        <li class="footer__list-item"><a href="/about">About Us</a></li>
+        <li class="footer__list-item"><a href="/regions">Find Us</a></li>
+        <li class="footer__list-item"><a href="/press">Press &amp; Media</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6 class="subhead-2">Connect</h6>
+      <ul class="inline-list icon--social__list">
+        <li class="icon--social__list--list_item footer__list-item">
+          <a href="https://facebook.com/MinibarDelivery" target="_blank" rel="noopener"  title="Facebook">
+            <%= image_set_tag('social_icons/facebook@1x.png', {'social_icons/facebook@2x.png': '2x', 'social_icons/facebook@3x.png': '3x'},  class: 'social-icon') %>
+            <%= image_set_tag('social_icons/facebook_hover@1x.png', {'social_icons/facebook_hover@2x.png': '2x', 'social_icons/facebook_hover@3x.png': '3x'},  class: 'social-icon-hover') %>
+          </a>
+        </li>
+        <li class="icon--social__list--list_item footer__list-item">
+          <a href="https://twitter.com/MinibarDelivery" target="_blank" rel="noopener"  title="Twitter">
+            <%= image_set_tag('social_icons/twitter@1x.png', {'social_icons/twitter@2x.png': '2x', 'social_icons/twitter@3x.png': '3x'},  class: 'social-icon') %>
+            <%= image_set_tag('social_icons/twitter_hover@1x.png', {'social_icons/twitter_hover@2x.png': '2x', 'social_icons/twitter_hover@3x.png': '3x'},  class: 'social-icon-hover') %>
+          </a>
+        </li>
+        <li class="icon--social__list--list_item footer__list-item">
+          <a href="https://instagram.com/MinibarDelivery" target="_blank" rel="noopener"  title="Instagram">
+            <%= image_set_tag('social_icons/instagram@1x.png', {'social_icons/instagram@2x.png': '2x', 'social_icons/instagram@3x.png': '3x'},  class: 'social-icon') %>
+            <%= image_set_tag('social_icons/instagram_hover@1x.png', {'social_icons/instagram_hover@2x.png': '2x', 'social_icons/instagram_hover@3x.png': '3x'},  class: 'social-icon-hover') %>
+          </a>
+        </li>
+      </ul>
+      <div class="footer-app-links">
+        <a id="app-store-link" href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&amp;uo=4&amp;at=11l5XB&amp;ct=minibar" target="_blank" rel="noopener noreferrer">
+          <img alt="Download on the App Store" src="/assets/components/elements/mb-app-store-link/ios-app-store.png" srcset="/assets/components/elements/mb-app-store-link/ios-app-store@2x.png 2x, /assets/components/elements/mb-app-store-link/ios-app-store@3x.png 3x">
+        </a>
+        <a id="play-store-link" href="https://play.google.com/store/apps/details?id=minibar.android" target="_blank" rel="noopener noreferrer">
+          <img alt="Get it on Google Play" src="/assets/components/elements/mb-app-store-link/play-store.png" srcset="/assets/components/elements/mb-app-store-link/play-store@2x.png 2x, /assets/components/elements/mb-app-store-link/play-store@3x.png 3x">
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="el-mblayouts-sg el-mbgrid el-mbgrid--1 el-mbgrid--2--medium _pad_sides subfooter">
+    <div>
+      <p class="legal-thin">
+        These services are not affiliated with the MINIBAR restaurant or Jose Andres.
+        <br />
+        &copy; <%= Time.zone.now.year %> LLJ Inc,  All Rights Reserved &mdash; <a href="http://nytm.org/made-in-nyc" rel="noopener"  target="_blank">Made in NYC</a>. Please Drink Responsibly.
+      </p>
+    </div>
+    <div>
+       <p class="legal-thin tos">
+        <a href="/terms">Terms of Service</a> | <a href="/privacy">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+</div>

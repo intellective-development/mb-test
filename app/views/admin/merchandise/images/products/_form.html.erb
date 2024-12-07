@@ -1,0 +1,31 @@
+<fieldset>
+  <legend>Images</legend>
+  <% if @product.product_trait_image.blank? %>
+    <fieldset>
+      <legend>Product Images - <%= add_child_link "New Image", :images %></legend>
+      <%= new_child_fields_template form, :images, :form_builder_local => :image_form, :partial => 'admin/merchandise/images/products/image' %>
+      <div id="product_images" class='span-16'>
+        <% @product.images.each do |image| %>
+          <%= form.fields_for :images, image do |image_form| %>
+            <%= render 'admin/merchandise/images/products/image', :image_form => image_form %>
+          <% end %>
+        <% end %>
+      </div>
+    </fieldset>
+  <% else %>
+    <fieldset>
+      <legend>Product Images</legend>
+      <div id="product_images" class='large-4 columns'>
+        <% @product.images.each do |image| %>
+          <%= image_tag image.photo.url(:small), { id: "image-#{image.id}" } %>
+        <% end %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Product Trait Main Image</legend>
+      <div id="product_images" class='large-12 columns' style="text-align: center;">
+        <%= image_tag @product.product_trait_image, style: 'height:400px;width:auto;' %>
+      </div>
+    </fieldset>
+  <% end %>
+</fieldset>

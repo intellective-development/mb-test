@@ -1,0 +1,8 @@
+<% content_for :title, 'Content Placement' %>
+<h2>Content Placements</h2>
+<ul class="small-block-grid-1 large-block-grid-3">
+  <% @placements.each do |placement| %>
+    <li><h5><%= link_to placement.name, edit_admin_content_placement_path(placement) %></h5></li>
+  <% end %>
+  <li><h5><%= link_to 'Create New', new_admin_content_placement_path %></h5></li>
+</ul>

@@ -1,0 +1,179 @@
+<% content_for :auth_tokens, true %>
+<%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<%= error_messages_for 'pre_sale' %>
+<%= error_messages_for 'product_order_limit' %>
+<style>
+  .state-option {
+    margin: 0 0 1rem;
+  }
+  .state-option input[type="checkbox"] {
+    margin: 0;
+  }
+</style>
+<fieldset class="span-12">
+  <div class="row">
+    <% if product_id.nil? %>
+      <div class="small-6 column" style="pointer-events: <%= 'none' if ['edit','update'].include? params[:action] %>">
+        <div id="product-selector-component"></div>
+      </div>
+    <% else %>
+      <div class="small-6 column">
+          <label>Product</label>
+          <%= link_to @pre_sale.product.name, edit_admin_merchandise_product_path(@pre_sale.product, { active_tab: 'pre-sales' }) %>
+          <%= form.hidden_field :product_id, value: product_id %>
+      </div>
+    <% end %>
+    <div class="small-6 column">
+      <label>Name *</label>
+      <%= form.text_field :name %>
+    </div>
+    <div class="small-6 column">
+      <label>Start at *</label>
+      <%= form.text_field :starts_at, value: @pre_sale.starts_at&.strftime('%m/%d/%Y'), class: 'ui-datepicker', placeholder: 'dd/mm/yyyy', disabled: false %>
+    </div>
+    <div class="small-6 column">
+      <label>Price *</label>
+      <%= form.text_field :price, value: number_with_precision(form.object.price, precision: 2)  %>
+    </div>
+    <div class="small-6 column">
+      <label>Merchant SKU *</label>
+      <%= form.text_field :merchant_sku %>
+    </div>
+    <div class="small-6 column">
+      <%= form.fields_for @product_order_limit, nil do |limit_f| %>
+        <label>Global Order Limit *</label>
+        <% if @pre_sale.persisted? %>
+          <small>
+            - Current Qty Sold: <%= @pre_sale.product_order_limit&.current_order_qty %>
+            / Line Item Count: <%= @pre_sale.product_order_limit&.sum_order_items %>
+          </small>
+        <% end %>
+        <%= limit_f.number_field :global_order_limit %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 column">
+      <fieldset>
+      <legend>Product Order Limit per Supplier</legend>
+      <%= form.fields_for :supplier_product_order_limit do |supplier_limit_f| %>
+        <% @suppliers.each do |supplier| %>
+          <% supplier_product_order_limit = @supplier_product_order_limits.detect { |spol| spol.supplier == supplier }  %>
+          <div class="row">
+            <div class="small-9 column">
+              <label>Suppliers</label>
+            </div>
+            <div class="small-3 column">
+              <label>Limit</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-9 column">
+              <%= supplier.name %>
+              <%  if @pre_sale.persisted? %>
+                <br/>
+                <small>Current Qty Sold: <%= supplier_product_order_limit&.current_order_qty || "N/A" %></small>
+              <% end %>
+            </div>
+            <div class="small-3 column">
+              <%= supplier_limit_f.number_field supplier.id, value: supplier_product_order_limit&.order_limit %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      </fieldset>
+    </div>
+    <div class="small-6 column" id="product-order-limit-per-state-section">
+      <fieldset>
+        <legend>Product Order Limit per State <% if @pre_sale.persisted? %>(<a href="#" id="togglePOLSSectionLink" onclick="togglePOLSSection()">&nbsp;</a>)<% end %></legend>
+        <%= form.fields_for :state_product_order_limit do |state_limit_f| %>
+          <% State.us_states.by_abbreviation.each_slice(3) do |batch| %>
+            <div class="row">
+              <% batch.each do | state | %>
+                <% state_product_order_limit = @state_product_order_limits.detect { |spol| spol.state == state } %>
+                <div class="small-4 column state-option">
+                  <label style="font-weight: normal">
+                    <%= state_limit_f.check_box state.id, { checked: state_product_order_limit&.order_limit == 0 }, 0, -1 %>
+                    <%= state.abbreviation %>
+                  </label>
+                  <% if @pre_sale.persisted? %>
+                    <small>Sold: <%= state_product_order_limit&.current_order_qty || 0 %></small>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'datePickerInitialize' %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+
+  <script type="text/javascript">
+    var component_config_block = [{
+      selector: 'product-selector-component',
+      component: 'ProductSelect',
+      options: {
+        name: 'pre_sale[product_id]',
+        placeholder: 'Choose Product',
+        initialValues: [{
+          <% unless @pre_sale&.product&.id.nil? %>
+          value: <%= @pre_sale.product.id %>,
+          label: '<%= @pre_sale.product.display_name_with_id %>'
+          <% end %>
+        }]
+      }
+    }];
+
+    let collapsePOLSSection = <%= @pre_sale.persisted? ? 'true' : 'false' %>;
+
+    function togglePOLSSection() {
+      collapsePOLSSection = !collapsePOLSSection;
+      handleTogglePOLSSection();
+    }
+
+    function handleTogglePOLSSection() {
+      const section = document.getElementById('product-order-limit-per-state-section');
+      const stateOptions = section.getElementsByClassName('state-option') || [];
+
+      if (collapsePOLSSection) {
+        for (const stateOption of stateOptions) {
+          let inputs = stateOption.getElementsByTagName('input');
+          let checkbox;
+          for (const input of inputs) {
+            if (input.type === 'checkbox') {
+              checkbox = input;
+              break;
+            }
+          }
+          if (!checkbox.checked) {
+            $(stateOption).addClass('hide');
+          }
+        }
+      } else {
+        for (const stateOption of stateOptions) {
+          $(stateOption).removeClass('hide');
+        }
+      }
+
+      document.getElementById('togglePOLSSectionLink').innerHTML = collapsePOLSSection ? 'show all states' : 'hide inactive states';
+    }
+
+    function ready(fn) {
+      if (document.readyState !== 'loading') {
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+    ready(function(){
+      window.initComponents(component_config_block);
+      handleTogglePOLSSection();
+    });
+  </script>
+<% end %>

@@ -1,0 +1,18 @@
+@import "../style/variables";
+@import "~slick-carousel/slick/slick";
+@import "~slick-carousel/slick/slick-theme";
+
+.slick-slider{
+  .slick-dots {
+    bottom: 50px;
+    li {
+      button::before {
+        font-size: 40px;
+        color: #cccccc;
+      }
+    }
+  }
+  .slick-slide img {
+    display: inline-block;
+  }
+}

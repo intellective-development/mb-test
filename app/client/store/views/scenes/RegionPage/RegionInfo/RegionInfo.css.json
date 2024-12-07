@@ -1,0 +1,53 @@
+{
+  "div": {
+    "backgroundColor": "#fafafa",
+    "display": "flex"
+  },
+  "divDesktop": {
+    "flexDirection": "row"
+  },
+  "divMobile": {
+    "flexDirection": "column"
+  },
+  "img": {
+    "backgroundPosition": "center",
+    "backgroundRepeat": "no-repeat",
+    "backgroundSize": "cover",
+    "flexBasis": "60%"
+  },
+  "imgDesktop": {
+    "minHeight": 450
+  },
+  "imgMobile": {
+    "minHeight": 200
+  },
+  "imgRetina": {
+    "backgroundImage": "url('/assets/regions/minibar-delivery@2x.jpg')"
+  },
+  "imgStandard": {
+    "backgroundImage": "url('/assets/regions/minibar-delivery.jpg')"
+  },
+  "info": {
+    "alignItems": "center",
+    "display": "flex",
+    "flexDirection": "column",
+    "flexGrow": 1,
+    "justifyContent": "center",
+    "padding": 20
+  },
+  "text": {
+    "color": "#222",
+    "fontSize": 16,
+    "margin": "1em auto",
+    "maxWidth": "24em",
+    "textAlign": "center"
+  },
+  "title": {
+    "color": "#ac0f0f",
+    "fontSize": 24,
+    "fontWeight": 700,
+    "lineHeight": 1.375,
+    "maxWidth": "10em",
+    "textAlign": "center"
+  }
+}

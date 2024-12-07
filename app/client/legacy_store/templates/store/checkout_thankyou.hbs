@@ -1,0 +1,63 @@
+<div class="row form-row">
+  <div class="large-10 medium-10 large-centered column">
+    <div class="checkout-frame no-bottom-margin">
+      <h2 class="modal-header">Order Placed</h2>
+      <div class="checkout-panel">
+        <p class="p-medium">
+          Thank you for your order - your order number is {{order.number}}. {{next_steps}}
+        </p>
+        {{#if order.replenishment.enabled }}
+        <p class="p-medium">
+          You've enabled auto refill; we'll repeat your order every {{math order.replenishment.interval "/" 7 }} weeks. You can manage your subscription at any time from the Account page.
+        </p>
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <ul class="large-block-grid-2 contact-details">
+          <li class="contact"><a class="icon icon-phone" href="tel:+18554870740">(855) 487-0740</a></li>
+          <li class="contact"><a class="icon icon-envelope" href="mailto:help@minibardelivery.com" target="_blank">help@minibardelivery.com</a></li>
+        </ul>
+      </div>
+    </div>
+    {{#if referral_code}}
+    <div class="checkout-frame no-bottom-margin show-for-medium-up">
+      <div class="modal-header mega-header">
+        <h1>Share with friends</h1>
+        <h2>Get free drinks for spreading the word about Minibar Delivery.</h2>
+      </div>
+      <div class="checkout-panel mega-body">
+        <div class="row">
+          <div class="large-5 medium-5 push-1 column">
+            <p class="p-large large-10">
+              Give ${{referral_reward}}, get ${{referral_reward}}, when they use your referral code on their first order.
+            </p>
+          </div>
+          <div class="large-5 medium-5 pull-1 column">
+            <ul class="actions">
+              <li><span class="code-block">{{referral_code}}</span></li>
+              <li><a class="button-v2 icon icon-twitter twitter" href="https://twitter.com/home?status=Get%20${{referral_reward}}%20off%20wine,%20spirits%20and%20beer%20on%20your%20first%20@minibardelivery%20order.%20Use%20code:%20{{referral_code}}%20https://minibardelivery.com" target="_blank">Tweet it out</a></li>
+              <li><a class="button-v2 icon icon-facebook facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://minibardelivery.com" target="_blank">Share on Facebook</a></li>
+              <li><a class="button-v2 icon icon-email" href="mailto:?Subject=Save%20%24{{referral_reward}}%20on%20your%20first%20order%20from%20Minibar&Body=Hi%2C%0A%0AHere%27s%20a%20%24{{referral_reward}}%20promo%20code%20for%20Minibar%2C%20the%20app%20that%20provides%20wine%2C%20spirits%20and%20beer%20delivered%20to%20your%20door%20in%20under%20an%20hour.%0A%0AMy%20personal%20code%20is%3A%20{{referral_code}}.%0A%0ATo%20use%20it%2C%20download%20Minibar%20Delivery%20from%20the%20app%20store%20here%3A%20http%3A//mbar.me/MNBjnv%20or%20visit%20the%20website%20minibardelivery.com.%0A%0AI%20get%20a%20%24{{referral_reward}}%20credit%20when%20you%20use%20my%20code%20so%20let%27s%20both%20enjoy%20a%20drink%21%0A%0ACheers" target="_blank">Email friends</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    <div class="checkout-frame no-header no-top-margin no-bottom-margin">
+      <div class="checkout-panel no-header no-top-padding no-bottom-padding">
+        <div class="row">
+          <div class="large-6 medium-6 hide-for-small column image image-module-iphone"></div>
+          <div class="large-6 medium-6 small-12 content column">
+            <h4 class="heading-thin-bold">Have you tried the app?</h4>
+            <p class="p-medium">Download our iOS or Android app and order in a few easy taps.</p>
+            <ul class="inline-list download-icons small-centered">
+              <li><a href="https://itunes.apple.com/us/app/minibar-delivery-wine-liquor/id720850888?mt=8&uo=4&at=11l5XB&ct=minibar" target="_blank" class="button-ios"></a><br></li>
+              <li><a href="https://play.google.com/store/apps/details?id=minibar.android" target="_blank" class="button-android"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

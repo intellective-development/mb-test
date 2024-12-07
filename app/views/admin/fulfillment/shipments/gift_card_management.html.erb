@@ -1,0 +1,39 @@
+<h2 class="subhead-thin">Gift Card Management</h2>
+<%= link_to 'Expire all gift cards', expire_gift_cards_admin_fulfillment_shipment_path(@shipment), method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= simple_form_for(@shipment, url: update_gift_cards_admin_fulfillment_shipment_path(@shipment)) do |f| %>
+  <%= f.simple_fields_for :order_items do |oi_f| %>
+    <%- order_item = oi_f.object %>
+    <%- coupons = Coupon.not_expired(Time.zone.now).where(order_item: order_item) %>
+    <fieldset>
+    <%= render 'admin/fulfillment/shipments/gift_card_form', shipment: @shipment, oi: oi_f, coupons: coupons %>
+    <%= oi_f.simple_fields_for :item_options do |io_o| %>
+      <%- item_options = io_o.object %>
+
+
+        <legend><%= "#{item_options.recipients.count} x #{order_item.product_size_grouping.name} (#{number_to_currency(item_options.price)})" %></legend>
+        <label>Note:</label>
+        <%= io_o.text_field :message, value: item_options.message %>
+        <%- if item_options.gift_card_image %>
+          <label>View custom image: <a href="<%= item_options.gift_card_image.image_url %>" target="_blank">Open image</a></label>
+        <% end %>
+
+        <%= io_o.input :cc_sender, as: :boolean, label: "Send an email with all gift cards to sender" %>
+        <%= io_o.input :resend, as: :boolean, label: "Resend to all recipients" %>
+        <label>Send date</label>
+        <%= io_o.text_field :new_send_date, value: item_options.send_date, placeholder: 'Select Date/Time' %>
+        <% if @shipment.order&.verifying? %>
+          <%= io_o.input :recipients, input_html: { value: item_options.recipients.join(", "), readonly: true } %>
+        <% end %>
+      </fieldset>
+    <% end %>
+  <% end %>
+  <%= f.submit 'Save', { class: 'button expand' } %>
+<% end %>
+
+<script type="text/javascript">
+  $('[id$="item_options_attributes_new_send_date"]').appendDtpicker({
+    "futureOnly": true,
+    "dateOnly": true,
+    "autodateOnStart": false
+  });
+</script>

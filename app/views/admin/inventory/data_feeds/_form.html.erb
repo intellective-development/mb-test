@@ -1,0 +1,82 @@
+<%= error_messages_for 'data_feed' %>
+
+<fieldset>
+  <legend>Feed Details</legend>
+  <label>Feed URL</label>
+  <%= form.text_field :url %>
+  <div class="bev-mo-only" style="display: none">
+    <label>Price Feed URL</label>
+    <%= form.text_field :prices_url %>
+  </div>
+  <div class="bev-mo-only" style="display: none">
+    <label>Store Number</label>
+    <%= form.text_field :store_number %>
+  </div>
+  <label>Data Type</label>
+  <%= form.select :feed_type, DataFeed.feed_types.keys.to_a %>
+  <label>Supplier</label>
+  <%= form.select :supplier_id, grouped_options_for_select(supplier_dropdown_items,
+          @supplier.try(:id) ) %>
+</fieldset>
+<fieldset>
+  <legend>Import Rules</legend>
+  <div class="row">
+    <div class="large-4 column">
+      <label>Update Frequency (Hours)</label>
+      <%= form.text_field :frequency %>
+    </div>
+    <div class="large-8 column">
+      <p><small>This controls how often Minibar will attempt to update product data from the feed.</small></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 column">
+      <label>Inventory Threshold</label>
+      <%= form.text_field :inventory_threshold %>
+    </div>
+    <div class="large-8 column">
+      <p><small>If a quantity is less than this value the product will not be processed.</small></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 column">
+      <label>Remove Items not present</label>
+      <%= form.check_box :remove_items_not_present %>
+    </div>
+    <div class="large-8 column">
+      <p><small>Items not present in the update file will be removed from sale.</small></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 column">
+      <label>Parsing Mode</label>
+      <%= form.select :mode, @parsers, include_blank: false %>
+    </div>
+    <div class="large-8 column">
+      <p><small>This controls how the feed will be parsed.</small></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 column">
+      <label>Update Products</label>
+      <%= form.check_box :update_products %>
+    </div>
+    <div class="large-8 column">
+      <p><small>Determines if data from the feed should be used to update the attributes of existing products. This typically should not be enabled and may increase processing time.</small></p>
+    </div>
+  </div>
+</fieldset>
+<script type="text/javascript">
+  $(function () {
+    // $(".bev-mo-only").hide();
+    $('#data_feed_mode').change(function () {
+        var mode = $(this).val();
+        if (mode === 'BEV_MO_PARSER') {
+          $(".bev-mo-only").show();
+        } else {
+          $(".bev-mo-only").hide();
+        }
+    });
+  });
+</script>
+

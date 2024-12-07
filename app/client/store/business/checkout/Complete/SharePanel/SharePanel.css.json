@@ -1,0 +1,111 @@
+{
+  "a": {
+    "backgroundColor": "#fff",
+    "border": "1px solid rgba(0,0,0,.1)",
+    "margin": "15px auto",
+    "maxWidth": 500
+  },
+  "b": {
+    "fontSize": 12,
+    "padding": "15px 0",
+    "textAlign": "center"
+  },
+  "c": {
+    "fontWeight": 700,
+    "letterSpacing": 1,
+    "padding": 5,
+    "textTransform": "uppercase"
+  },
+  "d": {
+    "color": "#777",
+    "padding": 5
+  },
+  "e": {
+    "@media (max-width: 767px)": {
+      "flexDirection": "column"
+    },
+    "@media (min-width: 768px)": {
+      "flexDirection": "row"
+    },
+    "borderTop": "1px solid rgba(0,0,0,.1)",
+    "display": "flex"
+  },
+  "f": {
+    "alignItems": "center",
+    "display": "flex",
+    "flexBasis": "50%",
+    "flexDirection": "column",
+    "justifyContent": "center"
+  },
+  "g": {
+    "lineHeight": 1.5,
+    "margin": 35
+  },
+  "h": {
+    "fontWeight": 700
+  },
+  "i": {
+    "@media (max-width: 767px)": {
+      "borderTop": "1px solid rgba(0,0,0,.1)"
+    },
+    "@media (min-width: 768px)": {
+      "borderLeft": "1px solid rgba(0,0,0,.1)"
+    },
+    "alignItems": "center",
+    "display": "flex",
+    "flexBasis": "50%",
+    "flexDirection": "column",
+    "justifyContent": "center",
+    "padding": "10px 15px"
+  },
+  "j": {
+    "color": "#781214",
+    "display": "block",
+    "fontSize": 20,
+    "fontWeight": 700,
+    "margin": "5px auto",
+    "textAlign": "center"
+  },
+  "k": {
+    "borderRadius": 5,
+    "color": "#fff",
+    "cursor": "pointer",
+    "fontSize": 10,
+    "fontWeight": 700,
+    "letterSpacing": 0.5,
+    "lineHeight": "10px",
+    "margin": 5,
+    "textAlign": "center",
+    "textTransform": "uppercase",
+    "width": "100%"
+  },
+  "l": {
+    "backgroundColor": "#1da1f2"
+  },
+  "m": {
+    "::before": {
+      "height": 32,
+      "margin": 5,
+      "width": 32
+    },
+    "alignItems": "center",
+    "display": "inline-flex",
+    "margin": "auto"
+  },
+  "n": {
+    "backgroundColor": "#3b5998"
+  },
+  "o": {
+    "backgroundColor": "#000"
+  },
+  "p": {
+    "::before": {
+      "height": 24,
+      "margin": 9,
+      "width": 24
+    },
+    "alignItems": "center",
+    "display": "inline-flex",
+    "margin": "auto"
+  }
+}

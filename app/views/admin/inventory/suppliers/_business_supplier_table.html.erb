@@ -1,0 +1,16 @@
+
+<legend>Businesses</legend>
+<%= link_to "Create Business Supplier Config", new_admin_business_supplier_path(supplier_id: @supplier.id), class: "button tiny" %>
+<table>
+  <thead>
+    <tr class='odd'>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'admin/inventory/suppliers/business_supplier_row', collection: business_suppliers, as: 'business_supplier', cache: true %>
+  </tbody>
+</table>

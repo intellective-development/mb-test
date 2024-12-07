@@ -1,0 +1,10 @@
+.cm-shipping-required-notification {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-left: $standard-gutter;
+  padding-right: $standard-gutter;
+  color: $brand-red;
+}

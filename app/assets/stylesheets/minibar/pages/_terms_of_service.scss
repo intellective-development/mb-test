@@ -1,0 +1,66 @@
+$color-dark-grey: #222;
+$color-light-grey: #e4e4e4;
+$color-medium-grey: #444;
+$color-white: #fff;
+
+$default-spacing: 16px;
+
+body {
+  color: $color-medium-grey;
+}
+
+#terms {
+  margin-bottom: $default-spacing;
+  a {
+    border: 0;
+    color: #781214;
+    text-decoration: none;
+  }
+
+  h1, h2, h3, h4, h5, h6, h1 a {
+    color: $color-dark-grey;
+    font-family: $font-family-avenir;
+    font-weight: $heavy-font-weight;
+    margin-bottom: $default-spacing;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-size: 14px;
+  }
+
+  p, li {
+    color: $color-medium-grey;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 1.5;
+    margin-bottom: $default-spacing;
+  }
+
+  strong {
+    color: $color-dark-grey;
+    font-weight: $heavy-font-weight;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  li {
+    list-style-type: disc;
+    margin-left: 32px;
+    padding-left: $default-spacing;
+  }
+}

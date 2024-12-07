@@ -1,0 +1,86 @@
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you placed an order with Minibar Delivery' %>
+<table class="container container-main" align="center">
+  <tr>
+    <td>
+
+      <%= render partial: 'header_logo' %>
+
+      <table align="center" class="row">
+        <tr>
+          <td>
+            <table class="float-center">
+              <tr>
+                <td>
+                  <p class="avenir-heading indent dark small no-vertical center">
+                    <% if @order.gift? %>
+                      Rate your recent Minibar Delivery Gift Order Experience
+                    <% else %>
+                      Rate your recent Minibar Delivery experience.
+                    <% end %>
+                  </p>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table align="center" class="row">
+        <tr>
+          <td class="bottom-padding-large horizontal-padding-small">
+            <table class="float-center">
+              <tr>
+                <td>
+                  <table align="center" class="row__inline-items">
+                    <tr>
+                      <td>
+                        <a target="_blank" href="<%= order_survey_url(@order_survey,1) %>"><img class="center" src="<%= asset_url('email/order_survey/star.png')%>" alt="1 Star" height="60px"/></a>
+                        <p class="avenir-body-small star__sub-text">Not Good</p>
+                      </td>
+                      <td>
+                        <a target="_blank" href="<%= order_survey_url(@order_survey,2) %>"><img class="center" src="<%= asset_url('email/order_survey/star.png')%>" alt="2 Star" height="60px"/></a>
+                      </td>
+                      <td>
+                        <a target="_blank" href="<%= order_survey_url(@order_survey,3) %>"><img class="center" src="<%= asset_url('email/order_survey/star.png')%>" alt="3 Star" height="60px"/></a>
+                      </td>
+                      <td>
+                        <a target="_blank" href="<%= order_survey_url(@order_survey,4) %>"><img class="center" src="<%= asset_url('email/order_survey/star.png')%>" alt="4 Star" height="60px"/></a>
+                      </td>
+                      <td>
+                        <a target="_blank" href="<%= order_survey_url(@order_survey,5) %>"><img class="center" src="<%= asset_url('email/order_survey/star.png')%>" alt="5 Star" height="60px"/></a>
+                        <p class="avenir-body-small star__sub-text">Great</p>
+                      </td>
+                    </tr>
+                  </table>
+                  <%= render partial: 'product_grid_module', locals: { items: @order.order_items, grouping_size: 3, utm_campaign: 'order_survey' } %>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table align="center" class="row">
+        <tr>
+          <td>
+            <table class="row">
+              <tr>
+                <td class="small-12 large-1 columns first"></td>
+                <td class="small-12 large-10 columns">
+                  <p class="avenir-body-small no-bottom text-center">
+                    <strong>Superior Service.</strong> Do you have a question we can help with?<br /> Contact us! Call  <a class="text-link" href="tel:+18554870740">(855) 487-0740</a> | Email <a class="text-link" href="mailto:help@minibardelivery.com">help@minibardelivery.com</a>.
+                  </p>
+                </td>
+                <td class="small-12 large-1 columns last"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>

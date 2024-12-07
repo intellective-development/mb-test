@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddressSection renders 1`] = `
+<div
+  class="currdel__address__container"
+>
+  <div
+    class="cm-ae-gift__container"
+  >
+    <img
+      alt="Gift"
+      class="cm-ae-gift__icon"
+      src="/assets/sprite_sources/icons/gift_icon.png"
+    />
+    <span
+      class="cm-ae-gift__text"
+    >
+      Sending a gift? Use the recipient's address.
+    </span>
+  </div>
+  <div
+    class="cm-ae-container"
+    id="address-entry"
+  >
+    <div
+      class="cm-ae-error"
+    >
+      <p
+        class="cm-ae-error__text cm-ae-error__text--empty"
+      >
+        An unexpected error has occured.
+      </p>
+    </div>
+    <div
+      class="cm-ae-input__row"
+    >
+      <div
+        class="cm-ae-input__container"
+      >
+        <img
+          alt="pin"
+          class="el-mbicon--pin cm-ae-input__pin_icon"
+          src="/assets/components/elements/mb-icon/pin.png"
+          srcset="/assets/components/elements/mb-icon/pin@2x.png 2x, /assets/components/elements/mb-icon/pin@3x.png 3x"
+        />
+        <input
+          autocomplete="off"
+          class="elMBInput cm-ae-input"
+          id="addres-input"
+          name="addres-input"
+          placeholder="Enter a delivery add​ress to shop"
+          required=""
+          type="text"
+          value=" 123 Jump Street, Apt. 10, New York New York 12345"
+        />
+        <img
+          alt="clear"
+          class="el-mbicon--clear cm-ae-input__close_button"
+          src="/assets/components/elements/mb-icon/clear.png"
+          srcset="/assets/components/elements/mb-icon/clear@2x.png 2x, /assets/components/elements/mb-icon/clear@3x.png 3x"
+        />
+        <span
+          class="cm-ae-input__loader button_hidden"
+        />
+        <div
+          class="cm-ae-dropdown__container"
+        >
+          <ul
+            class="cm-ae-dropdown__list"
+          />
+        </div>
+      </div>
+      <button
+        class="elMBButton elMBButton__Default elMBButton__Tall cm-ae-button button_hidden"
+        disabled=""
+        id="address-button"
+      >
+        Go
+        <div
+          class="button__loader"
+        />
+      </button>
+    </div>
+    <div
+      id="google_places_target"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,30 @@
+<div class="nested-fields row">
+    <div class="large-2 columns">
+        <label>Start At</label>
+        <%= f.date_field :start_at %>
+    </div>
+    <div class="large-2 columns">
+        <label>End At</label>
+        <%= f.date_field :end_at %>
+    </div>
+    <div class="large-2 columns">
+        <label>Min Range</label>
+        <%= f.text_field :tier_min %>
+    </div>
+    <div class="large-2 columns">
+        <label>Max Range</label>
+        <%= f.text_field :tier_max %>
+    </div>
+    <div class="large-1 columns">
+        <label>Type</label>
+        <%= f.select(:tier_type, [['flat', 'flat'], ['percent', 'percent'], ['floor', 'floor'], ['fixed', 'fixed'],['flat_order', 'flat_order']]) %>
+    </div>
+    <div class="large-1 columns">
+        <label>Value</label>
+        <%= f.text_field :tier_value %>
+    </div>
+    <div class="large-2 columns">
+      <label>Business</label>
+      <%= f.select :business_id, Business.all.order(:name).map{ |b| [b.name, b.id] }, include_blank: false %>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Pre Sale' %>
+<h3>Edit Pre Sale</h3>
+
+<%= form_for @pre_sale, url: admin_pre_sale_path(@pre_sale) do |form| %>
+  <%= render partial: 'form', locals: { form: form, product_id: @pre_sale.product_id } %>
+  <%= submit_tag "Update", :class  => "button" %>
+  <%= link_to "back to list", admin_pre_sales_path, :class  => "button secondary" %>
+<% end %>

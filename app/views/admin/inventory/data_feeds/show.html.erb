@@ -1,0 +1,18 @@
+<% content_for :title, "Data Feed" %>
+<h3>Data Feed Details</h3>
+<h5>URL</h5>
+<p><%= @feed.url %></p>
+<h5>Supplier</h5>
+<p><%= @feed.supplier.name %></p>
+<h5>Update Frequency</h5>
+<p><%= @feed.frequency %></p>
+<h5>Last Fetched</h5>
+<p>
+  <% if @feed.last_fetched.nil? %>
+    Never
+  <% else %>
+    <%= @feed.last_fetched %> <small><%= @feed.digest %></small>
+  <% end %>
+</p>
+<h5>Parsing Mode</h5>
+<p><%= @feed.mode %></p>

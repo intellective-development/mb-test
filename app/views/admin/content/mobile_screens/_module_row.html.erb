@@ -1,0 +1,52 @@
+<tr>
+  <td>
+    <%= content_module.text_field :internal_name, placeholder: 'example_module_1' %>
+  </td>
+  <td>
+    <%= content_module.select :module_type, Content::MobileModule.module_types.map { |k, v| [k.humanize, k] } %>
+  </td>
+  <td>
+    <%= content_module.text_field :priority %>
+  </td>
+  <td>
+    <%= content_module.check_box :logged_in %>
+  </td>
+  <td>
+    <%= content_module.check_box :logged_out %>
+  </td>
+  <td>
+    <%= content_module.text_field :section_id %>
+  </td>
+  <td>
+    <%= content_module.check_box :_destroy, id: nested_dom_id(f.object, content_module.object, :destroy) %>
+    <%= content_module.label :_destroy, 'Delete', for: nested_dom_id(f.object, content_module.object, :destroy) %>
+  </td>
+</tr>
+<% if content_module.object.id %>
+  <tr>
+    <td colspan="6">
+      <%= content_module.hidden_field :config, id: "json-#{content_module.object.id}" %>
+      <div id="<%= "json-editor-#{content_module.object.id}" %>">
+
+      </div>
+    </td>
+  </tr>
+  <script type="text/javascript">
+    $("#json-<%= content_module.object.id %>").val(JSON.stringify(<%= raw content_module.object.config.to_json %>));
+
+    var component_config_block = component_config_block || [];
+
+    component_config_block.push(
+     {
+        selector: "<%= "json-editor-#{content_module.object.id}" %>",
+        component: 'JsonEditor',
+        options: {
+          value:  <%= raw content_module.object.config.to_json %>,
+          callback: function(value){
+            $("#json-<%= content_module.object.id %>").val(JSON.stringify(value));
+          }
+        }
+      }
+    );
+  </script>
+<% end %>

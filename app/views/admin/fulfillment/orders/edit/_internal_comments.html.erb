@@ -1,0 +1,15 @@
+<div class="row">
+  <div class='large-12 column panel'>
+    <div class="small-9 columns"><h4>Internal Comments</h4></div>
+    <div class="small-3 columns">
+      <%= link_to "New Comment", new_admin_fulfillment_comment_path(order_id: order.id), class: 'small button' %>
+    </div>
+    <% if order.comments.empty? %>
+      <div class="small-12 columns">
+        <p>There are no comments on this order.</p>
+      </div>
+    <% else %>
+      <%= render partial: '/admin/fulfillment/orders/show_comment', collection: order.comments, as: 'comment' %>
+    <% end %>
+  </div>
+</div>

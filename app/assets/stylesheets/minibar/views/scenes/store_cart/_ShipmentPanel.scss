@@ -1,0 +1,110 @@
+// supplier
+.sp_supplier__name {
+  @include font-size(13);
+  font-weight: $heavy-font-weight;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+
+  // center it in container
+  margin-top: 2px;
+}
+.sp_supplier__container{
+  // right align
+  flex-grow: 1;
+  text-align: right;
+}
+.sp_supplier__location{
+  @include font-size(12);
+  color: $brand-dark-grey;
+
+  // center it in container
+  margin-top: 2px;
+}
+
+// delivery methods
+.sp__dm__container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+
+  @media screen and (max-width: $medium-max-width) {
+    align-items: flex-start;
+  }
+}
+
+// Used when ShopRunner logo is displayed in conjunction with delivery method name
+.sp__dm__shop-runner-name-container {
+  display: flex;
+  flex-direction: row;
+  .sp__dm__type {
+    line-height: initial;
+  }
+}
+
+.sp__dm__name-expectation-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media screen and (max-width: $medium-max-width) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.sp__dm__radio {
+  margin-left: 6px;
+  margin-right: 15px;
+  margin-bottom: 3px;
+}
+.sp__dm__type {
+  @include font-size(16);
+  font-weight: $heavy-font-weight;
+  padding-right: 10px;
+
+  &.sp__dm__type--selected { color: $brand-red; }
+
+  @media screen and (max-width: $medium-max-width) {
+    padding-bottom: 3px;
+  }
+}
+.sp__dm__closed {
+  color: $brand-error-red;
+}
+.sp__dm__next_delivery {
+  @include font-size(12);
+  color: $brand-dark-grey;
+}
+.sp__dm__cost {
+  @include font-size(13);
+  padding-left: 8px; // give it a bit of breathing room
+  padding-right: 8px;
+
+  // push it over to the right of the row
+  flex-grow: 1;
+  text-align: right;
+
+  &.sp__dm__cost--fee { color: $brand-dark-grey; }
+  &.sp__dm__cost--minimum { color: $brand-error-red; }
+}
+
+// cost prompt
+.sp__cost__minimum-container {
+  background-color: $brand-error-red;
+}
+.sp__cost__minimum-text {
+  @include font-size(13);
+  color: $brand-white;
+}
+
+.sp__cost__threshold-container {
+  @include font-size(14);
+  letter-spacing: 0.25px;
+  border-bottom: 4px solid $brand-mint;
+}
+.sp__cost__threshold-text {
+  font-weight: $heavy-font-weight;
+  color: $brand-mint;
+}
+
+

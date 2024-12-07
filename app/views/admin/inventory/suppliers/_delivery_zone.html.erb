@@ -1,0 +1,8 @@
+<li class="dz-<%= index %> delivery-zone-item">
+  <%= image_tag "ui/icon-star.svg", align: 'left', width: 16 if delivery_zone.priority? %>
+  Zone ID: <%= delivery_zone.id %> - <%= delivery_zone.type.sub("DeliveryZone", "").humanize %><br>
+  <small><%= link_to delivery_zone.active? ? 'Deactivate' : 'Activate', activate_delivery_zone_admin_inventory_shipping_method_path(shipping_method, { zone: delivery_zone.id }), { class: 'button-activate_dz' , remote: true} %> <% if current_user.super_admin? %>|
+    <%= link_to 'Toggle Priority', toggle_priority_delivery_zone_admin_inventory_shipping_method_path(shipping_method, { zone: delivery_zone.id }), { class: 'button-courier' , remote: true} %> <% end %>|
+    <%= link_to 'Delete', remove_delivery_zone_admin_inventory_shipping_method_path(shipping_method, { zone: delivery_zone.id }), { class: 'button-remove_dz' , remote: true} %>
+  </small>
+</li>

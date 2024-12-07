@@ -1,0 +1,44 @@
+<%= error_messages_for 'cart' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Storefront</label>
+        <%= form.select :storefront_id, options_for_select(storefronts_dropdown_items), { include_blank: 'Select storefront' }, { required: true } %>
+      </div>
+      <div>
+        <label>Storefront Cart ID</label>
+        <%= form.text_field :storefront_cart_id %>
+      </div>
+      <div>
+        <label>User ID (Leave blank for Guest User)</label>
+        <%= form.number_field :user_id %>
+      </div>
+    </div>
+    <div class="large-6 column">
+      <%= form.fields_for :cart_trait do |field| %>
+        <%= field.hidden_field :id %>
+        <div>
+          <div>
+            <label>Coupon Code</label>
+            <%= field.text_field :coupon_code %>
+          </div>
+          <div>
+            <label>GTM Visitor ID</label>
+            <%= field.number_field :gtm_visitor_id %>
+          </div>
+          <div>
+            <div class="large-6 column">
+              <label>Gift Order</label>
+              <%= field.check_box :gift_order, {}, "true", "false" %>
+            </div>
+            <div class="large-6 column">
+              <label>Age Verified</label>
+              <%= field.check_box :age_verified, {}, "true", "false" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</fieldset>

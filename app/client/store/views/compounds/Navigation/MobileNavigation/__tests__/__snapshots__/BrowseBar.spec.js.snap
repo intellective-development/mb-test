@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BrowseBar renders 1`] = `
+<nav>
+  <div
+    class="cmMBrowseBar_LeftWrapper"
+  >
+    <div
+      class="el-touchable cmMBrowseBar_Left"
+      role="button"
+      tabindex="-1"
+    >
+      <span
+        class="elMBText elMBText_ResetSpacing"
+      >
+        Categories
+      </span>
+      <img
+        alt="down_arrow_red"
+        class="el-mbicon--down_arrow_red cmMBrowseBar_DicloseIcon"
+        src="/assets/components/elements/mb-icon/down_arrow_red.png"
+        srcset="/assets/components/elements/mb-icon/down_arrow_red@2x.png 2x, /assets/components/elements/mb-icon/down_arrow_red@3x.png 3x"
+      />
+    </div>
+    <div
+      class="cmMCategoryDropdown_Wrapper"
+    >
+      <ul
+        class="cmMCategoryDropdown"
+      >
+        <li>
+          <a
+            class="cmMCategoryDropdown_Element"
+            href="/store/category/wine"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              wine
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="cmMCategoryDropdown_Element"
+            href="/store/category/liquor"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              liquor
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="cmMCategoryDropdown_Element"
+            href="/store/category/beer"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              beer
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="cmMCategoryDropdown_Element"
+            href="/store/category/mixers"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              mixers
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="cmMCategoryDropdown_Element"
+            href="/store/promos/gift-guide"
+          >
+            <span
+              class="elMBText elMBText_ResetSpacing"
+            >
+              gifts
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="cmSearch__ClickOutsideTarget"
+  >
+    <div>
+      <div>
+        <div
+          class="elMBDynamicIcon cmMBrowseBar_SearchIcon"
+        >
+          <svg
+            class=""
+            height="29"
+            viewBox="0 0 32 32"
+            width="29"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="#222"
+              fill-rule="nonzero"
+            >
+              <path
+                d="M14.81 24.342c-5.145 0-9.31-4.22-9.31-9.42C5.5 9.72 9.665 5.5 14.81 5.5c5.145 0 9.31 4.22 9.31 9.421 0 5.2-4.165 9.421-9.31 9.421zm0-2c4.035 0 7.31-3.32 7.31-7.42 0-4.102-3.275-7.422-7.31-7.422-4.034 0-7.31 3.32-7.31 7.421 0 4.102 3.276 7.421 7.31 7.421z"
+              />
+              <path
+                d="M20.251 14.921h-2c0-1.936-1.543-3.5-3.44-3.5-.833 0-1.617.3-2.237.84l-1.313-1.509a5.388 5.388 0 0 1 3.55-1.33c3.007 0 5.44 2.464 5.44 5.5zM20.331 21.94l1.424-1.406 4.499 4.56-1.424 1.404z"
+              />
+            </g>
+          </svg>
+        </div>
+        <input
+          class="elMBInput"
+          placeholder="Search products"
+          value=""
+        />
+      </div>
+      <div
+        class="el-touchable cmMBrowseBar_ClearSearch cmMBrowseBar_ClearSearch__SearchEmpty cmMBrowseBar_ClearSearch__SearchActive"
+        role="button"
+        tabindex="-1"
+      >
+        <img
+          alt="clear"
+          class="el-mbicon--clear"
+          src="/assets/components/elements/mb-icon/clear.png"
+          srcset="/assets/components/elements/mb-icon/clear@2x.png 2x, /assets/components/elements/mb-icon/clear@3x.png 3x"
+        />
+      </div>
+      <div
+        class="el-touchable"
+        role="button"
+        tabindex="-1"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing cmMBrowseBar_CancelSearch"
+        >
+          Cancel
+        </span>
+      </div>
+    </div>
+    <div
+      class="cmAutocompleteDropdown"
+    />
+  </div>
+</nav>
+`;

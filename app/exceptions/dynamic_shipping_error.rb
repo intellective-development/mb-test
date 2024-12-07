@@ -1,0 +1,1 @@
+class DynamicShippingError < StandardError; end

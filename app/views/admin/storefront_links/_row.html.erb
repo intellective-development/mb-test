@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= link_to storefront_link.name, storefront_link.url, target: "_blank" %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_storefront_storefront_link_path(@storefront, storefront_link), class: 'button tiny' %>
+    <%= link_to "Delete", admin_storefront_storefront_link_path(@storefront, storefront_link), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

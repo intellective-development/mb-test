@@ -1,0 +1,7 @@
+@import "~client/store/views/style/variables";
+
+.cmSearchInput__Loader {
+  position: absolute;
+  right: $standard-spacing + 20px;
+  top: $standard-spacing * 0.5;
+}

@@ -1,0 +1,35 @@
+<div class="small-12 small-centered columns party-params-container">
+  <h1 class="party-heading">Party Planner</h1>
+  <div class="form-block">
+    I'm planning a
+    <span class="duration inline-text-field" name="duration"> {{party_planner.duration}} </span>
+    hour event in <br/>
+    the <span class="time-of-day inline-text-field" name="time_of_day">Day</span> with
+    <input class="inline-text-field" id="people" pattern="[0-9]*" name="people" maxlength= "5"> guests, offering <br/>
+    <span id="no_wine" class="inline-text-field" data-name="wine">Wine</span>, <span id="no_liquor" class="inline-text-field" data-name="liquor">Liquor</span>, & <span id="no_beer" class="inline-text-field" data-name="beer">Beer</span>.
+  </div>
+
+  <div id="party-planner-nav" class="row"/>
+  <div id="error-message-container"/>
+</div>
+
+<div id="dd" class="wrapper-dropdown" tabindex="1">
+  <ul class="dropdown tod-options">
+    <li>day</li>
+    <li class="mid">evening</li>
+    <li>night</li>
+    <div class="after-arrow"/>
+  </ul>
+
+  <ul class="dropdown duration-options">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li class="mid">4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <div class="after-arrow"/>
+  </ul>
+
+</div>

@@ -1,0 +1,295 @@
+
+<h5>
+  <span title="<%= I18n.t("admin.shipping_method.#{shipment.shipping_type}") %>"><%= I18n.t("admin.shipping_method_emoji.#{shipment.shipping_type}") %></span>
+  <%= I18n.t("admin.shipping_method.#{shipment.shipping_type}") %> &mdash;
+
+  <% if Feature[:pre_sale_supplier_switching].enabled? && shipment.customer_placement_pre_sale? && shipment.pre_sale? && Supplier.eligible_for_pre_sale_shipment(shipment).any? %>
+    <%= shipment.supplier_name %> &mdash; <span><small><%= link_to "Switch supplier", update_supplier_for_pre_sale_dialogue_admin_fulfillment_order_shipment_path(order, shipment), { class: "button-cancellation" } %></small></span>
+  <% else %>
+    <%= shipment.supplier_name %>
+  <% end %>
+
+  (<%= shipment.item_count %> items) <span class="label radius confirmed"><%= shipment.customer_placement %></span> <span class="label radius"><%= shipment.display_state %></span>
+  <span><small>
+    <%= shipment.display_status %>
+    <%= shipment.display_actions %>
+    <% if shipment.scheduled_for.present? %>
+      <br/>
+      <strong>Scheduled for delivery <%= shipment.scheduled_for.in_time_zone(shipment.supplier.timezone).strftime('%A, %e %b %Y') %></strong> <%= shipment.format_scheduling_window %>
+    <% end %>
+    <% if shipment.metadata_signed_by_name && shipment.metadata_delivered_at %>
+      <br/>
+      Delivered at: <%= shipment.metadata_delivered_at.in_time_zone(shipment.supplier.timezone).strftime('%A, %e %b %Y') %> and signed by "<%= shipment.metadata_signed_by_name %>".
+    <% end %>
+    <% if shipment.out_of_hours %>
+      <br/><strong>Order placed outside of store hours.</strong>
+    <% end %>
+    <% if shipment.metadata_driver %>
+      <br/><strong>Driver: <%= shipment.metadata_driver.name %> - <%= number_to_phone(shipment.metadata_driver.phone, area_code: true, delimiter: ' ') %></strong>
+    <% end %>
+  </small></span>
+</h5>
+<% if shipment.tracking_detail %>
+  <p>
+    Shipped by <%= shipment.tracking_detail.carrier %> (Ref: <%= shipment.tracking_detail.reference %>)
+    <% if shipment.delivery_service_order %>
+      <a href="<%= shipment.delivery_service_order['tracking_url'] %>" target="_blank">Track</a>
+    <% else %>
+      <% if shipment.tracking_detail.validated? %>
+        <a href="<%= shipment.tracking_number_url %>">Track</a>
+      <% else %>
+        <span class="label rounded alert">Unable to validate tracking number</span>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
+<% if shipment.external_shipment_id %>
+  <p>
+    External ID: <%= shipment.external_shipment_id %>
+  </p>
+<% end %>
+<% if order.partner_order_id %>
+  <p>
+    Order External ID: <%= order.partner_order_id %>
+  </p>
+<% end %>
+<table>
+  <thead>
+    <tr class="odd">
+      <th class='column1_header'><%= sortable "name" %></th>
+      <th>Quantity</th>
+      <th>Remove</th>
+      <th>Substitute</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <% shipment.order_items.includes(:item_options, variant: [:product, :product_size_grouping]).group_by(&:variant).each do |variant, items| %>
+    <% if variant %>
+      <tr class="<% cycle('odd','') %>">
+        <td>
+          <%=  variant.product_size_grouping&.name %> &mdash; <%=  variant.item_volume %>
+          <br>
+          <%- if shipment.tax_exempt? %>
+            <small>SKU: <%= variant.sku %> &mdash; <%= link_to "Show Product",  admin_merchandise_product_path(variant.product&.permalink), target: '_blank' %></small>
+          <% else %>
+            <small>SKU: <%= variant.sku %> &mdash; Taxed at <%= number_to_percentage items.find(variant_id: variant.id).first.try(:effective_tax_percentage) %> &mdash; <%= link_to "Show Product",  admin_merchandise_product_path(variant.product&.permalink), target: '_blank' %></small>
+          <% end %>
+        </td>
+        <td><%= items.sum(&:quantity) %></td>
+        <td><%= render partial: 'admin/fulfillment/orders/edit/shipment_remove_item_button', locals: { shipment: shipment, order: order, variant: variant, items: items }, cache: false %></td>
+        <td><%= render partial: 'admin/fulfillment/orders/edit/shipment_substitute_item_button', locals: { shipment: shipment, order: order, variant: variant, items: items }, cache: false %></td>
+        <td><%= number_to_currency(items.sum{ |t| t.total }) %></td>
+      </tr>
+      <% engraving_order_items = items.select { |oi| oi.item_options&.line1&.present? } %>
+      <% if engraving_order_items.present? %>
+        <tr class="<% cycle('odd','') %>">
+          <td>
+            Product Engraving &mdash;
+          </td>
+          <td><%= engraving_order_items.sum(&:quantity) %></td>
+          <td></td>
+          <td></td>
+          <td><%= number_to_currency(engraving_order_items.sum{|oi| oi.quantity * order.storefront.engraving_fee }) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  <tfoot>
+    <tr>
+      <td colspan="3"></td>
+      <td>Subtotal</td>
+      <td><%= number_to_currency shipment.shipment_sub_total.to_f %></td>
+    </tr>
+    <% if shipment&.engraving? %>
+      <tr>
+        <td colspan="3"></td>
+        <td>Subtotal <small>(with engraving)</small></td>
+        <td><%= number_to_currency shipment.shipment_sub_total_with_engraving.to_f %></td>
+      </tr>
+    <% end %>
+    <% if shipment&.shipment_bottle_deposits.to_f > 0 %>
+      <tr>
+        <td colspan="3"></td>
+        <td>Bottle Deposit Fees</td>
+        <td><%= number_to_currency(shipment.shipment_bottle_deposits) %></td>
+      </tr>
+    <% end %>
+    <% if shipment&.shipment_bag_fee.to_f > 0 %>
+      <tr>
+        <td colspan="3"></td>
+        <td>Bag Fee</td>
+        <td><%= number_to_currency(shipment.shipment_bag_fee) %></td>
+      </tr>
+    <% end %>
+    <% if shipment&.retail_delivery_fee&.positive? %>
+    <tr>
+      <td colspan="3"></td>
+      <td>Retail Delivery Fee</td>
+      <td><%= number_to_currency(shipment.retail_delivery_fee) %></td>
+    </tr>
+  <% end %>
+    <tr>
+      <td colspan="2"></td>
+      <td>
+        <% if shipment.metadata&.estimated_delivered_at && shipment.metadata&.distance && shipment.metadata&.delivery_estimate %>
+          <small style="font-weight: 200;">Distance ~ <%= (shipment.metadata.distance / 1000).round_at(2) %> km, Travel Time ~ <%= (shipment.metadata.delivery_estimate / 60).round_at(2) %> mins</small>
+        <% end %>
+      </td>
+      <td>Sales Tax</td>
+      <td><%= number_to_currency(shipment.shipment_order_items_tax.to_f) %></td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+      <td>
+        <% if shipment.order.storefront.shipping_fee_covered_by_rb? %>
+          <small style="font-weight: 200;">Covered by RB</small>
+        <% end %>
+      </td>
+      <td>Shipping</td>
+      <td><%= number_to_currency shipping_charge(shipment) %></td>
+    </tr>
+    <% if shipment&.shipping_tax.to_f > 0 %>
+      <tr>
+        <td colspan="3"></td>
+        <td>Shipping Tax</td>
+        <td><%= number_to_currency shipment.shipping_tax.to_f %></td>
+      </tr>
+    <% end %>
+    <% if shipment.metadata&.estimated_delivered_at %>
+      <tr>
+        <td colspan="2"></td>
+        <td>
+            <small style="font-weight: 200;">Estimated delivery by <%= shipment.metadata.estimated_delivered_at.in_time_zone(shipment.supplier.timezone).strftime('%l:%M %P') %></small>
+        </td>
+        <td colspan="2"></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="2"></td>
+      <td>
+        <% if shipment.metadata&.estimated_delivered_at %>
+          <small style="font-weight: 100;">Estimates are calculated on distance, traffic conditions and delivery mode.</small>
+        <% end %>
+      </td>
+      <td>Tip</td>
+      <td>
+        <% if shipment.shipping_method&.allows_tipping %>
+          <%= number_to_currency shipment.shipment_tip_amount.to_f %>
+        <% else %>
+          <small><abbr title="Tipping has been disabled for this shipping method">Not Allowed</abbr></small>
+        <% end %>
+      </td>
+    </tr>
+    <% if shipment.applied_deals.any? %>
+    <tr>
+      <td colspan="3"></td>
+      <td><span data-tooltip aria-haspopup="true" class="has-tip" title="<%= applied_deals_tooltip(shipment.applied_deals) %>">Applied Deals</span></td>
+      <td><%= number_to_currency -shipment.shipment_deals_total.to_f %></td>
+    </tr>
+    <% end %>
+    <% unless shipment.promo_amount&.zero? %>
+    <tr>
+      <td colspan="3"></td>
+      <td>Coupon Discounts</td>
+      <td><%= number_to_currency -shipment.promo_amount %></td>
+    </tr>
+    <% end %>
+    <% unless shipment.shipment_shoprunner_total&.zero? %>
+    <tr>
+      <td colspan="3"></td>
+      <td>ShopRunner Discount</td>
+      <td><%= number_to_currency -shipment.shipment_shoprunner_total.to_f %></td>
+    </tr>
+    <% end %>
+    <% unless shipment.shipment_membership_discount&.zero? %>
+      <tr>
+        <td colspan="3"></td>
+        <td>Membership Discount</td>
+        <td><%= number_to_currency -shipment.shipment_membership_discount.to_f %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="5"></td>
+    </tr>
+    <tr>
+      <td colspan="3"></td>
+      <th>Shipment Total</th>
+      <td><%= number_to_currency shipment.total_before_gift_cards %></td>
+    </tr>
+    <% unless shipment.gift_card_amount&.zero? %>
+      <tr>
+        <td colspan="3"></td>
+        <td>GiftCard</td>
+        <td><%= number_to_currency -shipment.gift_card_amount %></td>
+      </tr>
+    <% end %>
+    <tr valign="top">
+      <td>
+        <% if order.adjustable? && shipment.adjustable? %>
+          <br>
+          <small>
+            <%= link_to 'Add an order adjustment to this shipment', new_admin_fulfillment_shipment_order_adjustment_path(shipment), class: 'button-adjustment' %>
+          </small>
+        <% end %>
+        <br>
+        <small><%= link_to 'View Order PDF', pdf_admin_fulfillment_shipment_path(shipment) %></small>
+        <br>
+        <%- if !shipment.canceled? %>
+        <small><%= link_to shipment.scheduled? ? 'Reschedule' : 'Schedule', schedule_admin_fulfillment_shipment_path(shipment), class: "button-schedule-shipment-#{shipment.id}" %></small>
+        <% end %>
+        <br>
+        <%= render partial: 'admin/fulfillment/orders/edit/shipment_add_product_button', locals: { shipment: shipment, order: order }, cache: false %>
+        <br>
+        <div id="modal-schedule-shipment-<%= shipment.id %>" class="reveal-modal medium" data-reveal></div>
+        <div id="modal-deliver-shipment-<%= shipment.id %>" class="reveal-modal medium" data-reveal></div>
+        <%- if shipment.digital? %>
+          <br>
+          <small><%= link_to 'Gift Card Management', gift_card_management_admin_fulfillment_shipment_path(shipment), class: 'button-giftcard-management' %></small>
+        <% end %>
+        <%- if shipment.external_shipment_id.nil? && shipment.supplier.custom_dashboard? %>
+          <br>
+          <small><%= link_to "Retry to place order on #{shipment.supplier.dashboard_name}", retry_order_placement_admin_fulfillment_shipment_path(shipment), method: :post, data: { confirm: 'Are you sure?' } %></small>
+        <% end %>
+        <%- if shipment.order.storefront.default_storefront? && shipment.supplier.dashboard_type == Supplier::DashboardType::SEVEN_ELEVEN %>
+          <%- if !shipment.substitutions.empty? || !order.order_adjustments.select { |a| a.shipment_id == shipment.id }.empty? %>
+            <br>
+            <small><%= link_to "Send 7-Eleven OOS notification", send_seven_eleven_notification_admin_fulfillment_shipment_path(shipment, type: 'oos'), method: :post, data: { confirm: 'Are you sure?' } %></small>
+          <% end %>
+          <%- if shipment.canceled? %>
+            <br>
+            <small><%= link_to "Send 7-Eleven OOS ALL Items (Advise of Cancellation) notification", send_seven_eleven_notification_admin_fulfillment_shipment_path(shipment, type: 'cancel'), method: :post, data: { confirm: 'Are you sure?' } %></small>
+            <br>
+            <small><%= link_to "Send 7-Eleven failed delivery notification", send_seven_eleven_notification_admin_fulfillment_shipment_path(shipment, type: 'fd'), method: :post, data: { confirm: 'Are you sure?' } %></small>
+          <% end %>
+        <% end %>
+        <%- if shipment.supplier.dashboard_type == Supplier::DashboardType::SPECS %>
+          <%- if shipment.exception? && shipment.last_shipment_transition.metadata["type"] == "failed_delivery" %>
+            <br>
+            <small><%= link_to "Initiate redelivery", initiate_redelivery_admin_fulfillment_shipment_path(shipment), method: :post, data: { confirm: 'Are you sure?' } %></small>
+          <% end %>
+        <% end %>
+      </td>
+      <td colspan="4">
+        <% unless order.canceled? %>
+          <%= form_for(shipment, url: retry_notification_admin_fulfillment_order_path, method: :post) do |f| %>
+            <%= f.hidden_field  :id, value: shipment.id %>
+            <small>Resend Notification to: </small>
+            <div class="row collapse">
+              <div class="small-10 columns">
+                <%= check_box_tag "select_all", true, params[:select_all], :onclick=>"Minibar.Admin.toggleNotificationMethodSelect();"%>
+                <%= label_tag "Select all SMS" %>
+              </div>
+                <div class="small-10 columns">
+                  <select id="notification_method" name='notification_method_id'><%= raw notification_method_dropdown_items(shipment.supplier.try(:id)) %></select>
+                </div>
+              <div class="small-2 columns">
+                <input type="submit" value="Send" class="button small">
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<%= render(partial: 'admin/fulfillment/orders/edit/substitutions', locals: { shipment: shipment }, cache: true) unless shipment.substitutions.empty? %>

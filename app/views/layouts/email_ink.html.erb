@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width"/>
+
+    <style type="text/css">
+      <%= render partial: 'shared/email/ink.css' %>
+    </style>
+    <style type="text/css">
+      <%= render partial: 'shared/email/transactional.css' %>
+    </style>
+    <% if yield(:internal).present? %>
+    <style type="text/css">
+      <%= render partial: 'shared/email/internal.css' %>
+    </style>
+    <% end %>
+    <% if yield(:user_facing).present? %>
+      <style type="text/css">
+        <%= render :partial => 'shared/email/email3.css' %>
+      </style>
+    <% end %>
+  </head>
+  <body>
+    <table class="body">
+      <tr>
+        <td class="center" align="center" valign="top">
+          <center>
+            <% if yield(:small_header).present? %>
+              <%= render partial: 'shared/email/small_header', locals: { logo: yield(:logo) } %>
+            <% end %>
+            <%= yield %>
+            <% if yield(:email_reason).present? %>
+              <%= render partial: 'shared/email/user_footer', locals: {reason: yield(:email_reason), additional_legal: yield(:additional_legal)} %>
+            <% end %>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

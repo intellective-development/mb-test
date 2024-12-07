@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryDropdown renders 1`] = `
+<div
+  class="cmMCategoryDropdown_Wrapper"
+>
+  <ul
+    class="cmMCategoryDropdown"
+  >
+    <li>
+      <a
+        class="cmMCategoryDropdown_Element"
+        href="/store/category/wine"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          wine
+        </span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="cmMCategoryDropdown_Element"
+        href="/store/category/liquor"
+      >
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+          liquor
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`CategoryDropdown renders default content 1`] = `
+<div
+  className="cmMCategoryDropdown_Wrapper"
+>
+  <ul
+    className="cmMCategoryDropdown"
+  >
+    <CategoryElement
+      action_url="/store/category/wine"
+      disabled={false}
+      key="wine"
+      name="wine"
+    />
+    <CategoryElement
+      action_url="/store/category/liquor"
+      disabled={false}
+      key="liquor"
+      name="liquor"
+    />
+    <CategoryElement
+      action_url="/store/category/beer"
+      disabled={false}
+      key="beer"
+      name="beer"
+    />
+    <CategoryElement
+      action_url="/store/category/mixers"
+      disabled={false}
+      key="mixers"
+      name="mixers"
+    />
+    <CategoryElement
+      action_url="/store/promos/gift-guide"
+      disabled={false}
+      key="gifts"
+      name="gifts"
+    />
+  </ul>
+</div>
+`;

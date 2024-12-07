@@ -1,0 +1,9 @@
+<% content_for :body_class, 'modal-bg' %>
+<% content_for :title, 'Create a Minibar Account' %>
+<% content_for :hide_footer, false %>
+<% content_for :auth_page, true %>
+<% content_for :store, false %>
+<% content_for :standard_template, true %>
+<% content_for :js_page, 'minibar' %>
+
+<%= render partial: 'content/react_partial', locals: { component: 'Signup' } %>

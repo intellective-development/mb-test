@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierSummary renders 1`] = `
+<tr
+  class="shipment-table__row"
+>
+  <td
+    colspan="5"
+  >
+    <div
+      class="shipment-table__content-container"
+    >
+      <h4
+        class="elMBText elMBText_ResetSpacing sp_supplier__name"
+      >
+        Manhattan Wine
+      </h4>
+      <div
+        class="el-touchable el-touchable--disabled sp_supplier__container"
+        role="button"
+        tabindex="-1"
+      >
+        <h3
+          class="elMBText elMBText_ResetSpacing sp_supplier__location"
+        >
+           123 Jump Street, New York, New York
+        </h3>
+      </div>
+    </div>
+  </td>
+</tr>
+`;
+
+exports[`SupplierSummary renders for pickup shipment 1`] = `
+<tr
+  class="shipment-table__row"
+>
+  <td
+    colspan="5"
+  >
+    <div
+      class="shipment-table__content-container"
+    >
+      <h4
+        class="elMBText elMBText_ResetSpacing sp_supplier__name"
+      >
+        Manhattan Wine
+      </h4>
+      <div
+        class="el-touchable sp_supplier__container"
+        role="button"
+        tabindex="-1"
+      >
+        <h3
+          class="elMBText elMBText_ResetSpacing sp_supplier__location"
+        >
+           123 Jump Street, New York, New York
+          <span
+            class="elMBText elMBText_ResetSpacing"
+          >
+            ・1.1 mi
+          </span>
+        </h3>
+      </div>
+    </div>
+  </td>
+</tr>
+`;

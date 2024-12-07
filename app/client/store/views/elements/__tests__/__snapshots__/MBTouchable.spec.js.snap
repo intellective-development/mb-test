@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBTouchable renders 1`] = `
+<div
+  className="el-touchable"
+  onClick={[Function]}
+  role="button"
+  tabIndex="-1"
+>
+  Click it.
+</div>
+`;

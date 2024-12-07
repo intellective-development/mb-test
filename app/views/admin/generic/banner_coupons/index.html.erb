@@ -1,0 +1,23 @@
+<% content_for :title, 'Coupons' %>
+<div class="admin_title_header clearfix">
+  <h3>Banner Coupon</h3>
+</div>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>Banner Identifier</th>
+    <th>Coupon</th>
+    <th></th>
+  </tr>
+  </thead>
+  <% for banner_coupon in @banner_coupons %>
+    <tr>
+      <td><%= banner_coupon.key %></td>
+      <td><%= banner_coupon.coupon.code %></td>
+      <td><%= link_to "Edit", edit_admin_generic_banner_coupon_path(banner_coupon) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @banner_coupons %>

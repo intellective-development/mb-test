@@ -1,0 +1,105 @@
+.ssw__cart-warning {
+  @include font-size(14);
+  color: $brand-error-red;
+  padding: 16px $standard-gutter 0;
+  text-align: center;
+}
+
+$ssw-grid-gutter: $standard-gutter;
+.ssw__grid.el-mbgrid {
+  @include flex-grid-gutter($ssw-grid-gutter);
+  margin: $ssw-grid-gutter $ssw-grid-gutter/2 0;
+}
+
+.ssw__grid__item {
+  @include flex-grid__fullsize-child;
+  margin-bottom: $ssw-grid-gutter;
+}
+
+.ssw__supplier__container {
+  background-color: $brand-lighter-grey;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+.ssw__supplier__container--current {
+  background-color: $brand-light-grey;
+}
+
+$ssw__current-badge-diameter: 20px;
+$ssw__current-badge-offset: 8px;
+.ssw__supplier__header {
+  padding: 12px $ssw__current-badge-diameter + $ssw__current-badge-offset+ 6px; // ensure the current badge won't overlap content, with some extra spacing
+  display: flex;
+  flex-direction: column;
+  align-items: 'center';
+  position: relative;
+
+  .ssw__supplier__current-badge {
+    background-color: $brand-red;
+    border-radius: $ssw__current-badge-diameter;
+    height: $ssw__current-badge-diameter;
+    width: $ssw__current-badge-diameter;
+    position: absolute;
+    top: $ssw__current-badge-offset;
+    left: $ssw__current-badge-offset;
+
+    // center the check inside
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ssw__supplier-name {
+    @include font-size(16);
+    font-weight: $heavy-font-weight;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .ssw__supplier-location {
+    @include font-size(10);
+    text-align: center;
+  }
+}
+
+.ssw__supplier__body {
+  border-top: 1px solid $brand-medium-grey;
+  padding: 12px 0 $standard-gutter;
+  margin: 0 $standard-gutter; // need to use margin to line up the border
+}
+
+.ssw__category__list { margin-bottom: 12px; }
+.ssw__category__bullet {
+  display: inline-block;
+  background-color: $brand-dark-grey;
+  height: 8px;
+  width: 8px;
+  margin-bottom: 1px; // center it
+};
+.ssw__category__name {
+  @include font-size(12);
+}
+
+
+.ssw__dm__list {
+  margin: 0;
+  line-height: 0.8em;
+}
+.ssw__dm__item {
+  margin-bottom: 2px;
+}
+.ssw__dm__name {
+  @include font-size(12);
+  font-weight: $heavy-font-weight;
+}
+.ssw__dm__details {
+  @include font-size(10);
+  color: $brand-dark-grey;
+}
+.ssw__dm__details--closed {
+  color: $brand-error-red;
+}
+

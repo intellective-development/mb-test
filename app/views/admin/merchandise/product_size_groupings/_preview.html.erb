@@ -1,0 +1,59 @@
+<%= render partial: 'grouping_detail' if @product_grouping %>
+<fieldset>
+  <legend>Trimmed Name</legend>
+  <p>In our mobile apps (version 3.0 and higher), the product name will be presented as:</p>
+  <% if @product_grouping.brand %>
+    <p>
+      <strong><%= @product_grouping.brand&.name %></strong><br>
+      <%= @product_grouping.trimmed_name %>
+    </p>
+  <% else %>
+    <p>
+      <%= @product_grouping.name %>
+    </p>
+  <% end %>
+</fieldset>
+<fieldset>
+  <legend>Deep Link</legend>
+  <p>This can be used to link directly to this product from an external website or email.</p>
+  <div class="row collapse">
+    <div class="small-9 small-push-1 columns">
+      <input type="text" id="product-size-grouping-preview-permalink" class="large-12" value=<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host || request.env["HTTP_HOST"]}/store/product/#{@product_grouping.permalink}" %> readonly />
+    </div>
+    <div class="small-1 columns end">
+      <a class="postfix button secondary" data-copytarget="product-size-grouping-preview-permalink"><span class="clipboard-icon"></span></a>
+    </div>
+  </div>
+</fieldset>
+
+<%= content_for :bottom do %>
+  <script type="text/javascript">
+    (function() {
+      'use strict';
+      // click events
+      document.body.addEventListener('click', copy, true);
+      // event handler
+      function copy(e) {
+        // find target element
+        var
+          t = e.target,
+          c = t.dataset.copytarget,
+          inp = (c ? document.getElementById(c) : null);
+        // is element selectable?
+        if (inp && inp.select) {
+          // select text
+          inp.select();
+
+          try {
+            // copy text
+            document.execCommand('copy');
+            inp.blur();
+          }
+          catch (err) {
+            alert('please press Ctrl/Cmd+C to copy');
+          }
+        }
+      }
+    })();
+  </script>
+<% end %>

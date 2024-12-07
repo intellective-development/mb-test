@@ -1,0 +1,64 @@
+<%= error_messages_for 'address' %>
+<%= form.hidden_field :address_purpose, value: 'shipping' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Name</label>
+        <%= form.text_field :name, required: true %>
+      </div>
+      <div>
+        <label>Address</label>
+        <%= text_field_tag :full_address, nil %>
+      </div>
+    </div>
+    <div class="large-6 column">
+      <div>
+        <label>Address 1</label>
+        <%= form.text_field :address1, required: true, readonly: true %>
+      </div>
+      <div>
+        <label>Postal Code</label>
+        <%= form.text_field :zip_code, required: true, readonly: true %>
+      </div>
+      <div>
+        <label>City</label>
+        <%= form.text_field :city, required: true, readonly: true %>
+      </div>
+  </div>
+</fieldset>
+
+<script>
+  var options = {
+    componentRestrictions: { country: "us" }
+  };
+
+  var input = document.getElementById('full_address');
+  var autocomplete = new google.maps.places.Autocomplete(input, options);
+  var infowindow = new google.maps.InfoWindow();
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      infowindow.close();
+      var place = autocomplete.getPlace();
+      var postal_code = '';
+      var city = '';
+      var route = '';
+      var street_number = '';
+
+      place.address_components.forEach((address_component) => {
+        if (address_component['types'].includes('postal_code')) {
+          postal_code = address_component['long_name'];
+        } else if (address_component['types'].includes('administrative_area_level_1')) {
+          city = address_component['long_name'];
+        } else if (address_component['types'].includes('route')) {
+          route = address_component['long_name'];
+        } else if (address_component['types'].includes('street_number')) {
+          street_number = address_component['long_name'];
+        }
+      });
+
+      $("#address_address1")[0].value = street_number + ' ' + route;
+      $("#address_zip_code")[0].value = postal_code;
+      $("#address_city")[0].value = city;
+  });
+</script>

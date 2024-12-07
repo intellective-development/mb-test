@@ -1,0 +1,151 @@
+@import "~client/store/views/style/variables";
+@import "./_variables";
+
+$dropdown_height: 256px; // used to animate the dropdown
+$dropdown_shadow_height: 4px;
+$module-spacing: $standard-gutter * 2;
+
+.cmDCategoryDropdown_Wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  top: 100%; // stick it below the bottom of the container
+  z-index: 10;
+  border-top: $default-border;
+
+  // this padding allows the dropdown's box shadow to show, despite the above overflow: hidden
+  padding-bottom: $dropdown_shadow_height;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.cmDCategoryDropdown_Wrapper__Open {
+  visibility: visible;
+}
+
+.cmDCategoryDropdown_Dropdown {
+  background: $brand-white;
+  margin-bottom: 0;
+  box-shadow: 0 $dropdown_shadow_height/2 $dropdown_shadow_height 0 rgba(0, 0, 0, 0.33);
+  transition: all 250ms ease-in; // animate out
+  transform: translateY($dropdown_height * -1.2); // slide out a bit taller than normal height, just in case
+  opacity: 0.75;
+}
+
+.cmDCategoryDropdown__Dropdown_Open {
+  transition-timing-function: ease-out; // animate in
+  transform: translateY(0);
+  opacity: 1;
+}
+
+$short-content-module-count: 2;
+$suppress-nth-child-offset: $short-content-module-count * 2 + 1;
+.cmDCategoryDropdown_AvailableContainer {
+  display: flex;
+  padding: $standard-gutter * 2;
+  padding-left: $standard-gutter * 2 + $full-logo-size;
+  min-height: $dropdown_height;
+
+  @media only screen and (max-width: $nav-contract-max-width) {
+    padding-right: $standard-gutter;
+    padding-left: $standard-gutter + $full-logo-size;
+
+    // we suppress everything past the first two content modules
+    .cmDCategoryDropdown_Divider:nth-child(n + #{$suppress-nth-child-offset}),
+    .cmDCategoryDropdown_ContentModule:nth-child(n + #{$suppress-nth-child-offset}) {
+      display: none;
+    }
+  }
+}
+
+.cmDCategoryDropdown_UnavailableMessage {
+  @include font-size(15);
+
+  color: $brand-error-red;
+  padding: $standard-gutter*1.5 $standard-gutter;
+  text-align: center;
+}
+
+/* Content Modules */
+
+/* link_list */
+$link-list-element-side-padding: 8px;
+
+.cmDCategoryDropdown_LinkList_Container {
+  flex: none;
+}
+
+.cmDCategoryDropdown_LinkList_Title {
+  @include font-size(13);
+
+  color: $brand-medium-grey;
+  font-weight: $heavy-font-weight;
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+  padding-bottom: 1em;
+}
+
+.cmDCategoryDropdown_LinkList_ColGroup {
+  display: flex;
+  flex: none;
+  margin-left: $link-list-element-side-padding * -1; // keep the links left aligned with the title
+}
+
+.cmDCategoryDropdown_LinkList_Col {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
+  &:not(:last-child) { padding-right: $module-spacing; }
+}
+
+.cmDCategoryDropdown_LinkList_ElLink {
+  @include font-size(15);
+
+  display: block;
+  width: 128px;
+  line-height: 1.3em;
+  padding: 0.25em $link-list-element-side-padding 0.2em;
+  color: $brand-black;
+  transition: background 150ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: $brand-black; // prevent color change
+  }
+
+  &:hover {
+    background-color: $brand-pale-blue;
+  }
+}
+
+.cmDCategoryDropdown_LinkList_ElLink__ShopAll {
+  font-weight: $heavy-font-weight;
+}
+
+/* carousel */
+
+.cmDCategoryDropdown_Carousel {
+  flex: initial;
+  align-self: flex-start;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+/* divider */
+
+.cmDCategoryDropdown_Divider {
+  padding: 0 $module-spacing;
+
+  // we never want to show the first divider (it would be the leftmost element in the dropdown)
+  &:first-of-type { display: none; }
+}
+
+.cmDCategoryDropdown_DividerLine {
+  width: 1px;
+  background-color: $brand-light-grey;
+  height: 100%;
+}

@@ -1,0 +1,28 @@
+<h2>Comments for <%= @user.name %></h2>
+<%= link_to raw('Back to Customer &#8629;'), admin_customer_path(@user) %>
+<% if @comments.empty? %>
+  <br><br>
+  This user has no comments!
+<% end %>
+
+<% if @comments.any? %>
+  <br><br>
+  <table>
+    <tr>
+      <th>Note</th>
+      <th>Date</th>
+      <th>Author</th>
+      <th>Type</th>
+      <th>Order</th>
+    </tr>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.note %></td>
+        <td><%= comment.created_at.strftime('%m/%d/%Y, %l:%M%P ') %></td>
+        <td><%= comment.author.try(:name) %></td>
+        <td><%= comment.d_commentable_type %></td>
+        <td><%= link_to("Order \##{comment.order.number}", edit_admin_fulfillment_order_path(comment.order.number)) if comment.order %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

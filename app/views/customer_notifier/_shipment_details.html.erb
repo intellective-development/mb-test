@@ -1,0 +1,118 @@
+<tr><!-- SUPPLIER DETAILS BEGIN -->
+  <td>
+    <table class="row top-border">
+      <tr>
+        <td class="small-12 large-1 module"></td>
+        <td class="small-11 small-offset-1 module">
+          <p class="avenir-heading-medium no-bottom">
+            <% if shipment.scheduled_for %>
+              <b class="avenir-heading-medium uppercase"><%= shipment.supplier&.display_name %></b><br>
+              Scheduled for <%= I18n.t("customer.order_confirmation.shipping_type.#{shipment.shipping_type}") %> - <%= "#{format_time_range(shipment.scheduled_for, shipment.shipping_method.scheduled_interval_size, shipment.supplier.timezone)} #{shipment.scheduled_for.in_time_zone(shipment.supplier.timezone).strftime('%A, %b %e')}" %>
+            <% elsif shipment.shipping_method.closed?(@order.completed_at) %>
+              <b class="avenir-heading-medium uppercase"><%= shipment.supplier&.display_name %></b><br>
+              <b class="red"> CLOSED - <%= I18n.t("customer.order_confirmation.shipping_type.#{shipment.shipping_type}").titleize %> After <%= shipment.supplier.opens_at(@order.completed_at).in_time_zone(shipment.supplier.timezone).strftime("%l%P %A") rescue nil %></b>
+            <% elsif shipment.scheduled_for %>
+              Scheduled for <%= I18n.t("customer.order_confirmation.shipping_type.#{shipment.shipping_type}") %> - <%= "#{format_time_range(order.shipments.first.scheduled_for, order.shipments.first.shipping_method.scheduled_interval_size)} #{order.shipments.first.scheduled_for.strftime('%A, %b %e')}" %>
+            <% else %>
+              <b class="avenir-heading-medium uppercase">
+                <%= shipment.supplier.display_name %> &mdash; <%= I18n.t("customer.order_confirmation.shipping_type.#{shipment.shipping_type}").titleize %>
+              </b>
+            <% end %>
+          </p>
+          <% if shipment.supplier.order_note.present? %>
+            <p class="avenir-body-small center" style="padding-right: 3em;">
+              <em>
+                <%= shipment.supplier.order_note %>
+              </em>
+            <p>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr><!-- SUPPLIER DETAILS END -->
+<tr><!-- PRODUCT DETAILS BEGIN -->
+  <td>
+    <table class="row">
+      <tr>
+        <td class="module">
+          <% shipment.order_items.group_by(&:variant).each do |variant, order_items| %>
+            <table class="row variant-row">
+              <% if Variant.gift_card?(variant.id) && order_items.select { |oi| oi.item_options&.recipients.present? }.present? %>
+                <% recipients = order_items.select { |oi| oi.item_options&.recipients.present? }.map { |oi| oi.item_options&.recipients }.flatten %>
+                <tr>
+                  <td class="small-12 large-1 columns"></td>
+                  <td class="small-12 large-1 columns vertical-align-middle"  style="padding: 0px; vertical-align: middle;">
+                    <img alt="Email" width="20" height="20" style="margin: auto;" src="<%= asset_url('email/order_confirmation/icon-envelope.png') %>">
+                  </td>
+                  <td class="clear columns vertical-align-middle horizontal-padding-small" style="color: #7d7d7d; font-size: 14px; line-height: 21px;">
+                    <span class="confirmation-order-recipients">
+                      <a class="confirmation-order-recipients-email"><%= recipients.first %></a>
+                      <% if (2..5).cover? recipients&.size %>
+                        <div>
+                          <div class="confirmation-order-recipients-more" title="<%= recipients.drop(1).join(', ') %>">+<%= recipients.size - 1%> more</div>
+                        </div>
+                      <% end %>
+                      <% if recipients&.size > 5 %>
+                        <div>
+                          <div class="confirmation-order-recipients-more" title="Click here to download a CSV including recipient email address information">
+                            <a href="<%= "https://#{ENV["WEB_STORE_URL"] && URI(ENV["WEB_STORE_URL"]).host}/account/orders/#{@order.number}/csv/#{order_items.first.item_options&.id}" %>">+<%= recipients.size - 1%> more</a>
+                          </div>
+                        </div>
+                      <% end %>
+                    </span>
+                    will receive this eGift card in their email.
+                  <td>
+                </tr>
+              <% end %>
+              <tr>
+                <td class="small-12 large-1 columns top-padding-small"></td>
+                <td class="small-4 large-1 columns bottom-padding-medium top-padding-small">
+                  <img src="<%= Variant.gift_card?(variant.id) && order_items.first.item_options&.gift_card_image ? order_items.first.item_options&.gift_card_image.thumb_url : variant.product&.featured_image(:thumb) %>"/>
+                </td>
+                <td class="small-8 large-6 large-offset-1 columns vertical-align-middle bottom-padding-medium top-padding-small">
+                  <p class="no-bottom avenir-body-small">
+                    <%= variant.name %><br />
+                    <span class="section-less no-top avenir-body-small"><%= Variant.gift_card?(variant.id) && order_items.first.item_options&.message ? 'Message: ' + order_items.first.item_options&.message : variant.product&.item_volume.to_s %> </span>
+                  </p>
+                </td>
+                <td class="clear columns vertical-align-middle top-padding-small">
+                  <p class="no-bottom avenir-body-small" style="font-weight: 600">Qty:<%= order_items.sum(&:quantity) %></p>
+                  <p class="no-bottom avenir-body-small" style="font-weight: 600"><%= number_to_currency(order_items.sum{|t| t.total }) %></p>
+                </td>
+              </tr>
+              <% if order_items.any? { |oi| oi.item_options&.line1.present? && oi.item_options&.line2.present? && oi.item_options&.line3.present? && oi.item_options&.line4.present? } %>
+                <tr>
+                  <td class="small-12 large-1 columns"></td>
+                  <td class="small-4 large-1 columns bottom-padding-medium engraving-column"></td>
+                  <td class="small-8 large-6 large-offset-1 columns vertical-align-middle bottom-padding-medium engraving-column">
+                    <div class="engraving-wrapper">
+                      <div class="engraving-img-wrapper">
+                        <img height="35px" src="<%= asset_url('email/order_confirmation/engraving.png') %>"/>
+                      </div>
+                      <div>
+                        <strong class="engraving-title">Custom Engraving</strong>
+                        <% order_items.select { |oi| oi.item_options&.line1.present? || oi.item_options&.line2.present? || oi.item_options&.line3.present? || oi.item_options&.line4.present? }.each_with_index do |order_item, index| %>
+                          <% if order_item.item_options&.line1.present? || order_item.item_options&.line2.present? || order_item.item_options&.line3.present? || order_item.item_options&.line4.present? %>
+                            <p class="no-bottom avenir-body-small engraving-text">
+                              <span class="section-less no-top avenir-body-small engraving-text">Bottle <%= index + 1 %> Engraving: <strong><%= order_item.item_options&.line1 %> | <%= order_item.item_options&.line2 %> | <%= order_item.item_options&.line3 %> | <%= order_item.item_options&.line4 %> </strong> </span>
+                            </p>
+                            <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="small-4 large-2 columns clear vertical-align-middle engraving-column">
+                    <p class="no-bottom avenir-body-small"><%= number_to_currency(order_items.select { |oi| oi.item_options&.line1.present? || oi.item_options&.line2.present? || oi.item_options&.line3.present? || oi.item_options&.line4.present? }.sum{|t| t.quantity * t.order.storefront.engraving_fee }) %></p>
+                  </td>
+                  <td class="small-12 large-1 columns"></td>
+                </tr>
+              <% end %>
+            </table>
+          <% end %>
+          <br />
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr><!-- SUPPLIER DETAILS END -->

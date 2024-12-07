@@ -1,0 +1,33 @@
+<fieldset>
+  <legend>Delegation</legend>
+  <p>Suppliers may delegate their payment and notifications to another supplier.</p>
+  <p>
+    <% if @supplier.delegate %>
+    Currently this this supplier is delegating to <strong><%= link_to @supplier.delegate.name, edit_admin_inventory_supplier_path(@supplier.delegate) %></strong>.
+    <% else %>
+    Currently no delegate is setup for this supplier.
+    <% end %>
+  </p>
+  <div class="row collapse">
+    <div class="small-10 column">
+      <%= form.select :delegate_supplier_id, grouped_options_for_select(supplier_dropdown_items, @supplier.delegate_supplier_id, { prompt: 'No Delegation' } ) %>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Invoice Delegation</legend>
+  <p>Suppliers may delegate their invoices to another supplier.</p>
+  <p>
+    <% if @supplier.delegate_invoice %>
+    Currently this this supplier is delegating invoices to <strong><%= link_to @supplier.delegate_invoice.name, edit_admin_inventory_supplier_path(@supplier.delegate_invoice) %></strong>.
+    <% else %>
+    Currently no invoice delegate is setup for this supplier.
+    <% end %>
+  </p>
+  <div class="row collapse">
+    <div class="small-10 column">
+      <%= form.select :delegate_invoice_supplier_id, grouped_options_for_select(supplier_dropdown_items, @supplier.delegate_invoice_supplier_id, { prompt: 'No Invoice Delegation' } ) %>
+    </div>
+  </div>
+</fieldset>

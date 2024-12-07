@@ -1,0 +1,82 @@
+#module-gift {
+  background: #ede7d4;
+  padding: 0;
+  .row {
+    background: transparent url(image_path('components/give-a-gift/bg-hero.jpg')) no-repeat bottom right
+  }
+  .heading-thin-large {
+    margin-top: 80px;
+    text-shadow: none;
+    margin-bottom: 0px;
+  }
+  .branding {
+    margin-bottom: 24px;
+  }
+  @media screen and (max-width: $small-screen - 1px) {
+    text-align: center;
+    .row {
+      background-image: none;
+    }
+    img {
+      display: inline-block;
+    }
+  }
+}
+
+.give-a-gift{
+  #module-value-prop {
+    margin-bottom: 30px;
+    margin-top: 60px;
+    .heading-thin-bold {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+
+.module-2-up {
+  border-bottom: none;
+  margin-bottom: 40px;
+  .row {
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+  }
+  p.branding {
+    font-size: 16px;
+  }
+  .image {
+    padding: 0;
+    background: #CECECE url(image_path('components/give-a-gift/bg-gifts.jpg')) no-repeat center;
+    background-size: cover;
+    min-height: 300px;
+  }
+  .content {
+    text-align: left;
+    padding: 30px 40px 20px 40px;
+    h3, p {
+      margin-bottom: 24px;
+    }
+    .button {
+      margin-bottom: 0
+    }
+    p:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.value-prop__champagne{
+  @include sprite-gift($give-a-gift-champagne, inline-block);
+}
+
+.value-prop__location {
+  @include sprite-gift($give-a-gift-location, inline-block);
+}
+
+.value-prop__cart {
+  @include sprite-gift($give-a-gift-cart, inline-block);
+}

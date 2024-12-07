@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= address.name %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_address_path(address), class: 'button tiny' %>
+    <%= link_to "Delete", admin_address_path(address), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

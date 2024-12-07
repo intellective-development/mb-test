@@ -1,0 +1,103 @@
+<% content_for :title, 'Product Types' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<h3>Product Types</h3>
+
+<% content_for :sidemenu do %>
+  <div class='admin_filters panel'>
+    <h5>Search Product Types</h5>
+    <%= form_tag admin_merchandise_product_types_path, :method => 'get', :id => "product_types_search" do %>
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+
+      <label>Name</label>
+      <%= text_field_tag :query, params[:query] %>
+      <label class="row collapse">
+        <div class="small-1 column"><%= check_box_tag "level[category]", true, params["level"]["category"]%></div>
+        <div class="small-11 columns">Category</div>
+      </label>
+      <label class="row collapse">
+        <div class="small-1 column"><%= check_box_tag "level[type]", true, params["level"]["type"] %></div>
+        <div class="small-11 columns">Type</div>
+      </label>
+      <label class="row collapse">
+        <div class="small-1 column"><%= check_box_tag "level[subtype]", true, params["level"]["subtype"] %></div>
+        <div class="small-11 columns">Subtype</div>
+      </label>
+      <label class="row collapse">
+        <div class="small-1 column"><%= check_box_tag "banner_featured", true, params["banner_featured"] %></div>
+        <div class="small-11 columns">Banner Featured</div>
+      </label>
+      <div style='text-align:center'>
+        <%= submit_tag "Search", name: nil, class: 'button small expand' %>
+      </div>
+    <% end %>
+    <div class='clearfix'></div>
+  </div>
+  <%= link_to 'View Hierarchy', view_hierarchy_admin_merchandise_product_types_path %><br/>
+  <%= link_to 'View Banner Preview', view_banner_preview_admin_merchandise_product_types_path %>
+  <br /><br />
+  <%= link_to "New Category", new_admin_merchandise_product_type_path %><br />
+  <%= link_to "New Type", new_admin_merchandise_product_type_path(:tab => 2) %><br />
+  <%= link_to "New Subtype", new_admin_merchandise_product_type_path(:tab => 3) %>
+<% end %>
+
+<div class="admin_product_types">
+  <table>
+    <thead>
+      <tr class='odd'>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th class='column1_header'>Name</th>
+        <th>Position</th>
+        <th>Stats</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product_types.each do |product_type| %>
+        <tr class='<%= cycle("odd", "")%>'>
+          <td>
+            <% if product_type.ios_menu_image.present? %>
+              <%= image_tag(product_type.ios_menu_image.file.url, size: "75x75") %>
+            <% end %>
+          </td>
+          <td>
+            <% if product_type.banner_image.present? %>
+              <%= image_tag(product_type.banner_image(:default), size: "60x55") %>
+            <% end %>
+          </td>
+          <td>
+            <% if product_type.product_image.present? %>
+              <%= image_tag product_type.product_image(:mini) %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to product_type.name, edit_admin_merchandise_product_type_path(product_type) %><br />
+            <small> <%= product_type.ancestors.map(&:name).join(', ') %> </small>
+          </td>
+          <td>
+            <small>
+              <% if product_type.position&.nonzero? %>
+                Navigation: <%= product_type.position %> <br/>
+              <% end %>
+              <% if product_type.banner_featured_position&.nonzero? %>
+                Banner: <%= product_type.banner_featured_position %>
+              <% end %>
+            </small>
+          </td>
+          <td>
+            <small>
+              ID: <%= product_type.id %><br>
+              Children: <%= product_type.children.active.count %><br>
+              Products: <%= product_type.product_size_groupings.active.count %>
+            </small>
+          </td>
+          <td> <%= link_to (product_type.active? ? 'Deactivate' : 'Activate'), admin_merchandise_product_type_path(product_type), method: :delete %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @product_types %>
+</div>

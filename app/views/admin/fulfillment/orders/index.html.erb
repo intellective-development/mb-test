@@ -1,0 +1,158 @@
+<style>
+  .unconfirmed-orders-header a {
+    font-size: 24px;
+    right: 15px;
+    position: absolute;
+    top: 8px;
+  }
+
+  .unconfirmed-orders {
+    display: block;
+  }
+
+  .unconfirmed-orders.hidden {
+    display: none;
+  }
+</style>
+
+<% content_for :auth_tokens, true %>
+<% content_for :title, 'Orders' %>
+<div class="row">
+  <div class="large-6 column">
+    <%= form_tag admin_fulfillment_orders_path, method: :get, class: "panel" do %>
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+      <div class="row">
+        <div class="large-12 column">
+          <%= label_tag 'Query' %> <%= text_field_tag :query, params[:query] %>
+        </div>
+        <div class="large-12 column">
+          <%= submit_tag "Search", :name => nil, :class => 'button alert' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="large-6 columns">
+    <%= form_tag admin_fulfillment_orders_path, method: :get, class: "panel" do %>
+      <div class="row collapse">
+        <div class="small-10 column">
+          <div class="supplier-selector-component" id="supplier-selector-component"></div>
+        </div>
+        <div class="small-2 column">
+          <%= submit_tag("GO", name: "filter_supplier" ,class: "button postfix") %>
+        </div>
+      </div>
+      <div class="row collapse">
+        <div class="small-10 column">
+          <%= select_tag :order_state, options_for_select(order_state_dropdown_items, @order_state), prompt: 'Choose Order State' %>
+        </div>
+        <div class="small-2 column">
+          <%= submit_tag("GO", name: "filter_order_state", class: "button postfix") %>
+        </div>
+      </div>
+      <div class="row collapse">
+        <div class="small-10 column">
+          <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items, @storefront_id), prompt: 'Choose Storefront' %>
+        </div>
+        <div class="small-2 column">
+          <%= submit_tag("GO", name: "filter_order_store_front", class: "button postfix") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<form method="get">
+  <b>Unconfirmed orders type filter:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+  <% ShippingMethod.shipping_types.each { |key, value| %>
+    <input type="checkbox" <%= @ufilters[:unconfirmed_type].include?(value.to_s) && "checked" %> name="unconfirmed_type[]" value="<%=value%>" /> <%= key.humanize %>
+  <% } %>
+  <button>Apply</button>
+</form>
+
+<% unless @hide_unconfirmed || @unconfirmed_orders.empty?  %>
+<div class="row">
+  <div class="large-12 column">
+    <h2 class="unconfirmed-orders-header">Unconfirmed Orders (<%= @unconfirmed_orders_count %>) <a id="toggle-unconfirmed-orders" href="#"><%= params[:unconfirmed] == 'open' ? '➖' : '➕' %></a></h2>
+    <div class="unconfirmed-orders <%= 'hidden' unless params[:unconfirmed] == 'open' %>">
+      <ul class="list-unconfirmed">
+        <% if @scheduled_order_count && @scheduled_order_count > 0%>
+          <li class="list-unconfirmed__scheduled">
+            <a href="<%= admin_fulfillment_scheduled_orders_path %>">
+              <div>
+                <h4 class='header'>Unconfirmed Scheduled</h4>
+                <h2><%= @scheduled_order_count %></h2>
+              </div>
+            </a>
+          </li>
+        <% end %>
+        <%= render partial: 'unconfirmed_order', collection: @unconfirmed_orders_uniq, as: 'order' %>
+      </ul>
+      <%= paginate @unconfirmed_orders_uniq, param_name: :unconfirmed_page, params: { unconfirmed: "open" }  %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="large-12 column">
+    <table>
+      <thead>
+        <tr class='odd'>
+          <th></th>
+          <th></th>
+          <th class='column1_header'><%= sortable 'order_number' %></th>
+          <th><%= sortable 'customer_name', 'Customer' %></th>
+          <th><%= sortable 'supplier_name', 'Supplier' %></th>
+          <th><%= sortable 'state', 'State' %></th>
+          <th><%= sortable 'storefront', 'Storefront' %></th>
+          <th><%= sortable 'completed_at', 'Completed At' %></th>
+          <th><%= sortable 'taxed_total', 'Total Amount' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'completed_order_row', collection: @orders, as: 'order', cache: true %>
+      </tbody>
+    </table>
+    <%= paginate @orders %>
+  </div>
+</div>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'supplier_id',
+          label: '',
+          placeholder: 'Choose Supplier',
+          initialValues: [<%= params["supplier_id"] %>]
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>
+
+<script type="text/javascript">
+  $(function () {
+    toggle_sign = document.getElementById("toggle-unconfirmed-orders");
+    toggle_sign.addEventListener("click", function() {
+      list = document.getElementsByClassName("unconfirmed-orders")[0];
+      list.classList.toggle('hidden');
+      toggle_sign.text = list.classList.contains('hidden') ? '➕' : '➖';
+    });
+  });
+</script>

@@ -1,0 +1,121 @@
+﻿var ChangeSupplier = ChangeSupplier || (ChangeSupplier = new Bookmarklet({
+  css: ['<%= stylesheet_url("bookmarklet.css") %>'],
+  js: [],
+  ready: function(base) {
+    base.init = function(){
+      // doStuff();
+    }
+    base.init();
+  }
+}));
+
+
+function Bookmarklet(options){
+  var self = this;
+
+  function extend(a, b){
+    var c = {};
+    for (var key in a) { c[key] = a[key]; }
+    for (var key in b) { c[key] = b[key]; }
+    return c;
+  }
+
+  function loadCSS(sheets) {
+    $.each(sheets, function(i, sheet){
+      $('<link>').attr({
+        href: (sheet + cachebuster),
+        rel: 'stylesheet'
+      }).prependTo('body');
+    });
+  }
+
+  function loadJS(scripts){
+    if (scripts.length === 0) {
+      o.ready(self);
+      return;
+    }
+
+    $.getScript(scripts[0] + cachebuster, function(){
+        loadJS(scripts.slice(1));
+    });
+  }
+
+  function init(callback) {
+    if(!window.jQuery) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = o.jqpath;
+      document.body.appendChild(script);
+
+      script.onload = function(){ callback(); };
+      script.onreadystatechange = function() {
+        if (this.readyState == 'complete') callback();
+      }
+    } else {
+      callback();
+    }
+  }
+
+  function showUI(){
+    $('body').prepend("<div id='bookmarklet-panel'>Select Supplier: </div>")
+
+    var $select = $('<select id="bookmarklet-supplier-select">');
+    '<option value="#{s.id}">#{s.name}</option>'
+    $select.append("<option value='1'>Minibar Company Store</option>");
+    $select.append("<option value='4'>Financial District Wine & Liquor</option>");
+    $select.append("<option value='5'>Flatiron Wines & Spirits</option>");
+    $select.append("<option value='6'>Sea Grape Wine Shop</option>");
+    $select.append("<option value='7'>K&D Wine & Spirits</option>");
+    $select.append("<option value='8'>Chambers Street Wines</option>");
+    $select.append("<option value='9'>East Houston St Wine & Liquors</option>");
+    $select.append("<option value='10'>111 Lex Liquors</option>");
+    $select.append("<option value='11'>Renaissance Fine Wines & Spirits </option>");
+    $select.append("<option value='12'>Bowery & Vine</option>");
+    $select.append("<option value='13'>Whiskey & Wine off 69</option>");
+    $select.append("<option value='14'>55th Street Wine & Spirits</option>");
+    $select.append("<option value='15'>Columbia Wine Co</option>");
+    $select.append("<option value='16'>Martin Brothers Wines & Spirits</option>");
+    $select.append("<option value='17'>Atlantic Cellars</option>");
+    $select.append("<option value='18'>Cork Wine & Spirits</option>");
+    $select.append("<option value='19'>Square Wine & Spirits</option>");
+    $select.append("<option value='20'>Pier Wines</option>");
+    $select.append("<option value='21'>Best Bottles</option>");
+    $select.append("<option value='22'>East River Wines & Spirits</option>");
+    $select.append("<option value='23'>Wine on Nine</option>");
+    $select.append("<option value='24'>10th Avenue Wines & Liquors</option>");
+    $select.append("<option value='25'>Wine Castle</option>");
+    $select.append("<option value='26'>First Avenue Liquors</option>");
+    $select.append("<option value='27'>Five Star Grocery</option>");
+    $select.append("<option value='28'>Zabi's Wine & Liquor</option>");
+    $select.append("<option value='29'>Six Corners</option>");
+    $select.append("<option value='30'>Sag Harbor Liquor Store</option>");
+    $select.change(supplierChanged);
+    $('#bookmarklet-panel').append($select)
+  }
+
+  function supplierChanged(e){
+    var value = $('#bookmarklet-supplier-select').val();
+    $.cookie('sid', value);
+    window.location.reload();
+  }
+
+  var defaults = {
+    debug: false
+    , css: []
+    , js: []
+    , jqpath: "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+  }, o = extend(defaults, options),
+  cachebuster = o.debug ? ('?v=' + (new Date()).getTime()) : '';
+
+
+  init(function(){
+    loadCSS(o.css);
+    loadJS(o.js);
+    if(window.MiniBarView === undefined){
+      alert("Can't find MiniBarView - are you in the store?");
+    } else {
+      showUI();
+    }
+  });
+
+};

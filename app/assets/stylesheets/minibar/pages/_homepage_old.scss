@@ -1,0 +1,267 @@
+// TODO: Delete before merging this branch.
+// Keeping this here temporarily so we can pull what we need without bringing in extra stuff
+
+#module-hero {
+  color: #000;
+  background-color: #222;
+  background-image: url(image_path('homepage/module-hero-bg.jpg'));
+  background-size: cover;
+  position: relative;
+  .image {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    background-image: url(image_path('homepage/module-hero-image.png'));
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: 100% 100%;
+    height: 600px;
+  }
+  .content {
+    padding: 8em 1em 3em 1em;
+    img {
+      margin: 0 auto convert-to-em(20)  auto;
+      text-align: center;
+    }
+    .legal {
+      color: #efefef;
+    }
+    .subhead-3 {
+      color: #fff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    }
+    .subhead-2 {
+      color: #efefef;
+      text-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    }
+  }
+  #home-logo {
+    position: absolute;
+    top: 0;
+    left: 1em;
+    border: 1px solid #f1f3f2;
+  }
+  .aside {
+    color: #ddd;
+    font-size: convert-to-em(10);
+    margin-top: convert-to-em(5);
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+}
+
+.module-banner {
+  background-color: #9e9e9e;
+  img {
+    -webkit-transform: translateZ(0);
+  }
+}
+
+#module-ordering {
+  .content {
+    padding: 5em 2em;
+  }
+  .image {
+    background: url(image_path('homepage/module-ordering.jpg')) no-repeat bottom center;
+    height: 445px;
+  }
+}
+
+#main-iphone {
+  background-size: 249px 527px;
+  background: transparent url(image_path('components/homepage/iphone.png')) no-repeat 0 0;
+  height: 527px;
+  left: 6px;
+  position: absolute;
+  top: -60px;
+  width: 249px;
+  z-index: 2;
+  @media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+    background-image: url(image_path('components/homepage/iphone@2x.png'));
+    background-size: 249px 527px;
+   }
+}
+
+.sms-share-social {
+  margin: 0 auto;
+  width: 160px;
+}
+
+#notify-android {
+  background: rgba(255, 255, 255, 0.2) url(image_path('logos/android.png')) no-repeat 10px center;
+  background-size: 21px 25px;
+  bottom: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: convert-to-em(16);
+  left: 0;
+  padding: 0.8em 1.0em 0.5em 42px;
+  position: absolute;
+  @media screen and (max-width: $small-max-width) {
+    margin-top: 3em;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+#notify-android:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+#module-web-store {
+  background: #565656 url(image_path('components/homepage/bg-cocktail2.jpg')) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 8em 0 7em;
+
+  .cm-ae-error {
+    text-align: center;
+    width: 100%;
+  }
+
+  #address-entry.error .cm-ae-error{
+    color: $brand-white;
+  }
+
+  .legal-thin {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+}
+
+.address-verify-container {
+  padding: 12px 0px;
+}
+
+.is-mobile {
+  div {
+    background-attachment: scroll !important;
+  }
+}
+
+#module-party-v2 {
+  background: #565656 url(image_path('components/homepage/bg-champagne.jpg')) no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 12em 0 11em;
+  h4 {
+    margin: 0 auto;
+    max-width: 380px;
+  }
+}
+
+#module-gift {
+  background: #565656 url(image_path('components/homepage/bg-whiskey.jpg')) no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 12em 0 11em;
+}
+
+#module-fast-free-easy, #module-product, #module-brand {
+  background: #fff;
+  padding: 4em 0.75em;
+  position: relative;
+  z-index: 10;
+}
+
+#module-apps {
+  .content {
+    padding: 7em 1em 3em !important;
+  }
+  position: relative;
+  .image {
+    background: url(image_path('components/homepage/bg-devices.jpg')) no-repeat 50% 50%;
+    height: 450px;
+    @media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+      background-image: url(image_path('components/homepage/bg-devices@2x.jpg'));
+      background-size: 179px 281px;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    .inline-list {
+      margin-left: 0;
+      li {
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+#module-web-store .heading-thin-large {
+  margin-bottom: .2em;
+}
+
+#module-press {
+  padding: 7em 8em;
+    @media screen and (max-width: 640px) {
+      padding: 4em 5em;
+    }
+  .heading-thin-small {
+    margin-bottom: 3em;
+  }
+}
+
+.inline-list > li {
+  margin-left: 24px;
+}
+
+.download-icons {
+  a {
+    &:hover {
+      img {
+        opacity: 0.85;
+      }
+    }
+    &:active {
+      img {
+        opacity: 0.75;
+      }
+    }
+  }
+}
+
+#module-cities-partner {
+  background-color: $brand-black;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  p {
+    color: $brand-medium-grey;
+    line-height: 1.8em;
+    margin-bottom: 0px;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: $brand-white;
+    margin-bottom: 1em;
+  }
+  .cities {
+    margin-bottom: 35px;
+  }
+  .button.hollow {
+    background-color: rgba(0, 0, 0, 0.0);
+    border-color: $brand-white;
+    color: $brand-white;
+    margin-top: 20px;
+  }
+  .button.hollow:hover {
+    background-color: rgba(255, 255, 255, .1);
+  }
+  .button.hollow:active {
+    background-color: rgba(255, 255, 255, .3);
+  }
+}
+
+
+.field-loading-indicator {
+  background: #fff url(image_path('ui/loader-dark-small-hollow.gif')) no-repeat 50% 50%;
+  background-size: 25px 25px;
+  display: block;
+  height: 26px;
+  opacity: 0.8;
+  position: absolute;
+  right: 20px;
+  top: 6px;
+  width: 40px;
+  z-index: 500;
+}

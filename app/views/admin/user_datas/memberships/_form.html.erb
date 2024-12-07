@@ -1,0 +1,151 @@
+<% content_for :auth_tokens, true %>
+<%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<%= error_messages_for 'membership' %>
+
+<fieldset>
+  <div id="customer-select-component" style="padding-bottom: 15px"></div>
+  <div class="row">
+    <div class="small-6 column">
+      <label>Storefront</label>
+      <%= form.select :storefront_id, options_for_select(storefronts_dropdown_items), { include_blank: 'Select storefront' }, { required: true } %>
+    </div>
+  </div>
+  <% if %w[edit update].include? params[:action] %>
+    <div class="row">
+      <div class="small-6 column">
+        <label>User ID</label>
+        <%= form.text_field :user_id, disabled: true %>
+      </div>
+      <div class="small-6 column">
+        <label>Payment Method</label>
+        <%= fields_for :payment_profile, @membership.payment_profile do |payment_profile_form| %>
+          <%= payment_profile_form.text_field :payment_type, disabled: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 column">
+        <label>Date Created</label>
+        <%= form.text_field :created_at, value: @membership.created_at&.strftime('%m/%d/%Y'), disabled: true %>
+      </div>
+      <div class="small-6 column">
+        <label>Next Payment Date</label>
+        <%= form.text_field :next_payment_at, value: @membership.next_payment_at&.strftime('%m/%d/%Y'), disabled: true %>
+      </div>
+    </div>
+    <%= fields_for :user, @membership.user do |user_form| %>
+      <div class="row">
+        <div class="small-6 column">
+          <label>VIP</label>
+          <%= user_form.text_field :vip, disabled: true %>
+        </div>
+        <div class="small-6 column">
+          <label>Corporate</label>
+          <%= user_form.text_field :corporate, disabled: true %>
+        </div>
+      </div>
+    <% end %>
+    <fieldset>
+      <legend>Benefits</legend>
+      <ul>
+        <li>
+          <%= ::Membership.human_attribute_name('free_on_demand_fulfillment_threshold',
+                discount: 0,
+                value: @membership.free_on_demand_fulfillment_threshold) %>
+        </li>
+        <li>
+          <%= ::Membership.human_attribute_name('free_shipping_fulfillment_threshold',
+                discount: 0,
+                value: @membership.free_shipping_fulfillment_threshold) %>
+        </li>
+        <li>
+          <%=
+            engraving_discount = @membership.storefront.engraving_fee * (@membership.engraving_percent_off / 100).to_f
+            ::Membership.human_attribute_name('engraving_percent_off', value: engraving_discount)
+          %>
+        </li>
+      </ul>
+    </fieldset>
+    <div class="row">
+      <div class="small-12 column">
+        <fieldset>
+          <legend>Orders - (<%= @membership.orders.count %>)</legend>
+          <table>
+            <thead>
+              <tr class='odd'>
+                <th><%= sortable 'order_number' %></th>
+                <th><%= sortable 'supplier_name', 'Supplier' %></th>
+                <th><%= sortable 'state', 'State' %></th>
+                <th><%= sortable 'completed_at', 'Completed At' %></th>
+                <th><%= sortable 'taxed_total', 'Total Amount' %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: 'completed_order_row', collection: @orders, as: 'order', cache: false %>
+            </tbody>
+          </table>
+          <%= paginate @orders %>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 column">
+        <fieldset>
+          <legend>Transactions</legend>
+          <table>
+            <thead>
+            <tr class='odd'>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+              <%= render partial: 'completed_transaction_row', collection: @transactions, as: 'transaction', cache: false %>
+            </tbody>
+          </table>
+        </fieldset>
+      </div>
+    </div>
+  <% end %>
+</fieldset>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+
+  <script type="text/javascript">
+    var component_config_block = [{
+      selector: 'customer-select-component',
+      component: 'UserSelect',
+      options: {
+        name: 'membership[user_id]',
+        type: 'customer',
+        label: 'Customer',
+        placeholder: 'Choose Customer',
+        <% unless @membership&.user_id.nil? %>
+          initialValues: [{
+            value: <%= @membership.user_id %>,
+            label: '<%= @membership.customer_name %>'
+          },
+          {
+            value: <%= @membership.payment_profile_id %>,
+            label: '<%= @membership.payment_profile.name %>'
+          }]
+        <% end %>
+      }
+    }];
+
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

@@ -1,0 +1,222 @@
+$button-transition-duration: 300ms;
+.button {
+  @include pixel-antialiased;
+  background: #7b1315;
+  border-radius: $form-border-radius;
+  font-size: 15px;
+  letter-spacing: 1px;
+  outline: none;
+  text-transform: uppercase;
+}
+.button:hover:enabled { //this is taken care of by foundation?
+  border-color: #560000; //can't use brand-red-hover, the background color is too similar
+  background-color: #560000; //value outputted by foundation
+}
+.button:active:enabled,
+.button.add-to-cart:active {
+  transform: translateY(1px);
+}
+.button.secondary {
+  background: #777;
+  border-color: #555;
+  color: $brand-white;
+  text-transform: uppercase;
+}
+
+.button.transparent-outline {
+  background: transparent;
+  border-color: $brand-black;
+  color: $brand-black;
+  transition: color $button-transition-duration ease-in-out, background-color $button-transition-duration ease-in-out;
+  &:hover {
+    background: $brand-black;
+    color: $brand-white;
+    border-color: $brand-black;
+  }
+}
+
+.dark {
+  .button.transparent-outline {
+    background: transparent;
+    border-color: $brand-white;
+    color: $brand-white;
+    &:hover {
+      background: $brand-white;
+      color: $brand-black;
+      border-color: $brand-white;
+    }
+  }
+}
+
+
+.button.black {
+  background: $brand-black;
+  border-color: $brand-black;
+  color: $brand-white;
+  height: 40px;
+  text-transform: uppercase;
+  transition: 0;
+  &:hover {
+    background: #666;
+    border-color: #666;
+  }
+  &:active {
+    background: $brand-white;
+    border-color: $brand-white;
+    color: $brand-black;
+  }
+}
+
+.button.grey {
+  background: $brand-light-grey;
+  border-color: transparent;
+  color: $brand-black;
+  transition: 0;
+  &:hover {
+    background: $brand-medium-grey;
+  }
+  &:active {
+    background: $brand-medium-grey;
+  }
+}
+
+.button.secondary:hover:enabled {
+  background: #555;
+  border-color: #555;
+}
+.button.small {
+  padding: 9px 0 7px;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  font-weight: $heavy-font-weight;
+  font-family: $font-family-avenir;
+}
+
+.button .loading, button .loading { //this is used for the search button
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(image_path('ui/loader.gif'));
+}
+
+.prefix.button {
+  border-color: $brand-red;
+  height: 36px;
+  padding-top: 0.2em;
+  margin-left: 1px;
+}
+
+.button-v2 {
+  @include overflow-ellipsis;
+  @include button($button-med, $brand-black, '4px', true, false, false);
+  background: $brand-black;
+  border: 0px;
+  color: $brand-white;
+  cursor: pointer;
+  font-family: $font-family-avenir;
+  font-size: 16px;
+  letter-spacing: 2px;
+  line-height: 22px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  &.icon {
+    text-align: left;
+    text-indent: 44px;
+    background-repeat: no-repeat;
+    background-position: 12px 50%;
+    background-size: 24px;
+    &.icon-facebook {
+      background-image: url(image_path('ui/icon-button-facebook.svg'));
+    }
+    &.icon-twitter {
+      background-image: url(image_path('ui/icon-button-twitter.svg'));
+    }
+    &.icon-email {
+      background-image: url(image_path('ui/icon-button-email.svg'));
+    }
+  }
+  &.facebook {
+    background-color: #3b5998;
+  }
+  &.twitter {
+    background-color: #55acee;
+  }
+}
+
+.button.hollow {
+  @extend .button;
+  background: none;
+  border-color: $brand-medium-grey;
+  color: $brand-medium-grey;
+  transition-property: background, border-color, color;
+  &.relative {
+    font-size: inherit;
+    font-family: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+  }
+  &:hover {
+    background: $brand-medium-grey;
+    color: $brand-white;
+    border-color: $brand-medium-grey;
+  }
+  &:active, &.active {
+    background: $brand-black;
+    color: $brand-white;
+  }
+}
+
+
+.button-ios {
+  background: transparent url(image_path('ui/icon-iphone-active.svg')) no-repeat 0 0;
+  display: block;
+  height: 54px;
+  width: 125px;
+}
+
+.button-android {
+  background: transparent url(image_path('ui/icon-android-active.svg')) no-repeat 0 0;
+  display: block;
+  height: 54px;
+  width: 125px;
+}
+
+.button.button--bright-red {
+  // TODO: when we've nuked borders, remove border here
+  transition-property: background, border-color;
+  background: $brand-red;
+  border-color: $brand-red;
+  &:active, &:focus {
+    background: $brand-red;
+    border-color: $brand-red;
+  }
+}
+
+.icon--social__list {
+  &.inline-list {
+    margin-left: 0;
+  }
+  .icon--social__list--list_item {
+    height: 40px;
+    width: 40px;
+    margin-right: 6px;
+    margin-left: 0 !important;
+    .social-icon {
+      position: absolute;
+      opacity: initial;
+      &:hover {
+        opacity: 0;
+      }
+    }
+    .social-icon-hover {
+      position: absolute;
+      opacity: 0;
+      &:hover {
+        opacity: initial;
+      }
+    }
+  }
+}

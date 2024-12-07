@@ -1,0 +1,202 @@
+.reveal-modal {
+  animation: animationSplat 850ms linear both;
+}
+
+.reveal-modal {
+  &.dark {
+    background-color: #222;
+    .modal-header {
+      border-bottom: 1px solid #666;
+    }
+  }
+}
+
+.reveal-modal p {
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #949494;
+  line-height: 22px;
+  &.dark {
+    color: $brand-black;
+    margin-bottom: 2em;
+    text-align: center;
+  }
+}
+
+.modal-header {
+  font-family: $font-family-avenir;
+  font-size: 15px;
+  color: #222;
+  line-height: 21px;
+  letter-spacing: 3px;
+  padding: 24px 24px 18px;
+  border-bottom: 1px solid $brand-light-grey;
+  text-transform: uppercase;
+  &.no-bottom {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-family: $font-family-avenir;
+    font-size: 15px;
+    color: #222;
+    line-height: 21px;
+    letter-spacing: 3px;
+  }
+
+  .button.secondary {
+    margin: 0;
+    font-size: 12px;
+    padding: 5px 7px 3px;
+    color: #777;
+    background: #fff;
+
+    @media screen and (max-width: 430px){
+      display: none;
+    }
+  }
+}
+
+.checkout-frame {
+  .modal-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+
+// The "mega's" are for the referral page, should be in their own file
+.mega-header {
+  text-align: center;
+  padding-top: 5em;
+  padding-bottom: 4em;
+  h1 {
+    font-size: 42px;
+    color: #222;
+    line-height: 46px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: 24px;
+    color: #a2a1a1;
+    line-height: 33px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  h3 {
+    font-size: 24px;
+    color: #222;
+    line-height: 46px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+}
+.mega-body {
+  padding-top: 4em;
+  padding-bottom: 3em;
+  p {
+    color: #222;
+  }
+}
+
+.modal-footer {
+  font-family: $font-family-avenir;
+  font-size: 15px;
+  color: #222;
+  line-height: 21px;
+  letter-spacing: 1px;
+  border-top: 1px solid $brand-light-grey;
+  .large-block-grid-2 {
+    li:nth-child(1) {
+      border-right: 1px solid $brand-light-grey;
+      @media screen and (max-width: $small-max-width) {
+        border-right: none;
+      }
+    }
+  }
+}
+
+.modal-container {
+  padding: 12px 24px 0;
+  &.bottom-border {
+    border-bottom: 1px solid $brand-light-grey;
+    padding-bottom: 12px;
+  }
+  .field-loading-indicator {
+    top: 4px;
+  }
+}
+
+.reveal-modal input[type=text],
+.reveal-modal input[type=email],
+.new_user_session input {
+  border: 1px solid $brand-light-grey;
+}
+
+.pac-container {
+  z-index: 12321424;
+}
+
+.modal-list {
+  list-style: none;
+  width: 100%;
+  .selected {
+    border-left: 4px solid $brand-red;
+  }
+  li {
+    border-top: 1px solid $brand-light-grey;
+    padding: 24px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #222;
+    line-height: 25px;
+    letter-spacing: 0px;
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
+}
+
+.reveal-modal {
+  max-height: 80%;
+  overflow: scroll;
+}
+
+.modal__bottom-links {
+  margin-top: 18px;
+}
+
+body.is-mobile {
+  .reveal-modal {
+    width: 96%;
+    margin-left: 2%;
+    left: 0;
+    max-height: 97.7%;
+
+    .close-reveal-modal {
+      margin-top: -6px;
+    }
+
+    input, p, h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  .modal-list li {
+    padding: 12px;
+  }
+
+  .modal-container {
+    padding: 12px;
+  }
+
+  .modal-header {
+    padding: 12px 12px 8px 12px;
+  }
+}

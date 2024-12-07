@@ -1,0 +1,7 @@
+<%- if shopping_address %>
+  <strong><%= shopping_address.name_line %></strong><br/>
+  <% shopping_address.address_lines_array.each do |line| %>
+    <%= line %><br/>
+  <% end %>
+  <%= shopping_address.city_state_zip %><br/>
+<%- end %>

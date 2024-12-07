@@ -1,0 +1,9 @@
+<% content_for :auth_tokens, true %>
+
+<h3>New Coupon</h3>
+
+<%= simple_form_for(@coupon, :as => :coupon, :url => admin_generic_coupons_path(@coupon)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to "Back to List", admin_generic_coupons_path, :class => "button" %>

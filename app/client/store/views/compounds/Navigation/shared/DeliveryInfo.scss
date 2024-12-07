@@ -1,0 +1,28 @@
+@import "~client/store/views/style/variables";
+
+.cmNavDeliveryInfo_Container {
+  display: flex;
+  align-items: center;
+}
+
+.cmNavDeliveryInfo_TextTitle {
+  @include font-size(12);
+  color: $brand-medium-grey;
+  letter-spacing: 0.4px;
+}
+
+.cmNavDeliveryInfo_AddAddress,
+.cmNavDeliveryInfo_Address {
+  @include font-size(13);
+  @include overflow-ellipsis;
+
+  display: inline-block;
+  font-weight: $heavy-font-weight;
+  margin-top: 4px;
+
+  max-width: 160px;
+}
+
+.cmNavDeliveryInfo_AddAddress {
+  color: $brand-red;
+}

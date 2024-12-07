@@ -1,0 +1,9 @@
+<% content_for :title, 'Edit Data Feed' %>
+<h3>Editing Data Feed</h3>
+<% if @feed.supplier %>
+  <%= link_to "Edit #{@feed.supplier.try(:name)}", edit_admin_inventory_supplier_path(@feed.supplier) %><br>
+<% end %>
+<%= form_for @feed, :url  => admin_inventory_data_feed_path(@feed) do |form| %>
+  <%= render :partial => '/admin/inventory/data_feeds/form', :locals => {:form => form} %>
+  <%= submit_tag "Update", :class  => "button" %>
+<% end %>

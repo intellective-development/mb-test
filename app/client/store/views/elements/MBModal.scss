@@ -1,0 +1,121 @@
+@import "../style/variables";
+@import "../../../../assets/stylesheets/minibar/animations/_splat";
+
+@mixin fullpage-modal-component {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.elMBModal_Backdrop {
+  @include fullpage-modal-component;
+
+  background-color: $brand-black;
+  opacity: 0.5;
+  z-index: 10040;
+}
+
+.elMBModal_Wrapper {
+  @include fullpage-modal-component;
+
+  // these overflow rules allow vertical scrolling
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 10041;
+}
+
+$modal-radius: 6px;
+// on some resolutions, the combination of border-radius, overflow,
+// and margin props is adding a 1px border on the right
+.elMBModal_Content {
+  @include fullpage-modal-component;
+
+  animation: animationSplat 850ms linear both;
+  background-color: white;
+  border-radius: $modal-radius;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  margin: 100px auto 32px;
+  max-width: $grid-breakpoint;
+  padding: 0;
+  position: relative;
+  width: 70%;
+  &:focus { outline: none; }
+}
+.elMBModal_Content__Tiny { width: 30%; }
+.elMBModal_Content__Small { width: 40%; }
+.elMBModal_Content__Medium { width: 60%; }
+.elMBModal_Content__Large { width: 70%; }
+
+@media screen and (max-width: $small-max-width) {
+  .elMBModal_Content { width: 100%; }
+  .elMBModal_Content__Tiny { width: 60%; }
+  .elMBModal_Content__Small { width: 80%; }
+
+  .elMBModal_Content__Medium,
+  .elMBModal_Content__Large {
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
+.elMBModal_SectionHeader {
+  align-items: center;
+  background-color: $brand-light-grey;
+  display: flex;
+  padding: 6px $standard-gutter;
+}
+
+.elMBModal_SectionHeader_Top {
+  border-top-left-radius: $modal-radius;
+  border-top-right-radius: $modal-radius;
+}
+
+.elMBModal_SectionHeaderText {
+  @include font-size(14);
+
+  color: $brand-dark-grey;
+  flex: auto;
+  margin-top: 2px; // visually center it
+  text-align: center;
+  // text-transform: uppercase; // drop uppercase as requested by Lauren from Minibar
+}
+
+$section-side-width: 60px;
+
+.elMBModal_SectionHeader_Filler {
+  width: $section-side-width;
+}
+
+.elMBModal_Close {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  width: $section-side-width;
+
+  &:hover,
+  &:focus {
+    opacity: 0.6;
+  }
+}
+
+.elMBModal_Back {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  width: $section-side-width;
+
+  &:hover,
+  &:focus {
+    opacity: 0.6;
+  }
+}
+
+.elMBModal_BackText {
+  @include font-size(14);
+
+  font-weight: $heavy-font-weight;
+  margin-top: 2px; // visually center it
+  text-transform: uppercase;
+}

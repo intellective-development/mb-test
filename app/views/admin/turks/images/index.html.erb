@@ -1,0 +1,21 @@
+<h1>Pending Image <abbr title="Human Intelligence Tasks">HITs</abbr></h1>
+<p><small>Approve clear images on a white background with no watermarks.</small></p>
+<hr>
+<% @hits.each do |hit| %>
+<div class="image-hit panel">
+  <div class="row">
+    <h4><%= link_to "#{@product.name}", admin_merchandise_product_size_grouping_path(@product) %></h4>
+    <h6><%= format_hierarchy(@product) %></h6>
+    <p><small><%= hit.value %></small></p>
+    <div class="column medium-8">
+      <img src="<%= hit.value %>" />
+    </div>
+    <div class="column medium-4">
+      <%= link_to('Accept', admin_turks_image_path(hit), method: :put, class: 'button') if @product %>
+      <br>
+      <%= link_to('Reject', admin_turks_image_path(hit), method: :delete, class: 'button') %>
+    </div>
+  </div>
+</div>
+<% end %>
+

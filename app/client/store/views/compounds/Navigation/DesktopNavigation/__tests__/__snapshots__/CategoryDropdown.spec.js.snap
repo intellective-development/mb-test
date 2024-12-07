@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryDropdown renders 1`] = `
+<div
+  className="cmDCategoryDropdown_Wrapper"
+>
+  <div
+    className="cmDCategoryDropdown_Dropdown"
+  />
+</div>
+`;

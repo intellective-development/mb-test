@@ -1,0 +1,9 @@
+<div id="newHighlightedFilter" class="reveal-modal" data-reveal>
+  <h2> Create new Highlighted Filter for <%=@promoted_filter.product_type.name%> </h2>
+  <ul class="validation-errors"></ul>
+  <%= form_for @promoted_filter, method: :patch, url: add_highlighted_filter_admin_merchandise_promoted_filter_path do |vf| %>
+    <%= render partial: 'highlighted_filter_fields', locals: {highlighted_filter: {}, index: 0, is_new: true} %>
+    <%= vf.submit "Save", class: "button", id:"create_highlighted_filter_button" %>
+  <% end %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

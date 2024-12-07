@@ -1,0 +1,46 @@
+<% content_for :title, 'Bulk Orders' %>
+<h3>Bulk Orders</h3>
+
+<% content_for :sidemenu do %>
+  <div style="text-align:center">
+    <%= link_to "New Bulk Order", new_admin_fulfillment_bulk_order_path, :class => "button", :id => "new_bulk_order_button" %>
+  </div>
+  <div class="admin_filters panel">
+    <%= form_tag admin_fulfillment_bulk_orders_path, :method => 'get', :id => "bulk_orders_search" do %>
+      <label>Name</label>
+      <%= text_field_tag :name, params[:name] %>
+
+      <label>Start Date</label>
+      <%= date_field_tag :date_range_start, params[:date_range_start] %>
+
+      <label>End Date</label>
+      <%= date_field_tag :date_range_end, params[:date_range_end] %>
+
+      <label>Storefront</label>
+      <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items, params[:storefront_id]), prompt: "" %>
+
+      <div style='text-align:center'>
+        <%= submit_tag "Search", name: nil, class: "button" %>
+      </div>
+      <p><small>Use the search field if you are looking for Braintree emails, addresses or referral codes.</small></p>
+    <% end %>
+  </div>
+<% end %>
+<div>
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th  class='column1_header'>Name</th>
+      <th>Suppliers</th>
+      <th># Orders</th>
+      <th>Status</th>
+      <th>Storefront</th>
+      <th>Created at</th>
+    </tr>
+    </thead>
+    <%= render partial: 'bulk_order_row', collection: @bulk_orders, as: 'bulk_order' %>
+  </table>
+  <p class="center">
+    <%= paginate @bulk_orders %>
+  </p>
+</div>

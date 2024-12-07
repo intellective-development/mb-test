@@ -1,0 +1,46 @@
+<h2>Logos</h2>
+<p>Logos are on the PDP page to give additional visibility to chains.</p>
+<p>
+  <%= link_to 'Create Logo', new_admin_suppliers_logo_path %>
+</p>
+<%= form_tag admin_suppliers_logos_path, :method => 'get', :id => "logos_filter" do %>
+  <div class="row collapse">
+    <div class="small-8 columns">
+      <%= text_field_tag :name, params[:name], placeholder: 'Search by Supplier Name' %>
+    </div>
+    <div class="small-4 columns end">
+      <%= submit_tag "Search", name: nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+<table>
+  <tr>
+    <th>Image</th>
+    <th>Suppliers</th>
+    <th>Created by</th>
+    <th></th>
+  </tr>
+  <% @logos.each do |logo| %>
+  <tr>
+    <td>
+      <% if logo.image.present? %>
+        <%= image_tag logo.image(:original), style: 'width: 28px' %>
+      <% end %>
+    </td>
+    <td>
+      <% if logo.supplier_logos.size == 1 %>
+        <%= logo.supplier_logos.first.supplier.name %>
+      <% else %>
+        <span title="<%= logo.supplier_logos.map{ |sl| sl.supplier.name }.join(', ') %>"><%= pluralize(logo.supplier_logos.size, 'supplier') %></span>
+      <% end %>
+    </td>
+    <td>
+      <%= logo.user ? logo.user.email : 'Unknown' %>
+    </td>
+    <td>
+      <%= link_to 'Edit', edit_admin_suppliers_logo_path(logo) %> | <%= link_to 'Delete', admin_suppliers_logo_path(logo), data: { confirm: 'This will remove the selected logo, it will no longer apply.'}, method: :delete %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= paginate @paginator %>

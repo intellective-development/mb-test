@@ -1,0 +1,72 @@
+<%# Intended for use with the foundation2 layout %>
+<!-- Social Footer -->
+<table class="container container-share" align="center">
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <th class="small-12 large-6 first columns right-border module">
+            <p class="avenir-heading-medium text-center">CONNECT WITH US</p>
+            <p>
+            <table align="center" class="table-icons">
+              <tr>
+                <td>
+                  <a href="https://facebook.com/minibardelivery">
+                    <img src="<%= asset_url('email/social_footer/facebook.png') %>" align="center" alt="Facebook" width="50" height="50" class="pad-right">
+                  </a>
+                </td>
+                <td>
+                  <a href="https://instagram.com/minibardelivery">
+                    <img src="<%= asset_url('email/social_footer/instagram.png') %>" align="center" alt="Instagram" width="50" height="50" class="pad-right">
+                  </a>
+                </td>
+                <td>
+                  <a href="https://twitter.com/minibardelivery">
+                    <img src="<%= asset_url('email/social_footer/twitter.png') %>" align="center" alt="Twitter" width="50" height="50">
+                  </a>
+                </td>
+              </tr>
+            </table>
+            </p>
+          </th>
+          <th class="small-12 large-8 columns module">
+            <p class="avenir-heading-medium text-center">DOWNLOAD OUR APP</p>
+            <table align="center" class="table-icons">
+              <tr>
+                <td>
+                  <a href="https://bnc.lt/Cyql/VxxjZhOiur">
+                    <img src="<%= asset_url('email/social_footer/download-ios.png') %>" align="center" alt="Download from the App Store" width="121" height="52" class="pad-right">
+                  </a>
+                </td>
+                <td>
+                  <a href="https://bnc.lt/Cyql/T2eOFQsiur">
+                    <img src="<%= asset_url('email/social_footer/download-android.png') %>" align="center" alt="Download from Google Play" width="121" height="52">
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+      <table class="row top-border">
+        <tr>
+          <th class="small-1 large-1 first columns">
+          </th>
+          <th class="small-12 large-10 columns module">
+            <p class="text-center avenir-heading">GIVE $10, GET $10</p>
+            <p class="text-center avenir-body-small">
+            Share your code with friends. Get a $10 credit to Minibar Delivery when they use it on their first order.
+            </p>
+            <p class="text-center referral-code">
+              <%= @order.user.referral_code.to_s.upcase %>
+            </p>
+          </th>
+          <th class="small-1 large-1 columns">
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

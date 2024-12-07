@@ -1,0 +1,206 @@
+@import "~client/store/views/style/variables";
+
+$input-height: 48px; // This with no margin-bottom allows the input to be the same height as the inline button
+
+// This animates the arrow across the submit button. The arrow's default position is in the middle of the button
+// so 50% get it all the way off to the right. 51% essentially teleports it to offsreen on the left, then 100%
+// moves it back to the middle. Then it loops indefinitely.
+@keyframes slide-off {
+  50% {
+    transform: translateX(200%);
+  }
+
+  50.01% {
+    transform: translateX(-200%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.cmEmailCaptureSectionWrapper {
+  background-color: $brand-black;
+}
+
+.cmEmailCaptureSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $standard-gutter * 1.5 0;
+}
+
+.cmEmailCaptureSection_Offer {
+  margin-right: 25px;
+}
+
+.cmEmailCaptureSection_OfferHeadline {
+  @include font-size(32);
+
+  width: 350px;
+  font-family: $font-family-tiempos;
+  color: $brand-white;
+  font-weight: $heavy-font-weight;
+  margin-bottom: $standard-gutter * 0.5;
+
+  @media screen and (max-width: $small-max-width) {
+    @include font-size(28);
+  }
+
+  @media screen and (max-width: $extra-small-max-width) {
+    @include font-size(24);
+  }
+}
+
+.cmEmailCaptureSection_OfferBody {
+  @include font-size(16);
+
+  display: flex;
+  align-items: center;
+  max-width: 350px;
+}
+
+.cmEmailCaptureSection_OfferBodyIcon {
+  margin-right: 15px;
+}
+
+.cmEmailCaptureSection_OfferCopy {
+  color: $brand-white;
+  font-weight: $medium-font-weight;
+  line-height: 1.3;
+}
+
+.cmEmailCaptureSection_FormInitial {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 360px;
+}
+
+.cmEmailCaptureSection_FormSuccess {
+  @include font-size(16);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: auto;
+  max-width: 360px;
+  padding: $standard-gutter;
+  background-color: $brand-white;
+}
+
+.cmEmailCaptureSection_FormSuccessIcon {
+  border: 1px solid $brand-green;
+  border-radius: 32px;
+  fill: $brand-green;
+  margin-right: $standard-gutter;
+}
+
+.cmEmailCaptureSection_FormSuccessMessage {
+  line-height: 1.3;
+}
+
+.cmEmailCaptureSection_FormSuccessCode {
+  font-weight: $heavy-font-weight;
+}
+
+.cmEmailCaptureSection_ErrorMessage {
+  @include font-size(10);
+
+  text-align: right;
+  color: $brand-white;
+  font-weight: $heavy-font-weight;
+}
+
+.cmEmailCaptureSection_ErrorMessage::before {
+  @include font-size(10);
+
+  display: inline-block;
+  text-align: center;
+  font-family: $font-family-avenir;
+  line-height: 0.865rem;
+  background-color: $brand-error-red;
+  color: $brand-white;
+  height: 12px;
+  width: 12px;
+  border-radius: 12px;
+  margin-top: 2px;
+  margin-right: 5px;
+  content: '\00D7';
+}
+
+.cmEmailCaptureSection_EmailInputWrapper {
+  width: 300px;
+  margin-right: 10px;
+}
+
+input.cmEmailCaptureSection_EmailInput {
+  color: $brand-black;
+  max-width: 300px;
+  min-height: $input-height;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  padding-left: $standard-gutter;
+
+  &::placeholder {
+    color: $brand-medium-grey;
+  }
+}
+
+.email_capture_section__SubmitButton {
+  @include pixel-antialiased;
+  @include button-disabled-color(
+    $brand-dark-grey,
+    $brand-dark-grey,
+    $brand-white // unchanged
+  );
+
+  display: flex;
+  padding: 0 1em !important;
+  overflow: hidden;
+}
+
+.email_capture_section__SubmitButtonIcon__Loading {
+  animation: slide-off 1s infinite;
+  animation-timing-function: linear; // Maybe ease in/out looks better. Maybe this is a waste of time!
+}
+
+@media only screen and (max-width: $small-max-width) {
+  .cmEmailCaptureSection {
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+    padding: $standard-gutter;
+  }
+
+  .cmEmailCaptureSection_Offer {
+    margin-right: 0;
+  }
+
+  .cmEmailCaptureSection_OfferBodyIcon {
+    display: none;
+  }
+
+  .cmEmailCaptureSection_OfferBody {
+    @include font-size(14);
+
+    text-align: center;
+    margin: 0 10% $standard-gutter * 1.5;
+  }
+
+  .cmEmailCaptureSection_OfferHeadline {
+    width: 100%;
+    text-align: center;
+  }
+
+  .cmEmailCaptureSection_FormInitial {
+    flex-grow: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .cmEmailCaptureSection_ZipInputWrapper {
+    display: none !important;
+  }
+}

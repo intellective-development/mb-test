@@ -1,0 +1,30 @@
+<% content_for :title, 'Carts' %>
+<div class='admin_title_header'>
+  <h3>Carts</h3>
+  <%= link_to 'New Cart', new_admin_cart_path, class: 'button' %>
+</div>
+
+<%= form_tag admin_carts_path, method: :get, id: 'carts_filter' do %>
+  <div class='row collapse'>
+    <div class='small-6 columns'>&nbsp;</div>
+    <div class='small-4 columns'>
+      <%= text_field_tag :user_id, nil, placeholder: 'User ID (leave blank for current logged user)' %>
+    </div>
+    <div class='small-2 columns end'>
+      <%= submit_tag 'Search', user_id: nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>ID</th>
+    <th>User ID</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @carts, as: 'cart', cache: true %>
+  </tbody>
+</table>

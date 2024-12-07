@@ -1,0 +1,121 @@
+.pernod-ricard-winter {
+  .banner {
+    background-image: url(image_path('promos/pernod-ricard-winter/header-banner.jpg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    flex-direction: coulmn;
+    align-items: center;
+    height: 176px;
+    @media screen and (max-width: $small-max-width) {
+      background-image: url(image_path('promos/pernod-ricard-winter/header-banner-mobile.jpg'));
+      height: 149px;
+    }
+  }
+  .carousel-container {
+    border-bottom: 1px solid #e6e6e6;
+    display: flex;
+    justify-content: center;
+    .carousel-item {
+      margin: 16px 16px 16px 0;
+      height: 80px;
+      width: 120px;
+      position: relative;
+      display: flex;
+      background-size: cover;
+      @media screen and (max-width: $small-max-width) {
+        background-position: center;
+        height: 55px;
+      }
+      .carousel-item_overlay {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+      .carousel-item_title_overlay {
+        font-family: $font-family-avenir;
+        font-size: 18px;
+        font-weight: $heavy-font-weight;
+        text-shadow: 0px 0px 4px #000;
+        text-transform: uppercase;
+        color: $brand-white;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        padding: 0 20px;
+        background-color: rgba(255, 255, 255, .5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0);
+          cursor: pointer;
+        }
+        @media screen and (max-width: $small-max-width) {
+          font-size: 10px;
+          padding: 0 5px;
+        }
+      }
+    }
+    .carousel-item:last-child {
+      margin-right: 0;
+    }
+  }
+  .carousel-selected-container {
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media screen and (max-width: $small-max-width) {
+      margin: 10px 0;
+    }
+    .title {
+      font-size: 24px;
+      align-self: flex-start;
+      font-family: $font-family-avenir;
+      font-weight: $heavy-font-weight;
+    }
+    .image {
+      margin: 10px 0;
+    }
+    .ingredients-list {
+      font-family: $font-family-avenir;
+      align-self: flex-start;
+      bullet {
+        font-size: 5px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+    }
+    .copy {
+      align-self: flex-start;
+      font-family: $font-family-avenir;
+      font-weight: 300;
+      margin-bottom: 10px;
+      line-height: 22px;
+    }
+    .single-product-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .single-product-container_image {
+        padding: 20px 0;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      .single-product-container_title {
+        font-family: $font-family-avenir;
+        text-align: center;
+        margin: 10px 0;
+      }
+      .button {
+        margin-top: 35px;
+        width: 75%;
+        @media screen and (max-width: $small-max-width) {
+          width: 125%;
+        }
+      }
+    }
+  }
+}

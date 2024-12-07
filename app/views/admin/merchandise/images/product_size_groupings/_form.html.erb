@@ -1,0 +1,20 @@
+<% content_for :bottom do %>
+  <script>
+      //uncheck any child product images and allow link to image to override when in focus
+      $(function(){
+        $('.image-link-text-box').focus(function(){
+          $('.image-link-child-radio').prop('checked', false);
+        });
+        $('.image-link-child-radio').change(function(){
+          $('.image-link-text-box').val($(this).val());
+        });
+      });
+  </script>
+<% end %>
+
+<div id="product_images" class='span-16'>
+  <% current_image = @product_grouping.images.first || @product_grouping.images.new %>
+  <%= form.fields_for :images, current_image do |image_form|%>
+    <%= render partial: 'admin/merchandise/images/shared/image_form', locals:  { image_form: image_form } %>
+  <% end %>
+</div>

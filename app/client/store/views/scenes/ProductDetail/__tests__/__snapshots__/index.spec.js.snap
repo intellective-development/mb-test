@@ -1,0 +1,802 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductDetailScene renders ProductDetailExternal when the product grouping is external 1`] = `
+Array [
+  <div
+    class="el-mblayouts-sg _pad_sides"
+  >
+    <ol>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/"
+        >
+          home
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer"
+        >
+          beer
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer/beer-domestic"
+        >
+          beer-domestic
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer/beer-domestic/beer-domestic-lager"
+        >
+          beer-domestic-lager
+        </a>
+      </li>
+    </ol>
+  </div>,
+  <div
+    class="row"
+    itemscope=""
+    itemtype="https://schema.org/Product"
+  >
+    <div
+      class="large-6 medium-5 column product-image center"
+    >
+      <img
+        alt="Budweiser Light"
+        itemprop="image"
+        src="https://placeholdit.imgix.net/~text?txtsize=33&txt=full&w=720&h=800"
+      />
+    </div>
+    <div
+      class="large-6 medium-7 small-12 column product-actions"
+    >
+      <h2
+        class="elMBText elMBText_ResetSpacing product-detail__brand-name"
+        itemprop="brand"
+      >
+        <a
+          href="/store/brand/budweiser"
+        >
+          Budweiser
+        </a>
+      </h2>
+      <h1
+        class="elMBText product-detail__product-name"
+        itemprop="name"
+      >
+        <a
+          href="/store/product/budweiser-light-1"
+          itemprop="url"
+        >
+          Budweiser Light
+        </a>
+      </h1>
+      <p
+        class="elMBText_P elMBText elMBText_ResetSpacing"
+      >
+        6 pack, 12oz bottles
+      </p>
+      <p
+        class="elMBText_P elMBText elMBText_ResetSpacing"
+      >
+        $15.00 - $25.00
+      </p>
+      <p
+        class="elMBText_P elMBText elMBText_ResetSpacing"
+      >
+        Additional sizes may be available
+      </p>
+      <div
+        class="panel__wrapper"
+      >
+        <div
+          class="panel--address-entry"
+        >
+          <p
+            class="elMBText_P elMBText elMBText_ResetSpacing panel--pdp--message"
+          >
+            For pricing and availability, enter your address
+          </p>
+          <div>
+            <div
+              class="cm-ae-container"
+              id="address-entry"
+            >
+              <div
+                class="cm-ae-error"
+              >
+                <p
+                  class="cm-ae-error__text cm-ae-error__text--empty"
+                >
+                  An unexpected error has occured.
+                </p>
+              </div>
+              <div
+                class="cm-ae-input__row"
+              >
+                <div
+                  class="cm-ae-input__container"
+                >
+                  <img
+                    alt="pin"
+                    class="el-mbicon--pin cm-ae-input__pin_icon"
+                    src="/assets/components/elements/mb-icon/pin.png"
+                    srcset="/assets/components/elements/mb-icon/pin@2x.png 2x, /assets/components/elements/mb-icon/pin@3x.png 3x"
+                  />
+                  <input
+                    autocomplete="off"
+                    class="elMBInput cm-ae-input"
+                    id="addres-input"
+                    name="addres-input"
+                    placeholder="Enter a delivery add​ress to shop"
+                    required=""
+                    type="text"
+                    value=""
+                  />
+                  <img
+                    alt="clear"
+                    class="el-mbicon--clear cm-ae-input__close_button hidden"
+                    src="/assets/components/elements/mb-icon/clear.png"
+                    srcset="/assets/components/elements/mb-icon/clear@2x.png 2x, /assets/components/elements/mb-icon/clear@3x.png 3x"
+                  />
+                  <span
+                    class="cm-ae-input__loader"
+                  />
+                  <div
+                    class="cm-ae-dropdown__container"
+                  >
+                    <ul
+                      class="cm-ae-dropdown__list"
+                    />
+                  </div>
+                </div>
+                <button
+                  class="elMBButton elMBButton__Default elMBButton__Tall cm-ae-button"
+                  id="address-button"
+                >
+                  Go
+                  <div
+                    class="button__loader"
+                  />
+                </button>
+              </div>
+              <div
+                id="google_places_target"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <p
+        class="p1 product-description"
+        itemprop="description"
+      >
+        It is beer! You can drink it!
+      </p>
+      <table
+        class="properties properties--product-detail"
+      >
+        <tbody>
+          <tr
+            itemprop="additionalProperty"
+            itemscope=""
+            itemtype="http://schema.org/PropertyValue"
+          >
+            <th
+              itemprop="name"
+            >
+              Alcohol %
+            </th>
+            <td
+              itemprop="value"
+            >
+              80 proof
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>,
+  null,
+  <div>
+    <div
+      class="el-mblayouts-sg _pad_sides"
+    >
+      <span>
+        <h2
+          class="elMBText elMBText_ResetSpacing"
+        >
+          $5 off your first order
+        </h2>
+        <span>
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class="elMBDynamicIcon__white"
+              height="25"
+              viewBox="0 0 32 32"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M2.1 24.734l-.419-.518 8.539-6.906.42.518-8.54 6.906zm19.163-6.906l.42-.518 8.538 6.906-.419.518-8.539-6.906zM15.951 18.36L29.802 7.157l.42.519-14.27 11.542L1.681 7.676l.418-.519z"
+                />
+                <path
+                  d="M1.917 8.077v16.01c0 .36.3.661.67.661h26.657c.37 0 .67-.297.67-.66V8.077c0-.361-.302-.661-.67-.661H2.586c-.37 0-.67.297-.67.66zm-.667 0c0-.733.6-1.327 1.336-1.327h26.658c.738 0 1.336.6 1.336 1.327v16.01c0 .733-.6 1.328-1.336 1.328H2.586c-.738 0-1.336-.6-1.336-1.328V8.077z"
+                />
+              </g>
+            </svg>
+          </div>
+          <p
+            class="elMBText_P elMBText elMBText_ResetSpacing"
+          >
+            Join our email list to get exclusive deals, giveaways, cocktail recipes and more.
+          </p>
+        </span>
+      </span>
+      <span>
+        <div>
+          <input
+            class="elMBInput"
+            id="email-capture-section-input"
+            placeholder="Email address"
+            type="email"
+            value=""
+          />
+        </div>
+        <button
+          class="elMBButton elMBButton__Action elMBButton__Medium email_capture_section__SubmitButton"
+          disabled=""
+        >
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class="elMBDynamicIcon__white"
+              height="25"
+              viewBox="0 0 32 32"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M24 14.5v3H5v-3z"
+                />
+                <path
+                  d="M22.97 15.97l-8.06-8.564 2.184-2.057 9.996 10.62-9.996 10.621-2.184-2.056z"
+                />
+              </g>
+            </svg>
+          </div>
+        </button>
+      </span>
+    </div>
+  </div>,
+]
+`;
+
+exports[`ProductDetailScene renders loading spinner when there is no product 1`] = `
+<div
+  class="full-page-loader"
+/>
+`;
+
+exports[`ProductDetailScene renders the frame with a loader when we have current suppliers but no internal product_grouping 1`] = `
+Array [
+  <div
+    class="el-mblayouts-sg _pad_sides"
+  >
+    <ol>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/"
+        >
+          home
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer"
+        >
+          beer
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer/beer-domestic"
+        >
+          beer-domestic
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer/beer-domestic/beer-domestic-lager"
+        >
+          beer-domestic-lager
+        </a>
+      </li>
+    </ol>
+  </div>,
+  <div
+    class="row"
+    itemscope=""
+    itemtype="https://schema.org/Product"
+  >
+    <div
+      class="large-6 medium-5 column product-image center"
+    >
+      <img
+        alt="Budweiser Light"
+        src="https://placeholdit.imgix.net/~text?txtsize=33&txt=full&w=720&h=800"
+      />
+    </div>
+    <div
+      class="large-6 medium-7 small-12 column product-actions"
+    >
+      <h2
+        class="elMBText elMBText_ResetSpacing product-detail__brand-name"
+        itemprop="brand"
+      >
+        <a
+          href="/store/brand/budweiser"
+        >
+          Budweiser
+        </a>
+      </h2>
+      <h1
+        class="elMBText product-detail__product-name"
+        itemprop="name"
+      >
+        <a
+          href="/store/product/budweiser-light-1"
+          itemprop="url"
+        >
+          Budweiser Light
+        </a>
+      </h1>
+      <div
+        class="panel__wrapper"
+      >
+        <div
+          class="panel--loader"
+        >
+          <div>
+            <div
+              class="MBLoader_Ball MBLoader_Ball__1"
+            />
+            <div
+              class="MBLoader_Ball MBLoader_Ball__2"
+            />
+            <div
+              class="MBLoader_Ball MBLoader_Ball__3"
+            />
+          </div>
+        </div>
+      </div>
+      <p
+        class="p1 product-description"
+        itemprop="description"
+      >
+        It is beer! You can drink it!
+      </p>
+      <table
+        class="properties properties--product-detail"
+      >
+        <tbody>
+          <tr
+            itemprop="additionalProperty"
+            itemscope=""
+            itemtype="http://schema.org/PropertyValue"
+          >
+            <th
+              itemprop="name"
+            >
+              Alcohol %
+            </th>
+            <td
+              itemprop="value"
+            >
+              80 proof
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>,
+  <div>
+    <div
+      class="el-mblayouts-sg _pad_sides"
+    >
+      <span>
+        <h2
+          class="elMBText elMBText_ResetSpacing"
+        >
+          $5 off your first order
+        </h2>
+        <span>
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class="elMBDynamicIcon__white"
+              height="25"
+              viewBox="0 0 32 32"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M2.1 24.734l-.419-.518 8.539-6.906.42.518-8.54 6.906zm19.163-6.906l.42-.518 8.538 6.906-.419.518-8.539-6.906zM15.951 18.36L29.802 7.157l.42.519-14.27 11.542L1.681 7.676l.418-.519z"
+                />
+                <path
+                  d="M1.917 8.077v16.01c0 .36.3.661.67.661h26.657c.37 0 .67-.297.67-.66V8.077c0-.361-.302-.661-.67-.661H2.586c-.37 0-.67.297-.67.66zm-.667 0c0-.733.6-1.327 1.336-1.327h26.658c.738 0 1.336.6 1.336 1.327v16.01c0 .733-.6 1.328-1.336 1.328H2.586c-.738 0-1.336-.6-1.336-1.328V8.077z"
+                />
+              </g>
+            </svg>
+          </div>
+          <p
+            class="elMBText_P elMBText elMBText_ResetSpacing"
+          >
+            Join our email list to get exclusive deals, giveaways, cocktail recipes and more.
+          </p>
+        </span>
+      </span>
+      <span>
+        <div>
+          <input
+            class="elMBInput"
+            id="email-capture-section-input"
+            placeholder="Email address"
+            type="email"
+            value=""
+          />
+        </div>
+        <button
+          class="elMBButton elMBButton__Action elMBButton__Medium email_capture_section__SubmitButton"
+          disabled=""
+        >
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class="elMBDynamicIcon__white"
+              height="25"
+              viewBox="0 0 32 32"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M24 14.5v3H5v-3z"
+                />
+                <path
+                  d="M22.97 15.97l-8.06-8.564 2.184-2.057 9.996 10.62-9.996 10.621-2.184-2.056z"
+                />
+              </g>
+            </svg>
+          </div>
+        </button>
+      </span>
+    </div>
+  </div>,
+]
+`;
+
+exports[`ProductDetailScene renders unavailable panel when the product grouping is internal but has no variants 1`] = `
+Array [
+  <div
+    class="el-mblayouts-sg _pad_sides"
+  >
+    <ol>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/"
+        >
+          home
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer"
+        >
+          beer
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer/beer-domestic"
+        >
+          beer-domestic
+        </a>
+      </li>
+      <li>
+        <span
+          class="elMBText elMBText_ResetSpacing"
+        >
+           › 
+        </span>
+      </li>
+      <li>
+        <a
+          class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+          href="/store/category/beer/beer-domestic/beer-domestic-lager"
+        >
+          beer-domestic-lager
+        </a>
+      </li>
+    </ol>
+  </div>,
+  <div
+    class="row"
+    itemscope=""
+    itemtype="https://schema.org/Product"
+  >
+    <div
+      class="large-6 medium-5 column product-image center"
+    >
+      <img
+        alt="Budweiser Light"
+        itemprop="image"
+        src="https://placeholdit.imgix.net/~text?txtsize=33&txt=full&w=720&h=800"
+      />
+    </div>
+    <div
+      class="large-6 medium-7 small-12 column product-actions"
+    >
+      <h2
+        class="elMBText elMBText_ResetSpacing product-detail__brand-name"
+        itemprop="brand"
+      >
+        <a
+          href="/store/brand/budweiser"
+        >
+          Budweiser
+        </a>
+      </h2>
+      <h1
+        class="elMBText product-detail__product-name"
+        itemprop="name"
+      >
+        <a
+          href="/store/product/budweiser-light-2"
+          itemprop="url"
+        >
+          Budweiser Light
+        </a>
+      </h1>
+      <div
+        class="panel__wrapper"
+      >
+        <div
+          class="panel--unavailable"
+        >
+          <p
+            class="panel--pdp--message"
+          >
+            This product is not available at your address.
+          </p>
+          <a
+            class="link-generic button"
+            href="/store/category/beer"
+          >
+            See More
+          </a>
+        </div>
+      </div>
+      <p
+        class="p1 product-description"
+        itemprop="description"
+      >
+        It is beer! You can drink it!
+      </p>
+      <table
+        class="properties properties--product-detail"
+      >
+        <tbody>
+          <tr
+            itemprop="additionalProperty"
+            itemscope=""
+            itemtype="http://schema.org/PropertyValue"
+          >
+            <th
+              itemprop="name"
+            >
+              Alcohol %
+            </th>
+            <td
+              itemprop="value"
+            >
+              80 proof
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>,
+  <div
+    class="cmContentLayout__Loading"
+  />,
+  null,
+  <div>
+    <div
+      class="el-mblayouts-sg _pad_sides"
+    >
+      <span>
+        <h2
+          class="elMBText elMBText_ResetSpacing"
+        >
+          $5 off your first order
+        </h2>
+        <span>
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class="elMBDynamicIcon__white"
+              height="25"
+              viewBox="0 0 32 32"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M2.1 24.734l-.419-.518 8.539-6.906.42.518-8.54 6.906zm19.163-6.906l.42-.518 8.538 6.906-.419.518-8.539-6.906zM15.951 18.36L29.802 7.157l.42.519-14.27 11.542L1.681 7.676l.418-.519z"
+                />
+                <path
+                  d="M1.917 8.077v16.01c0 .36.3.661.67.661h26.657c.37 0 .67-.297.67-.66V8.077c0-.361-.302-.661-.67-.661H2.586c-.37 0-.67.297-.67.66zm-.667 0c0-.733.6-1.327 1.336-1.327h26.658c.738 0 1.336.6 1.336 1.327v16.01c0 .733-.6 1.328-1.336 1.328H2.586c-.738 0-1.336-.6-1.336-1.328V8.077z"
+                />
+              </g>
+            </svg>
+          </div>
+          <p
+            class="elMBText_P elMBText elMBText_ResetSpacing"
+          >
+            Join our email list to get exclusive deals, giveaways, cocktail recipes and more.
+          </p>
+        </span>
+      </span>
+      <span>
+        <div>
+          <input
+            class="elMBInput"
+            id="email-capture-section-input"
+            placeholder="Email address"
+            type="email"
+            value=""
+          />
+        </div>
+        <button
+          class="elMBButton elMBButton__Action elMBButton__Medium email_capture_section__SubmitButton"
+          disabled=""
+        >
+          <div
+            class="elMBDynamicIcon"
+          >
+            <svg
+              class="elMBDynamicIcon__white"
+              height="25"
+              viewBox="0 0 32 32"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M24 14.5v3H5v-3z"
+                />
+                <path
+                  d="M22.97 15.97l-8.06-8.564 2.184-2.057 9.996 10.62-9.996 10.621-2.184-2.056z"
+                />
+              </g>
+            </svg>
+          </div>
+        </button>
+      </span>
+    </div>
+  </div>,
+]
+`;

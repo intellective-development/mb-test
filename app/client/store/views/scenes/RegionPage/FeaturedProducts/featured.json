@@ -1,0 +1,40 @@
+{
+  "product_groupings": [
+    {
+      "id": 33727,
+      "name": "Veuve Clicquot Yellow Label",
+      "permalink": "veuve-clicquot-yellow-label",
+      "thumb_url": "https://cdn.minibardelivery.com/products/304164/small/b890dc09-0129-445e-964e-ed069e4107abveuveclicquot-yellowlabel-150-nk-t-st-eretailkit-1_preview.jpg"
+    },
+    {
+      "id": 33277,
+      "name": "Tito's Handmade Vodka",
+      "permalink": "tito-s-handmade-vodka",
+      "thumb_url": "https://cdn.minibardelivery.com/products/150648/small/Primary_1L_(1).jpg"
+    },
+    {
+      "id": 36822,
+      "name": "Apothic Red",
+      "permalink": "apothic-red",
+      "thumb_url": "https://cdn.minibardelivery.com/products/82810/small/apothic.jp.jpg"
+    },
+    {
+      "id": 34346,
+      "name": "Bulleit Bourbon",
+      "permalink": "bulleit-bourbon",
+      "thumb_url": "https://cdn.minibardelivery.com/products/320691/small/retr9cxxg5.jpg"
+    },
+    {
+      "id": 45870,
+      "name": "Stella Artois",
+      "permalink": "stella-artois",
+      "thumb_url": "https://cdn.minibardelivery.com/products/324145/small/stella_artois_12oz_bottle.jpg"
+    },
+    {
+      "id": 34735,
+      "name": "Whispering Angel Rosé",
+      "permalink": "whispering-angel-rose",
+      "thumb_url": "https://cdn.minibardelivery.com/products/80824/small/722a540e91.jpg"
+    }
+  ]
+}

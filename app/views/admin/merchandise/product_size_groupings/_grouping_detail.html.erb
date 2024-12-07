@@ -1,0 +1,28 @@
+<div class="row" itemscope itemtype="http://schema.org/Product" data-product-type="<%= @product_grouping.product_type_id %>" data-product-permalink="<%= @product_grouping.permalink %>" id="product-container" data-enhanced-content="<%= @product_grouping.product_content.present? %>">
+  <div class="large-6 medium-5 column product-image center">
+    <img src="<%= @product_grouping.view.image_url(:product) %>" align="center" alt="<%= @product_grouping.name %>" itemprop="image">
+  </div>
+  <div class="large-6 medium-7 small-12 column product-actions">
+    <h1 class="heading-1" itemprop="name"><%= @product_grouping.name %></h1>
+    <div class="panel__wrapper small-12 columns">
+      <div class="panel--adress-entry">
+        &nbsp;
+      </div>
+    </div>
+    <p class="p1" itemprop="description"><%= simple_format(@product_grouping.description) %></p>
+    <table class="properties">
+      <% unless @product_grouping.hierarchy_type_id.nil? %>
+      <tr>
+        <th>Type</th>
+        <td><%= @product_grouping.hierarchy_type_name.titleize %></td>
+      </tr>
+      <% end %>
+      <% @product_grouping.product_properties.visible.each do |pp| %>
+        <tr>
+          <th><%= pp.display_name %></th>
+          <td><%= pp.description %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

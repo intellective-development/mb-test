@@ -1,0 +1,29 @@
+<%= error_messages_for 'digital_packing_slip_placement' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <div>
+        <label>Title</label>
+        <%= form.text_field :title %>
+      </div>
+      <div>
+        <label>Tag</label>
+        <%= form.select :tag, DigitalPackingSlipPlacement.tags.keys.map {|tag| [tag.to_s.humanize, tag]} %>
+      </div>
+      <div>
+        <label>Link</label>
+        <%= form.text_field :link %>
+      </div>
+      <div>
+        <label>Description</label>
+        <%= form.text_area :description %>
+      </div>
+      <div>
+        <label>Image</label>
+        <% image = form.object.image %>
+        <%= image_tag(image.url, width: 300, height: 300) if image.present? %>
+        <%= form.file_field :image %>
+      </div>
+    </div>
+  </div>
+</fieldset>

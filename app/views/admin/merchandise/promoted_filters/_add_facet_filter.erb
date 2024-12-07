@@ -1,0 +1,9 @@
+<div id="newFacetFilter" class="reveal-modal" data-reveal>
+  <h2> Create new Facet Filter for <%=@promoted_filter.product_type.name%> </h2>
+  <ul class="validation-errors"></ul>
+  <%= form_for @promoted_filter, url: add_facet_filter_admin_merchandise_promoted_filter_path(@promoted_filter) do |vf| %>
+    <%= render partial: 'facet_promoted_filter_fields', locals: {facet_filter_key: 'value', is_new: true, index: 0} %>
+    <%= vf.submit "Save", class: "button", id:"create_product_button" %>
+  <% end %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

@@ -1,0 +1,39 @@
+<% content_for :auth_tokens, true %>
+<h1> Edit Coupon </h1>
+<% if @coupon.type == 'CouponDecreasingBalance' %>
+  <%= "Current balance: #{@coupon.balance.round_at(2)}" %>
+<% end %>
+
+<%= simple_form_for(@coupon, :as => :coupon, :url => admin_generic_coupon_path(@coupon)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to 'Show', admin_generic_coupon_path( @coupon ), :class => 'button' %> |
+<%= link_to 'View All', admin_generic_coupons_path, :class => 'button' %>
+
+<script>
+
+  $(document).ready(function(){
+    function hideTierAmount() {
+      $(".tier-percent-field").show();
+      $(".tier-amount-field").hide();
+    }
+
+    function hideTierPercent() {
+      $(".tier-percent-field").hide();
+      $(".tier-amount-field").show();
+    }
+
+    function hideTierFields() {
+      let couponType = $("#c_type").html();
+      if ("CouponTiered" === couponType ){
+        hideTierAmount();
+      }else if ("CouponTieredDecreasingBalance" === couponType){
+        hideTierPercent();
+      }
+    }
+
+    hideTierFields();
+  })
+
+</script>

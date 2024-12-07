@@ -1,0 +1,28 @@
+<% if order.shipments.map(&:tracking_updates).flatten.present? %>
+  <div class="row">
+    <div class='large-12 column panel'>
+      <h4>Tracking Updates</h4>
+        <% order.shipments.each do |shipment| %>
+          <% next if shipment.tracking_updates.empty? %>
+          <hr>
+          <h5><%= shipment.supplier.name %>
+            <small>
+              <a onclick="toggle_component('tu-content-<%= shipment.id %>')">
+                Show more +
+              </a>
+            </small>
+          </h5>
+          <ul id="tu-content-<%= shipment.id %>" style="display: none">
+            <table>
+              <% shipment.tracking_updates.order(checkpoint_time: :desc).each do |update| %>
+                <tr>
+                  <td style="width: 0"><nobr><%= localize(update.checkpoint_time, format: :us_time) %></nobr></td>
+                  <td><strong><%= update.message %></strong></td>
+                </tr>
+              <% end %>
+            </table>
+          </ul>
+        <% end %>
+    </div>
+  </div>
+<% end %>

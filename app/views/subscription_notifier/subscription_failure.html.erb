@@ -1,0 +1,41 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you are enrolled in auto-refill with Minibar Delivery' %>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @subscription.user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Your delivery scheduled for <%= format_time_range(@subscription.next_order_date, 120, @order.shipments.first.supplier.timezone ) %> had an error while being processed.
+                          <br><br>
+                          For more information, please don’t hesitate to reach out! You can email <a class="text-link" href="mailto:help@minibardelivery.com">help@minibardelivery.com</a> or call us at <a class="text-link" href="tel:+18554870740">(855) 487-0740</a>.
+                        </p><br/>
+                        <p class="indent dark small">
+                        Cheers, <br/>
+                        Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

@@ -1,0 +1,111 @@
+@import "../style/variables";
+
+// this is still somewhat relying on the global button styles
+// prefixed with button to help with some stuff
+.elMBButton {
+  outline: none; // turn off default system interaction styles
+  // from .button
+  -webkit-appearance: none;
+  border: 1px solid $brand-black;
+  border-radius: 4px;
+  color: $brand-white;
+  cursor: pointer;
+  font-family: $font-family-avenir;
+  font-weight: $heavy-font-weight;
+  line-height: 1.3em;
+  margin: 0;
+  padding-bottom: 0.75em;
+  padding-top: 0.875em;
+  text-transform: uppercase;
+  transition: background-color 300ms ease-out, border-color 300ms ease-out;
+
+  &:focus {
+    color: initial;
+    background-color: initial;
+  }
+}
+
+.elMBButton__Default {
+  @include pixel-antialiased;
+  @include button-disabled-color(
+    $brand-black, // unchanged
+    $brand-black, // unchanged
+    $brand-white, // unchanged
+    0.8
+  );
+
+  background-color: $brand-black;
+  border-color: $brand-black;
+  color: $brand-white;
+
+  &:hover,
+  &:active {
+    background-color: lighten($brand-black, 20%);
+    border-color: lighten($brand-black, 20%);
+  }
+}
+
+.elMBButton__Hollow {
+  @include button-disabled-color(
+    $brand-transparent, // unchanged
+    desaturate($brand-black, 40%),
+    desaturate($brand-black, 40%)
+  );
+  background-color: $brand-transparent;
+  border-color: $brand-black;
+  color: $brand-black;
+
+  &:hover,
+  &:active {
+    background-color: $brand-pale-blue;
+    color: $brand-black;
+  }
+}
+
+.elMBButton__Action {
+  @include pixel-antialiased;
+  @include button-disabled-color(
+    desaturate($brand-red, 70%),
+    desaturate($brand-red, 70%),
+    $brand-white // unchanged
+  );
+
+  background: $brand-red;
+  border-color: $brand-red;
+  color: $brand-white;
+
+  &:hover,
+  &:active {
+    background-color: lighten($brand-red, 10%);
+    border-color: lighten($brand-red, 10%);
+  }
+}
+
+// TODO: consolidate medium/tall, they're the default size
+.elMBButton__Medium {
+  @include font-size(14);
+
+  letter-spacing: 0.125rem;
+}
+
+.elMBButton__Tall {
+  @include font-size(14);
+
+  letter-spacing: 0.125rem;
+  min-height: 48px;
+}
+
+.elMBButton__Small {
+  @include font-size(13);
+
+  letter-spacing: 0;
+
+  // goal is 32px tall
+  min-height: 32px;
+  padding: 0.6em 1.125em 0.35em;
+  text-transform: capitalize;
+}
+
+.elMBButton__Expand {
+  width: 100%;
+}

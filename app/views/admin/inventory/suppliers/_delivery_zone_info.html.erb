@@ -1,0 +1,86 @@
+<div id="sm-<%= shipping_method.id %>" class="content shipping_method-tab" data-sm-id="<%= shipping_method.id%>">
+  <div class="row">
+    <% if shipping_method.on_demand? %>
+      <div class="large-12 column">
+        <%= form_tag("/admin/inventory/shipping_methods/" + shipping_method.id.to_s + "/zip_codes", method: "post") do %>
+          <div class="large-3 column">
+            <%= label_tag(:zip_code, "Add zone by zipcode:") %>
+          </div>
+          <div class="large-6 column">
+            <%= text_field_tag(:zip_code) %>
+          </div>
+          <div class="large-3 column">
+            <%= submit_tag("Add Delivery Zone", class: "button") %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="large-12 column">
+    <div class="delivery-zone-editor" id="delivery-zone-editor-<%= shipping_method.id %>"></div>
+  </div>
+    <script type="text/javascript">
+
+    var component_config_block = component_config_block || [];
+
+    component_config_block.push(
+     {
+        selector: "<%= "delivery-zone-editor-#{shipping_method.id}" %>",
+        component: 'DeliveryZoneEditor',
+        options: {
+          lat: <%= shipping_method.supplier.address.latitude %>,
+          lng: <%= shipping_method.supplier.address.longitude %>,
+          shipping_method_id: <%= shipping_method.id %>,
+          supplier_id: <%= shipping_method.supplier.id %>,
+          use_delivery_zone_state: <%= shipping_method.shipped? %>
+        }
+      }
+    );
+  </script>
+
+  <%= simple_form_for shipping_method, remote: true, url: admin_inventory_shipping_method_path(shipping_method) do |ff| %>
+    <div class="row">
+      <div class="large-5 column">
+        <fieldset>
+          <legend>Delivery Hours</legend>
+          <% ff.object.delivery_hours_grouped.each do |wday, delivery_hours_arr| %>
+            <% delivery_hours_arr.each_with_index do |delivery_hours, idx| %>
+              <%= ff.fields_for delivery_hours, index: delivery_hours.id do |dhf| %>
+              <div class="row">
+                <div class="small-3 column"><%= dhf.label(idx == 0 ? I18n.t(:'date.day_names').fetch(DeliveryHours.days_of_week.index(wday)) : "​") %></div>
+                <div class="small-3 column"><%= dhf.hidden_field :wday %></div>
+                <div class="small-4 column"><%= dhf.text_field :starts_at, class: 'ui-timepicker' %></div>
+                <div class="small-4 column"><%= dhf.text_field :ends_at, class: 'ui-timepicker' %></div>
+
+                <div class="small-1 column" style="height:34px;display:flex;align-items:center;">
+                <% if idx == 0 %>
+                <%= link_to '➕', '#',  remote: true, class: "add-hours-row" %>
+                <% else %>
+                <%= link_to '❌', '#',  remote: true, class: "remove-hours-row" %>
+                <% end %>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </fieldset>
+      </div>
+      <div class="large-7 column">
+        <fieldset>
+          <legend>Delivery Breaks</legend>
+          <%= ff.simple_fields_for :delivery_breaks, shipping_method.delivery_breaks.without_supplier_breaks.upcoming do |delivery_break| %>
+            <%= render partial: '/admin/inventory/suppliers/delivery_breaks', locals: {delivery_break: delivery_break, ff: ff, disabled: 'disabled'} %>
+          <% end %>
+          <%= ff.simple_fields_for :delivery_breaks, shipping_method.delivery_breaks.build(shipping_methods: shipping_method) do |delivery_break| %>
+            <%= render partial: '/admin/inventory/suppliers/delivery_breaks', locals: {delivery_break: delivery_break, ff: ff, disabled: false} %>
+          <% end %>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <%= render partial: 'admin/inventory/suppliers/shipping_method_form', locals: { form: ff, shipping_method: shipping_method } %>
+    </div>
+  <% end %>
+  <%= render 'admin/inventory/suppliers/modal_address_covered_promotion', shipping_method: shipping_method %>
+</div>

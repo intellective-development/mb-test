@@ -1,0 +1,44 @@
+<table align="center" class="row cart-abandon_pre-product-module">
+  <tbody>
+    <tr>
+      <td>
+
+        <th class="small-12 large-12 columns first last">
+          <table>
+            <tr>
+              <th class="float-center">
+                <center data-parsed="">
+                  <table class="cart-abandon-offer_container">
+                    <tr>
+                      <td class="cart-abandon-offer_icon_spacer">
+                        <table class="cart-abandon-offer_icon-container">
+                          <tr>
+                            <td>
+                              <img src="<%= @offer[:image_url] %>" class="cart-abandon-offer_icon">
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td>
+                        <table class="cart-abandon-offer_copy-container">
+                          <tr>
+                            <td class="cart-abandon-offer_copy">
+                              <p class="cart-abandon-offer_headline">SPECIAL OFFER</p>
+                              <p class="cart-abandon-offer_body"><%= sanitize format_abandon_cart_offer(@offer) %></p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </center>
+              </th>
+              <th class="expander"></th>
+            </tr>
+          </table>
+        </th>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

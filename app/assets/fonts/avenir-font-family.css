@@ -1,0 +1,83 @@
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 300;
+  src: url("./avenir-300-light-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 300;
+  src: url("./avenir-300-light-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 400;
+  src: url("./avenir-400-book-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 400;
+  src: url("./avenir-400-book-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 500;
+  src: url("./avenir-500-roman-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 500;
+  src: url("./avenir-500-roman-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 600;
+  src: url("./avenir-600-medium-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 600;
+  src: url("./avenir-600-medium-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 700;
+  src: url("./avenir-700-heavy-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 700;
+  src: url("./avenir-700-heavy-oblique.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 800;
+  src: url("./avenir-800-black-normal.woff") format("woff");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: oblique;
+  font-weight: 800;
+  src: url("./avenir-800-black-oblique.woff") format("woff");
+}

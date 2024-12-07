@@ -1,0 +1,33 @@
+<li>
+  <p>
+    <strong><%= adjustment.reason_name %><%= " - #{adjustment.coupon? ? 'Gift Card' : 'Credit Card'}" if adjustment.adjustment_type.present? %></strong>
+    <% if adjustment.financial? && adjustment.amount.to_f > 0 %>
+      <br>
+      <% if adjustment.credit %>
+        Customer refunded <strong><%= number_to_currency(adjustment.amount) %></strong>.
+      <% else %>
+        Customer charged additional <strong><%= number_to_currency(adjustment.amount) %></strong>.
+      <% end %>
+    <% elsif !adjustment.financial? && adjustment.amount.to_f > 0 %>
+      (<%= number_to_currency(adjustment.amount) %>)
+    <% end %>
+
+    <br>
+    <% if adjustment.description.present? %>
+      <%= adjustment.description %>
+      <br>
+    <% end %>
+
+    <small>On <%= adjustment.created_at.strftime('%R %D') %> by <%= adjustment.user.try(:email) %>.</small>
+
+  <% if adjustment.braintree? && adjustment.financial? %>
+    <small>
+    <% if adjustment.processed? %>
+      This has been processed.
+    <% else %>
+      This has not yet been processed. If this is a credit then it will be processed once the transaction has settled.'
+    <% end %>
+    </small>
+  <% end %>
+  </p>
+</li>

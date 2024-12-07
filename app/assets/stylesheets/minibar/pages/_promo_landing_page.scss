@@ -1,0 +1,82 @@
+.promo-page {
+  background-attachment: fixed;
+  background-color: #d9d9d9;
+  background-image: url(image_path('components/promo_landing_page/bg.jpg'));
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  #address-container {
+    margin-top: 20px;
+  }
+  h2.blurb {
+    padding: 0 77px;
+    margin-bottom: 2px;
+    @media screen and (max-width: $small-max-width) {
+      padding: 0 24px;
+    }
+  }
+  .floating-logo {
+    margin: 0 auto;
+    img {
+      margin-top: em-calc(24);
+    }
+  }
+  .legal-thin {
+    color: #a2a2a1;
+    font-size: 12px;
+    a {
+      color: inherit;
+    }
+  }
+  p.p1 {
+    margin-bottom: 2px;
+  }
+  .promo-code {
+    color: $brand-red;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  h4 {
+    line-height: 28px;
+    @media screen and (max-width: $small-max-width) {
+     line-height: 34px;
+     font-size: 1.2em;
+   }
+  }
+  h5 {
+    line-height: 20px;
+  }
+  @media screen and (min-width: $medium-min-width) {
+    h5 {
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (max-width: $small-max-width) {
+    h2 {
+      padding: 0 !important;
+    }
+  }
+  input {
+    border-color: #e6e6e6;
+    height: 48px;
+  }
+  #address-button {
+    margin-left: 0px;
+  }
+  #value-props {
+    span {
+      text-shadow: none;
+    }
+  }
+  @media screen and (max-width: $small-max-width) {
+    #fast-delivery-value-prop {
+      border-bottom: 1px solid #e6e6e6;
+    }
+    #app-download-buttons {
+      img {
+        margin-top: 5px;
+      }
+    }
+  }
+}

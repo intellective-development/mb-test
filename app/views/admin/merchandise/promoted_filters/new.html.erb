@@ -1,0 +1,11 @@
+<% content_for :title, 'Create Promoted Filter' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<h3>New Promoted Filter</h3>
+
+<%= form_for @promoted_filter, :url  => admin_merchandise_promoted_filters_path do |form| %>
+  <%= render :partial => '/admin/merchandise/promoted_filters/form', :locals => {:form => form } %>
+  <div class=" generic_submit_button">
+    <%= submit_tag "Create", :class => "button", :id => "create_promoted_filters_button" %>
+  </div>
+<% end %>

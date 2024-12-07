@@ -1,0 +1,79 @@
+<div id="modal-message" class="reveal-modal" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <%= form_for('message', url: send_message_admin_fulfillment_order_path(order), method: :post, html: { id: "send_message_form" }) do |f| %>
+    <table class="table-message">
+      <tr>
+        <th>To</th>
+        <td><%= order.user_name %> &lt;<%= order.storefront.default_storefront? ? order.user_email : order.email %>&gt;</td>
+      </tr>
+      <tr>
+        <th>From</th>
+        <td><%= order.storefront.name %> &lt;<%= order.storefront.support_email %>&gt;</td>
+      </tr>
+      <tr>
+        <th>Subject</th>
+        <td>Your <%= order.storefront.name %> Order (#<%= order.number %>)</td>
+      </tr>
+      <tr>
+        <th>Macro Message</th>
+        <td><%= f.select :macro_message, ([['Select to replace body...', '0']] + MacroMessage.all.order(:name).pluck(:name, :id)) %></td>
+      </tr>
+      <tr>
+        <th>Body</th>
+        <td>
+          <%= f.text_area :message, { class: 'macro-tinymce' } %>
+          <%= f.hidden_field :text_message %>
+        </td>
+      </tr>
+      <tr>
+        <th>Supplier</th>
+        <td><%= f.select :shipment, order.shipments.map{ |s| ["#{s.supplier.name}", s.id] }, prompt: order.shipments.count > 1 ? "All" : false %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <%= f.submit 'Send Message'%>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>
+
+<%= render 'shared/macro_message_wysiwyg', { wait_for_click: true } %>
+
+<script type="text/javascript">
+  // insert macro message HTML into body on select
+
+  $('#message_macro_message').on('change', function() {
+    var messageId = $('#message_macro_message').val();
+    if (messageId === '0') { return; }
+    $.ajax({
+      type: 'GET',
+      url: '/admin/config/macro_messages/' + messageId + '/content',
+      dataType: 'JSON',
+      complete: function(data) {
+        var content = data.responseJSON.text;
+
+        var editor = tinyMCE.get('message_message');
+        editor.setContent(content);
+      }
+    });
+  })
+
+  // export content as text so we can add it on a note
+  $('#send_message_form').on('submit', function(e) {
+    if ($('#message_shipment option:selected').text()=="All")
+    {
+      confirm_option = confirm ('Are you sure you want to notify all suppliers?');
+      if (confirm_option == false)
+        return confirm_option
+    }
+    var editor = tinyMCE.get('message_message');
+    var textContent = editor.getContent({format: "text"})
+    $('#message_text_message').val(textContent);
+  })
+
+  new SlimSelect({
+    select: '#message_macro_message',
+  })
+</script>

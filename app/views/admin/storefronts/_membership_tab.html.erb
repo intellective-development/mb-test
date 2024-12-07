@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="large-6 column">
+    <%= form.fields_for :membership_plans, @membership_plan do |subform| %>
+      <div>
+        <%= subform.check_box :state, {}, 'active', 'inactive' %>
+        <%= subform.label 'Enable Membership Signup', for: :storefront_membership_plans_enable_membership_signup %>
+      </div>
+      <div>
+        <label>Name</label>
+        <%= subform.text_field :name %>
+      </div>
+      <div>
+        <label>Price</label>
+        <%= subform.number_field :price, step: 0.01 %>
+      </div>
+      <div>
+        <label>Engraving Percent Off</label>
+        <%= subform.number_field :engraving_percent_off, step: 0.01 %>
+      </div>
+      <div>
+        <label>Free On-Demand Fulfillment Threshold</label>
+        <%= subform.number_field :free_on_demand_fulfillment_threshold, step: 0.01 %>
+      </div>
+      <div>
+        <label>Free Shipping Fulfillment Threshold</label>
+        <%= subform.number_field :free_shipping_fulfillment_threshold, step: 0.01 %>
+      </div>
+      <div>
+        <%= subform.check_box :no_service_fee %>
+        <%= subform.label 'No Service Fee', for: :no_service_fee %>
+      </div>
+      <div>
+        <%= subform.check_box :trial_period %>
+        <%= subform.label 'Include Trial Period', for: :trial_period %>
+      </div>
+      <div>
+        <%= subform.label 'Trial duration', for: :no_service_fee %>
+        <%= subform.number_field :trial_duration, step: 1 %>
+        <%= subform.select :trial_duration_unit, human_enum_options(MembershipPlan.trial_duration_units) %>
+      </div>
+    <% end %>
+  </div>
+</div>

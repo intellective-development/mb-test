@@ -1,0 +1,16 @@
+// Manifest of style configuration from app/assets.
+// Allows this stylesheet to act as a bridge between app/assets and the css modules.
+@import "../../../../assets/stylesheets/minibar/_variables";
+@import "../../../../assets/stylesheets/minibar/_mixins";
+
+@function mb-image-path($base_image_path) {
+  @if ($node-env == 'development') {
+    // In development, we recreate the rails asset helper
+    @return "assets/#{$base_image_path}";
+  }
+  @else {
+    // Otherwise, we rewrap the path with the name of the rails asset helper.
+    // This will remain unchanged by the css modules, and will be transformed by the asset pipeline.
+    @return #{image-path('#{$base_image_path}')};
+  }
+}

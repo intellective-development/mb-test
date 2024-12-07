@@ -1,0 +1,40 @@
+<% content_for :title, 'Coupons' %>
+<div class="admin_title_header clearfix">
+  <h3>Bulk Coupons</h3>
+  <div style="text-align:center">
+    <%= link_to "New Bulk", new_admin_generic_bulk_coupon_path, :class => 'button' %>
+  </div>
+</div>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>Type</th>
+    <th>Start At</th>
+    <th>Expires At</th>
+    <th>Amount</th>
+    <th>Quantity</th>
+    <th>Description</th>
+    <th>Storefront</th>
+    <th>User</th>
+    <th>Generated At</th>
+    <th></th>
+  </tr>
+  </thead>
+  <% @bulk_coupons.each do |bulk_coupon| %>
+    <tr>
+      <td><%= bulk_coupon.coupon_type %></td>
+      <td><%= bulk_coupon.starts_at %></td>
+      <td><%= bulk_coupon.expires_at %></td>
+      <td><%= bulk_coupon.amount %></td>
+      <td><%= bulk_coupon.quantity %></td>
+      <td><%= bulk_coupon.description %></td>
+      <td><%= bulk_coupon.storefront&.name %></td>
+      <td><%= bulk_coupon.user&.email %></td>
+      <td><%= bulk_coupon.created_at.to_date.strftime('%m/%d/%Y') %></td>
+      <td>
+        <%= link_to "Download", csv_admin_generic_bulk_coupon_path(bulk_coupon), method: :post %>
+      </td>
+    </tr>
+  <% end %>
+</table>

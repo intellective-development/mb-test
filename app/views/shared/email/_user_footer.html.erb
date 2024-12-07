@@ -1,0 +1,29 @@
+<table class="container footer-legal"><!-- FOOTER BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table align="center" class="twelve columns">
+              <tr>
+                <td align="center">
+                  <center>
+                    <p class="text-legal indent-major no-bottom center">
+                      <a class="text-legal" href="https://minibardelivery.com/terms">Terms of Service</a> | <a class="text-legal" href="https://minibardelivery.com/privacy">Privacy Policy</a></p>
+                    <% if additional_legal %>
+                      <p class="text-legal indent-major no-vertical center"><%= additional_legal %></p>
+                    <% end %>
+                    <p class="text-legal indent-major no-vertical center">You are receiving this email because <%= reason %></p>
+                    <p class="text-legal indent-major no-top center">These services are not affiliated with the MINIBAR restaurant or Jose Andres.</p>
+                    <p class="text-legal indent-major no-top center">&copy; <%= Time.zone.now.year %> ReserveBar Express Corp., All Rights Reserved &mdash;  Made in NYC</p>
+                  </center>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table><!-- FOOTER END -->

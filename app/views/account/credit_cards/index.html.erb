@@ -1,0 +1,43 @@
+<% content_for :store, false %>
+<% content_for :standard_template, true %>
+<% content_for :title, 'Credit Cards' %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class="title-bar">
+  <div class="row">
+    <div class="large-12 column center">
+      <h1 class="heading-title">Credit Cards</h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-3 medium-3 column nav-column">
+    <%= render partial: 'account/shared/navigation' %>
+  </div>
+  <div class="large-9 medium-9 column">
+    <% if @credit_cards.empty? %>
+      <p class="lead">
+        You have no stored credit cards. You'll be able to add one when you checkout.
+      </p>
+    <% else %>
+      <table class="table-history">
+        <tr>
+          <th>Card Type</th>
+          <th>Card Number</th>
+          <th>Expiry</th>
+          <th></th>
+        </tr>
+        <% for credit_card in @credit_cards %>
+          <tr>
+            <td><%= credit_card.cc_type %><span class="card-history icon-card <%= credit_card.cc_type.downcase %>"></span></td>
+            <td>&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; <%= credit_card.last_digits %></td>
+            <td>
+              <%= credit_card.month %>/<%= credit_card.year %>
+            </td>
+            <td><%= link_to "Remove", account_credit_card_path(credit_card), data: { confirm: 'Are you sure?', method: :delete } %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>

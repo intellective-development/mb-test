@@ -1,0 +1,6 @@
+<%= form_for('delivered', url: update_deliver_admin_fulfillment_shipment_path(@shipment), method: :post) do |f| %>
+  <h3>Deliver Shipment</h3>
+  <%= I18n.t("admin.shipping_method.#{@shipment.shipping_type}") %> &mdash; <%= @shipment.supplier_name %> (<%= @shipment.item_count %> items)
+  <p>Are you sure in set this shipment as delivered?</p>
+  <%= f.submit 'Deliver Shipment' %>
+<% end %>

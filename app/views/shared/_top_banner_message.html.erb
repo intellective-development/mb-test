@@ -1,0 +1,10 @@
+<% if @top_banner_message && @top_banner_message.text? %>
+  <div class="top-banner">
+    <%= @top_banner_message.text.html_safe %>
+  </div>
+<% end %>
+<% if @popup_banner_message && @popup_banner_message.text? %>
+  <script>
+    window.PopupBanner = `<%= @popup_banner_message.text.html_safe %>`
+  </script>
+<% end %>

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBLink.Text renders 1`] = `
+<a
+  class="elMBText_A elMBText_A__Standard elMBText elMBText_ResetSpacing"
+  href="store/category/wine"
+>
+  Click me!
+</a>
+`;
+
+exports[`MBLink.View renders 1`] = `
+<a
+  href="store/category/wine"
+>
+  <div>
+    Click Me
+  </div>
+</a>
+`;

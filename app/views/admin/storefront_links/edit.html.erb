@@ -1,0 +1,8 @@
+<% content_for :title, 'Update Storefront link' %>
+<h3>Update Storefront link</h3>
+
+<%= form_for @storefront_link, url: admin_storefront_storefront_link_path(@storefront, @storefront_link), method: :put do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+
+  <%= submit_tag "Update", class: :button %>
+<% end %>

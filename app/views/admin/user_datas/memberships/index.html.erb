@@ -1,0 +1,78 @@
+<% content_for :title, 'Memberships' %>
+<h3>Memberships</h3>
+
+<% content_for :sidemenu do %>
+  <div style="text-align:center">
+    <%= link_to 'New Memberships', new_admin_user_datas_membership_path, class: 'button', id: 'new_membership_button' %>
+  </div>
+  <div class="admin_filters panel">
+    <%= form_tag admin_user_datas_memberships_path, method: 'get', id: 'memberships_search' do %>
+      <label>First Name</label>
+      <%= text_field_tag :first_name, params[:first_name] %>
+
+      <label>Last Name</label>
+      <%= text_field_tag :last_name, params[:last_name] %>
+
+      <label>Email</label>
+      <%= text_field_tag :email, params[:email] %>
+
+      <label>Phone</label>
+      <%= text_field_tag :phone, params[:phone] %>
+
+      <label>Storefront</label>
+      <%= select_tag :storefront_id, options_for_select(storefronts_dropdown_items, params[:storefront_id]), prompt: 'Select storefront' %>
+
+      <label>Search</label>
+      <%= text_field_tag :search, params[:search] %>
+
+      <div style='text-align:center'>
+        <%= submit_tag 'Search', name: nil, class: 'button' %>
+      </div>
+      <p><small>Use the search field if you are looking for Braintree emails, addresses or referral codes.</small></p>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="" class='pretty_table'>
+  <table>
+    <tr class='odd'>
+      <thead>
+        <th><%= sortable 'first_name', 'Customer' %></th>
+        <th>Storefront</th>
+        <th>User ID</th>
+        <th>Payment Method</th>
+        <th><%= sortable 'created_at', 'Date created' %></th>
+        <th><%= sortable 'next_payment_at', 'Next payment date' %></th>
+        <th></th>
+      </thead>
+    </tr>
+    <% for membership in @memberships %>
+      <tr class='<%= cycle('odd', '')%>'>
+        <td>
+          <%= link_to membership.customer_name, admin_customer_path(membership.user)  %>
+          <br>
+          <small>
+            <strong>Membership state:</strong><br>
+            <strong><%= membership.state.humanize %></strong>
+            <% if membership.active? %>
+              &ndash;
+              <%= link_to 'Click to cancel', cancel_admin_user_datas_membership_path(membership), data: { confirm: 'Are you sure?' }, method: :put %>
+            <% end %>
+          </small>
+        </td>
+        <td><%= membership.storefront.name %></td>
+        <td><%= membership.user_id %></td>
+        <td><%= membership.payment_profile.payment_type %></td>
+        <td><%= membership.created_at&.strftime('%m/%d/%Y') %></td>
+        <td><%= membership.next_payment_at&.strftime('%m/%d/%Y') %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_user_datas_membership_path(membership), class: 'button tiny' %>
+          <% if membership.active? %>
+            <%= link_to 'Refund', refund_admin_user_datas_membership_path(membership), data: { confirm: 'Are you sure?' }, class: 'button tiny', method: :put %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<%= paginate @memberships %>

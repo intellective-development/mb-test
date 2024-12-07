@@ -1,0 +1,17 @@
+
+<fieldset>
+  <legend>Image - <%= add_child_link "New Image", :image %></legend>
+
+  <%= new_child_fields_template form, :image, :form_builder_local => :image_form, :partial => 'admin/merchandise/images/category/image' %>
+
+
+  <div id="product_images" class='span-16'>
+      <%- if image = @product_type.image %>
+      <div id='image_<%= image.id %>' class="variant_form left span-16 last">
+        <%= form.fields_for :image, image do |image_form| %>
+          <%= render 'admin/merchandise/images/category/image', :image_form => image_form %>
+        <% end %>
+      </div>
+      <%- end %>
+  </div>
+</fieldset>

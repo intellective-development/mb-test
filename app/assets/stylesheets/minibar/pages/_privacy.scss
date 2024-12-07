@@ -1,0 +1,39 @@
+.privacy-policy {
+  h1 {
+    letter-spacing: 1px;
+    font-weight: normal;
+  }
+  h2 {
+    font-size:1.3em;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom:0px;
+    margin-top:20px;
+    padding-top:20px;
+  }
+  p {
+   margin-bottom:5px;
+   color:#363736;
+  }
+  a {
+    color: #7b1315;
+    text-decoration: none;
+  }
+  .row ol {
+    padding-left: 2em;
+  }
+  li > ol > li{
+    list-style-type: lower-alpha;
+  }
+  li {
+    list-style: inherit;
+    padding-left:5px;
+  }
+  ul {
+    padding-left:2em;
+  }
+  ol ul {
+    padding-left:5px;
+  }
+}

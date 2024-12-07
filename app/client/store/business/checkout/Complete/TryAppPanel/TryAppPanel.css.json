@@ -1,0 +1,65 @@
+{
+  "a": {
+    "@media (max-width: 767px)": {
+      "flexDirection": "column"
+    },
+    "@media (min-width: 768px)": {
+      "flexDirection": "row"
+    },
+    "backgroundColor": "#fff",
+    "border": "1px solid rgba(0,0,0,.1)",
+    "boxSizing": "border-box",
+    "display": "flex",
+    "margin": "15px auto",
+    "maxWidth": 500,
+    "padding": "15px 15px 0"
+  },
+  "appstoreicon": {
+    "height": 40,
+    "width": 120
+  },
+  "appstorelink": {
+    "display": "inline-block",
+    "fontSize": 0
+  },
+  "b": {
+    "margin": "auto",
+    "maxHeight": 256,
+    "maxWidth": 200
+  },
+  "c": {
+    "maxHeight": 256,
+    "maxWidth": 200
+  },
+  "d": {
+    "display": "flex",
+    "flexDirection": "column",
+    "justifyContent": "center",
+    "padding": 15
+  },
+  "e": {
+    "fontSize": 12,
+    "fontWeight": 700,
+    "marginTop": 15,
+    "textTransform": "uppercase"
+  },
+  "f": {
+    "fontSize": 12,
+    "lineHeight": 1.5,
+    "margin": "10px 15px 10px 0"
+  },
+  "g": {
+    "fontWeight": 700
+  },
+  "h": {
+    "margin": "5px 0"
+  },
+  "playstoreicon": {
+    "height": 36,
+    "width": 120
+  },
+  "playstorelink": {
+    "display": "inline-block",
+    "fontSize": 0
+  }
+}

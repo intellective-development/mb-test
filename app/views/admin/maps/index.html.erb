@@ -1,0 +1,20 @@
+<h2>Delivery Coverage</h2>
+<label>
+  Jump to Supplier
+  <%= select_tag :supplier, grouped_options_for_select(supplier_location_dropdown_items, { prompt: 'Choose Supplier' } ) %>
+</label>
+<div class="map-container">
+  <div class="admin-loader">
+    <div class="loader-inner ball-clip-rotate">
+      <div></div>
+    </div>
+  </div>
+  <div id='map'></div>
+</div>
+
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'https://api.tiles.mapbox.com/mapbox.js/v3.3.1/mapbox.js' %>
+  <%= javascript_include_tag 'vendor/underscore' %>
+  <%= javascript_include_tag 'admin/combined_map' %>
+  <%= stylesheet_link_tag 'https://api.tiles.mapbox.com/mapbox.js/v3.3.1/mapbox.css' %>
+<% end %>

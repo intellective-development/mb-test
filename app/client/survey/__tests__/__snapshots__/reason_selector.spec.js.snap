@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReasonSelector renders 1`] = `
+<div
+  class="small-12 columns react-reasons-section false"
+>
+  <div
+    class="large-12 header"
+  >
+    What went wrong?
+  </div>
+  <div
+    class="react-reasons"
+  >
+    <div
+      class="reason"
+      role="button"
+      tabindex="0"
+    >
+      tasted bad
+    </div>
+    <div
+      class="reason selected"
+      role="button"
+      tabindex="0"
+    >
+      late delivery
+    </div>
+  </div>
+</div>
+`;

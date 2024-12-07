@@ -1,0 +1,333 @@
+<% content_for :hide_header, true %>
+<style type="text/css">
+  .order-details{
+    background-color:#ffffff;
+  }
+  .order-detail-row{
+    width:100%;
+  }
+  .order-detail-row .order-detail-container{
+    display:inline-block;
+    vertical-align: text-top;
+    width:30%;
+  }
+  .table-order{
+    border-width: 0px;
+  }
+  .header-row{
+    background-color:#ffffff;
+  }
+  .header-row h3,h4{
+    margin-top:20px;
+    margin-bottom: 0px;
+  }
+  .header-row h3{
+    font-size:27px;
+  }
+  .logo-top{
+    margin:10px 0px;
+  }
+
+  @media print {
+    div:not(.reveal-modal) {
+      display: block;
+    }
+    #print-button{
+      display: none;
+    }
+  }
+</style>
+<h4><a href="javascript:window.print()" id="print-button"> Print! </a></h4>
+  <div class="row">
+    <div class="small-12 columns text-center">
+      <% if @order.storefront.mobile_logo_file.present? %>
+        <%= image_tag @order.storefront.mobile_logo_file.url, style: 'width: 120px' %>
+      <% end %>
+    </div>
+    <div class="small-12 columns text-center">
+      <h2>Order #<%= @order.number.upcase %> </h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <p class="info"><strong>ID will be checked on delivery - minimum date of birth: <%= (21.years.ago).strftime('%B %e, %Y') %>.</strong></p>
+    </div>
+    <div class="small-12 columns">
+      <div id="section-contact">
+        <p>Is there a problem with this order? Contact our customer service team at <strong><%= @order.storefront.support_email %></strong>, or call <strong><%= @order.storefront.support_phone_number || I18n.t('support_phone') %></strong>.</p>
+      </div>
+    </div>
+  </div>
+  <% if @order.engraving? %>
+    <div class="row">
+      <div class="panel large-12 column">
+        <h3>Engraving Options</h3>
+        <% @order.engraving_items.each do |order_item| %>
+          <div class="row">
+            <div class="large-12 column">
+              <p class="emphasis"><%= order_item.item_options.line1 %> | <%= order_item.item_options.line2 %> | <%= order_item.item_options.line3 %> | <%= order_item.item_options.line4 %> </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <% if @order.gift? %>
+      <div class="large-12 columns panel" id="section-gift-info">
+        <h3 class="heading-panel">Gift Options</h3>
+        <p>Gift message: <%= @order.gift_detail.message %></p>
+        <p>Gift Recipient: <%= @order.gift_detail.recipient_name || 'Not Specified' %></p>
+      </div>
+    <% end %>
+    <div class="large-12 columns panel order-details">
+      <div class="order-detail-row">
+        <div class="order-detail-container" id="section-summary">
+          <h3 class="heading-panel">Order Summary</h3>
+          <p>
+            <%= @order.completed_at.strftime("%B %e, %Y %l:%M%P") %> <br>
+            Paid by <%= @order&.payment_profile&.cc_type %> (Last 4 digits <%= @order&.payment_profile&.last_digits %>)<br>
+            <%= @order.order_items.sum(:quantity) %> Items
+          </p>
+        </div>
+        <div class="order-detail-container" id="section-delivery-info">
+          <h3 class="heading-panel">Delivery Information</h3>
+          <% if @order.canceled? %>
+            <p><strong>Order canceled</strong></p>
+          <% else %>
+            <p>
+              <%= @order.ship_address&.name_line %><br>
+              <% if @order.ship_address %>
+                <% @order.ship_address.address_lines_array.each do |line| %>
+                  <%= line %><br>
+                <% end %>
+              <% else %>
+                In-Store Pickup<br>
+              <% end %>
+              <%= @order.ship_address&.city_state_zip %><br>
+              <% if @order.gift? && !@order&.gift_detail&.recipient_phone.blank? %>
+                <%= @order.gift_detail.recipient_phone.phony_formatted(normalize: :US, format: :international) %>
+              <% else %>
+                <%= number_to_phone(@order&.ship_address&.phone, area_code: true, delimiter: ' ') %>
+              <% end %>
+            </p>
+          <% end %>
+        </div>
+        <div class="order-detail-container" id="section-delivery-notes">
+          <h3 class="heading-panel">Delivery Notes</h3>
+          <% if @order.delivery_notes.blank? %>
+            <p>No delivery notes provided.</p>
+          <% else %>
+            <p class="message"><%= @order.delivery_notes %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 column">
+          <h3 class="heading-panel">Shipments</h3>
+          <table class="large-12 small-12 table-order">
+          <% @order.shipments.each do |shipment| %>
+              <thead>
+                <tr class="header-row">
+                  <th>
+                    <h4><%= "#{shipment.supplier.name} - #{shipment.supplier.supplier_type.try(:name)}"%></h4>
+                    <% if shipment.out_of_hours %>
+                      <strong>Order placed outside of store hours.</strong>
+                    <% end %>
+                  </th>
+                </tr>
+                <tr>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th></th>
+                  <th>Totals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% shipment.order_items.map{ |oi| oi.variant }.uniq.each do |variant| %>
+                  <tr>
+                    <td>
+                      <%= variant.product_name %> &mdash; <%= variant.item_volume %>
+                    </td>
+                    <td>
+                      <%= shipment.order_items.where(variant_id: variant.id).sum(:quantity) %>
+                    </td>
+                    <td></td>
+                    <td>
+                      <%= number_to_currency(shipment.order_items.where(variant_id: variant.id).to_a.sum{|x|x.total}) %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if @order.engraving? %>
+                  <tr>
+                    <td>
+                      Product Engraving &mdash;
+                    </td>
+                    <td><%= @order.engraving_quantity %></td>
+                    <td></td>
+                    <td><%= number_to_currency(@order.engraving_total) %></td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td colspan="2"></td>
+                  <th>Subtotal</th>
+                  <td><%= number_to_currency(shipment.shipment_sub_total_with_engraving) %> </td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <th>Sales Tax</th>
+                  <td><%= number_to_currency(shipment.shipment_order_items_tax.to_f) %></td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <th>Delivery</th>
+                  <td><%= number_to_currency(shipment.shipment_shipping_charges ) %></td>
+                </tr>
+                <% if shipment.shipping_tax.positive? %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <th>Shipping Tax</th>
+                    <td><%= number_to_currency(shipment.shipping_tax.to_f) %></td>
+                  </tr>
+                <% end %>
+                <% unless shipment.bag_fee.zero? %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <th >Bag Fee</th>
+                    <td><%= number_to_currency(shipment.bag_fee) %></td>
+                  </tr>
+                <% end %>
+                <% unless shipment.bottle_deposit_fees.zero? %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <th>Bottle Deposit Fee</th>
+                    <td><%= number_to_currency(shipment.bottle_deposit_fees) %></td>
+                  </tr>
+                <% end %>
+                <% if shipment.retail_delivery_fee&.positive? %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <th>Retail Delivery Fee</th>
+                    <td><%= number_to_currency(shipment.retail_delivery_fee) %></td>
+                  </tr>
+                <% end %>
+                <% if shipment.shipment_amount&.tip_amount > 0 %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <th>Tip amount</th>
+                    <td><%= number_to_currency(shipment.shipment_amount&.tip_amount) %></td>
+                  </tr>
+                <% end %>
+                <% if shipment.promo_amount.positive? %>
+                <tr>
+                  <td colspan="2"></td>
+                  <th>Promo code</th>
+                  <td><%= number_to_currency(-shipment.promo_amount) %></td>
+                </tr>
+              <% end %>
+                <tr>
+                  <td colspan="2"></td>
+                  <th>Total</th>
+                  <td><%= number_to_currency(shipment.total_before_gift_cards) %></td>
+                </tr>
+                <% if shipment.gift_card_amount.positive? %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <th>Gift Card</th>
+                    <td><%= number_to_currency(-shipment.gift_card_amount) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+          <% end %>
+            <thead>
+              <tr class="header-row">
+                <th>
+                  <h3>Totals</h3>
+                </th>
+              </tr>
+            </thead>
+            <tr>
+              <td colspan="2"></td>
+              <th>Subtotal</th>
+              <td><%= number_to_currency(@order.amounts.sub_total_with_engraving)%></td>
+            </tr>
+            <%- if @order.gift_card_amounts_list.empty? && (@order.coupon.present? || @order.coupons.exists?) %>
+              <tr>
+                <td colspan="2"></td>
+                <th>Coupons (not charged yet): <%= @order.related_coupon_codes.join(", ") %></th>
+                <td><%= number_to_currency(-order.coupon_amount) %></td>
+              </tr>
+            <%- else %>
+              <%- @order.gift_card_amounts_list.each do |code, coupon|  %>
+                <tr>
+                  <td colspan="2"></td>
+                  <th> <%= coupon[:type] %>: (<%= code %>)</th>
+                  <td><%= number_to_currency(-coupon[:amount]) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            <tr>
+              <td colspan="2"></td>
+              <th>Sales Tax</th>
+              <td><%= number_to_currency(@order.amounts.sales_tax) %></td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <th> Delivery </th>
+              <% if @order.shipping_charges > 0 %>
+                <td> <%= number_to_currency ( @order.shipping_charges.to_f ) %> </td>
+              <% else %>
+                <td> Free </td>
+              <% end %>
+            </tr>
+            <% if @order.shipping_tax&.positive? %>
+              <tr>
+                <td colspan="2"></td>
+                <th>Shipping Tax</th>
+                <td><%= number_to_currency(@order.shipping_tax) %></td>
+              </tr>
+            <% end %>
+            <% unless @order.bag_fee.zero? %>
+              <tr>
+                <td colspan="2"></td>
+                <th>Bag Fee</th>
+                <td><%= number_to_currency(@order.bag_fee) %></td>
+              </tr>
+            <% end %>
+            <% unless @order.bottle_deposits.zero? %>
+              <tr>
+                <td colspan="2"></td>
+                <th>Bottle Deposits</th>
+                <td><%= number_to_currency(@order.bottle_deposits) %></td>
+              </tr>
+            <% end %>
+            <% if @order.retail_delivery_fee&.positive? %>
+              <tr>
+                <td colspan="2"></td>
+                <th>Retail Delivery Fee</th>
+                <td><%= number_to_currency(@order.retail_delivery_fee) %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan="2"></td>
+              <th>Tip amount</th>
+              <td><%= number_to_currency @order.tip_amount %> </td>
+            </tr>
+            <% unless @order.service_fee.zero? %>
+              <tr>
+                <td colspan="2"></td>
+                <th>Service Fee</th>
+                <td><%= number_to_currency(@order&.service_fee) %></td>
+              </tr>
+            <% end %>
+            <tr class='order-total-row'>
+              <td colspan="2"></td>
+              <th>Total</th>
+              <td><%= number_to_currency(@order.amounts.taxed_total) %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

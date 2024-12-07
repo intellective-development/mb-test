@@ -1,0 +1,96 @@
+@import "~client/store/views/style/variables";
+@import "./_variables";
+
+$checkout-breadcrumb-bar-height: 4px;
+$step-height: $checkout-breadcrumb-bar-height * 5;
+$checkout-bar-width: 420px;
+$step-width: 25%;
+
+.cmCheckoutBreadcrumbs_Wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // we use a right margin to center this element in the page
+  // accounting for the size of the logo to the left
+  margin-right: $full-logo-size;
+}
+
+.cmCheckoutBreadcrumbs_ContentContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+}
+
+.cmCheckoutBreadcrumbs_BarContainer {
+  width: $checkout-bar-width;
+  background-color: $brand-light-grey;
+  height: $checkout-breadcrumb-bar-height;
+
+  // these margins allow the 4 equally sized steps to divide up the bar
+  margin-left: $checkout-bar-width/6;
+  margin-right: $checkout-bar-width/6;
+}
+
+.cmCheckoutBreadcrumbs_Bar {
+  background-color: $brand-red;
+  height: 100%;
+  width: 0;
+}
+
+.cmCheckoutBreadcrumbs_Bar__sign-in { width: 0%; }
+.cmCheckoutBreadcrumbs_Bar__delivery { width: 33%; }
+.cmCheckoutBreadcrumbs_Bar__payment { width: 66%; }
+.cmCheckoutBreadcrumbs_Bar__checkout { width: 100%; }
+
+.cmCheckoutBreadcrumbs_StepContainer {
+  flex: auto;
+  display: flex;
+  position: relative;
+  top: ($step-height + $checkout-breadcrumb-bar-height) / -2; //centers circles on bar
+}
+
+.cmCheckoutBreadcrumbs_Step {
+  @include font-size(13);
+  flex: 1 1 0; // this will lay it out to width $checkout-bar-width/3
+  display: flex; //to align the before pseudo element
+  flex-direction: column; //we want the pseudo element above
+  text-align: center;
+  color: $brand-medium-grey;
+}
+
+.cmCheckoutBreadcrumbs_Step_Pip {
+  align-self: center;
+  background-color: $brand-light-grey;
+  border-radius: 30px;
+  height: $step-height;
+  width: $step-height;
+  margin-bottom: 14px;
+}
+
+.cmCheckoutBreadcrumbs_CompletedIcon {
+  display: none;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.cmCheckoutBreadcrumbs_Step__Current {
+  color: $brand-black;
+  .cmCheckoutBreadcrumbs_Step_Pip { background-color: $brand-red; }
+}
+
+.cmCheckoutBreadcrumbs_Step__Completed {
+  color: $brand-black;
+  .cmCheckoutBreadcrumbs_Step_Pip { background-color: $brand-red; }
+  .cmCheckoutBreadcrumbs_CompletedIcon { display: block; }
+}
+
+.cmCheckoutBreadcrumbs_CompletedWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  flex: auto;
+}

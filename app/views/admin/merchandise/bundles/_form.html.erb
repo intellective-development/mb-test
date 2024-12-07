@@ -1,0 +1,105 @@
+<% if @bundle.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@bundle.errors.count, "error") %> prohibited this bundle from being saved:</h2>
+
+    <ul>
+    <% @bundle.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<label>Description</label>
+<%= f.text_area :description %>
+
+<div class="row">
+  <div class="large-6 columns">
+    <label>
+      Cocktail<br>
+      <small>Select a cocktail if you would like to trigger the complete your cocktail pop up on the store.</small>
+    </label>
+  </div>
+  <div class="large-6 columns">
+    <div id="cocktail-select-component"></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns">
+    <label>
+      Starts at<br>
+      <small>The start date for the bundle. It will be valid from 00:00 EST.</small>
+    </label>
+  </div>
+  <div class="large-6 columns">
+    <div class='date-select'>
+      <%= f.text_field :starts_at, :class => 'ui-datepicker' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns">
+    <label>
+      Expires at<br>
+    </label>
+  </div>
+  <div class="large-6 columns">
+    <div class='date-select'>
+      <%= f.text_field :ends_at, :class => 'ui-datepicker' %>
+    </div>
+  </div>
+</div>
+
+<div id="source-item"></div>
+
+<div id="bundle-items"></div>
+
+<%= content_for :bottom do -%>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min',
+                                'datePickerInitialize' %>
+  <script>
+    var bundle_source = {}
+    var bundle_items = <%= raw @bundle.bundle_items.map {|bi| {item_id: bi.item_id, item_type: bi.item_type} }.to_json %>;
+    bundle_source.type = '<%= @bundle.source_type %>';
+    bundle_source.source_id = '<%= @bundle.source_id %>';
+    var sourceConfig = {
+      selector: 'source-item',
+      component: 'BundleSource',
+      options: {
+        bundle_source: bundle_source
+      }
+    };
+    var itemsConfig = {
+      selector: 'bundle-items',
+      component: 'BundleItems',
+      options: {
+        bundleItems: bundle_items
+      }
+    }
+    var cocktailConfig = {
+      selector: 'cocktail-select-component',
+      component: 'CocktailSelect',
+      options: {
+        initialValueIds: <%= raw (@bundle&.cocktail_id && [@bundle&.cocktail_id]) || [] %>,
+        name: 'bundle[cocktail_id]'
+      }
+    }
+    var component_config_block = [sourceConfig, itemsConfig, cocktailConfig];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<%- end %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<% end %>

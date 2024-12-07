@@ -1,0 +1,128 @@
+<% content_for :title, 'Merge Products' %>
+<% content_for :auth_tokens, true %>
+
+<div class="row">
+  <div class="large-12 columns"><h2>Merge Tool</h2></div>
+  <div class = "large-8 small-12 columns">
+    <p>This tool is used to merge duplicate products which have been created as part of a data import. It will move any variants associated with the second product to the first, then the second product will be deleted.</p>
+    <p>Product attributes such as name and description or properties will not be copied unless specified.</p>
+    <p><strong class="warning">Please don't use this tool unless you know what you are doing!</strong></p>
+    <p><strong> When Searching </strong> If you think your search isn't working, try searching complete words (including volumes. '750' bad. '750ml' good.) However, you can use partials when filtering the things already in the dropdowns. </p>
+  </div>
+  <div class = "large-4 small-12 columns">
+    <h4> Choose Supplier </h4>
+    <%= form_tag(admin_merchandise_merge_index_path, method:"get") do %>
+      <div class="row collapse">
+        <div class="small-10 column">
+          <div id="supplier-selector-component"></div>
+        </div>
+        <div class="small-2 column">
+          <%= submit_tag("GO", class:"button postfix") %>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 columns"><%= check_box_tag :pending, true, params["pending"] %></div>
+          <div class="small-11 columns"><%= label_tag :pending, 'Show only pending' %></div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 columns"><%= check_box_tag :out_of_stock, true, params["out_of_stock"] %></div>
+          <div class="small-11 columns"><%= label_tag :out_of_stock, 'Show out-of-stock' %></div>
+        </div>
+      </div>
+    <% end %>
+    <p> Note: this will only affect the list on the right (to be destroyed.) </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-5 columns end">
+    <p>
+      This product will become the master.<br>
+      This will search <strong>all products</strong>.
+    </p>
+    <div class='selection'>
+      <select name="products-1" id="product_id_1" class="product-select-1">
+        <option value="">Search products...</option>
+      </select>
+      <a href="<%= @swap_url %>" class="swap-merge-icon" title="Swap source and destination"></a>
+    </div>
+  </div>
+  <div class="large-5 column">
+    <p>
+      This product will be destroyed.<br>
+      <% if @all %>
+        This will search <strong>all products</strong>.
+      <% else %>
+        Showing <span class="product-count"></span> products for <strong><%= @supplier.name %></strong>.
+      <% end %>
+    </p>
+    <select name="products-2" id="product_id_2" class="product-select-2">
+      <option value=""><%= @all ? "Search products..." : "Select product..."%></option>
+    </select>
+  </div>
+  <div class="large-2 column"></div>
+</div>
+<div class="row">
+  <div class="large-5 column">
+    <div class="panel product" id="p1">
+      <%= render :partial => '/admin/merchandise/merge/product', :locals => {product: @destination_product}%>
+    </div>
+  </div>
+  <div class="large-5 column">
+    <div class="panel product" id="p2">
+      <%= render :partial => '/admin/merchandise/merge/product', :locals => {product: @source_product}%>
+    </div>
+  </div>
+  <div class="large-2 column panel" id="control-panel">
+    <p>
+      <a class="button large expand" id="button_merge">Merge Products</a>
+    </p>
+    <p id="status"></p>
+    <p>
+      <label><input type="checkbox" id="replace_name"> Use Name </label>
+      <label><input type="checkbox" id="replace_description"> Use Description </label>
+      <label><input type="checkbox" id="replace_image"> Use Image </label>
+      <label><input type="checkbox" id="replace_category"> Use Category </label>
+      <label><input type="checkbox" id="merge_properties" checked="true"> Merge Properties </label>
+      <label><input type="checkbox" id="remove_upc"> Remove UPCs </label>
+      <label><input type="checkbox" id="activate"> Activate </label>
+    </p>
+  </div>
+</div>
+
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'admin/merge' %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    window.Data = {
+      destroy_product_list: <%= raw @destroy_product_list %>,
+      out_of_stock:         <%= @out_of_stock %>,
+      pending:              <%= @pending %>,
+      show_all:             <%= @all %>,
+      merge_url:            '<%= admin_merchandise_merge_path(1) %>',
+      remote_url:           '<%= product_search_admin_merchandise_merge_index_path %>'
+    };
+
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'supplier_id',
+          label: '',
+          placeholder: 'Choose Supplier',
+          initialValues: [<%= params["supplier_id"] %>]
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

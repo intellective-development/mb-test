@@ -1,0 +1,14 @@
+.beta {
+  @include label(
+    // This options sets label padding
+    $padding:3px 4px 1px,
+    // This option sets label text-size
+    $text-size:8px,
+    // This option sets label background-color
+    $bg: $brand-red,
+    // This option sets the radius of the label
+    $radius:4px
+  );
+  text-transform: uppercase;
+  margin-top: -4px;
+}

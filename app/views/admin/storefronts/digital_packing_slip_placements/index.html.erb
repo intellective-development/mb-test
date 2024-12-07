@@ -1,0 +1,38 @@
+<% content_for :title, 'Digital Packing Slip Placements' %>
+<div class="admin_title_header">
+  <h3>Digital Packing Slip Placements for <%= @storefront.name %></h3>
+  <%= link_to "New Digital Packing Slip Placement", 
+    new_admin_storefront_digital_packing_slip_placement_path(@storefront), class: "button" %>
+</div>
+
+<div class="right">
+  <%= link_to "Tracking homepage preview", @storefront.tracking_page_url, class: "small button" %>
+  <%= link_to "Tracking page preview", @storefront.tracking_page_order_preview_url, class: "small button" %>
+</div>
+
+<div class="row">
+  <%= form_tag admin_storefront_digital_packing_slip_placements_path(@storefront), method: 'get', id: "digital_packing_slip_placements_filter" do %>
+    <div class="small-8 columns">
+      <%= text_field_tag "title" , params[:title] %>
+    </div>
+    <div class="small-4 columns end">
+      <%= submit_tag "Search", class: 'button postfix neutral' %>
+    </div>
+  <% end %>
+</div>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'><%= sortable "tag", "Tag" %></th>
+    <th class='column1_header'><%= sortable "title", "Title" %></th>
+    <th class='column1_header'><%= sortable "description", "Description" %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @digital_packing_slip_placements, as: 'digital_packing_slip_placement', cache: true %>
+  </tbody>
+</table>
+
+<%= paginate @digital_packing_slip_placements %>

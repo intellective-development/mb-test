@@ -1,0 +1,88 @@
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th>Order Date</th>
+      <th>Type</th>
+      <th>Order No</th>
+      <th>Product Subtotal</th>
+      <th>Tax</th>
+      <th>Fees due Retailer</th>
+      <th>Tip</th>
+      <th>Delivery Fee</th>
+      <th><%= @business.name %> Promo Codes</th>
+      <th>Order Total</th>
+      <% unless @business.default_business? %>
+        <th>Paypal Funds</th>
+        <th>Shipping Reimbursement</th>
+      <% end %>
+      <th><%= @business.name %> Gift Cards</th>
+      <th><%= @business.name %> Marketing Fee</th>
+      <th>Net Due to/from <%= @business.name %></th>
+    </tr>
+    </thead>
+    <% line_items.each do |line_item| %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td><%= line_item.tax_point.strftime("%m/%d/%Y") %></td>
+        <td style="display: flex; justify-content: space-between; align-items: center;">
+          <% if CustomerOrder::ADJUSTMENT_TYPES.include?(line_item.type) %>
+            <%= line_item.order_adjustment&.reason&.invoice_display_name || line_item.type.titleize %>
+          <% else %>
+            <%= line_item.type.titleize %>
+          <% end %>
+          <% if line_item.paypal_funds.present? && !line_item.paypal_funds.zero? %>
+            <%= image_tag 'paypal.svg', alt: 'PayPal', width: '25px' %>
+          <% end %>
+        </td>
+        <td><%= line_item.order_number %></td>
+        <% if line_item.type == 'CustomerOrder' %>
+          <td><%= number_to_currency(line_item.sub_total) %></td>
+          <td><%= number_to_currency(line_item.taxed_amount) %></td>
+          <td><%= number_to_currency(line_item.bottle_deposits) %></td>
+          <td><%= number_to_currency(line_item.tip_amount) %></td>
+          <td><%= number_to_currency(line_item.shipping_charges) %></td>
+          <td><%= number_to_currency(-1 * line_item.promo_codes_discount) %></td>
+          <td><%= number_to_currency(line_item.total_amount) %></td>
+          <% unless @business.default_business? %>
+            <td><%= number_to_currency(line_item.paypal_funds) %></td>
+            <td><%= number_to_currency(line_item.shipping_reimbursement_total) %></td>
+          <% end %>
+          <td><%= number_to_currency(line_item.gift_card_amount)  %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <% unless @business.default_business? %>
+            <td><%= number_to_currency(line_item.paypal_funds) %></td>
+            <td></td>
+          <% end %>
+          <td></td>
+        <% end %>
+        <td><%= number_to_currency(line_item.marketing_fee) %></td>
+        <td><%= number_to_currency(line_item.net_amount) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><strong>Total</strong></td>
+      <td><strong><%= number_to_currency(@invoice.sub_total) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.taxed_amount) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.bottle_deposits) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.tip_amount) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.shipping_charges) %></strong></td>
+      <td><strong><%= number_to_currency((@invoice.promo_codes_discount || 0) * -1) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.items_total_amount) %></strong></td>
+      <% unless @business.default_business? %>
+        <td><strong><%= number_to_currency(@invoice.paypal_funds) %></strong></td>
+        <td><strong><%= number_to_currency(@invoice.shipping_reimbursement_total) %></strong></td>
+      <% end %>
+      <td><strong><%= number_to_currency(@invoice.gift_card_amount) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.marketing_fee) %></strong></td>
+      <td><strong><%= number_to_currency(@invoice.net_amount) %></strong></td>
+    </tr>
+  </table>
+  <% # paginate @line_items %>

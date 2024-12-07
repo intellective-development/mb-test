@@ -1,0 +1,31 @@
+<% content_for :title, 'Working Hours' %>
+<div class="content">
+  <%= form_tag 'working_hours', url: admin_config_working_hours_path, method: :put do %>
+    <fieldset>
+      <legend> Working Hours </legend>
+      <div class="row">
+        <%- (Date.today.beginning_of_week..Date.today.end_of_week).each do |date| %>
+          <div class="large-12 column">
+            <%= label_tag date.strftime('%A') %>
+                <%- obj = @working_hours.find{|dh| dh.wday == date.wday }%>
+
+                <%= fields_for "working_hours[]", obj do |df| %>
+                  <%= df.hidden_field :wday, value: date.wday %>
+                  <div class="small-3 columns"><%= df.text_field :starts_at, class: 'ui-timepicker', id: "working_hour_starts_at_#{date.wday}" %></div>
+                  <div class="small-3 columns end-time"><%= df.text_field :ends_at, class: 'ui-timepicker', id: "working_hour_ends_at_#{date.wday}" %></div>
+                <%- end %>
+          </div>
+        <%- end %>
+      </div>
+    </fieldset>
+    <%= submit_tag "Update", class: "button" %>
+  <% end %>
+</div>
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min' %>
+  <%= javascript_include_tag 'datePickerInitialize' %>
+<% end %>
+
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+<% end %>

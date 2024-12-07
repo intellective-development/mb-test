@@ -1,0 +1,21 @@
+@keyframes cutout-spinner-animation {
+  to {transform: rotate(360deg);}
+}
+
+@mixin cutout-spinner($primary-color, $secondary-color, $border-width: 1px, $timing: .9s) {
+  border-radius: 50%;
+  border: $border-width solid $secondary-color;
+  border-top-color: $primary-color;
+  animation: cutout-spinner-animation $timing linear infinite;
+}
+
+@mixin centered-cutout-loader($size: 40px) {
+  @include cutout-spinner($brand-black, $brand-medium-grey);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: $size/-2;
+  margin-top: $size/-2;
+  width: $size;
+  height: $size;
+}

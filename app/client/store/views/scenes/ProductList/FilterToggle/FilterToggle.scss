@@ -1,0 +1,50 @@
+@import "../../../../../../assets/stylesheets/minibar/variables.scss";
+
+.filter-toggle {
+  align-items: center;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0 none transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  font-weight: 700;
+  justify-content: center;
+  margin: 0;
+  padding: 3px 6px;
+  text-transform: uppercase;
+
+  &,
+  &:hover {
+    background-color: transparent;
+    color: #6f6f6f;
+  }
+
+  &:active,
+  &.active {
+    background-color: transparent;
+    color: $brand-red;
+  }
+
+  &::before {
+    background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><g fill='%23fff' stroke='%236f6f6f' stroke-width='5'><path d='M12 81h96M12 40h96'/><circle cx='44' cy='40' r='16'/><circle cx='76' cy='80' r='16'/></g></svg>");
+    background-repeat: no-repeat;
+    content: " ";
+    display: inline-block;
+    height: 22px;
+    margin-right: 4px;
+    width: 22px;
+  }
+
+  &:active::before,
+  &.active::before {
+    background-image: url("data:image/svg+xml,<svg version='1' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'><g fill='%23fff' stroke='%23781214' stroke-width='5'><path d='M12 81h96M12 40h96'/><circle cx='44' cy='40' r='16'/><circle cx='76' cy='80' r='16'/></g></svg>");
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}

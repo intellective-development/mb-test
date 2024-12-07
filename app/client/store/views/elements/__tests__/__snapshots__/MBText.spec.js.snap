@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBText.H1 renders 1`] = `
+<h1
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.H2 renders 1`] = `
+<h2
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.H3 renders 1`] = `
+<h3
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.H4 renders 1`] = `
+<h4
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.H5 renders 1`] = `
+<h5
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.H6 renders 1`] = `
+<h6
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.P accepts the body_copy prop 1`] = `
+<p
+  class="elMBText_P elMBText_P__BodyCopy elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.P renders 1`] = `
+<p
+  class="elMBText_P elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`MBText.Span renders 1`] = `
+<span
+  className="elMBText elMBText_ResetSpacing"
+/>
+`;
+
+exports[`makeMBText renders 1`] = `
+<span
+  $$typeof={Symbol(react.element)}
+  _owner={null}
+  _store={Object {}}
+  className="elMBText elMBText_ResetSpacing"
+  props={Object {}}
+  type={[Function]}
+/>
+`;

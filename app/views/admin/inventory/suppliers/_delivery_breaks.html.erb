@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="small-2 column"><%= delivery_break.text_field :date, class: 'ui-datepicker', placeholder: 'dd/mm/yyyy', id: nested_dom_id(ff.object, delivery_break.object, :date), disabled: disabled %></div>
+  <div class="small-2 column"><%= delivery_break.text_field :start_time, class: 'ui-timepicker', placeholder: 'Start time', id: nested_dom_id(ff.object, delivery_break.object, :start_time), disabled: disabled %></div>
+  <div class="small-2 column"><%= delivery_break.text_field :end_time, class: 'ui-timepicker', placeholder: 'End time', id: nested_dom_id(ff.object, delivery_break.object, :end_time), disabled: disabled %></div>
+  <div class="small-2 column">
+    <%= delivery_break.check_box :apply_to_all, id: nested_dom_id(ff.object, delivery_break.object, :apply_to_all) %>
+    <%= delivery_break.label :apply_to_all, 'Apply to all', title: 'Apply this break to all shipping methods', for: nested_dom_id(ff.object, delivery_break.object, :apply_to_all) %>
+  </div>
+  <div class="small-2 column end">
+    <%= delivery_break.check_box :_destroy, id: nested_dom_id(ff.object, delivery_break.object, :destroy) %>
+    <%= delivery_break.label :_destroy, 'Delete', title: 'Deleting this break will delete it for all shipping methods', for: nested_dom_id(ff.object, delivery_break.object, :destroy) %>
+  </div>
+</div>

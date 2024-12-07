@@ -1,0 +1,100 @@
+<%
+  # TEMPLATE VARIABLES
+
+  @body_class = yield(:body_class).present? ? yield(:body_class) : false
+  @body_id = yield(:body_id).present? ? yield(:body_id) : false
+  @hide_header = yield(:hide_header).present? ? yield(:hide_header) : false
+  @hide_footer = yield(:hide_footer).present? ? yield(:hide_footer) : false
+  @auth_page = yield(:auth_page).present? ? yield(:auth_page) : false
+  @nav = yield(:nav).present? ? true : false
+  @standard_template = yield(:standard_template).present? ? true : false
+  @web_authentication = yield(:web_authentication).present? ? yield(:web_authentication) : false
+  @js_page = yield(:js_page).present? ? yield(:js_page) : false
+  @store = @js_page == 'generated/store_bundle'
+  @store_landing = @js_page == 'generated/store_landing_bundle'
+  @address_entry = yield(:address_entry).present? ? yield(:address_entry) : false
+  @store_entry = yield(:store_entry).present? ? yield(:store_entry) : false
+  @store_base_url = '/store'
+  @homepage = yield(:homepage).present? ? true : false
+  @header_strip = yield(:header_strip)
+  @signup = yield(:signup).present? ? yield(:signup) : false
+  @use_react = yield(:use_react).present? ? yield(:use_react) : false
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <%= stylesheet_link_tag 'application'%>
+  <%= render partial: 'shared/font_face_observer' %>
+  <%= render partial: 'shared/analytics' %>
+  <%= render(partial: 'shared/branch', cache: Time.zone.now.strftime('%d%B%Y')) if Feature[:branch_smart_banners].enabled? %>
+  <%= render partial: 'shared/meta' %>
+
+  <title><%= create_page_title(yield(:title)) %></title>
+  <%= favicon_link_tag 'favicon.ico' %>
+
+  <%= yield(:head) %>
+</head>
+<body class="<%= 'generic' if @standard_template %> <%= @body_class if @body_class %> <%= 'fonts-loading' if @load_font %>">
+  <%= google_tag_manager %>
+  <%# BEGIN CONTENT %>
+  <div id="layout">
+    <% unless @hide_header %>
+      <%= render partial: 'shared/header' %>
+    <% end %>
+
+    <%= yield %>
+
+    <% unless @hide_footer %>
+      <div id="layout_footer"></div>
+    <% end %>
+  </div>
+
+  <% unless @hide_footer %>
+    <%= yield(:prefooter) %>
+    <%= render partial: 'shared/footer', locals: { auth_page: @auth_page } %>
+  <% end %>
+  <%# END CONTENT %>
+
+  <%= render partial: 'shared/raven' %>
+  <%= render partial: 'shared/sift_science' if Feature[:sift_science].enabled? %>
+
+  <%# BEGIN BOOTSTRAPPING %>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=<%= Settings.google.maps_api_key %>"></script>
+  <script type="text/javascript">
+    var ClientId = <%= wrap_string ENV['WEB_STORE_CLIENT_ID'] %>;
+    var ClientSecret = <%= wrap_string ENV['WEB_STORE_CLIENT_SECRET'] %>;
+    var GoogleAnalyticsID = <%= wrap_string ENV['GOOGLE_ANALYTICS_ID'] %>;
+
+    var talkToProduction = <%= Feature[:talk_to_production].enabled?(current_user) %>;
+    window.Entry = window.Entry || {};
+    window.Entry.Data = {
+      addresses: <%= raw(get_user_addresses(current_user) || 'null') %>
+    };
+    window.Entry.User = <%= raw(!@store ? current_user_json(current_user) : {})%>;
+    window.api_server_url = <%= wrap_string(ENV['API_SERVER_URL'] || '') %>;
+    window.recaptcha_v3_site_key = <%= wrap_string(ENV['RECAPTCHA_V3_SITE_KEY'] || '') %>;
+  </script>
+
+  <% if @store || @store_entry %>
+    <%# some legacy code in the store is still using this %>
+    <div id="modal-supplier" class="reveal-modal small light"></div>
+  <% end %>
+
+  <%# END BOOTSTRAPPING %>
+
+  <%# we pull in our shared bundle, and if not within the store, the landing bundle as well #%>
+  <%= javascript_include_tag 'generated/shared_bundle' %>
+  <%= javascript_include_tag 'generated/store_landing_bundle' if !@store %>
+
+  <%= javascript_include_tag @js_page if @js_page %>
+  <% if @use_react %>
+    <%# TODO: pull both of these out ASAP %>
+    <%= javascript_include_tag 'minibar' %>
+    <%= javascript_include_tag 'minibar-react' %>
+  <% end %>
+
+  <%= yield(:inpage_js) %>
+  <%= yield(:deferred_load) %>
+</body>
+</html>

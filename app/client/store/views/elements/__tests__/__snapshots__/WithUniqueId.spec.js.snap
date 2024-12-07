@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WithUniqueId renders 1`] = `
+<Component
+  my_id="abc123"
+/>
+`;

@@ -1,0 +1,22 @@
+.remove-outer-padding {
+
+  >.columns:first-child {
+    padding-left: 0;
+  }
+
+  >.columns:last-child {
+    padding-right: 0;
+  }
+}
+
+.columns {
+  &.no-right-padding {
+    padding-right: 0;
+  }
+}
+
+.column {
+  &.no-right-padding {
+    padding-right: 0;
+  }
+}

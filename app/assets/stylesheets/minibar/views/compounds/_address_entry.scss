@@ -1,0 +1,272 @@
+@mixin hidden-button-loading-state {
+  display: block;
+  &::before {
+    @include cutout-spinner(rgba(0, 0, 0, .85), rgba(0, 0, 0, .15));
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 16px;
+    width: 16px;
+    margin: 16px 11px;
+  }
+}
+
+// AddressWaitlist + ExternalAddressEntry styles
+.cm-ae-modal__body {
+  padding: 32px $standard-gutter;
+}
+
+.cm-ae-modal__heading {
+  font-size: 18px;
+  font-weight: $heavy-font-weight;
+  margin: 0 auto;
+  padding-bottom: 8px;
+  max-width: 425px;
+  text-align: center;
+}
+
+.cm-ae-modal__subheading {
+  color: $brand-dark-grey;
+  font-size: 16px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.cm-ae-waitlist__input__container {
+  padding-bottom: 48px;
+}
+
+.cm-ae-gift__container {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.cm-ae-gift__text {
+  font-family: $font-family-avenir;
+  font-size: 14px;
+  vertical-align: bottom;
+}
+
+.cm-ae-gift__icon {
+  margin-right: 5px;
+  width: 15px;
+  vertical-align: top;
+}
+
+// TODO: remove the cross over with mobile navbar address entry component
+.cm-ae-container {
+  margin-bottom: .3em;
+
+  .cm-ae-input__row {
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    flex-direction: row;
+    @media screen and (max-width: $small-screen - 1px) {
+      flex-direction: column;
+    }
+  }
+
+  .cm-ae-input__container {
+    position: relative;
+    flex: auto;
+    border: $brand-light-grey 1px solid;
+    height: 48px;
+  }
+
+  // TODO: remove references to old .address-input  (singani, hennessy, monkey rum, etc.)
+  .cm-ae-input {
+    @include font-size(16);
+
+    margin-bottom: 0;
+    padding-left: 48px;
+    padding-right: 40px;
+    height: 100%;
+    font-family: $font-family-avenir;
+    text-overflow: ellipsis;
+    border-width: 0;
+    border-radius: 0;
+
+    &:placeholder-shown {
+      color: $brand-medium-grey;
+    }
+
+    &:invalid {
+      box-shadow: none; // override default firefox styles
+    }
+  }
+
+  .cm-ae-input__pin_icon {
+    position: absolute;
+    left: 0px;
+    height: 24px;
+    width: 17px;
+    margin: 11px 16px;
+  }
+
+  .cm-ae-input__close_button {
+    cursor: pointer;
+    backface-visibility: hidden; // prevents clipping with opacity
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 16px 12px;
+    opacity: .75;
+    &:hover{
+      opacity: 1;
+    }
+    &.loading{
+      display: none;
+    }
+  }
+
+  .cm-ae-input__loader {
+    display: none;
+    &.button_hidden.loading{
+      @include hidden-button-loading-state;
+    }
+    @media screen and (max-width: $small-screen - 1px) {
+      &.loading{
+        @include hidden-button-loading-state;
+      }
+    }
+  }
+
+  .cm-ae-button {
+    @include responsive-button-text;
+    // TODO: how much of this can go in MBButton?
+    flex: none;
+    border: 0;
+    border-radius: 4px;
+    height: 48px;
+    line-height: 20px;
+    @media screen and (max-width: $small-screen - 1px) {
+      margin-top: 16px;
+    }
+    @media screen and (min-width: $small-screen) {
+      margin-left: 16px;
+    }
+    font-size: 14px;
+    letter-spacing: 2px;
+
+    &.busy {color: transparent;}
+    &.button_hidden{
+      display: none;
+    }
+  }
+
+  .cm-ae-error {
+    margin-bottom: .3em;
+    text-align: left;
+    padding: 0;
+
+    .cm-ae-error__text {
+      color: $brand-error-red !important; // TODO: remove once #module-web-store styles are nuked
+      font-family: $font-family-avenir;
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+
+    .cm-ae-error__text--empty {
+      // long term, we would like to use visibility here, to prevent the input from having to shift when an error is displayed
+      display: none;
+    }
+  }
+
+  .cm-ae-dropdown__container {
+    background-color: $brand-white;
+    box-shadow: 0px 0px 4px #C7C7C7; // #222 with alpha 0.25 over white
+    color: $brand-charcoal;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    // handle slide down/up, default to hidden
+    max-height: 0;
+    overflow: hidden;
+    &.open {
+      max-height: 464px;
+    }
+
+    .cm-ae-dropdown__list {
+      background-color: $brand-white;
+      font-size: 13px;
+      padding: 8px 0;
+      margin: 0px;
+      text-align: left;
+    }
+    .cm-ae-dropdown__divider {
+      border-bottom: 1px solid $brand-light-grey;
+      margin: 8px 16px;
+    }
+    .cm-ae-dropdown__option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 16px;
+      line-height: 1.2em;
+      font-family: $font-family-avenir;
+      &.selected {
+        background-color: #D8DDEB; // special Jesse color
+      }
+      &:hover:not(.selected) {
+        background-color: #F0F3FC; // special Jesse color
+      }
+      .cm-ae-dropdown__option__icon {
+        margin-right: 16px;
+        visibility: hidden;
+        &.visible { visibility: visible; }
+      }
+      .cm-ae-dropdown__option__main {
+        @include font-size(16);
+        white-space: nowrap;
+      }
+      .cm-ae-dropdown__option__secondary {
+        @include font-size(14);
+        color: $brand-medium-grey;
+        margin-left: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cm-ae-dropdown__option__match {
+        font-weight: bold; /* NOTE: only changing between 400 and 500 for avenir until bold is loaded */
+      }
+    }
+    .cm-ae-dropdown__attribution {
+      width: 144px;
+      height: 18px;
+      align-self: flex-end;
+      margin: 16px;
+    }
+  }
+
+  .pac-container.hidden {
+    height: 0px !important;
+    opacity: 0 !important;
+  }
+
+  &.error {
+    .cm-ae-input__row {
+      animation: 400ms panelShakeAnimation ease-in-out;
+    }
+    .cm-ae-input {
+      background-color: $brand-white;
+      border-color: $brand-error-red;
+    }
+  }
+
+  // needed to prevent safari from obscuring our dropdown with autofill
+  input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    height: 0;
+    width: 0;
+    margin: 0;
+  }
+}

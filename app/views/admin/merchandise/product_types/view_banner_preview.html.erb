@@ -1,0 +1,32 @@
+<div class="small-12 columns">
+  <div class="small-12 medium-6 columns"><h3>Banner Preview</h3></div>
+  <div class="small-12 medium-6 columns">
+    <%= form_tag view_banner_preview_admin_merchandise_product_types_path, :method => 'get', :id => "product_types_search" do %>
+      <div class="small-3 small-push-3 columns">
+        <label class="row collapse">
+          <div class="small-3 column"><%= check_box_tag "use_user", true, params["use_user"]%></div>
+          <div class="small-9 columns">Personalized</div>
+        </label>
+      </div>
+      <div class="small-3 small-push-3 columns">
+        <label class="row collapse">
+          <div class="small-3 column"><%= check_box_tag "banner_featured", true, params["banner_featured"]%></div>
+          <div class="small-9 columns">Featured</div>
+        </label>
+      </div>
+      <div class="small-3 columns">
+        <%= submit_tag "Update", name: nil, class: 'button tiny' %>
+      </div>
+    <% end %>
+  </div>
+  <ul class="small-block-grid-2 medium-block-grid-2 large-block-grid-4">
+    <% @product_types.each do |product_type| %>
+      <li>
+        <img src="<%= product_type.banner_image.url(:default) if product_type.banner_image.present? %>" class="product-type__banner" />
+        <%= link_to product_type.name.to_s.titleize, edit_admin_merchandise_product_type_path(product_type) %>
+        <%= "- #{product_type.banner_featured_position}" if product_type.banner_featured_position %>
+      </li>
+    <% end %>
+  </ul>
+  <%= paginate @product_types %>
+</div>

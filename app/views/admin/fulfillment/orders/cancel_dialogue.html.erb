@@ -1,0 +1,41 @@
+<h2 class="subhead-thin">Cancel <%= @shipment ? "Shipment" : "Order"%> </h2>
+
+<%= form_for(@order_adjustment,
+    url: (@shipment ? cancel_shipment_admin_fulfillment_order_path(@shipment) : cancel_order_admin_fulfillment_order_path(@order)) ) do |f| %>
+  <fieldset>
+    <legend>Details</legend>
+    <% if @supplier %>
+      <%= label_tag :supplier %>
+      <%= f.text_field :supplier, value: @supplier.try(:name), disabled: 'disabled' %>
+    <% end %>
+    <%= label_tag :reason %>
+    <%= f.select :reason_id, @reasons %>
+    <%= label_tag :description %>
+    <%= f.text_field :description %>
+  </fieldset>
+  <% if !@shipment %>
+  <p>
+    <label>
+      <input type="checkbox" name="send_confirmation_email" id="send_confirmation_email" value="true"> Send customer a confirmation email.
+    </label>
+  </p>
+  <% end %>
+  <fieldset>
+    <legend>Financial</legend>
+    <%= label_tag :cancellation_fee %>
+    <%= f.number_field :cancellation_fee, value: 0, min: 0, required: true, step:'0.01' %>
+  </fieldset>
+  <% unless @order.nil? %>
+    <% @order.shipments.each do |shipment| %>
+      <% if shipment.delivery_service_order.present? && shipment.scheduled_for && shipment.scheduled_for - 30.minutes < Time.current %>
+        <p><strong style='color: red'>This order is scheduled for the next 30 minutes. If you cancel this order, delivery service will add additional charge!</strong></p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if !Feature[:disable_oos_availability_check].enabled? && @order.storefront.enable_oos_availability_check && @shipment.present? && @new_eligible_suppliers_with_variants.any? %>
+    <%= select_tag :new_variant_ids, options_for_select(@new_eligible_suppliers_with_variants, params[:new_variant_ids]), prompt: "Select new supplier" %>
+  <% end %>
+
+  <%= f.submit (@shipment ? "Cancel Shipment" : "Cancel Order"), { class: 'button alert expand' } %>
+<% end %>

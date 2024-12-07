@@ -1,0 +1,17 @@
+<%= error_messages_for 'fulfillment_service' %>
+<fieldset class="span-12">
+  <div class="row">
+    <div class="large-6 column">
+      <label>Name</label>
+      <%= form.text_field :name %>
+    </div>
+    <div class="large-6 column">
+      <label>Pim Name <small>Values that match Salsify Product's "services_available" list.</small></label>
+      <%= form.text_field :pim_name %>
+      <%= form.check_box :supplier_modifiable %>
+      <label>
+        &mdash; Supplier can modify?
+      </label>
+    </div>
+  </div>
+</div>

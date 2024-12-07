@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemSummary it renders item summary with special offer when ther is a two_for_one deal 1`] = `
+<tr
+  class="shipment-table__item"
+>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--image__container"
+  >
+    <a
+      class="item__link"
+      href="/store/product/undefined/budweiser-light-6-pack-12oz-bottles"
+    >
+      <img
+        class="shipment-table__item__property--image"
+        src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+      />
+    </a>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--main"
+  >
+    <a
+      class="item__link"
+      href="/store/product/undefined/budweiser-light-6-pack-12oz-bottles"
+    >
+      <p
+        class="shipment-table__item__remove-warning hidden"
+      >
+        Item will be removed from cart.
+      </p>
+      <span
+        class="shipment-table__item__property--name"
+      />
+      <br />
+      <span
+        class="shipment-table__item__property--volume"
+      >
+        6 pack, 12oz bottles
+      </span>
+      <br />
+      <span
+        class="shipment-table__item__property--price--mobile"
+      >
+        $9.95
+      </span>
+    </a>
+    <div>
+      <span>
+        Special Offer
+      </span>
+      <div>
+        <span
+          class="deal__description"
+        >
+          Buy 1, Get 1 for $0.05
+        </span>
+      </div>
+    </div>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--price"
+  >
+    <span
+      class="shipment-table__item__property--discounted_price"
+    >
+      $9.95 
+      <strike>
+        $10.99
+      </strike>
+    </span>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--quantity"
+  >
+    <select
+      class="select--brand select--cart"
+      name="quantity"
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        selected=""
+        value="2"
+      >
+        2
+      </option>
+      <option
+        value="3"
+      >
+        3
+      </option>
+      <option
+        value="4"
+      >
+        4
+      </option>
+      <option
+        value="5"
+      >
+        5
+      </option>
+      <option
+        value="6"
+      >
+        6
+      </option>
+      <option
+        value="7"
+      >
+        7
+      </option>
+      <option
+        value="8"
+      >
+        8
+      </option>
+      <option
+        value="9"
+      >
+        9
+      </option>
+      <option
+        value="10"
+      >
+        10
+      </option>
+      <option
+        value="11"
+      >
+        11
+      </option>
+      <option
+        value="12"
+      >
+        12
+      </option>
+      <option
+        value="13"
+      >
+        13
+      </option>
+      <option
+        value="14"
+      >
+        14
+      </option>
+      <option
+        value="15"
+      >
+        15
+      </option>
+      <option
+        value="16"
+      >
+        16
+      </option>
+      <option
+        value="17"
+      >
+        17
+      </option>
+      <option
+        value="18"
+      >
+        18
+      </option>
+      <option
+        value="19"
+      >
+        19
+      </option>
+      <option
+        value="20"
+      >
+        20
+      </option>
+      <option
+        value="21"
+      >
+        21
+      </option>
+      <option
+        value="22"
+      >
+        22
+      </option>
+      <option
+        value="23"
+      >
+        23
+      </option>
+      <option
+        value="24"
+      >
+        24
+      </option>
+    </select>
+    <br />
+    <a
+      class="shipment-table__item__remove grey-link"
+      role="button"
+      tabindex="0"
+    >
+      Remove
+    </a>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--total-price"
+  >
+    $10.00
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--quantity-spinner"
+    colspan="3"
+  >
+    <div
+      class="number-spinner number-spinner--vertical"
+    >
+      <button
+        class="button grey number-spinner__button"
+      >
+        +
+      </button>
+      <span
+        class="number-spinner__value"
+      >
+        2
+      </span>
+      <button
+        class="button grey number-spinner__button"
+      >
+        -
+      </button>
+    </div>
+  </td>
+</tr>
+`;
+
+exports[`ItemSummary it renders item summary without special offer when ther is no two_for_one deal 1`] = `
+<tr
+  class="shipment-table__item"
+>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--image__container"
+  >
+    <a
+      class="item__link"
+      href="/store/product/undefined/budweiser-light-6-pack-12oz-bottles"
+    >
+      <img
+        class="shipment-table__item__property--image"
+        src="https://placeholdit.imgix.net/~text?txtsize=33&txt=thumb&w=340&h=400"
+      />
+    </a>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--main"
+  >
+    <a
+      class="item__link"
+      href="/store/product/undefined/budweiser-light-6-pack-12oz-bottles"
+    >
+      <p
+        class="shipment-table__item__remove-warning hidden"
+      >
+        Item will be removed from cart.
+      </p>
+      <span
+        class="shipment-table__item__property--name"
+      />
+      <br />
+      <span
+        class="shipment-table__item__property--volume"
+      >
+        6 pack, 12oz bottles
+      </span>
+      <br />
+      <span
+        class="shipment-table__item__property--price--mobile"
+      >
+        $10.00
+      </span>
+    </a>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--price"
+  >
+    <span
+      class="shipment-table__item__property--discounted_price"
+    >
+      $10.00 
+      <strike>
+        $10.99
+      </strike>
+    </span>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--quantity"
+  >
+    <select
+      class="select--brand select--cart"
+      name="quantity"
+    >
+      <option
+        selected=""
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+      <option
+        value="3"
+      >
+        3
+      </option>
+      <option
+        value="4"
+      >
+        4
+      </option>
+      <option
+        value="5"
+      >
+        5
+      </option>
+      <option
+        value="6"
+      >
+        6
+      </option>
+      <option
+        value="7"
+      >
+        7
+      </option>
+      <option
+        value="8"
+      >
+        8
+      </option>
+      <option
+        value="9"
+      >
+        9
+      </option>
+      <option
+        value="10"
+      >
+        10
+      </option>
+      <option
+        value="11"
+      >
+        11
+      </option>
+      <option
+        value="12"
+      >
+        12
+      </option>
+      <option
+        value="13"
+      >
+        13
+      </option>
+      <option
+        value="14"
+      >
+        14
+      </option>
+      <option
+        value="15"
+      >
+        15
+      </option>
+      <option
+        value="16"
+      >
+        16
+      </option>
+      <option
+        value="17"
+      >
+        17
+      </option>
+      <option
+        value="18"
+      >
+        18
+      </option>
+      <option
+        value="19"
+      >
+        19
+      </option>
+      <option
+        value="20"
+      >
+        20
+      </option>
+      <option
+        value="21"
+      >
+        21
+      </option>
+      <option
+        value="22"
+      >
+        22
+      </option>
+      <option
+        value="23"
+      >
+        23
+      </option>
+      <option
+        value="24"
+      >
+        24
+      </option>
+    </select>
+    <br />
+    <a
+      class="shipment-table__item__remove grey-link"
+      role="button"
+      tabindex="0"
+    >
+      Remove
+    </a>
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--total-price"
+  >
+    $10.00
+  </td>
+  <td
+    class="shipment-table__item__property shipment-table__item__property--quantity-spinner"
+    colspan="3"
+  >
+    <div
+      class="number-spinner number-spinner--vertical"
+    >
+      <button
+        class="button grey number-spinner__button"
+      >
+        +
+      </button>
+      <span
+        class="number-spinner__value"
+      >
+        1
+      </span>
+      <button
+        class="button grey number-spinner__button"
+      >
+        -
+      </button>
+    </div>
+  </td>
+</tr>
+`;

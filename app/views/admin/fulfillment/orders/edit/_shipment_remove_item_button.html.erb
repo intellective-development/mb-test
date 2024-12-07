@@ -1,0 +1,6 @@
+<% if shipment.order.payment_profile.nil? %>
+  <!-- I've tried using the disabled attr on link_to, although the click event was still triggered -->
+  <a class="small button alert disabled" title="No payment profile present to adjust the order" disabled="disabled">Remove</a>
+<% else %>
+  <%= link_to "Remove", remove_dialogue_admin_fulfillment_order_shipment_order_item_path(order, shipment, items.find(variant_id: variant.id).first.id), { class: "button small alert button-cancellation" } %>
+<% end %>

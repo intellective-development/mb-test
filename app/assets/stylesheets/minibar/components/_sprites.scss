@@ -1,0 +1,84 @@
+@import '../sprity';
+
+@mixin sprite--hover--default {
+  &:hover { opacity: 0.7; }
+  &:active { opacity: 0.55; }
+}
+
+@mixin publication-logo($sprite-name, $display:block){
+  @extend .sprite--publications;
+  @include sprite($sprite-name, $display);
+  @include sprite--hover--default;
+
+  margin: 5px;
+  a{
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+@mixin sprite-icon($sprite-name, $display:block){
+  //helper so you don't have to include both everywhere, both come from sprity
+  @extend .sprite--icons; //sets background, handles retina
+  @include sprite($sprite-name, $display);
+}
+
+@mixin sprite-mobile-icon($sprite-name, $display:block){
+  //helper so you don't have to include both everywhere, both come from sprity
+  @extend .sprite--mobile-icons; //sets background, handles retina
+  @include sprite($sprite-name, $display);
+}
+
+@mixin sprite-gift($sprite-name, $display:block){
+  //helper so you don't have to include both everywhere, both come from sprity
+  @extend .sprite--give-a-gift; //sets background, handles retina
+  @include sprite($sprite-name, $display);
+}
+
+@mixin sprite-bartender($sprite-name, $display:block){
+  //helper so you don't have to include both everywhere, both come from sprity
+  @extend .sprite--book-a-bartender; //sets background, handles retina
+  @include sprite($sprite-name, $display);
+}
+
+
+@mixin icon--social {
+  @include sprite--hover--default;
+
+  a {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.icon--ios-app {
+  @include sprite-icon($icons-getforiphone);
+  @include sprite--hover--default;
+}
+
+.icon--android-app{
+  @include sprite-icon($icons-getforandroid);
+  @include sprite--hover--default;
+}
+
+.icon--social--facebook {
+  @include sprite-icon($icons-facebook);
+  @include icon--social;
+}
+
+.icon--social--twitter {
+  @include sprite-icon($icons-twitter);
+  @include icon--social;
+}
+
+.icon--social--googleplus {
+  @include sprite-icon($icons-googleplus);
+  @include icon--social;
+}
+
+.icon--social--instagram {
+  @include sprite-icon($icons-instagram);
+  @include icon--social;
+}

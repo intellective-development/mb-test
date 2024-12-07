@@ -1,0 +1,17 @@
+<tr>
+  <td>
+    <%= link_to order.number, edit_admin_fulfillment_order_path(order.number) %>
+  </td>
+  <td>
+    <%= order.order_suppliers.pluck(:name).join(',') %>
+  </td>
+  <td>
+    <span class="label radius success"><%= order.state.upcase %></span>
+  </td>
+  <td>
+    <%= display_completed_at(order) %>
+  </td>
+  <td>
+    <%= number_to_currency(order.taxed_total) %>
+  </td>
+</tr>

@@ -1,0 +1,119 @@
+//                        left top width height
+$book-a-bartender-clock: -0px -0px 43px 43px;
+$book-a-bartender-cocktail: -0px -43px 43px 43px;
+$book-a-bartender-phone: -0px -86px 43px 43px;
+$give-a-gift-cart: -0px -0px 40px 57px;
+$give-a-gift-champagne: -0px -57px 40px 57px;
+$give-a-gift-location: -0px -114px 40px 57px;
+
+$mobile-icons-cart: -0px -2px 36px 30px;
+$mobile-icons-hamburger: -0px -36px 24px 30px;
+$mobile-icons-location: -0px -70px 17px 30px;
+$mobile-icons-logo: -0px -104px 88px 30px;
+$mobile-icons-search: -0px -138px 23px 30px;
+
+$icons-beer_icon: -0px -2px 37px 32px;
+$icons-cart_gift_icon: -0px -38px 16px 21px;
+$icons-cart_icon: -0px -63px 37px 32px;
+$icons-cart_topnav: -0px -99px 38px 27px;
+$icons-delivery-truck: -0px -130px 28px 15px;
+$icons-facebook: -0px -149px 22px 22px;
+$icons-getforandroid: -0px -175px 125px 54px;
+$icons-getforiphone: -0px -233px 125px 54px;
+$icons-googleplus: -0px -290px 24px 24px;
+$icons-icon-check: -0px -317px 12px 8px;
+$icons-icon-dropdown: -0px -329px 11px 7px;
+$icons-icon-x-circle: -0px -340px 20px 20px;
+$icons-icon-x-simple: -0px -364px 8px 8px;
+$icons-instagram: -0px -374px 24px 26px;
+$icons-location-large-white: -0px -402px 19px 29px;
+$icons-location-large: -0px -435px 17px 26px;
+$icons-location_icon: -0px -465px 37px 32px;
+$icons-minibar_logo: -0px -501px 70px 70px;
+$icons-phone-white: -0px -575px 35px 26px;
+$icons-searchbar_icon: -0px -605px 14px 16px;
+$icons-twitter: -0px -625px 22px 22px;
+$icons-wine_icon: -0px -651px 37px 32px;
+
+$publications-bloomberg: -0px -0px 120px 65px;
+$publications-fastcompany: -0px -65px 120px 65px;
+$publications-glamour: -0px -130px 120px 65px;
+$publications-newyorker: -0px -195px 120px 65px;
+$publications-newyorktimes: -0px -260px 120px 65px;
+$publications-refinery29: -0px -325px 120px 65px;
+$publications-wallstreetjournal: -0px -390px 120px 65px;
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 3);
+}
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 4);
+}
+@function sprite-width($sprite) {
+  @return nth($sprite, 3);
+}
+@function sprite-height($sprite) {
+  @return nth($sprite, 4);
+}
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 1);
+  $sprite-offset-y: nth($sprite, 2);
+  background-position: $sprite-offset-x $sprite-offset-y;
+}
+@mixin sprite($sprite, $display: block) {
+  @include sprite-position($sprite);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: $display;
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+.sprite--book-a-bartender {
+  background-image: url(image-path("ui/sprite-book-a-bartender.png"));
+}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .sprite--book-a-bartender {
+    background-image: url(image-path("ui/sprite-book-a-bartender@2x.png"));
+    background-size: 43px 129px;
+  }
+}
+.sprite--give-a-gift {
+  background-image: url(image-path("ui/sprite-give-a-gift.png"));
+}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .sprite--give-a-gift {
+    background-image: url(image-path("ui/sprite-give-a-gift@2x.png"));
+    background-size: 40px 171px;
+  }
+}
+.sprite--mobile-icons {
+  background-image: url(image-path("ui/sprite-mobile-icons.png"));
+}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .sprite--mobile-icons {
+    background-image: url(image-path("ui/sprite-mobile-icons@2x.png"));
+    background-size: 88px 170px;
+  }
+}
+.sprite--icons {
+  background-image: url(image-path("ui/sprite-icons.png"));
+}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .sprite--icons {
+    background-image: url(image-path("ui/sprite-icons@2x.png"));
+    background-size: 125px 685px;
+  }
+}
+.sprite--publications {
+  background-image: url(image-path("ui/sprite-publications.png"));
+}
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .sprite--publications {
+    background-image: url(image-path("ui/sprite-publications@2x.png"));
+    background-size: 120px 455px;
+  }
+}

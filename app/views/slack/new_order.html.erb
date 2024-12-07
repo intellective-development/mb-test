@@ -1,0 +1,41 @@
+[{
+    "fallback": "New <%= scheduled ? 'Scheduled ' : '' %><%= gift ? 'Gift ' : '' %>Order for <%= suppliers %>",
+    "title": "New <%= scheduled ? 'Scheduled ' : '' %><%= gift ? 'Gift ' : '' %>Order for <%= suppliers %> (#<%= number %>)",
+    "title_link": "<%= url %>",
+    "text": "<% if closed %>The supplier is currently closed. They will re-open at <%= opening_time %>.<% end %>",
+    "fields": [
+        {
+            "title": "Customer",
+            "value": "<%= customer_name %><% if vip %>(VIP)<% end %>",
+            "short": true
+        },
+        {
+            "title": "Customer Phone",
+            "value": "<%= customer_phone %>",
+            "short": true
+        }
+        <% if corporate %>
+        ,{
+            "title": "Company",
+            "value": "<%= company_name %>",
+            "short": true
+        }
+        <% end %>
+        <% if flag %>
+        ,{
+            "title": "Flagged as Fraud",
+            "value": "Score: <%= fraud_score %>",
+            "short": true
+        }
+        <% end %>
+
+        <% unless delivery_notes.nil? %>
+        ,{
+            "title": "Delivery Notes",
+            "value": "<%= CGI::escapeHTML delivery_notes %>",
+            "short": false
+        }
+        <% end %>
+    ],
+    "color": "<%= flag ? 'danger' : 'good' %>"
+}]

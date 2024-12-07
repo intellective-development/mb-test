@@ -1,0 +1,22 @@
+<fieldset>
+  <legend>Routing</legend>
+  <p>These parameters influence how our routing algorithm manages demand and determines which supplier to show when a delivery address is within multiple suppliers' zones.</p>
+  <p>Please edit these with care as changes may have unintended consequences.</p>
+  <p><strong>Both are expressed as integers between -10 and 10</strong></p>
+  <div class="row collapse">
+    <div class="medium-6 column">
+      <h5>Boost Factor</h5>
+      <p>This is a good way to nudge customers toward (or away from) a specific store on a permanent basis.</p>
+      <p>An example usage of this is to add a negative value (e.g. -5) if we have a small store with limited inventory within the zone of a larger (and arguably better store).</p>
+      <%= form.text_field :boost_factor %>
+    </div>
+    <div class="medium-6 column">
+      <h5>Temporary Boost Factor</h5>
+      <p>This value is reset to <strong>0</strong> at the end of each day.</p>
+      <p>An example usage of this is to add a negative value if a store is running behind or otherwise struggling to meet demand. Fewer new customers will be sent to this store assuming that there are other overlapping stores.</p>
+      <%= form.text_field :temporary_boost_factor %>
+    </div>
+  </div>
+  <p>
+  <p>In addition to these boost factors, the routing algorithm will also take into account the supplier score and distance to the customers address.</p>
+</fieldset>

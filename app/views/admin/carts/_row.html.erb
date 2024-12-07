@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <%= cart.id %>
+  </td>
+  <td>
+    <%= cart.user_id %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_admin_cart_path(cart), class: 'button tiny' %>
+    <%= link_to "Delete", admin_cart_path(cart), data: { confirm: 'Are you sure?' }, method: :delete, class: 'button tiny secondary' %>
+  </td>
+</tr>

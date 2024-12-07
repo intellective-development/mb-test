@@ -1,0 +1,5 @@
+<h2>Editing Enhanced PDP</h2>
+<%= form_for(@product_content, url: admin_merchandise_product_content_path(@product_content)) do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit 'Update', class: 'button' %>
+<% end %>

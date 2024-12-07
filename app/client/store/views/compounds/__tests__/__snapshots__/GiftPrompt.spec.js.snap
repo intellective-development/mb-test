@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GiftPrompt renders 1`] = `
+<div
+  class="cm-ae-gift__container"
+>
+  <img
+    alt="Gift"
+    class="cm-ae-gift__icon"
+    src="/assets/sprite_sources/icons/gift_icon.png"
+  />
+  <span
+    class="cm-ae-gift__text"
+  >
+    Sending a gift? Use the recipient's address.
+  </span>
+</div>
+`;

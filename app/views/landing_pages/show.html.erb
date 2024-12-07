@@ -1,0 +1,39 @@
+<%= render partial: 'shared/store_landing_javascript' %>
+
+<% content_for :store, false %>
+<% content_for :hide_header, false %>
+<% content_for :homepage, true %>
+<% content_for :body_class, 'homepage' %>
+<% content_for :title, @content.page_title ? "#{@content.page_title} - Minibar Deliver" : "Minibar Delivery" %>
+<% content_for :meta_description, @content.meta_description || "Get help with your Minibar order to get fast alcohol delivery. Wine and liquor available in under an hour." %>
+
+<% content_for :head do %>
+<script>
+  window.Data = window.Data || {};
+  window.Entry = window.Entry || {};
+  window.Store = window.Store || {};
+  Store.boot = false;
+</script>
+<% end %>
+<%= render partial: 'content/homepage_old/module_hero', locals: {image: nil,
+                                                            burst: true,
+                                                            no_padding: true,
+                                                            text: @content.headline || 'Let us lift your spirits',
+                                                            subtext: @subheadline || 'Wine, beer & liquor delivered' } %>
+
+<%= render partial: 'content/homepage_old/module_featured_products' %>
+<%= render partial: 'content/homepage_old/module_gift_party' %>
+<%= render partial: 'content/homepage_old/module_app_review' %>
+<% unless @legal.blank? %>
+  <div class="row">
+    <div class="small-10 push-1 push-down column">
+      <p class="legal center">
+        <%= @legal %>
+      </p>
+    </div>
+  </div>
+<% end %>
+<%= render partial: 'content/homepage_old/module_cities_partner' %>
+<% content_for :deferred_load do %>
+  <link rel="prefetch" href='<%= asset_path('generated/store_bundle') %>'>
+<% end %>

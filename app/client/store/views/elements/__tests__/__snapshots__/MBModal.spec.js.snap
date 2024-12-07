@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MBModal.Back renders 1`] = `
+<div
+  aria-label="Back"
+  className="elMBModal_Back"
+  onClick={[Function]}
+>
+  <MBIcon
+    name="back"
+  />
+  <MBText(span)
+    className="elMBModal_BackText"
+  >
+     Back
+  </MBText(span)>
+</div>
+`;
+
+exports[`MBModal.Close renders 1`] = `
+<div
+  aria-label="Close"
+  className="elMBModal_Close"
+  onClick={[Function]}
+>
+  <MBIcon
+    name="close"
+  />
+</div>
+`;
+
+exports[`MBModal.Modal renders 1`] = `
+<Modal
+  autoFocus={true}
+  backdrop={true}
+  backdropClassName="elMBModal_Backdrop"
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "add": [Function],
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "isTopModal": [Function],
+      "modals": Array [],
+      "remove": [Function],
+    }
+  }
+  onHide={[Function]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={false}
+>
+  <div
+    className="elMBModal_Wrapper"
+  >
+    <div
+      className="elMBModal_Content elMBModal_Content__Large"
+      onClick={[Function]}
+    >
+      <div>
+        My Content!
+      </div>
+    </div>
+  </div>
+</Modal>
+`;
+
+exports[`MBModal.Modal renders with a header in its content 1`] = `
+<Modal
+  autoFocus={true}
+  backdrop={true}
+  backdropClassName="elMBModal_Backdrop"
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "add": [Function],
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "isTopModal": [Function],
+      "modals": Array [],
+      "remove": [Function],
+    }
+  }
+  onHide={[Function]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={false}
+>
+  <div
+    className="elMBModal_Wrapper"
+  >
+    <div
+      className="elMBModal_Content elMBModal_Content__Large"
+      onClick={[Function]}
+    >
+      <SectionHeader>
+        Look at this modal
+      </SectionHeader>
+      <div>
+        My Content!
+      </div>
+    </div>
+  </div>
+</Modal>
+`;
+
+exports[`MBModal.SectionHeader renders 1`] = `
+<div
+  className="elMBModal_SectionHeader elMBModal_SectionHeader_Top"
+>
+  <div
+    className="elMBModal_SectionHeader_Filler"
+  />
+  <MBText(h4)
+    className="elMBModal_SectionHeaderText"
+  >
+    Look at this modal
+  </MBText(h4)>
+  <div
+    className="elMBModal_SectionHeader_Filler"
+  />
+</div>
+`;
+
+exports[`MBModal.SectionHeader renders with the left and right props specified 1`] = `
+<div
+  className="elMBModal_SectionHeader elMBModal_SectionHeader_Top"
+>
+  <Back
+    onClick={[Function]}
+  />
+  <MBText(h4)
+    className="elMBModal_SectionHeaderText"
+  >
+    Look at this modal
+  </MBText(h4)>
+  <Close
+    onClick={[Function]}
+  />
+</div>
+`;

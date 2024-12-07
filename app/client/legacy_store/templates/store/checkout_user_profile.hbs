@@ -1,0 +1,57 @@
+<div class="row form-row">
+  <div class="large-6 medium-9 large-centered column">
+    <div class="checkout-frame">
+      <div class="modal-header">
+        <h2>Create an account</h2>
+        <button type="reset" class="button secondary" id="button-login">Existing User?</a>
+      </div>
+      <div class="checkout-panel">
+        <form id="checkout-user-profile">
+          <div class="row">
+            <div class="large-12 columns">
+              <p class="error hidden"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-6 columns">
+              <label for="user_first_name">First Name</label>
+              <input type="text" required name="user_first_name" id="user_first_name" />
+            </div>
+            <div class="large-6 columns">
+              <label for="user_last_name">Last Name</label>
+              <input type="text" required name="user_last_name" id="user_last_name" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="user_email">
+                Email
+                <span class="secondary suggestion" id="hint" style="display:none;">Did you mean <a id="full-suggestion"></a>?</span>
+              </label>
+                <input type="email" required name="user_email" id="user_email" />
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="user_password">Password</label>
+              <input type="password" required name="user_password" id="user_password" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label for="user_confirm_password">Confirm Password</label>
+              <input type="password" required name="user_confirm_password" id="user_confirm_password" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <button type="submit" class="button expand" id="button-create-user">Continue</a>
+              <button type="reset" class="button secondary expand" id="button-login">Existing User?</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

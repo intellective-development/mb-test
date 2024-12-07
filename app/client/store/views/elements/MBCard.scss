@@ -1,0 +1,51 @@
+@import "../style/variables";
+
+.elMBCardContainer {
+  flex: 1;
+  @media screen and (min-width: $medium-min-width){ max-width: 320px; }
+  padding-top: $standard-spacing;
+  padding-bottom: $standard-spacing;
+  border-right: 2 * $standard-spacing solid transparent;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+
+.elMBCardContainer:last-of-type{
+  border-right: none;
+}
+
+.elMBCard{
+  height: 100%;
+  border: solid 1px $brand-light-grey;
+  border-radius: $standard-spacing;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+.elMBCardTitle{
+  display: none;
+  @media screen and (min-width: $medium-min-width){ display: initial; }
+  background-color: $brand-light-grey;
+  padding: $standard-spacing $standard-gutter;
+  text-transform: capitalize;
+  font-weight: $heavy-font-weight;
+}
+
+.elMBCardSection {
+  border-top: solid 1px $brand-light-grey;
+  padding: $standard-gutter;
+
+  &:first-of-type{
+    border-top: none;
+  }
+  &:last-of-type{
+    padding: $standard-spacing $standard-gutter;
+  }
+}
+
+.elMBCardSpacer{
+  flex: 1;
+}

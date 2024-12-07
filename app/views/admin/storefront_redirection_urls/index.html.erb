@@ -1,0 +1,19 @@
+<% content_for :title, 'Storefront Redirection URLs' %>
+<div class="admin_title_header">
+  <h3>Storefront Redirection URLs for <%= @storefront.name %></h3>
+  <%= link_to "New Storefront Redirection URL", new_admin_storefront_storefront_redirection_url_path, class: "button" %>
+</div>
+
+<table>
+  <thead>
+  <tr class='odd'>
+    <th>Name</th>
+    <th>Order State</th>
+    <th>Redirection URL</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'row', collection: @storefront_redirection_urls, as: 'storefront_redirection_url' %>
+  </tbody>
+</table>

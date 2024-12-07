@@ -1,0 +1,89 @@
+#module-bartender {
+  background: #241103 url(image_path('components/book-a-bartender/bg-hero.jpg')) no-repeat 50% 50%;
+  padding: 60px 0 0;
+  @media screen and (min-width: 767px) {
+    .content {
+      margin-left: 20px;
+    }
+  }
+  .heading-thin-large {
+    margin-bottom: 0px;
+  }
+  .branding {
+    margin-bottom: 24px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.50);
+  }
+  @media screen and (max-width: 767px) {
+    background-size: cover;
+    text-align: center
+  }
+}
+
+.book-a-bartender{
+  border-bottom: none;
+  .module-notice {
+    margin-top: 12px;
+    border-bottom: none;
+    .row {
+      border-bottom: 1px solid #222;
+    }
+    .branding {
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+  }
+  #module-value-prop {
+    margin-bottom: 30px;
+    margin-top: 60px;
+    .heading-thin-bold {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+  .module-2-up {
+    border-bottom: none;
+    margin-bottom: 40px;
+    .row {
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+    p.branding {
+      font-size: 16px;
+    }
+    .image {
+      padding: 0;
+      background: #CECECE url(image_path('components/book-a-bartender/bg-bartenders.jpg')) no-repeat center center;
+      background-size: cover;
+      min-height: 300px;
+    }
+    .content{
+      align-items: center;
+    }
+    @media screen and (min-width: $small-screen) {
+      .push-left{
+        left: 50%;
+      }
+      .push-right{
+        right: 50%;
+      }
+    }
+  }
+}
+
+.value-prop__phone{
+  @include sprite-bartender($book-a-bartender-phone, inline-block);
+}
+
+.value-prop__clock {
+  @include sprite-bartender($book-a-bartender-clock, inline-block);
+}
+
+.value-prop__cocktail {
+  @include sprite-bartender($book-a-bartender-cocktail, inline-block);
+}

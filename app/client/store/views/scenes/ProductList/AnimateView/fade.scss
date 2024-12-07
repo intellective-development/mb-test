@@ -1,0 +1,30 @@
+@keyframes fadeEnter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeExit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade {
+  &-enter,
+  &-exit {
+    animation-duration: 300ms;
+  }
+  &-enter {
+    animation-name: fadeEnter;
+  }
+  &-exit {
+    animation-name: fadeExit;
+  }
+}

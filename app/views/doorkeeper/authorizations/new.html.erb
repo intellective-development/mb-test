@@ -1,0 +1,33 @@
+<%
+  user                = warden.user.user
+  payment_profiles    = user.payment_profiles
+  shipping_addresses  = user.shipping_addresses
+  initial_state = if @pre_auth.client.application.capture_defaults_on_authorization
+                    1
+                  elsif @pre_auth.client.application.capture_payment_method_on_authorization
+                    2
+                  else
+                    3
+                  end
+%>
+<script type="text/javascript">
+  window.Data = {
+    initial_state: <%= initial_state %>,
+    client_name: '<%= @pre_auth.client.name %>',
+    csrf_token: '<%= form_authenticity_token %>',
+    form_path: '<%= oauth_authorization_path %>',
+    form_client_id: '<%= @pre_auth.client.uid %>',
+    form_redirect_uri: '<%= @pre_auth.redirect_uri %>',
+    form_state: '<%= @pre_auth.state %>',
+    form_response_type: '<%= @pre_auth.response_type %>',
+    form_scope: '<%= @pre_auth.scope %>',
+    user_addresses: <%= raw shipping_addresses.map { |a| { value: a.id, label: a.full_street_address } }.to_json %>,
+    user_payment_profiles: <%= raw payment_profiles.map { |pp| { value: pp.id, label: "#{pp.cc_type} (Ends in #{pp.last_digits}, expires #{pp.month}/#{pp.year})" } }.to_json %>,
+    user_token: '<%= user.access_token %>',
+    defaults_path: '<%= oauth_defaults_path %>',
+    addresses_path: '<%= oauth_addresses_path %>',
+    payment_methods_path: '<%= oauth_payment_methods_path %>',
+    braintree_client_token: '<%= Braintree::ClientToken.generate %>'
+  }
+</script>
+<div id="authorization-form"></div>

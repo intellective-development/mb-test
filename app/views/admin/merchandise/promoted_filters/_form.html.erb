@@ -1,0 +1,30 @@
+<%= error_messages_for 'promoted_filter' %>
+<% new_grouping ||= false %>
+<% content_for :auth_tokens, true %>
+
+<div class="wrapper">
+  <div class='six large-12 columns'>
+    <%= form.label 'Category' %>
+    <%= form.select :product_type_id, @categories.map{|t| [ t.name, t.id ]}, include_blank: false  %>
+  </div>
+  <%- if @promoted_filter.id %>
+    <fieldset class="facet-filter-container">
+      <legend>Facet Filters</legend>
+      <p><tiny> Elements that will be shown by default in the facet\'s filter on the left of the screen.</tiny></p>
+      <% @promoted_filter.facet_promoted_filters.keys.each_with_index do |facet_filter_key, index| %>
+        <%= render partial: 'facet_promoted_filter_fields', locals: {facet_filter_key: facet_filter_key, is_new: false, index: index} %>
+      <% end %>
+      <a href="#" data-reveal-id="newFacetFilter" class="button">Add new Facet Filter</a>
+    </fieldset>
+
+    <fieldset class="highlighted_filter-container">
+      <legend>Highlighted Filters</legend>
+      <p><tiny> Elements that will be shown by default in the top filters on the top of the screen.</tiny></p>
+      <% @promoted_filter.highlighted_filters.each_with_index do |highlighted_filter, index| %>
+        <%= render partial: 'highlighted_filter_fields', locals: {highlighted_filter: highlighted_filter, index: index, is_new: false} %>
+      <% end %>
+      <a href="#" data-reveal-id="newHighlightedFilter" class="button">Add new Highlighted Filter</a>
+    </fieldset>
+  <%- end %>
+</div>
+

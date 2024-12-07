@@ -1,0 +1,20 @@
+<li>
+  <div>
+    <h5>
+      <strong>Refund: </strong>
+      <i><%= refund.created_at.to_formatted_s(:long) %></i>
+    </h5>
+  </div>
+
+  <div>
+    <% if refund.metadata.key?(:errors) %>
+      <strong>Errors:</strong>
+      <p><%= errors_for_transaction(refund).join('<br />').html_safe %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <strong>Details:</strong>
+    <p><%= transaction_details(refund&.metadata) %></p>
+  </div>
+</li>

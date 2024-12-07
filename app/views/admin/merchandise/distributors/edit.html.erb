@@ -1,0 +1,15 @@
+<% content_for :title, 'Edit Distributor' %>
+<%= render :partial => '/admin/merchandise/sub_header'%>
+
+<h3>Editing Distributor - <%= @distributor.name %></h1>
+
+<%= form_for(@distributor, :url => admin_merchandise_distributor_path(@distributor)) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+
+  <%= f.submit 'Update', :class => 'button' %>
+<% end %>
+
+<p>
+  <%= link_to 'Show', admin_merchandise_distributor_path( @distributor ), :class => 'button' %>
+  <%= link_to 'View All', admin_merchandise_distributors_path, :class => 'button' %>
+</p>

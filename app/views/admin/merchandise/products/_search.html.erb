@@ -1,0 +1,100 @@
+<% content_for :auth_tokens, true %>
+<div class='admin_filters panel'>
+  <h5>Search Products</h5>
+  <%= form_tag admin_merchandise_products_path, :method => 'get', :id => "products_search" do %>
+    <%= text_field_tag :query, params[:query], placeholder: "Enter search terms..." %>
+    <%= text_field_tag :hierarchy, params[:hierarchy], placeholder: "Enter type hierarchy..." %>
+    <div id="supplier-selector-component"></div>
+    <div class="row collapse">
+      <span class="small-12 column">Order By</span>
+    </div>
+    <div class="row collapse">
+      <select class="small-12 column" name="order_by">
+        <option value="" selected>Select an order...</option>
+        <option value="variants_desc">Variants Count (desc)</option>
+        <option value="variants_asc">Variants Count (asc)</option>
+      </select>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag 'in_stock', true, params[:in_stock] %></div>
+      <div class="small-11 columns"><%= label_tag 'In Stock Only', nil, class: "in-stock-label" %></div>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag "state[active]", true, params["state"]["active"]%></div>
+      <div class="small-11 columns"><%= label_tag 'Active', nil, class: "active-label" %></div>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag "state[pending]", true, params["state"]["pending"] %></div>
+      <div class="small-11 columns"><%= label_tag 'Pending', nil, class: "pending-label" %></div>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag "state[inactive]", true, params["state"]["inactive"] %></div>
+      <div class="small-11 columns"><%= label_tag 'Inactive', nil, class: "inactive-label" %></div>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag "no_image", true, params[:no_image]%></div>
+      <div class="small-11 columns"><%= label_tag 'Has no image', nil, class: "no-image-label" %></div>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag "no_grouping_image", true, params[:no_grouping_image]%></div>
+      <div class="small-11 columns"><%= label_tag 'Has no grouping image', nil, class: "no-grouping-image-label" %></div>
+    </div>
+    <div class="row collapse">
+      <div class="small-1 column"><%= check_box_tag "has_variants", true, params[:has_variants]%></div>
+      <div class="small-11 columns"><%= label_tag 'Has 1+ variants', nil, class: "has-variants-label" %></div>
+    </div>
+    <div style="text-align:center; margin-top: 15px">
+      <%= submit_tag "Search", :query => nil, :class => 'button' %>
+    </div>
+    <small>Searchable by name, type, size, and brand. No weird characters required.</small><br>
+    <small>
+      <a class="store-admin-bookmarklet"  href="javascript:alert('Hi');">&#9410; Minibar: Store to Admin.</a> (Drag the link to your bookmarks bar.)
+    </small>
+    </p>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+  <% end %>
+</div>
+
+<script>
+
+var bookmarklet_code = function(){
+  var curr_location = window.location.href,
+      url_base      = window.location.origin,
+      permalinks    = curr_location.split('product/').pop().split('/'),
+      level         = (permalinks.length > 1) ? 'products' : 'product_size_groupings',
+      permalink     = permalinks.pop(),
+      admin_url     = [url_base, 'admin', 'merchandise', level, permalink].join('/');
+  location.href = admin_url;
+}
+var bookmarklet_link = 'javascript:(' + bookmarklet_code.toString() + ')()';
+$('.store-admin-bookmarklet').attr('href', bookmarklet_link)
+</script>
+
+<%= content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [
+      {
+        selector: 'supplier-selector-component',
+        component: 'SupplierSelect',
+        options: {
+          name: 'supplier_id',
+          label: '',
+          placeholder: 'Choose Supplier',
+          initialValues: [<%= params["supplier_id"] %>]
+        }
+      }
+    ];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

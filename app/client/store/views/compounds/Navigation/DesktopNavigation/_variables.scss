@@ -1,0 +1,11 @@
+$top-bar-height: 55px;
+$nav-contract-max-width: $medium-max-width;
+
+$nav-hover-transition: background-color 150ms ease-in-out;
+@mixin nav-hover-state {
+  background-color: $brand-pale-blue;
+}
+
+$logo-padding: 22px;
+$logo-width: 78px;
+$full-logo-size: $logo-padding + $logo-width;

@@ -1,0 +1,62 @@
+<% content_for :title, 'Products' %>
+<%= render partial: '/admin/merchandise/sub_header'%>
+
+<% content_for :sidemenu do %>
+  <% render 'search' %>
+<% end %>
+
+<div class='admin_title_header'>
+  <h3>Products (<%= @products_size['relation'] == 'gte' ? 'More than ' : '' %><%= number_with_delimiter @products_size['value'] %> found)</h3>
+</div>
+
+<div class="admin_products">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th></th>
+      <th class='column1_header'><%= sortable "name" %></th>
+      <th><%= sortable "item_volume" %></th>
+      <th>Product Type</th>
+      <th></th>
+    </tr>
+    </thead>
+    <% @products.each do |product| %>
+      <tr class='<%= cycle("odd", "")%>'>
+        <td>
+        <% if product.has_images? %>
+            <%= link_to image_tag(product.images.first.photo.url(:mini)), product.image_urls(:product).first, :target => "_blank" %>
+        <% end %>
+        </td>
+        <td>
+          <%= link_to product.display_name, edit_admin_merchandise_product_path(product) %>
+          <br>
+          <small>
+            <%= product.variants.self_active.count %> variants
+          </small>
+        </td>
+        <td><%= product.item_volume %></td>
+        <td>
+          <small><%= String(product.hierarchy_category&.name).upcase %> &rarr; <%=  String(product.product_type&.name).upcase %></small>
+          <br>
+          <small>
+            <span class="<%=product.state%>-state"><%= product.state %></span>&ndash;
+            <%= link_to product.inactive? ? 'Click to activate' : 'Click to deactivate' , activate_admin_merchandise_product_path(product), method: :put %>
+          </small>
+        </td>
+        <td>
+          <%- link_to "Edit Variants",  edit_admin_merchandise_multi_product_variant_path(product) %>
+          <ul class="product-actions">
+            <li>
+              <%= link_to "Merge", admin_merchandise_merge_index_path(source_id: product.id), class: "button primary" %>
+            </li>
+            <li>
+              <%= link_to "Show",  admin_merchandise_product_path(product), class: "button secondary" %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= paginate @products, {:total_pages => [@products.total_pages, 600].min} %>
+</div>

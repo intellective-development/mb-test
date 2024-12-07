@@ -1,0 +1,22 @@
+<%= form_for('scheduled', url: update_schedule_admin_fulfillment_shipment_path(@shipment), method: :post) do |f| %>
+  <h3>Schedule Shipment</h3>
+  <p>
+    <strong>Scheduling is set from your timezone: </strong> <%= Time.zone.now.getlocal.zone %>
+    <% supplier_time_zone = ActiveSupport::TimeZone[@shipment.supplier.timezone] %>
+    <% supplier_time = supplier_time_zone.at(Time.zone.now) %>
+    <br><strong>Supplier <%=@shipment.supplier.name%> is in timezone: </strong> <%= supplier_time.strftime('%Z') %></br>
+  </p>
+  <% if @shipment.delivery_service_order.present? && @shipment.scheduled_for && @shipment.scheduled_for - 30.minutes < Time.current %>
+    <p><strong style='color: red'>This shipment is scheduled for the next 30 minutes. If you reschedule this shipment, delivery service will add additional charge!</strong></p>
+  <% end %>
+  <%= f.text_field :for, id: "scheduled-for-#{@shipment.id}", placeholder: 'Select Date/Time' %>
+  <%= f.submit 'Schedule Shipment' %>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $('#scheduled-for-<%= @shipment.id %>').appendDtpicker({
+      "futureOnly": true
+    });
+  });
+</script>

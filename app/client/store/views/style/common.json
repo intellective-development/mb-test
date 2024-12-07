@@ -1,0 +1,8 @@
+{
+  "hr": {
+    "borderBottom": "0 none transparent",
+    "borderLeft": "0 none transparent",
+    "borderRight": "0 none transparent",
+    "borderTop": "1px solid rgba(0,0,0,.1)"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "a": {
+    "backgroundColor": "#781214",
+    "border": "1px solid #781214",
+    "borderRadius": 5,
+    "boxSizing": "border-box",
+    "color": "#fff",
+    "cursor": "pointer",
+    "display": "block",
+    "fontSize": 12,
+    "fontWeight": 700,
+    "lineHeight": "12px",
+    "margin": "15px auto",
+    "maxWidth": 500,
+    "padding": 18,
+    "textAlign": "center",
+    "textTransform": "uppercase",
+    "width": "100%"
+  }
+}

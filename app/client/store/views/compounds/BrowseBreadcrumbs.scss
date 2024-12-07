@@ -1,0 +1,28 @@
+@import "../style/variables";
+
+.cmBreadcrumb_ListContainer {
+  display: inline-flex;
+
+  // override some foundation spacing
+  line-height: initial;
+  margin: 0;
+}
+
+.cmBreadcrumb_Element,
+.cmBreadcrumb_Splitter {
+  font-size: 15px;
+  letter-spacing: 0.35px;
+}
+
+.cmBreadcrumb_Element {
+  text-transform: capitalize;
+}
+
+.cmBreadcrumb_Splitter {
+  vertical-align: text-bottom;
+}
+
+.cmBreadcrumb_SplitterContainer:first-of-type,
+.cmBreadcrumb_SiblingSplitter:first-of-type {
+  display: none;
+}

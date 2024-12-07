@@ -1,0 +1,17 @@
+<tr>
+  <td>
+    <%= payment_profile.payment_type %>
+  </td>
+  <td>
+      <% if payment_profile.credit_card? %>
+        <strong><%= payment_profile.cc_type %></strong>
+        <br>
+         (ends in <%= payment_profile.last_digits %>, expires <%= payment_profile.month %>/<%= payment_profile.year %>)
+      <% end %>
+  </td>
+  <td>
+    <strong><%= payment_profile.first_name %></strong>
+    <br>
+    <%= payment_profile.address.full_street_address %>
+  </td>
+</tr>

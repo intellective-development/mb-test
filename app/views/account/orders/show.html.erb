@@ -1,0 +1,114 @@
+<% content_for :store, false %>
+<% content_for :standard_template, true %>
+<% content_for :title, 'Order Details' %>
+<% content_for :js_page, 'pages/account' %>
+
+<div class="title-bar">
+  <div class="row">
+    <div class="large-12 column center">
+      <h1 class="heading-title">Order #<%= @order.number %></h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-3 medium-3 column nav-column">
+    <%= render partial: 'account/shared/navigation' %>
+  </div>
+  <div class="large-9 medium-9 column">
+    <div class="row">
+      <div class="large-4 medium-4 column">
+        <h3 class="subhead-2">Order Details</h3>
+        <p>
+          <% if @order.finalizing? %>
+            We are processing your order.
+          <% else %>
+            Order placed on <%= display_completed_at(@order) %>.
+          <% end %>
+          <% if @order.gift? %>
+            <br>
+            This was a gift order.
+          <% end %>
+          <% @order.shipments.each do |shipment| %>
+            <% if shipment.metadata_signed_by_name && shipment.metadata_delivered_at %>
+              <br>
+              Shipment from <%= shipment.supplier.display_name %> delivered at <%= I18n.localize(shipment.metadata_delivered_at, format: '%m/%d/%Y @ %I:%M %p %Z') %> and signed by "<%= shipment.metadata_signed_by_name %>".
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+      <div class="large-4 medium-4 column">
+        <h3 class="subhead-2">Delivery Address</h3>
+        <p>
+          <%= @order.ship_address ? @order.ship_address.full_address_array.join(', ') : 'In-Store Pickup' %>.
+        </p>
+      </div>
+      <div class="large-4 medium-4 column">
+        <h3 class="subhead-2">Payment Details</h3>
+        <p>
+          Paid by <%= @order.payment_profile&.cc_type %>, ending in <%= @order.payment_profile&.last_digits %>.
+          <br>
+          <% if !@order.canceled? %>
+            <small><%= link_to 'View Receipt', pdf_account_order_path(@order), target: 'blank' %></small>
+          <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 medium-12 column">
+        <h3 class="subhead-2">Order Items</h3>
+        <table class="table-history">
+          <tr>
+            <th colspan="2">Product</th>
+            <th class="text-center">Quantity</th>
+            <th>Price</th>
+          </tr>
+
+          <% @order.order_items.group_by(&:variant).each do |variant, items| %>
+            <tr>
+              <td>
+                <%= image_tag(variant.product.images.first.photo(:mini), width: 48, height: 48, alt: variant.name)  unless variant.product.images.empty? %>
+              </td>
+              <td>
+                <strong><%=  variant.product_name %></strong>
+                <br />
+                <%= variant.item_volume %>
+              </td>
+              <td class="text-center"><%= items.sum(&:quantity) %></td>
+              <td><%= number_to_currency(items.sum(&:price)) %></td>
+            </tr>
+          <% end %>
+
+          <tfoot>
+            <tr>
+              <th colspan="3" class="text-right">Subtotal</th>
+              <th><%= number_to_currency(@order.sub_total) %></th>
+            </tr>
+            <tr>
+              <th colspan="3" class="text-right">Tip</th>
+              <th><%= number_to_currency(@order&.tip_amount) %></th>
+            </tr>
+            <tr>
+              <th colspan="3" class="text-right">Tax</th>
+              <th><%= number_to_currency(@order&.taxed_amount) %></th>
+            </tr>
+            <% if @order.shipping_charges > 0 %>
+              <tr>
+                <th colspan="3" align='text-right'>Delivery</th>
+                <th><%= number_to_currency ( @order.shipping_charges.to_f ) %></th>
+              </tr>
+            <% end %>
+            <% unless @order.discounts_total.zero? %>
+            <tr>
+              <th colspan="3" class="text-right">Discounts</th>
+              <th><%= number_to_currency(@order&.discounts_total) %></th>
+            </tr>
+            <% end %>
+            <tr>
+              <th colspan="3" class="text-right">Total</th>
+              <th><%= number_to_currency(@order&.taxed_total) %></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

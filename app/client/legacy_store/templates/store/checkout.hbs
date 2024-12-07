@@ -1,0 +1,163 @@
+<div class="row store-checkout">
+  <div class="large-4 medium-4 medium-push-8 column">
+    <div id="order-details-container">
+      <div class="panel" id="order-details"></div>
+      <p class="center legal">
+        You'll receive a confirmation email after placing the order. If a person over 21 is not available to receive this order it will be returned for a $20 restocking fee. Valid Government ID required.
+      </p>
+      <p class="center legal">
+        If you have any problems, you can contact us on <strong>(855) 487-0740</strong>.
+      </p>
+      {{#if isCA }}
+        <p class="center legal wide seperator">
+          <strong>WARNING</strong>: Drinking distilled spirits, beer, coolers, wine and other alcoholic beverages may increase cancer risk, and, during pregnancy, can cause birth defects. For more information go to <a href="https://www.P65Warnings.ca.gov/alcohol" target="_blank">www.P65Warnings.ca.gov/alcohol</a>.
+        </p>
+      {{/if}}
+    </div>
+  </div>
+  <div class="large-8 medium-8 medium-pull-4 column">
+  <div class="row">
+    <div class="row">
+      <div class="large-12 medium-centered column">
+        <div class="panel error">
+          <div class="row">
+          <p class="content error"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 medium-centered column">
+        <div class="panel">
+          <div class="row">
+            <div class="column large-6 medium-6 divider-r">
+              {{#if shipping_address}}
+                <div class="delivery-info__container">
+                  <h2 class="heading-panel">Delivery Address</h2>
+                  <p>
+                    {{shipping_address.name}} {{#if shipping_address.company}}({{shipping_address.company}}){{/if}}<br>
+                    {{shipping_address.address1}}{{#if shipping_address.address2}}, {{shipping_address.address2}}{{/if}},<br>
+                    {{shipping_address.city}}, {{shipping_address.state}}, {{shipping_address.zip_code}}<br>
+                    {{shipping_address.formatted_phone}}<br>
+                  </p>
+                  <p>
+                    <a class="edit-address secondary-action">Edit Address</a>
+                  </p>
+                </div>
+              {{/if}}
+              {{#if pickup_detail}}
+                <div class="delivery-info__container">
+                  <h2 class="heading-panel">Pickup Details</h2>
+                  <p>
+                    {{pickup_detail.name}}<br>
+                    {{pickup_detail.formatted_phone}}<br>
+                  </p>
+                  <p>
+                    <a class="edit-pickup-details secondary-action">Edit Details</a>
+                  </p>
+                </div>
+              {{/if}}
+              <textarea id="delivery_notes" placeholder="Add order notes (e.g. please leave items with doorman)">{{delivery_notes}}</textarea>
+            </div>
+            <div class="column large-6 medium-6">
+              <h2 class="heading-panel">Payment</h2>
+              {{#if payment_profile}}
+                <p>
+                  <span class="card-text"><span class="icon-card {{slugify payment_profile.cc_card_type}}"></span> &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; {{payment_profile.cc_last_four}}</span><br>
+                  Expires {{payment_profile.cc_exp_month}}/{{payment_profile.cc_exp_year}}
+                </p>
+              {{else}}
+                <p>You have no payment methods.</p>
+              {{/if}}
+              <p class="">
+                {{#if has_multiple_payment_profiles}}
+                  <a id="edit-billing" class="secondary-action">Change payment</a> -
+                {{/if}}
+
+                 <a class="secondary-action add-billing">Add a new card</a>
+              </p>
+              <div class="form-row">
+                <div class="capsule">
+                  <input type="text" placeholder="Promo Code" id="promo" spellcheck="false" value={{promo_code}}>
+                  <a class="button small secondary postfix" id="button-apply-promo" disabled="disabled">Apply</a>
+                </div>
+              </div>
+              <div class="form-row">
+                <br>
+                <br>
+                <br>
+                <br>
+                <p class="error hidden" id="promo-errors"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="checkout-shipment"></div>
+    <div class="row">
+      <div class="large-12 medium-centered column">
+        <div class="panel">
+          <div class="row">
+            <div class="large-12 column">
+              <h2 class="heading-panel">
+                <div class="row collapse gift-row">
+                  <div class="column small-checkbox">
+                    <input type="checkbox" id="is_gift" {{#if is_gift}}checked="checked"{{/if}}>
+                  </div>
+                  <div class="column small-11">
+                    <label for="is_gift">
+                      Send as a Gift <em>(Free)</em>
+                      <br><span class="assistive">With personalized note &amp; gift receipt</span>
+                    </label>
+                  </div>
+                </div>
+              </h2>
+              <p id="gift-message" class="hidden">
+                <input id="gift_recipient" type="text" maxlength="100" placeholder="Recipient Name" value="{{gift_recipient}}">
+                <input id="gift_recipient_phone" type="text" maxlength="100" placeholder="Recipient Phone Number" value="{{gift_recipient_phone}}">
+                <textarea maxlength="200" id="gift_message" placeholder="Enter gift note">{{gift_message}}</textarea>
+                <small><span id="gift-message_chars-left">200</span> characters left.</small><br/>
+                <span class="assistive">
+                  Alcohol deliveries must be received by someone over 21 years of age, they cannot be left in a mailbox. The store may reach out to the gift recipient to co-ordinate delivery if a scheduled delivery time has not been provided. Note: Beer and oversized items may not come gift wrapped.
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 medium-centered column">
+        <div class="panel">
+          <div class="row">
+            <div class="large-12 column">
+              <h2 class="heading-panel">
+                <div class="row collapse gift-row">
+                  <div class="column small-checkbox">
+                    <input type="checkbox" id="enable_replenishment" {{#if replenishment}}checked="checked"{{/if}}>
+                  </div>
+                  <div class="column small-11">
+                    <label for="enable_replenishment">
+                      Auto Refill</em>
+                      <br><span class="assistive">Automatically re-order this/these item(s) on a flexible schedule. You’ll receive a reminder the day before your order and you can cancel your subscription at any time from the account page. Your order will be set up for the same time as your initial order.</span>
+                      <br>
+                      <br>
+                       <select name="replenishment_interval" id="replenishment_interval" class="scheduling-time-selector">
+                        <option value="1">Repeat Weekly</option>
+                        <option value="2">Repeat every 2 weeks</option>
+                        <option value="3">Repeat every 3 weeks</option>
+                        <option value="4">Repeat every 4 weeks</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<% content_for :small_header, false %>
+<%
+  one_time_code = OneTimeCode.prize_logic.unused.sample
+  one_time_code&.mark_as_used!(@order&.id)
+
+  target_url = "https://hornitostequilapersonalizedgreeting.com/?email_captured=false&code=#{one_time_code&.code}"
+%>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you placed an order with Minibar Delivery' %>
+<table class="container sub top-border"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-vertical">
+                          You’ve got the Hornitos® Tequila. Now‘s your chance to make this gift even more special.
+                          <br>
+                          <br>
+                          Just click on the link below to record a personalized message to send along with your bottle – whatever you want, however you want it. It’s your shot. Because making someone’s holidays even happier is a shot worth taking.
+                          <br>
+                          <br>
+                          <center>
+                            <table class="button radius">
+                              <tr>
+                                <td class="bottom-padding-medium">
+                                  <table>
+                                    <tr>
+                                      <td>
+                                        <a href="<%= target_url %>">
+                                          Make your video
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </center>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->

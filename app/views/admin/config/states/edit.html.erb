@@ -1,0 +1,8 @@
+<h3>Editing Page:  <%= @state.name %> </h3>
+
+<%= form_for(@state, url: admin_config_state_path(@state.id)) do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+  <%= f.submit "Update", class: "button" %>
+<% end %>
+
+<%= link_to 'Back', admin_config_region_pages_path, :class => 'button' %>

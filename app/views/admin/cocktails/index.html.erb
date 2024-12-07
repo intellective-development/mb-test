@@ -1,0 +1,57 @@
+<% content_for :title, 'Cocktails' %>
+<% content_for :auth_tokens, true %>
+
+<% if request.path.include?('/cocktails/edit') || request.path.include?('/cocktails/tools') %>
+  <div id="cocktails-root"></div>
+<% else %>
+  <%= form_tag '/admin/cocktails', method: :get do %>
+    <div class="row collapse">
+      <div class="small-3 columns">
+        <h3>Cocktails</h3>
+      </div>
+      <div class="small-5 columns">
+        <%= text_field_tag :query, params[:query] %>
+      </div>
+      <div class="small-2 columns">
+        <%= submit_tag "Search", :name => nil, class: 'button postfix neutral' %>
+      </div>
+      <div class="small-2 columns end">
+        <%= link_to "Add new", '/admin/cocktails/edit/new', class: "button postfix neutral" %>
+      </div>
+    </div>
+  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Tools</th>
+        <th>Ingredients</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'admin/cocktails/cocktail_row', collection: @cocktails, as: 'cocktail', cache: true %>
+    </tbody>
+  </table>
+  <%= paginate @cocktails %>
+<% end %>
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script>
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents([{
+        selector: 'cocktails-root',
+        component: 'Cocktails',
+      }]);
+    });
+  </script>
+<% end %>

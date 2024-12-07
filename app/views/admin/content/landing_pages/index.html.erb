@@ -1,0 +1,33 @@
+<% content_for :title, 'Marketing Landing Pages' %>
+
+<h3>Marketing Landing Pages</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Permalink</th>
+      <th>Page Title</th>
+      <th>Metadescription</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @landing_pages.each do |landing_page| %>
+      <tr>
+        <td><%= link_to(landing_page_url(landing_page.permalink), landing_page_url(landing_page.permalink)) %></td>
+        <td><%= landing_page.content.headline %></td>
+        <td><%= landing_page.content.meta_description %></td>
+        <td><%= link_to 'Edit', edit_admin_content_landing_page_path(landing_page) %></td>
+        <td><%= link_to 'Delete', admin_content_landing_page_path(landing_page), method: :delete,  data: { confirm: "Are you sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan='5'>
+        <%= link_to '+ Create a new landing page', new_admin_content_landing_page_path %>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>

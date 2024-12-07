@@ -1,0 +1,65 @@
+<% content_for :auth_tokens, true %>
+
+<%= form_tag admin_catalogv2_index_path, method: 'get', id: 'catalog-search', name: 'catalog-search'  do %>
+  <%= render 'search' %>
+  <div class="row catalog-results__wrapper">
+    <div class="row collapse">
+      <div class="large-2 column">
+        <div class="catalog-side-bar" id="catalog-side-bar-component"></div>
+      </div>
+      <div class="large-10 column">
+        <div class="catalog-results__header row">
+          <div class="catalog-results__total-count small-6 column">
+            <span><%= number_with_delimiter(@product_groupings.total_count , delimiter: ',')%> results</span>
+          </div>
+          <div class="catalog-results__add-new small-6 column">
+            <%= link_to 'Add New', new_admin_merchandise_product_size_grouping_path() %>
+          </div>
+        </div>
+        <table class="catalog-results">
+          <thead>
+          </thead>
+          <tbody>
+            <%= render partial: 'product_grouping_row', collection: @product_groupings, as: 'product_grouping' %>
+          </tbody>
+        </table>
+        <%= paginate @product_groupings, {:total_pages => [@product_groupings.total_pages, 600].min} %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <script type="text/javascript">
+    var component_config_block = [{
+      selector: 'catalog-side-bar-component',
+      component: 'CatalogSideBar',
+      options: {
+        initialBrandIds: <%= raw Array(params[:brand_ids]).map(&:to_i) %>,
+        initialProductTypeIds: <%= raw Array(params[:product_type_ids]).map(&:to_i) %>,
+        initialSupplierIds: <%= raw Array(params[:supplier_ids]).map(&:to_i) %>,
+        initialStateFilters: <%= raw Array(params[:state_filters]) %>,
+        initialStockFilter: <%= raw Array(params[:stock_filter]) %>,
+        initialImageToggleOptions: <%= raw Array(params[:has_image]) %>,
+        initialOrderByOption: <%= raw Array(params[:sort]) %>,
+        initialSkuFilter: "<%= params[:sku] %>",
+        initialProductIdFilter: "<%= params[:product_id] %>",
+        initialProductGroupingIdFilter: "<%= params[:product_grouping_id] %>",
+        initialMerchantSkuFilter: "<%= params[:merchant_sku] %>",
+        initialPreSaleLTOFilter: <%= raw Array(params[:pre_sale_lto_filter]) %>,
+        catalogSideBarVersion: "v2"
+      }
+    }];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

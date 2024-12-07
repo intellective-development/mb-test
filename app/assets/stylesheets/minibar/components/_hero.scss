@@ -1,0 +1,38 @@
+.hero {
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: em-calc(80) 0;
+  background: $brand-dark-grey url(image_path('homepage/hero.jpg'));
+}
+
+.module {
+  .content {
+    font-size: convert-to-em(18);
+    padding: 6.5em auto 6.5em;
+    .subhead-3 {
+      color: #666;
+    }
+    @media screen and (max-width: 980px){
+      padding-left: 1em;
+    }
+    @media screen and (max-width: $small-max-width){
+      padding: em-calc(40) 1em em-calc(20);
+    }
+    @media screen and (max-width: 360px){
+      padding: em-calc(20) 0 em-calc(0);
+      text-align: center;
+    }
+  }
+  .image {
+    height: 100%;
+  }
+}
+
+.module[data-url] {
+  cursor: pointer;
+}
+
+.module.highlight {
+  background-color: $brand-lighter-grey;
+}

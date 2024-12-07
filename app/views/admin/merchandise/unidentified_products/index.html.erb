@@ -1,0 +1,70 @@
+<% content_for :title, 'Unidentified Products' %>
+<div class="row">
+  <div class = "large-8 small-12 columns">
+    <h2><%= @num_products %> Unidentified Products</h2>
+    <p>Unidentified Products are products which have recently been imported via. an automatic update and the system was not able to assign a category or type. There may be incomplete metadata and human intervention is required.</p>
+    <p>Unidentified Products do not appear within the app or on the website.</p>
+  </div>
+  <div class="large-4 small-12 columns panel">
+    <h4> Filter Products </h4>
+    <%= form_tag(admin_merchandise_unidentified_products_path, method:"get") do %>
+      <div class="row">
+        <div class="small-10 column">
+          <%= collection_select(:supplier, :supplier_id, Supplier.order(name: :asc), :id, :name, {include_blank:"Show all suppliers"}, {multiple: true, size:7}) %>
+        </div>
+      </div>
+      <div class="row collapse">
+        <div class="small-1 columns"><%= check_box_tag :inactive %></div>
+        <div class="small-11 columns">Show inactive</div>
+      </div>
+      <div class="row collapse">
+        <div class="small-1 columns"><%= check_box_tag :all %></div>
+        <div class="small-11 columns">Show out of stock</div>
+      </div>
+      <%= submit_tag("GO", class:"button") %>
+    <% end %>
+  </div>
+  <div class= "small-12 columns">
+    <% if @supplier_list.present? %>
+      <div class= "panel" > Displaying products from <strong><%= @supplier_list %></strong>. </div>
+    <%end%>
+  </div>
+</div>
+
+<% if @products.present? %>
+  <table>
+    <% @products.each do |product| %>
+    <tr>
+      <td>
+        <%= product.name %><br>
+        <small class="<%=product.state%>-state"><%= product.state %></small>
+      </td>
+      <td>
+        <small>
+          <% product.variants.each do |v| %>
+            <%= v.supplier.name %> <br>
+          <% end %>
+        </small>
+      </td>
+      <td><%= link_to 'Edit', edit_admin_merchandise_product_path(product), class: "button tiny"%></td>
+      <td><%= button_to "Deactivate",  deactivate_admin_merchandise_unidentified_product_path(product), class: "button tiny secondary", data: { confirm: 'Are you sure?'}, method: :put %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  <%= paginate @products %>
+<% else %>
+  <h4> No unidentified products found with these criteria. </h4>
+<% end %>
+
+
+<script>
+$(function(){
+  $("select").zmultiselect({
+    live: false,
+    filter: true,
+    placeholder: "Filter Suppliers..."
+  });
+});
+
+</script>

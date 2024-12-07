@@ -1,0 +1,203 @@
+
+<h1> Coupon </h1>
+
+<p>
+  <strong>Code:</strong>
+  <%= @coupon.code %>
+</p>
+
+<p>
+  <strong>Storefront:</strong>
+  <%= @coupon.storefront.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @coupon.type %>
+  <%- if @coupon.gift_card? %>
+    - GiftCard
+  <% end %>
+</p>
+
+
+<%- if @coupon.gift_card? %>
+  <%- purchase_order = @coupon.purchased_in_order %>
+  <p>
+    <strong>Purchased in order:</strong>
+    <%= link_to purchase_order.number, purchase_order.admin_url %>
+  </p>
+
+  <p>
+    <strong>Purchased by:</strong>
+    <%= purchase_order.user.name %> - <%= purchase_order.user.email %>
+  </p>
+
+  <p>
+    <strong>Recipient Email:</strong>
+    <%= @coupon.recipient_email %>
+  </p>
+
+  <p>
+    <strong>Send Date:</strong>
+    <%= @coupon.display_send_date %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Category:</strong>
+  <%= @coupon.reporting_type ? @coupon.reporting_type.name : "None" %>
+</p>
+
+<p>
+  <strong>Eligible Platforms:</strong>
+  <%= @coupon.doorkeeper_application_ids.present? ? Doorkeeper::Application.where(id: @coupon.doorkeeper_application_ids).pluck(:name).join(', ') : "All" %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @coupon.description %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @coupon.amount %>
+</p>
+
+<p>
+  <strong>Percent:</strong>
+  <%= @coupon.percent %>%
+</p>
+
+<p>
+  <strong>Engraving Percent:</strong>
+  <%= @coupon.engraving_percent %>%
+</p>
+
+<p>
+  <strong>Free Delivery:</strong>
+  <%= @coupon.free_delivery %>
+</p>
+<p>
+  <strong>Free Shipping:</strong>
+  <%= @coupon.free_shipping %>
+</p>
+<p>
+  <strong>Free Service Fee:</strong>
+  <%= @coupon.free_service_fee %>
+</p>
+
+<p>
+  <strong>Maximum Refund:</strong>
+  <%= @coupon.maximum_value %>
+</p>
+
+<p>
+  <strong>Combine:</strong>
+  <%= @coupon.combine.to_s %>
+</p>
+
+<p>
+  <strong>Minimum Value:</strong>
+  <%= @coupon.minimum_value %>
+</p>
+
+<% if @coupon.supplier_type.present? %>
+  <p>
+    <strong>Supplier Type:</strong>
+    <%= @coupon.supplier_type.titleize %>
+  </p>
+<% end %>
+
+<% if @coupon.membership_plan_id.present? %>
+  <p>
+    <strong>Membership Plan:</strong>
+    <%= @coupon.membership_plan.name %>
+  </p>
+<% end %>
+
+<p>
+  <% if @coupon.all? %>
+    <strong> Items: </strong>
+    Applies to all
+  <% else %>
+    <strong>
+      <% if @coupon.sellable_restriction_excludes %>
+        <span class="label--merchandise-colored pending">Excluding</span> the
+      <% else %>
+        Restricted to
+      <% end %> following <%= @coupon.sellable_type%>s:</strong>
+    <ul>
+      <%- @coupon.coupon_items.each do |ci| %>
+         <li> <%= sellable_name(ci.item) %> </li>
+      <%- end %>
+    </ul>
+  <% end %>
+</p>
+
+
+<p>
+  <strong>Starts at:</strong>
+  <%= @coupon.display_start_time %>
+</p>
+
+<p>
+  <strong>Expires at:</strong>
+  <%= @coupon.display_expires_time %>
+</p>
+
+
+<p>
+  <strong>Domain Name:</strong>
+  <%= @coupon.domain_name %>
+</p>
+
+<% if @coupon.type == "CouponTiered" %>
+  <strong> Price Tiers: </strong>
+  <ul>
+    <%- @coupon.price_tiers.order('minimum').each do |pt| %>
+       <li>  <%=" #{pt.percent}% off above " + number_to_currency(pt.minimum) %> </li>
+    <%- end %>
+  </ul>
+<% end %>
+
+<% if @coupon.type == 'CouponDecreasingBalance' %>
+<br/>
+<h5>Balance Adjustments</h5>
+<table>
+  <thead>
+  <tr class='odd'>
+    <th class='column1_header'>Amount</th>
+    <th>Type</th>
+    <th>Reason</th>
+    <th>Time</th>
+  </tr>
+  </thead>
+  <% @coupon.coupon_balance_adjustments.each do |ba| %>
+    <tr class='<%= cycle("odd", "")%>'>
+      <td><%= ba.amount %></td>
+      <td><%= ba.debit ? 'Debit' : 'Credit' %></td>
+      <td>
+        <%= ba.reason %>
+        <% if ba.order %>
+          - <a target="_blank" href="/admin/fulfillment/orders/<%=ba.order.number%>/edit"><%=ba.order.number%></a>
+        <% end %>
+      </td>
+      <td><%= ba.created_at %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @coupon.balance.round_at(2) %>
+</p>
+<% end %>
+
+<p>
+  <%= link_to "Edit", edit_admin_generic_coupon_path(@coupon), :class => 'button' %> |
+  <%= link_to "View All", admin_generic_coupons_path, :class => 'button' %> |
+  <% if @coupon.gift_card? %>
+    <%= link_to "Resend", resend_admin_generic_coupon_path(@coupon), :class => 'button', method: :post %> |
+  <% end %>
+  <%= link_to "Expire", expire_admin_generic_coupon_path(@coupon), :class => 'button', method: :post, data: { confirm: 'Are you sure?' } %>
+</p>

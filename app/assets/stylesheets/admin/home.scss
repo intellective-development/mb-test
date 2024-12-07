@@ -1,0 +1,32 @@
+.order-breakdown-title {
+  padding-top: 15px
+}
+
+.order-breakdown-submit {
+  padding-top: 21px
+}
+
+.supplier-order {
+  min-height: 30px;
+  padding-bottom: 10px;
+}
+
+.row.collapse.supplier-info-box .columns {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.supplier-info-box-header {
+  min-height: 65px
+}
+
+.column:last-child {
+  .keep-left {
+    float: left
+  }
+}
+
+.full-row {
+  padding: 10px;
+  max-width: 100rem;
+}

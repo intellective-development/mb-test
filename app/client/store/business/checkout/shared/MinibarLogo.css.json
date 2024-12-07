@@ -1,0 +1,28 @@
+{
+  "logo": {
+    "@media (max-width: 767px)": {
+      "::before": {
+        "display": "block",
+        "height": 30,
+        "margin": "auto",
+        "width": 90
+      },
+      "borderRadius": 4,
+      "margin": "4px",
+      "minWidth": 90,
+      "padding": 3
+    },
+    "@media (min-width: 768px)": {
+      "::before": {
+        "height": 80,
+        "width": 80
+      },
+      "margin": 10,
+      "minHeight": 80,
+      "minWidth": 80
+    },
+    "boxSizing": "border-box",
+    "display": "block",
+    "fontSize": 0
+  }
+}

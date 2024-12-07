@@ -1,0 +1,340 @@
+<% content_for :small_header, true %>
+<% content_for :user_facing, true %>
+<% content_for :email_reason, 'you scheduled an order from Minibar Delivery' %>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Order",
+  "merchant": {
+    "@type": "Organization",
+    "name": "MinibarDelivery.com"
+  },
+  "orderNumber": "<%= @order.number %>",
+  "priceCurrency": "USD",
+  "price": "<%= @order.taxed_total.to_s %>",
+  "acceptedOffer": [
+    <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "<%= variant.product_name %>",
+        "image": "<%= variant.product.featured_image(:thumb) %>",
+        "sku": "<%= variant.sku %>"
+      },
+      "price": "<%= variant.price.to_s %>",
+      "priceCurrency": "USD",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "<%= order_items.sum(&:quantity) %>"
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": "<%= variant.supplier.display_name %>"
+      }
+    }
+    <% end %>
+  ],
+  "url": "https://minibardelivery.com/",
+  "orderStatus": "http://schema.org/OrderProcessing",
+  "orderDate": "<%= @order.completed_at.iso8601 %>",
+  "isGift": "<%= @order.gift? %>",
+  "customer": {
+    "@type": "Person",
+    "name": "<%= @order.user_name %>"
+  }
+}
+</script>
+<table class="container sub"> <!-- INTRO TEXT BEGIN -->
+  <tr>
+    <td>
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section">
+                    <tr>
+                      <td>
+                        <p class="indent dark small no-bottom">
+                          Hi <%= @user.first_name %>,
+                        </p><br/>
+                        <p class="indent dark small no-vertical">
+                          Thanks for placing your order with Minibar Delivery!
+                          <br><br>
+                          Your scheduled delivery will be delivered today between <%= format_time_range(@scheduled_shipments.first.scheduled_for, @scheduled_shipments.first.shipping_method.scheduled_interval_size, @scheduled_shipments.first.supplier.timezone).to_s.gsub('-',' and ') %>.
+                          If you have any questions or would like to reschedule, please don’t hesitate to reply to this email! If you prefer, you can give us a call at <a class="text-link" href="tel:+18554870740">1-855-487-0740</a>.
+                        </p><br/>
+                        <p class="indent dark small">
+                        Cheers, <br/>
+                        Minibar Delivery
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- INTRO TEXT END -->
+
+
+<table class="container sub"> <!-- ORDER DETAILS BEGIN -->
+  <tr>
+    <td>
+
+      <table class="row">
+        <tr>
+
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="five sub-columns">
+                  <% if @order.try(:delivery_notes).present? || @order.gift_detail&.message %>
+                  <table class="section no-bottom">
+                  <% else %>
+                  <table class="section-bottom-less">
+                  <% end %>
+                    <tr>
+                      <td>
+                        <h5 class="indent no-right">Order:</h5>
+                        <p class="indent no-right dark small">
+                          Number: <%= @order.try(:number).upcase %> <br/>
+                          Date: <%= @order.try(:completed_at).in_time_zone(@order.shipments.first.try(:supplier).try(:timezone)).strftime('%m/%d/%Y %l:%M%p') if @order.completed_at.present? %>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="seven sub-columns last">
+                  <% if @order.try(:delivery_notes).present? || @order.gift_detail&.message %>
+                  <table class="section no-bottom">
+                  <% else %>
+                  <table class="section-bottom-less">
+                  <% end %>
+                    <tr>
+                      <td>
+                        <h5>Deliver To:</h5>
+                        <p class="dark small"> <%= @order.delivery_name %> <br/>
+                        <% if @order.ship_address %>
+                          <% @order.ship_address.address_lines_array.each do |line| %>
+                            <%= line %> <br/>
+                          <% end %>
+                        <% else %>
+                          In-Store Pickup <br/>
+                        <% end %>
+                        <%= @order.ship_address&.city_state_zip %>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
+      </table>
+
+      <% if @order.try(:delivery_notes).present? %>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <% if @order.gift_detail&.message %>
+                  <table class="section no-vertical">
+                  <% else %>
+                  <table class="section no-top">
+                  <% end %>
+                    <tr>
+                      <td>
+                        <h5 class="indent"> Instructions: </h5>
+                        <p class="indent dark small"> <%= @order.try(:delivery_notes) %></p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+
+      <% if @order.gift_detail&.message %>
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table class="section no-top">
+                    <tr>
+                      <td>
+                        <h5 class="indent"> Gift Message: </h5>
+                        <p class="indent dark small"> <%= @order.gift_detail.message || 'None Provided' %> </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+
+    </td>
+  </tr>
+</table> <!-- ORDER DETAILS END -->
+
+<% @order.shipments.each do |shipment| %> <!-- PRODUCT DETAILS BEGIN -->
+  <table class="container sub"> <!-- SUPPLIER DETAILS BEGIN -->
+    <tr>
+      <td>
+        <table class="row">
+          <tr>
+            <td class="wrapper last">
+              <table class="twelve columns">
+                <tr>
+                  <td class="panel">
+                    <table class="section-less">
+                      <tr>
+                        <td>
+                          <p class="indent dark small">
+                            <% if shipment.supplier && shipment.shipping_method.closed?(@order.completed_at) %>
+                              <%= shipment.supplier.name %>:
+                              <b class="red"> CLOSED - Delivery After <%= shipment.shipping_method.opens_at(@order.completed_at).in_time_zone(shipment.supplier.timezone).strftime("%l%P %A") rescue nil %></b>
+                            <% elsif shipment.scheduled_for %>
+                              Scheduled for delivery - <%= "#{format_time_range(shipment.scheduled_for, shipment.shipping_method.scheduled_interval_size, shipment.supplier.timezone)} #{shipment.scheduled_for.in_time_zone(shipment.supplier.timezone).strftime('%A, %b %e')}" %>
+                            <% else %>
+                              <%= shipment.supplier.try(:name) %>
+                            <% end %>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table> <!-- SUPPLIER DETAILS END -->
+
+  <table class="container sub no-bottom-border"> <!-- PRODUCTS BEGIN -->
+    <tr>
+      <td>
+
+        <table class="row">
+          <tr>
+
+            <td class="wrapper last">
+              <table class="twelve columns">
+                <tr>
+                  <td>
+                    <% shipment.order_items.group_by(&:variant).each do |variant, order_items| %>
+                      <table class="bottom-border" style="width:100% !important">
+                        <tr>
+                          <td class="product-image hide-for-small">
+                            <table width="40" height="40">
+                              <tr>
+                                <td>
+                                  <img class="section-less indent no-right hide-for-small" src="<%= variant.product.featured_image(:thumb) %>"/>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="product-name">
+                            <p class="section-less no-bottom dark small"> <%= variant.product.try(:name) %> </p>
+                            <p class="section-less no-top small"><%= variant.product.try(:item_volume).to_s %> </p>
+                          </td>
+                          <td class="size-and-cost">
+                            <p class="section-less dark small">Qty:<%= order_items.sum(&:quantity) %></p>
+                          </td>
+                          <td class="size-and-cost last">
+                            <p class="section-less dark small"><%= number_to_currency order_items.sum{|t| t.total } %></p>
+                          </td>
+                        </tr>
+                      </table>
+                    <% end %>
+                  </td>
+                  <td class="expander"></td>
+                </tr>
+              </table>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+<%end%> <!-- PRODUCT DETAILS END -->
+
+<table class="container sub"> <!-- TOTALS START -->
+  <tr>
+    <td>
+
+      <table class="row">
+        <tr>
+          <td class="wrapper last">
+            <table class="twelve columns">
+              <tr>
+                <td class="panel">
+                  <table style="float:right" class="section">
+                    <tr>
+
+                      <td class="pred">
+                        <p class="dark small">
+                          <% @order_cost.each_key do |cost_title| %>
+                            <%= "#{cost_title}:" %> <br/>
+                          <% end %>
+                        </p>
+                      </td>
+
+                      <td style="min-width:100px;" >
+                        <p class="dark small">
+                          <% @order_cost.values.each do |cost_value| %>
+                            <%= !cost_value.is_a?(String) ? number_to_currency(cost_value) : cost_value %> <br/>
+                          <% end %>
+                        </p>
+                      </td>
+
+                    </tr>
+                  </table>
+                </td>
+                <td class="expander"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table> <!-- TOTALS END -->
+
+<br/>
+
+
+
+<table class="container">
+  <%= render partial: 'gift_card_banner' %>
+  <br />
+  <%= render partial: 'app_stores_buttons' %>
+</table>

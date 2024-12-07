@@ -1,0 +1,27 @@
+<div class="row form-row">
+  <div class="large-6 large-centered column">
+    <div class="checkout-frame"><h2 class="modal-header">Choose A Payment Method</h2>
+    <div class="checkout-panel">
+      <div class="modal-container">
+      <ul class="modal-list">
+        {{#each payment_profiles}}
+          <li class="credit_card {{slugify this.cc_card_type}}" data-id="{{this.id}}">
+            {{this.name}}<br>
+            <span class="card-text"><span class="icon-card {{slugify this.cc_card_type}}"></span>
+            &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; {{this.cc_last_four}}
+            <br>
+            Expires {{this.cc_exp_month}}/{{this.cc_exp_year}}
+          </li>
+        {{/each}}
+      </ul>
+      <div class="row">
+        <div class="large-12 columns">
+          <a class="button expand add-billing">Add New</a>
+        </div>
+        <div class="large-12 columns">
+          <button action="submit" class="button secondary expand" id="button-cancel-payment-profile">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<% content_for :title, 'Edit ReCaptcha Domains' %>
+<h3>Edit ReCaptcha Domains</h3>
+
+<%= form_tag admin_recaptcha_domains_path, method: :put do |f| %>
+  <% @recaptcha_domains.each do |domain| %>
+    <%= text_field_tag 'domains[]', domain %>
+  <% end %>
+  <div id='original-inputs'>
+    <%= text_field_tag 'domains[]' %>
+  </div>
+  <div id='dynamic-inputs'></div>
+  <button type='button' onclick="addMore()">Add Field (+)</button>
+  <%= submit_tag 'Save', class: 'button' %>
+<% end %>
+
+<script>
+  function addMore(){
+      $("#dynamic-inputs").append($("#original-inputs").html())
+  }
+</script>

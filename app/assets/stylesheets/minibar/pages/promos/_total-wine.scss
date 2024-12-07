@@ -1,0 +1,23 @@
+.total-wine {
+  .mobile-bar {
+    background: $brand-link-red center center no-repeat;
+    height: 51px;
+    display: none;
+    @media screen and (max-width: 1150px) {
+      display: block;
+    }
+  }
+
+  .burst {
+    position: absolute;
+    height: 140px;
+    width: 140px;
+    left: 13%;
+    top: 7%;
+    background-position: center center;
+    background-size: contain;
+    @media screen and (max-width: 1150px) {
+      display: none;
+    }
+  }
+}

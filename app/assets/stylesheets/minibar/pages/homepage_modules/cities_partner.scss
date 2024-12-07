@@ -1,0 +1,31 @@
+#module-cities-partner {
+  background-color: $brand-black;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  border-bottom: none;
+
+  p {
+    color: $brand-medium-grey;
+    line-height: 1.8em;
+    margin-bottom: 0px;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: $brand-white;
+    margin-bottom: 1em;
+  }
+  .cities {
+    margin-bottom: 35px;
+  }
+  .button.hollow {
+    background-color: rgba(0, 0, 0, 0.0);
+    border-color: $brand-white;
+    color: $brand-white;
+    margin-top: 20px;
+  }
+  .button.hollow:hover {
+    background-color: rgba(255, 255, 255, .1);
+  }
+  .button.hollow:active {
+    background-color: rgba(255, 255, 255, .3);
+  }
+}

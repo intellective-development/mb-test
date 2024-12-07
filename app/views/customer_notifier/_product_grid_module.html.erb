@@ -1,0 +1,42 @@
+<%# This partial requires the following locals to work: locals: { items: <your collection of items>, grouping_size: <an integer>, utm_campaign: <a_string_that_describes_the_email_type } %>
+
+<% items.in_groups_of(grouping_size, false).each do |grouped_items| %>
+  <table class="row">
+    <tr>
+
+      <!-- Product Cell -->
+      <%# these are acting as spacers, to center the products when they don't fill the row %>
+      <% if grouped_items.length == 1 %><th class="small-12 large-4 columns"></th><% end %>
+      <% if grouped_items.length == 2 %><th class="small-12 large-2 columns"></th><% end %>
+
+      <% grouped_items.each_with_index do |item, i| %>
+        <th class="small-12 large-4 columns <%= first_or_last_item(grouped_items, i) %>" >
+          <table>
+            <tr>
+              <td class="product-tile">
+                <a href="<%= "#{store_index_url}/product/#{item.variant.permalink}?utm_source=web&utm_medium=email&utm_campaign=#{utm_campaign}" %>">
+                  <center>
+                    <img
+                      src="<%= item.variant.product_grouping_variant_store_view&.image_url_with_fallback(:thumb) || item.variant.product_size_grouping.image_urls(:thumb)[0] %>"
+                      align="center"
+                      alt="<%= item.variant.name %>"
+                      height="150"
+                      class="float-center product-tile__image" >
+                  </center>
+                  <p class="product-tile__name"><%= item.variant.name %></p>
+                  <p class="product-tile__volume"><%= item.variant.item_volume %></p>
+                </td>
+              </a>
+            </tr>
+          </table>
+        </th>
+      <% end %>
+
+      <%# these are acting as spacers, to center the products when they don't fill the row %>
+      <% if grouped_items.length == 2 %><th class="small-12 large-2 columns"></th><% end %>
+      <% if grouped_items.length == 1 %><th class="small-12 large-4 columns"></th><% end %>
+
+    </tr>
+  </table>
+
+<% end %>

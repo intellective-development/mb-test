@@ -1,0 +1,42 @@
+<% content_for :title, 'Tax Rates' %>
+<h3>Tax Rates</h3>
+<div class="row">
+  <div class="column large-9">
+    <p>These determine the amount of tax charged on a product.</p>
+    <p>If an active <em>Tax Rate</em> exists for a given <em>Tax Category</em> and delivery zipcode then it will be used.</p>
+    <p>Otherwise the default tax rate for the state (and optionally category) will be applied. If no state default is found, the global default will be applied. This is currently set as <strong>8.875%</strong>.</p>
+  </div>
+  <div class="column large-3">
+  <%= link_to 'New Tax rate', new_admin_config_tax_rate_path, :class => 'button' %>
+  </div>
+</div>
+
+<%= form_tag admin_config_tax_rates_path, :method => 'get', :id => "tax_rates_filter" do %>
+  <div class="row collapse">
+    <div class="small-4 columns end">
+      <%= text_field_tag :zipcode, params[:zipcode], placeholder: 'Zipcode/State' %>
+    </div>
+    <div class="small-2 columns end">
+      <%= submit_tag "Search", :zipcode => nil, class: 'button postfix neutral' %>
+    </div>
+  </div>
+<% end %>
+
+<div class="admin_tax_rates">
+  <table>
+    <thead>
+    <tr class='odd'>
+      <th class='column1_header'>Percentage</th>
+      <th>Zipcode/State</th>
+      <th>Category</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Default</th>
+      <th colspan=4>Active</th>
+    </tr>
+    </thead>
+
+  <%= render @tax_rates %>
+</table>
+<%= paginate @tax_rates %>
+</div>

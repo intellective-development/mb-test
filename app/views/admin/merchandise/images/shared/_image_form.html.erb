@@ -1,0 +1,30 @@
+<% title ||= 'Image' %>
+<% show_remove_link ||= 'true' %>
+<% description ||= nil %>
+<fieldset>
+  <legend><%= title %></legend>
+  <%- if description.present? %>
+    <small><%= description %></small>
+  <% end %>
+  <div class="medium-6 columns grouping-edit__image">
+    <% if !image_form.object.new_record? %>
+      <%= image_tag image_form.object.photo.url(:small), { id: "image-#{image_form.object.id}" } %>
+    <% else %>
+      <div class="grouping-edit__no-image">
+        <h4>No Image</h4>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="medium-6 columns grouping-edit__image-upload">
+    <% unless image_form.object.new_record? || show_remove_link == 'false' %>
+      <p><%= link_to 'Remove Image', remove_image_admin_merchandise_product_size_grouping_path, method: :put %></p>
+    <% end %>
+
+    <label>From File </label>
+    <p><%= image_form.file_field  :photo %> </p>
+
+    <label>From Link - <%= link_to 'Google Images', "http://www.google.com/search?tbm=isch&q=#{@product_grouping.name.parameterize(separator: '+')}",  target: "_blank" %></label>
+    <%= image_form.text_field :photo_from_link, class: "js-product-image image-link-text-box", id: "product_images_attributes_0_photo_from_link" %>
+  </div>
+</fieldset>

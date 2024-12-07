@@ -1,0 +1,34 @@
+<% if @state.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@reason.errors.count, "error") %> prohibited this from being saved:</h2>
+    <ul>
+    <% @state.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset>
+  <label>Country</label>
+  <%= f.select :country_id, Country.all.collect{ |c| [c.name, c.id] } %>
+  <label>Name</label>
+  <%= f.text_field :name %>
+  <label>Abbreviation</label>
+  <%= f.text_area :abbreviation %>
+  <label>Described as (Usually 'State')</label>
+  <%= f.text_area :described_as %>
+  <label>Statewide shipping:</label>
+  <%= f.check_box :statewide_shipping %>
+</fieldset>
+
+<fieldset>
+  <h4>Cities displayed in Regions page</h4>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+    <%= f.collection_check_boxes(:deliverable_city_ids, @state.cities.sorted, :id, :name) do |b|%>
+      <div>
+        <%= b.check_box class: 'checkbox-class' %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
+</fieldset>

@@ -1,0 +1,67 @@
+<% content_for :auth_tokens, true %>
+
+<% if @holiday.errors.any? %>
+  <div id="#error_explanation">
+    <h2><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h2>
+    <ul>
+      <% @holiday.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="row">
+<% if f.object.new_record? %>
+  <div class="large-6 columns">
+    <label>Start Date</label>
+    <div class='date-select'>
+      <%= f.text_field :start_date, class: 'ui-datepicker' %>
+    </div>
+    <label>End Date</label>
+    <div class='date-select'>
+      <%= f.text_field :end_date, class: 'ui-datepicker' %>
+    </div>
+    <% else %>
+     <label>Date</label>
+  <div class='date-select'>
+    <%= f.text_field :date, class: 'ui-datepicker' %>
+  </div>
+<% end %>
+    <div id="supplier_select_component"></div>
+    <br>
+    <label for="shipping_type">Type (Leave empty for all) - when types are selected it will behave as a delivery break.</label>
+    <%= f.select :shipping_types, options_for_select(ShippingMethod::IN_STORE_SHIPPING_TYPES.collect { |s| [I18n.t("admin.shipping_method.#{s}"), s] }, selected: f.object.shipping_types), {label: :shipping_type}, multiple: true, style: 'height: 70px;' %>
+  </div>
+</div>
+
+<%= f.submit "Save", class: "button" %>
+
+
+<% content_for :bottom do %>
+  <%= javascript_include_tag 'generated/admin_bundle' %>
+  <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'jquery.timepicker-1.4.min', 'datePickerInitialize' %>
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
+
+  <script type="text/javascript">
+    var component_config_block = [{
+      selector: 'supplier_select_component',
+      component: 'SupplierSelect',
+      options: {
+        name: 'holiday[supplier_ids][]',
+        label: 'Suppliers',
+        initialValueIds: <%= raw @holiday.suppliers.map(&:id) %>,
+        multi: true
+      }
+    }];
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    ready(function(){
+      window.initComponents(component_config_block);
+    });
+  </script>
+<% end %>

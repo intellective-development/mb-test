@@ -1,0 +1,18 @@
+<div class="row">
+  <div class='panel panel--line-spacing'>
+    <h4>Order Adjustments</h4>
+    <% if order.order_adjustments.empty? %>
+      <p>There are no adjustments for this order.</p>
+    <% else %>
+      <ul>
+        <% order.order_adjustments.group_by(&:supplier).each do |supplier, shipment_adjustments| %>
+          <h5><%= supplier&.name %></h5>
+          <div class="small-12 columns">
+            <%= render partial: 'admin/fulfillment/orders/edit/adjustment', collection: shipment_adjustments %>
+          </div>
+        <% end %>
+      </ul>
+      <p><small>Order Adjustments for Braintree payments will be automatically processed. </p>
+    <% end %>
+  </div>
+</div>
